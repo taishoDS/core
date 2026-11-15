@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Ajustes apilados con separación",
+    "html": "<div class=\"ts flex flex-col gap-half\">\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Notificaciones</div>\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Idioma</div>\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Zona horaria</div>\n</div>"
+  }
+]

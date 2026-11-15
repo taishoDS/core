@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Period selector",
+    "html": "<div\n  role=\"radiogroup\"\n  data-ts-segmented=\"\"\n  class=\"ts segmented-control size-md\"\n  aria-label=\"Period\"\n>\n  <button\n    type=\"button\"\n    class=\"ts button size-md variant-tertiary\"\n    role=\"radio\"\n    data-ts-segmented-option=\"\"\n    data-ts-value=\"dia\"\n    aria-checked=\"false\"\n    tabindex=\"-1\"\n  >\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\"> Day </span></button\n  ><button\n    type=\"button\"\n    class=\"ts button size-md variant-secondary is-selected\"\n    role=\"radio\"\n    data-ts-segmented-option=\"\"\n    data-ts-value=\"mes\"\n    aria-checked=\"true\"\n    tabindex=\"0\"\n  >\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\"> Month </span></button\n  ><button\n    type=\"button\"\n    class=\"ts button size-md variant-tertiary\"\n    role=\"radio\"\n    data-ts-segmented-option=\"\"\n    data-ts-value=\"anio\"\n    aria-checked=\"false\"\n    tabindex=\"-1\"\n  >\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\"> Year </span>\n  </button>\n</div>"
+  }
+]

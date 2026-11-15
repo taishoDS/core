@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Centered content with max width",
+    "html": "<div class=\"ts w-full max-w-screen-lg mx-auto px-base\">\n  <div class=\"ts bg-gray-100 p-base radius-md\">\n    <p class=\"ts type-copy-14\">The container centers content and caps the reading width.</p>\n  </div>\n</div>"
+  }
+]

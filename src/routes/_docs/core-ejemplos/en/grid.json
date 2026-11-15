@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Three metrics in columns",
+    "html": "<div class=\"ts grid-container grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-base\">\n  <div class=\"ts bg-gray-100 p-base radius-md type-copy-14\">Users · 1,240</div>\n  <div class=\"ts bg-gray-100 p-base radius-md type-copy-14\">Deployments · 86</div>\n  <div class=\"ts bg-gray-100 p-base radius-md type-copy-14\">Errors · 3</div>\n</div>"
+  }
+]

@@ -1,0 +1,197 @@
+<div class="ts flex flex-col gap-base">
+  <div class="ts flex flex-col gap-y-half" role="radiogroup" aria-label="Elegir un plan">
+    <label for="ts-radio-s2" class="ts radio size-md variant-primary"
+      ><input type="radio" id="ts-radio-s2" name="plan" value="individual" class="ts radio-input" />
+      <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+      <span class="ts radio-label">Individual</span></label
+    >
+    <label for="ts-radio-s3" class="ts radio size-md variant-primary is-checked"
+      ><input
+        type="radio"
+        id="ts-radio-s3"
+        name="plan"
+        checked=""
+        value="equipo"
+        class="ts radio-input"
+      />
+      <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+      <span class="ts radio-label">Equipo</span></label
+    >
+    <label for="ts-radio-s4" class="ts radio size-md variant-primary"
+      ><input type="radio" id="ts-radio-s4" name="plan" value="empresa" class="ts radio-input" />
+      <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+      <span class="ts radio-label">Empresa</span></label
+    >
+  </div>
+  <div class="ts input-wrapper">
+    <span id="ts-radio-group-root-s5-label" class="ts input-label">Entorno</span>
+    <div
+      class="ts flex flex-col gap-y-half"
+      role="radiogroup"
+      aria-labelledby="ts-radio-group-root-s5-label"
+      aria-describedby="ts-radio-group-root-s5-hint"
+    >
+      <label for="ts-radio-s6" class="ts radio size-md variant-primary has-description"
+        ><input
+          type="radio"
+          id="ts-radio-s6"
+          name="entorno"
+          value="produccion"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-card-body"
+          ><span class="ts radio-label">Producción</span>
+          <span class="ts radio-description">Visible para todo el equipo.</span></span
+        ></label
+      >
+      <label for="ts-radio-s7" class="ts radio size-md variant-primary is-checked has-description"
+        ><input
+          type="radio"
+          id="ts-radio-s7"
+          name="entorno"
+          checked=""
+          value="staging"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-card-body"
+          ><span class="ts radio-label">Staging</span>
+          <span class="ts radio-description">Para revisar antes de publicar.</span></span
+        ></label
+      >
+      <label for="ts-radio-s8" class="ts radio size-md variant-primary is-disabled"
+        ><input
+          type="radio"
+          id="ts-radio-s8"
+          name="entorno"
+          disabled=""
+          value="desarrollo"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-label">Desarrollo</span></label
+      >
+    </div>
+    <div class="ts input-footer">
+      <div id="ts-radio-group-root-s5-hint" class="ts input-hint variant-default">
+        <span>Se puede cambiar en cada despliegue.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <span id="ts-radio-group-root-s9-label" class="ts input-label">Facturación</span>
+    <div
+      class="ts flex flex-col gap-y-half"
+      role="radiogroup"
+      aria-labelledby="ts-radio-group-root-s9-label"
+    >
+      <label for="ts-radio-s10" class="ts radio size-md variant-primary is-card has-description"
+        ><input
+          type="radio"
+          id="ts-radio-s10"
+          name="facturacion"
+          value="mensual"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-card-body"
+          ><span class="ts radio-label">Mensual</span>
+          <span class="ts radio-description">Se paga mes a mes.</span></span
+        ></label
+      >
+      <label
+        for="ts-radio-s11"
+        class="ts radio size-md variant-primary is-checked is-card has-description"
+        ><input
+          type="radio"
+          id="ts-radio-s11"
+          name="facturacion"
+          checked=""
+          value="anual"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-card-body"
+          ><span class="ts radio-label">Anual</span>
+          <span class="ts radio-description">Dos meses de regalo.</span></span
+        ></label
+      >
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <span id="ts-radio-group-root-s12-label" class="ts input-label"
+      >Tu plan<span class="ts required-indicator" aria-hidden="true">*</span></span
+    >
+    <div
+      class="ts flex flex-col gap-y-half"
+      role="radiogroup"
+      aria-labelledby="ts-radio-group-root-s12-label"
+      aria-describedby="ts-radio-group-root-s12-hint"
+      aria-invalid="true"
+      aria-required="true"
+    >
+      <label for="ts-radio-s13" class="ts radio size-md variant-danger is-invalid"
+        ><input
+          type="radio"
+          id="ts-radio-s13"
+          name="plan-error"
+          required=""
+          value="free"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-label">Free</span></label
+      >
+      <label for="ts-radio-s14" class="ts radio size-md variant-danger is-invalid"
+        ><input
+          type="radio"
+          id="ts-radio-s14"
+          name="plan-error"
+          required=""
+          value="pro"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-label">Pro</span></label
+      >
+      <label for="ts-radio-s15" class="ts radio size-md variant-danger is-invalid"
+        ><input
+          type="radio"
+          id="ts-radio-s15"
+          name="plan-error"
+          required=""
+          value="enterprise"
+          class="ts radio-input"
+        />
+        <div class="ts radio-box"><div class="ts radio-dot"></div></div>
+        <span class="ts radio-label">Enterprise</span></label
+      >
+    </div>
+    <div class="ts input-footer">
+      <div
+        id="ts-radio-group-root-s12-hint"
+        class="ts input-hint variant-danger"
+        aria-live="polite"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-14"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" x2="12" y1="8" y2="12" />
+          <line x1="12" x2="12.01" y1="16" y2="16" />
+        </svg>
+        <span>Hay que elegir un plan para continuar.</span>
+      </div>
+    </div>
+  </div>
+</div>

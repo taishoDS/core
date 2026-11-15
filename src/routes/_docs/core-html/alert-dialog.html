@@ -1,0 +1,160 @@
+<button
+  type="button"
+  class="ts button size-md variant-danger"
+  commandfor="ts-alert-demo"
+  command="show-modal"
+>
+  Borrar la cuenta
+</button>
+<dialog
+  id="ts-alert-demo"
+  role="alertdialog"
+  class="ts modal-dialog"
+  aria-labelledby="ts-alertdialog-title-s1"
+  aria-describedby="ts-alertdialog-body-s1"
+>
+  <div class="ts modal size-sm">
+    <div class="ts modal-header">
+      <h2 id="ts-alertdialog-title-s1" class="ts modal-title">¿Borrar la cuenta?</h2>
+    </div>
+    <div id="ts-alertdialog-body-s1" class="ts modal-body">
+      Esto no se puede deshacer. Se van a perder todos tus proyectos.
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-secondary"
+        data-ts-safe=""
+        commandfor="ts-alert-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Cancelar </span>
+      </button>
+      <button
+        type="button"
+        class="ts button size-md variant-danger"
+        commandfor="ts-alert-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Sí, borrar </span>
+      </button>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-danger"
+  commandfor="ts-alert-text-demo"
+  command="show-modal"
+>
+  Eliminar proyecto
+</button>
+<dialog
+  id="ts-alert-text-demo"
+  role="alertdialog"
+  class="ts modal-dialog"
+  aria-labelledby="ts-alertdialog-title-s2"
+  aria-describedby="ts-alertdialog-body-s2"
+  data-ts-confirm-text="Panel de control"
+>
+  <div class="ts modal size-sm">
+    <div class="ts modal-header">
+      <h2 id="ts-alertdialog-title-s2" class="ts modal-title">¿Eliminar el proyecto?</h2>
+    </div>
+    <div class="ts modal-body flex flex-col gap-base">
+      <div id="ts-alertdialog-body-s2">
+        Se borran los despliegues y las claves de «Panel de control». Esto no se puede deshacer.
+      </div>
+      <div class="ts input-wrapper">
+        <label for="ts-input-s3" class="ts input-label"
+          >Escribir «Panel de control» para confirmar</label
+        >
+        <div class="ts input size-md variant-default" data-ts-input="">
+          <input
+            id="ts-input-s3"
+            value=""
+            type="text"
+            class="ts input-field"
+            autocomplete="off"
+            data-ts-confirm-input=""
+          />
+          <div class="ts input-actions">
+            <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+              ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-secondary"
+        data-ts-safe=""
+        commandfor="ts-alert-text-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Cancelar </span>
+      </button>
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-md variant-danger"
+        data-ts-confirm=""
+        commandfor="ts-alert-text-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Eliminar definitivamente </span>
+      </button>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-danger"
+  commandfor="ts-alert-nombre-demo"
+  command="show-modal"
+>
+  Quitar a Carla Ruiz
+</button>
+<dialog
+  id="ts-alert-nombre-demo"
+  role="alertdialog"
+  class="ts modal-dialog"
+  aria-label="Quitar a Carla Ruiz del proyecto Sitio marketing"
+  aria-describedby="ts-alertdialog-body-s4"
+>
+  <div class="ts modal size-sm">
+    <div class="ts modal-header">
+      <h2 id="ts-alertdialog-title-s4" class="ts modal-title">¿Quitar a Carla Ruiz?</h2>
+    </div>
+    <div id="ts-alertdialog-body-s4" class="ts modal-body">
+      Pierde el acceso a «Sitio marketing». Se puede invitar de nuevo cuando haga falta.
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-secondary"
+        data-ts-safe=""
+        commandfor="ts-alert-nombre-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Cancelar </span>
+      </button>
+      <button
+        type="button"
+        class="ts button size-md variant-danger"
+        commandfor="ts-alert-nombre-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content=""> Quitar </span>
+      </button>
+    </div>
+  </div>
+</dialog>

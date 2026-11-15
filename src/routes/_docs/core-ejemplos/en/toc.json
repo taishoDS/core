@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Project table of contents",
+    "html": "<div class=\"ts flex gap-double\">\n  <nav class=\"ts toc has-rail\" aria-label=\"On this page\" data-ts-scrollspy=\"\" data-ts-offset=\"96\">\n    <p class=\"ts toc-title\">On this page</p>\n    <ul class=\"ts toc-list\">\n      <li><a href=\"#resumen\" data-ts-scrollspy-link=\"\" class=\"ts toc-link\">Overview</a></li>\n      <li><a href=\"#despliegues\" data-ts-scrollspy-link=\"\" class=\"ts toc-link\">Deployments</a></li>\n      <li><a href=\"#equipo\" data-ts-scrollspy-link=\"\" class=\"ts toc-link\">Team</a></li>\n    </ul>\n  </nav>\n  <div class=\"ts flex flex-col gap-double\">\n    <section>\n      <h2 id=\"resumen\" class=\"ts type-heading-24\">Overview</h2>\n      <p class=\"ts type-copy-14 color-subtle\">Dashboard: overall project status.</p>\n    </section>\n    <section>\n      <h2 id=\"despliegues\" class=\"ts type-heading-24\">Deployments</h2>\n      <p class=\"ts type-copy-14 color-subtle\">\n        The last three went to Production without failures.\n      </p>\n    </section>\n    <section>\n      <h2 id=\"equipo\" class=\"ts type-heading-24\">Team</h2>\n      <p class=\"ts type-copy-14 color-subtle\">\n        Ana Torres, Bruno Díaz, and Carla Ruiz work on this project.\n      </p>\n    </section>\n  </div>\n</div>"
+  }
+]

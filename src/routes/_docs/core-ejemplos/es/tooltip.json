@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Explicación al pasar sobre «Guardar»",
+    "html": "<span data-ts-tooltip-root=\"\" class=\"ts tooltip-root\"\n  ><button type=\"button\" class=\"ts button size-md variant-secondary\">\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\"> Guardar </span>\n  </button>\n  <span\n    id=\"ts-tooltip-s1\"\n    role=\"tooltip\"\n    popover=\"manual\"\n    data-ts-tooltip=\"\"\n    data-ts-placement=\"top\"\n    class=\"ts tooltip placement-top\"\n    >Se guarda automáticamente</span\n  ></span\n>"
+  }
+]

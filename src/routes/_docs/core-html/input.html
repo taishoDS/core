@@ -1,0 +1,225 @@
+<div class="ts flex flex-col gap-base max-w-screen-sm">
+  <div class="ts input-wrapper">
+    <label for="ts-input-s1" class="ts input-label">Nombre</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <input
+        id="ts-input-s1"
+        value=""
+        type="text"
+        class="ts input-field"
+        placeholder="Ada Lovelace"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s2" class="ts input-label">Correo</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <input
+        id="ts-input-s2"
+        value=""
+        type="email"
+        class="ts input-field"
+        aria-describedby="ts-input-s2-hint"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+    <div class="ts input-footer">
+      <div id="ts-input-s2-hint" class="ts input-hint variant-default">
+        <span>No lo compartimos con nadie.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s3" class="ts input-label">Usuario</label>
+    <div class="ts input size-md variant-danger" data-ts-input="">
+      <input
+        id="ts-input-s3"
+        value="ada"
+        type="text"
+        class="ts input-field"
+        aria-invalid="true"
+        aria-describedby="ts-input-s3-hint"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+    <div class="ts input-footer">
+      <div id="ts-input-s3-hint" class="ts input-hint variant-danger" aria-live="polite">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-14"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" x2="12" y1="8" y2="12" />
+          <line x1="12" x2="12.01" y1="16" y2="16" />
+        </svg>
+        <span>Ya está tomado.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s4" class="ts input-label">Buscar</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <div class="ts input-prefix-block">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m21 21-4.34-4.34" />
+          <circle cx="11" cy="11" r="8" />
+        </svg>
+      </div>
+      <input
+        id="ts-input-s4"
+        value=""
+        type="text"
+        class="ts input-field"
+        placeholder="Buscar en el proyecto"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s5" class="ts input-label">Sitio web</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <div class="ts input-prefix-block">https://</div>
+      <input
+        id="ts-input-s5"
+        value=""
+        type="text"
+        class="ts input-field"
+        placeholder="ejemplo.com"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s6" class="ts input-label">Proyecto</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <input id="ts-input-s6" value="Panel de control" type="text" class="ts input-field" />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+        <button
+          type="button"
+          class="ts button size-xs variant-tertiary shape-square is-icon-only"
+          aria-label="Limpiar campo"
+          data-ts-clear=""
+        >
+          <span data-ts-spinner=""
+            ><span class="ts spinner size-sm" aria-hidden="true"></span
+          ></span>
+          <span data-ts-content="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-16"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s7" class="ts input-label">Invitar a</label>
+    <div class="ts input size-md variant-default is-loading" data-ts-input="">
+      <input
+        id="ts-input-s7"
+        value="bruno.diaz"
+        type="text"
+        class="ts input-field"
+        aria-busy="true"
+      />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+        <button
+          type="button"
+          class="ts button size-xs variant-tertiary shape-square is-icon-only"
+          aria-label="Limpiar campo"
+          data-ts-clear=""
+        >
+          <span data-ts-spinner=""
+            ><span class="ts spinner size-sm" aria-hidden="true"></span
+          ></span>
+          <span data-ts-content="">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-16"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-input-s8" class="ts input-label">Buscar miembro</label>
+    <div class="ts input size-md variant-default" data-ts-input="">
+      <input id="ts-input-s8" value="" type="text" class="ts input-field" data-ts-debounce="200" />
+      <div class="ts input-actions">
+        <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+          ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+        ></span>
+      </div>
+    </div>
+  </div>
+</div>

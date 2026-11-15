@@ -1,0 +1,12 @@
+{
+  "name": "taisho-fixture-tailwind",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Tailwind v4 aislado (versión fijada) para medir el CSS a demanda contra Tailwind. El paquete principal no depende de Tailwind.",
+  "type": "module",
+  "dependencies": {
+    "@tailwindcss/node": "4.3.3",
+    "@tailwindcss/oxide": "4.3.3",
+    "tailwindcss": "4.3.3"
+  }
+}

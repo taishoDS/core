@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Stacked settings with spacing",
+    "html": "<div class=\"ts flex flex-col gap-half\">\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Notifications</div>\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Language</div>\n  <div class=\"ts bg-gray-100 p-half radius-md type-copy-14\">Time zone</div>\n</div>"
+  }
+]

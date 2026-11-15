@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Comando dentro de una frase",
+    "html": "<p class=\"ts type-copy-14\">\n  Se instala con <code class=\"ts inline-code\">npm i -D @taishods/core</code> y listo.\n</p>"
+  }
+]

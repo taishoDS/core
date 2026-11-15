@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Primary action",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-primary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Save </span>\n</button>"
+  },
+  {
+    "titulo": "Secondary action",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-secondary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Cancel </span>\n</button>"
+  },
+  {
+    "titulo": "Destructive action",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-danger\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Delete project </span>\n</button>"
+  },
+  {
+    "titulo": "Unavailable action",
+    "html": "<button type=\"button\" disabled=\"\" class=\"ts button size-md variant-primary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Deploy </span>\n</button>"
+  }
+]

@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "16:9 video thumbnail",
+    "html": "<div class=\"ts w-1/2\">\n  <div class=\"ts aspect-ratio aspect-video\" data-ts-ratio=\"1.7777777777777777\">\n    <div class=\"ts bg-gray-100 flex items-center justify-center h-full radius-md\">\n      <span class=\"ts type-copy-14 color-subtle\">16:9</span>\n    </div>\n  </div>\n</div>"
+  }
+]

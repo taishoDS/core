@@ -1,0 +1,14 @@
+[
+  {
+    "titulo": "Etiquetas descartables",
+    "html": "<span class=\"ts tag variant-default size-md\" data-ts-dismissible=\"\">\n  diseño\n  <button\n    type=\"button\"\n    class=\"ts button size-xs variant-ghost shape-square is-icon-only flex-shrink-0 is-color-inherit\"\n    data-tag-close=\"true\"\n    data-ts-dismiss=\"\"\n    aria-label=\"Quitar\"\n  >\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\">\n      <svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        class=\"ts icon icon-12\"\n      >\n        <path d=\"M18 6 6 18\" />\n        <path d=\"m6 6 12 12\" />\n      </svg>\n    </span></button></span\n><span class=\"ts tag variant-default size-md\" data-ts-dismissible=\"\">\n  accesibilidad\n  <button\n    type=\"button\"\n    class=\"ts button size-xs variant-ghost shape-square is-icon-only flex-shrink-0 is-color-inherit\"\n    data-tag-close=\"true\"\n    data-ts-dismiss=\"\"\n    aria-label=\"Quitar\"\n  >\n    <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n    <span data-ts-content=\"\">\n      <svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        width=\"12\"\n        height=\"12\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n        stroke-linejoin=\"round\"\n        class=\"ts icon icon-12\"\n      >\n        <path d=\"M18 6 6 18\" />\n        <path d=\"m6 6 12 12\" />\n      </svg>\n    </span></button\n></span>"
+  },
+  {
+    "titulo": "Etiqueta fija",
+    "html": "<span class=\"ts tag variant-default size-md\"> sin descartar </span>"
+  },
+  {
+    "titulo": "Etiqueta clicable",
+    "html": "<span class=\"ts tag variant-default size-md is-clickable\" role=\"button\" tabindex=\"0\">\n  Producción\n</span>"
+  }
+]

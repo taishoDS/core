@@ -1,0 +1,6 @@
+{
+  "name": "proyecto-de-prueba-tailwind",
+  "private": true,
+  "description": "Proyecto de juguete con Tailwind 4 para probar `taisho migrate --from tailwind`. No se instala ni se compila: sólo se lee.",
+  "devDependencies": { "tailwindcss": "^4.1.0" }
+}

@@ -1,0 +1,10 @@
+[
+  {
+    "titulo": "With image, initials, and status",
+    "html": "<div class=\"ts flex gap-half items-center\">\n  <span class=\"ts avatar size-md shape-circle tone-info\" data-ts-avatar=\"\" data-ts-name=\"Ana Torres\"\n    ><span data-avatar-media=\"\"><img src=\"/no-existe.png\" alt=\"Ana Torres\" /></span>\n  </span>\n  <span class=\"ts avatar size-md shape-circle tone-info\" data-ts-avatar=\"\" data-ts-name=\"Bruno Díaz\"\n    ><span data-avatar-media=\"\" role=\"img\" aria-label=\"Bruno Díaz\">BD</span>\n  </span>\n  <span\n    class=\"ts avatar size-lg shape-circle status-online tone-brand\"\n    data-ts-avatar=\"\"\n    data-ts-name=\"Carla Ruiz\"\n    ><span data-avatar-media=\"\" role=\"img\" aria-label=\"Carla Ruiz\">CR</span>\n    <span data-avatar-status=\"\" role=\"img\" aria-label=\"Online\"></span\n  ></span>\n</div>"
+  },
+  {
+    "titulo": "Group with member count",
+    "html": "<div class=\"ts avatar-group\">\n  <span class=\"ts avatar size-md shape-circle tone-info\" data-ts-avatar=\"\" data-ts-name=\"Ana Torres\"\n    ><span data-avatar-media=\"\" role=\"img\" aria-label=\"Ana Torres\">AT</span> </span\n  ><span\n    class=\"ts avatar size-md shape-circle tone-info\"\n    data-ts-avatar=\"\"\n    data-ts-name=\"Bruno Díaz\"\n    ><span data-avatar-media=\"\" role=\"img\" aria-label=\"Bruno Díaz\">BD</span> </span\n  ><span\n    class=\"ts avatar size-md shape-circle tone-brand\"\n    data-ts-avatar=\"\"\n    data-ts-name=\"Carla Ruiz\"\n    ><span data-avatar-media=\"\" role=\"img\" aria-label=\"Carla Ruiz\">CR</span>\n  </span>\n  <span\n    class=\"ts avatar size-md shape-circle\"\n    data-avatar-overflow=\"\"\n    role=\"img\"\n    aria-label=\"5 more\"\n    ><span data-avatar-media=\"\">+5</span></span\n  >\n</div>"
+  }
+]

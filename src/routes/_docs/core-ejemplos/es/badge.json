@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Etiqueta «Nuevo»",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-default\"> Nuevo </span>"
+  },
+  {
+    "titulo": "Estado de un despliegue: listo",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-success\"> Listo </span>"
+  },
+  {
+    "titulo": "Estado de un despliegue: en cola, con punto",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-warning\"\n  ><span data-badge-dot=\"\" aria-hidden=\"true\"></span> En cola\n</span>"
+  },
+  {
+    "titulo": "Estado de un despliegue: falló, relleno sólido",
+    "html": "<span class=\"ts badge size-md fill-solid variant-danger\"> Falló </span>"
+  }
+]

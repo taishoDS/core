@@ -1,0 +1,554 @@
+{
+  "componentes": {
+    "accordion": {
+      "gancho": "data-ts-accordion",
+      "bloques": [
+        "accordion",
+        "accordion-item"
+      ],
+      "runtime": []
+    },
+    "alert-dialog": {
+      "gancho": null,
+      "bloques": [],
+      "runtime": []
+    },
+    "aspect-ratio": {
+      "gancho": null,
+      "bloques": [
+        "aspect-ratio"
+      ],
+      "runtime": []
+    },
+    "avatar": {
+      "gancho": "data-ts-avatar",
+      "bloques": [
+        "avatar",
+        "avatar-group"
+      ],
+      "runtime": []
+    },
+    "badge": {
+      "gancho": null,
+      "bloques": [
+        "badge"
+      ],
+      "runtime": []
+    },
+    "banner": {
+      "gancho": null,
+      "bloques": [
+        "banner"
+      ],
+      "runtime": []
+    },
+    "breadcrumbs": {
+      "gancho": null,
+      "bloques": [
+        "breadcrumbs",
+        "breadcrumbs-list",
+        "breadcrumbs-item",
+        "breadcrumbs-separator",
+        "breadcrumbs-link"
+      ],
+      "runtime": []
+    },
+    "button": {
+      "gancho": null,
+      "bloques": [
+        "button",
+        "button-group"
+      ],
+      "runtime": []
+    },
+    "card": {
+      "gancho": null,
+      "bloques": [
+        "card-radius",
+        "card-inset-radius",
+        "card",
+        "card-media"
+      ],
+      "runtime": []
+    },
+    "checkbox": {
+      "gancho": null,
+      "bloques": [
+        "checkbox",
+        "checkbox-wrapper",
+        "checkbox-group",
+        "checkbox-group-label",
+        "checkbox-group-all",
+        "checkbox-group-items"
+      ],
+      "runtime": []
+    },
+    "code": {
+      "gancho": null,
+      "bloques": [
+        "code-block",
+        "code-header",
+        "code-content"
+      ],
+      "runtime": []
+    },
+    "collapsible": {
+      "gancho": null,
+      "bloques": [
+        "collapsible",
+        "collapsible-trigger",
+        "collapsible-content"
+      ],
+      "runtime": []
+    },
+    "combobox": {
+      "gancho": "data-ts-combobox",
+      "bloques": [
+        "combobox",
+        "combobox-label",
+        "combobox-control",
+        "combobox-input",
+        "combobox-values",
+        "combobox-dropdown",
+        "combobox-option",
+        "combobox-group-label",
+        "combobox-loading",
+        "combobox-empty"
+      ],
+      "runtime": []
+    },
+    "command-palette": {
+      "gancho": "data-ts-command-palette",
+      "bloques": [
+        "command-overlay",
+        "command",
+        "command-input-wrapper",
+        "command-list",
+        "command-group-label",
+        "command-item",
+        "command-mark",
+        "command-empty",
+        "command-footer"
+      ],
+      "runtime": []
+    },
+    "container": {
+      "gancho": null,
+      "bloques": [],
+      "runtime": []
+    },
+    "context-menu": {
+      "gancho": "data-ts-context-menu",
+      "bloques": [
+        "context-menu"
+      ],
+      "runtime": []
+    },
+    "date-picker": {
+      "gancho": "data-ts-date-picker",
+      "bloques": [
+        "datepicker",
+        "datepicker-trigger",
+        "datepicker-value",
+        "datepicker-prefix-block",
+        "datepicker-field",
+        "datepicker-input",
+        "datepicker-range",
+        "datepicker-separator",
+        "datepicker-toggle",
+        "datepicker-panel",
+        "datepicker-presets",
+        "datepicker-preset",
+        "calendar",
+        "calendar-caption",
+        "calendar-caption-select",
+        "calendar-time",
+        "calendar-months",
+        "calendar-month",
+        "calendar-month-title",
+        "calendar-header",
+        "calendar-heading",
+        "calendar-nav",
+        "calendar-grid",
+        "calendar-dow-row",
+        "calendar-dow",
+        "calendar-week",
+        "calendar-day-empty",
+        "calendar-week-number",
+        "calendar-day"
+      ],
+      "runtime": [
+        "calendar-day",
+        "calendar-day-empty",
+        "calendar-day-mark",
+        "calendar-dow",
+        "calendar-dow-row",
+        "calendar-grid",
+        "calendar-month",
+        "calendar-month-title",
+        "calendar-week",
+        "calendar-week-number"
+      ]
+    },
+    "drawer": {
+      "gancho": null,
+      "bloques": [
+        "drawer-dialog",
+        "drawer"
+      ],
+      "runtime": []
+    },
+    "empty-state": {
+      "gancho": null,
+      "bloques": [
+        "empty-state"
+      ],
+      "runtime": []
+    },
+    "field": {
+      "gancho": null,
+      "bloques": [],
+      "runtime": []
+    },
+    "file-upload": {
+      "gancho": "data-ts-file-upload",
+      "bloques": [
+        "file-upload",
+        "file-upload-zone",
+        "file-upload-icon",
+        "file-upload-title",
+        "file-upload-hint",
+        "file-upload-list",
+        "file-upload-item"
+      ],
+      "runtime": []
+    },
+    "grid": {
+      "gancho": null,
+      "bloques": [
+        "grid-container"
+      ],
+      "runtime": []
+    },
+    "icon": {
+      "gancho": null,
+      "bloques": [
+        "icon"
+      ],
+      "runtime": []
+    },
+    "inline-code": {
+      "gancho": null,
+      "bloques": [
+        "inline-code"
+      ],
+      "runtime": []
+    },
+    "input": {
+      "gancho": "data-ts-input",
+      "bloques": [
+        "input",
+        "input-wrapper",
+        "input-label",
+        "input-hint",
+        "input-footer",
+        "input-count"
+      ],
+      "runtime": [
+        "input-footer",
+        "input-hint"
+      ]
+    },
+    "kbd": {
+      "gancho": null,
+      "bloques": [
+        "kbd"
+      ],
+      "runtime": []
+    },
+    "link": {
+      "gancho": null,
+      "bloques": [
+        "link"
+      ],
+      "runtime": []
+    },
+    "loading-dots": {
+      "gancho": null,
+      "bloques": [
+        "loading-dots"
+      ],
+      "runtime": []
+    },
+    "menu": {
+      "gancho": "data-ts-menu",
+      "bloques": [
+        "menu-root",
+        "menu",
+        "menu-item",
+        "menu-separator",
+        "menu-label"
+      ],
+      "runtime": []
+    },
+    "modal": {
+      "gancho": null,
+      "bloques": [
+        "modal-dialog",
+        "modal",
+        "modal-header",
+        "modal-title",
+        "modal-body",
+        "modal-footer"
+      ],
+      "runtime": []
+    },
+    "nav-bar": {
+      "gancho": null,
+      "bloques": [
+        "nav-bar-root",
+        "nav-bar-bp-sm",
+        "nav-bar-bp-md",
+        "nav-bar-bp-lg",
+        "nav-bar",
+        "nav-bar-brand",
+        "nav-bar-items",
+        "nav-bar-actions",
+        "nav-bar-item",
+        "nav-bar-toggle",
+        "nav-bar-search",
+        "nav-bar-menu"
+      ],
+      "runtime": []
+    },
+    "note": {
+      "gancho": null,
+      "bloques": [
+        "note"
+      ],
+      "runtime": []
+    },
+    "number-input": {
+      "gancho": null,
+      "bloques": [
+        "number-input",
+        "number-input-field"
+      ],
+      "runtime": []
+    },
+    "pager": {
+      "gancho": null,
+      "bloques": [
+        "pager",
+        "pager-link",
+        "pager-spacer",
+        "pager-icon",
+        "pager-text",
+        "pager-dir",
+        "pager-title"
+      ],
+      "runtime": []
+    },
+    "pagination": {
+      "gancho": "data-ts-pagination",
+      "bloques": [
+        "pagination",
+        "pagination-btn",
+        "pagination-ellipsis",
+        "pagination-info",
+        "pagination-page-size"
+      ],
+      "runtime": []
+    },
+    "popover": {
+      "gancho": null,
+      "bloques": [
+        "popover-root",
+        "popover"
+      ],
+      "runtime": []
+    },
+    "progress": {
+      "gancho": null,
+      "bloques": [
+        "progress"
+      ],
+      "runtime": []
+    },
+    "radio": {
+      "gancho": null,
+      "bloques": [
+        "radio"
+      ],
+      "runtime": []
+    },
+    "scroll-area": {
+      "gancho": null,
+      "bloques": [
+        "scroll-area"
+      ],
+      "runtime": []
+    },
+    "segmented-control": {
+      "gancho": null,
+      "bloques": [
+        "segmented-control"
+      ],
+      "runtime": []
+    },
+    "select": {
+      "gancho": null,
+      "bloques": [
+        "select",
+        "select-wrapper",
+        "select-label",
+        "select-dropdown",
+        "select-option",
+        "select-search",
+        "select-group-label",
+        "select-loading",
+        "select-empty"
+      ],
+      "runtime": []
+    },
+    "separator": {
+      "gancho": null,
+      "bloques": [
+        "separator",
+        "separator-wrapper",
+        "separator-line",
+        "separator-label"
+      ],
+      "runtime": []
+    },
+    "sidebar": {
+      "gancho": "data-ts-sidebar",
+      "bloques": [
+        "sidebar",
+        "sidebar-header",
+        "sidebar-content",
+        "sidebar-group",
+        "sidebar-group-label",
+        "sidebar-item",
+        "sidebar-footer",
+        "sidebar-rail"
+      ],
+      "runtime": []
+    },
+    "skeleton": {
+      "gancho": null,
+      "bloques": [
+        "skeleton"
+      ],
+      "runtime": []
+    },
+    "slider": {
+      "gancho": "data-ts-slider",
+      "bloques": [
+        "slider",
+        "slider-header",
+        "slider-label",
+        "slider-value",
+        "slider-track",
+        "slider-range",
+        "slider-ticks",
+        "slider-marks"
+      ],
+      "runtime": []
+    },
+    "spinner": {
+      "gancho": null,
+      "bloques": [
+        "spinner"
+      ],
+      "runtime": []
+    },
+    "stack": {
+      "gancho": null,
+      "bloques": [],
+      "runtime": []
+    },
+    "table": {
+      "gancho": "data-ts-table",
+      "bloques": [
+        "table-wrapper",
+        "table",
+        "table-header",
+        "table-th",
+        "table-th-content",
+        "table-body",
+        "table-row",
+        "table-td",
+        "table-empty",
+        "table-spacer"
+      ],
+      "runtime": []
+    },
+    "tabs": {
+      "gancho": "data-ts-tabs",
+      "bloques": [
+        "tabs"
+      ],
+      "runtime": []
+    },
+    "tag": {
+      "gancho": null,
+      "bloques": [
+        "tag"
+      ],
+      "runtime": []
+    },
+    "textarea": {
+      "gancho": "data-ts-textarea",
+      "bloques": [
+        "textarea",
+        "textarea-field"
+      ],
+      "runtime": []
+    },
+    "toast": {
+      "gancho": "data-ts-toast",
+      "bloques": [
+        "toaster",
+        "toast"
+      ],
+      "runtime": [
+        "toast",
+        "toaster"
+      ]
+    },
+    "toc": {
+      "gancho": null,
+      "bloques": [
+        "toc",
+        "toc-title",
+        "toc-list",
+        "toc-link"
+      ],
+      "runtime": []
+    },
+    "toggle": {
+      "gancho": "data-ts-toggle",
+      "bloques": [
+        "toggle"
+      ],
+      "runtime": []
+    },
+    "tooltip": {
+      "gancho": "data-ts-tooltip",
+      "bloques": [
+        "tooltip-root",
+        "tooltip"
+      ],
+      "runtime": []
+    },
+    "visually-hidden": {
+      "gancho": null,
+      "bloques": [],
+      "runtime": []
+    }
+  },
+  "sueltos": [
+    "required-proxy"
+  ]
+}

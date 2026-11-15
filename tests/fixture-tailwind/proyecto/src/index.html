@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+<body class="min-h-screen bg-gray-50 text-gray-900">
+	<header class="flex items-center justify-between p-4 border-b border-gray-200">
+		<h1 class="text-2xl font-bold">Panel</h1>
+		<input type="hidden" name="csrf" value="x">
+		<button class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 md:px-6">Nueva</button>
+	</header>
+	<main class="mx-auto grid max-w-3xl grid-cols-1 gap-4 p-4 md:grid-cols-3">
+		<div class="group relative rounded-xl bg-white p-6 shadow-md hover:shadow-lg">
+			<p class="text-sm text-gray-500 group-hover:text-gray-900">Resumen</p>
+			<span class="hidden md:inline-flex">Visible en desktop</span>
+			<span class="dark:bg-gray-900 hover:md:underline">Sin equivalente</span>
+			<span class="miclase flex">Clase propia</span>
+		</div>
+		<div class="table w-full text-left"><div class="p-2">Fila</div></div>
+		<div class="bg-emerald-500 p-8 !p-4 w-[300px] first:mt-2">Colores sin semilla y arbitrarios</div>
+	</main>
+</body>
+</html>

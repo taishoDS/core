@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Menú de acciones",
+    "html": "<div class=\"ts menu-root\" data-ts-menu=\"\">\n  <button\n    type=\"button\"\n    class=\"ts button size-md variant-secondary\"\n    data-ts-menu-trigger=\"\"\n    popovertarget=\"ts-menu-s1\"\n    aria-haspopup=\"menu\"\n  >\n    Acciones\n  </button>\n  <div\n    class=\"ts menu placement-bottom-start is-anchored\"\n    data-ts-menu-panel=\"\"\n    id=\"ts-menu-s1\"\n    role=\"menu\"\n    tabindex=\"-1\"\n    popover=\"auto\"\n  >\n    <button\n      type=\"button\"\n      role=\"menuitem\"\n      class=\"ts menu-item\"\n      aria-disabled=\"false\"\n      data-ts-value=\"editar\"\n    >\n      Editar\n    </button>\n    <button\n      type=\"button\"\n      role=\"menuitem\"\n      class=\"ts menu-item\"\n      aria-disabled=\"false\"\n      data-ts-value=\"duplicar\"\n    >\n      Duplicar\n    </button>\n    <hr class=\"ts separator menu-separator\" role=\"separator\" aria-orientation=\"horizontal\" />\n    <button\n      type=\"button\"\n      role=\"menuitem\"\n      class=\"ts menu-item\"\n      aria-disabled=\"false\"\n      data-ts-value=\"borrar\"\n    >\n      Borrar\n    </button>\n  </div>\n</div>"
+  }
+]

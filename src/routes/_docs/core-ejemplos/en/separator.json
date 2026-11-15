@@ -1,0 +1,10 @@
+[
+  {
+    "titulo": "Simple separator",
+    "html": "<p class=\"ts type-copy-14\">Above the separator.</p>\n<hr class=\"ts separator\" role=\"none\" />\n<p class=\"ts type-copy-14\">Below.</p>"
+  },
+  {
+    "titulo": "Separator with label",
+    "html": "<div class=\"ts separator-wrapper\" role=\"none\">\n  <span class=\"ts separator-line\" aria-hidden=\"true\"></span>\n  <span class=\"ts separator-label\">or</span>\n  <span class=\"ts separator-line\" aria-hidden=\"true\"></span>\n</div>\n<p class=\"ts type-copy-14\">After one with a label.</p>"
+  }
+]

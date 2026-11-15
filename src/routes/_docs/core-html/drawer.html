@@ -1,0 +1,81 @@
+<button
+  type="button"
+  class="ts button size-md variant-primary"
+  commandfor="ts-drawer-demo"
+  command="show-modal"
+>
+  Abrir el panel
+</button>
+<dialog
+  id="ts-drawer-demo"
+  closedby="any"
+  class="ts drawer-dialog side-right"
+  aria-labelledby="ts-drawer-title-s1"
+>
+  <div class="ts drawer side-right size-md">
+    <div class="ts modal-header">
+      <h2 id="ts-drawer-title-s1" class="ts modal-title">Filtros</h2>
+      <button
+        type="button"
+        class="ts button size-sm variant-tertiary shape-square is-icon-only flex-shrink-0"
+        aria-label="Cerrar"
+        commandfor="ts-drawer-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-18"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">Mostrando los despliegues de Producción y Staging.</p>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-secondary"
+  commandfor="ts-drawer-cola"
+  command="show-modal"
+>
+  Ver la cola de despliegues
+</button>
+<dialog
+  id="ts-drawer-cola"
+  closedby="none"
+  class="ts drawer-dialog side-left"
+  aria-label="Cola de despliegues"
+>
+  <div class="ts drawer side-left size-md">
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">
+        En cola: «App móvil» en Staging. Construyendo: «API de pagos» en Producción.
+      </p>
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-primary"
+        commandfor="ts-drawer-cola"
+        command="close"
+      >
+        Listo
+      </button>
+    </div>
+  </div>
+</dialog>

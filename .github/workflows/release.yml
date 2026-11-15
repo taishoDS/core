@@ -1,0 +1,172 @@
+# Publicación de @taishods/core en el registro público de npm, con procedencia (--provenance).
+#
+# Dos jobs con privilegios separados:
+#   1. «construir»: instala dependencias, corre las pruebas, arma dist-core/ y lo empaqueta en un .tgz con su checksum.
+#      Ejecuta código de terceros (dependencias de desarrollo), así que NO tiene `id-token: write` ni environment.
+#   2. «publicar»: baja ese .tgz, verifica el checksum y lo publica. NO hace checkout ni `npm ci`: no ejecuta nada del
+#      repo ni de terceros salvo el propio npm. Es el único job con `id-token: write` y el único con el environment.
+# Así una dependencia comprometida no puede usar el token OIDC de publicación, y la aprobación manual (que va justo antes
+# del job de publicación) se da con el .tgz ya construido y verificado.
+#
+# Sin token de larga vida: npm confía en este workflow por OIDC («trusted publishing»). Lo que hay que configurar a
+# mano, una sola vez:
+#
+#   En npmjs.com → paquete @taishods/core → Settings → Trusted Publisher → GitHub Actions:
+#     Organization o usuario: taishoDS · Repositorio: core · Workflow: release.yml · Environment: publicar
+#   En GitHub → este repo → Settings → Environments → New environment «publicar»:
+#     Required reviewers = el mantenedor. Es la parada manual: el job «publicar» no empieza hasta que se apruebe, y es
+#     el único job que usa este environment (el de construcción corre sin aprobación, no tiene permiso de publicar).
+#   En GitHub → Settings → Tags (o Rules → Rulesets): proteger las etiquetas `v*` para que sólo las cree el mantenedor.
+#   El campo `repository` del package.json publicado debe coincidir (mayúsculas incluidas) con taishoDS/core: npm lo
+#   compara con el repositorio que firma la procedencia. Lo escribe scripts/build-core-package.ts.
+#
+# Si npm no deja configurar el publicador de confianza antes de que el paquete exista, la primera versión se publica con un
+# token granular de npm (sólo ese paquete, sólo publicar) guardado como secreto NPM_TOKEN y expuesto en el paso de
+# publicación del job «publicar» como NODE_AUTH_TOKEN; con la primera versión publicada se configura el publicador de
+# confianza y se borra el token.
+#
+# Flujo: subir la versión en package.json y su sección en CHANGELOG.md → commit en main → etiqueta vX.Y.Z → push de la etiqueta.
+# El job «construir» verifica que la etiqueta coincida con la versión y que esté en main, repite las pruebas y empaqueta;
+# el job «publicar» publica ese mismo archivo.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  construir:
+    # Un fork con la etiqueta copiada no debe poder publicar nada.
+    if: github.repository == 'taishoDS/core'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Sin `id-token` ni environment: este job ejecuta código de terceros.
+    permissions:
+      contents: read
+    outputs:
+      archivo: ${{ steps.empaquetar.outputs.archivo }}
+      sha256: ${{ steps.empaquetar.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+
+      - name: Verificar que la etiqueta está en main
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::La etiqueta $GITHUB_REF_NAME no apunta a un commit de main."
+            exit 1
+          fi
+
+      - name: Verificar etiqueta, versión y CHANGELOG
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#v}"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+          if [[ "$TAG_VERSION" != "$PKG_VERSION" ]]; then
+            echo "::error::La etiqueta v$TAG_VERSION no coincide con package.json ($PKG_VERSION)."
+            exit 1
+          fi
+          if ! grep -q "^## $PKG_VERSION\b" CHANGELOG.md; then
+            echo "::error::CHANGELOG.md no tiene una sección «## $PKG_VERSION»."
+            exit 1
+          fi
+
+      - run: npm ci
+
+      - name: Generar CSS, tokens y tipos
+        run: npm run generate
+
+      - name: Pruebas
+        run: npm test
+
+      # Arma dist-core/ e instala el tarball en un proyecto limpio.
+      - name: El paquete instalado en un proyecto limpio
+        run: npm run test:core-package
+
+      - name: El paquete dentro de un proyecto Vite
+        run: npm run smoke:vite
+
+      - name: Verificar el paquete a publicar
+        run: |
+          NOMBRE="$(node -p "require('./dist-core/package.json').name")"
+          VERSION="$(node -p "require('./dist-core/package.json').version")"
+          if [[ "$NOMBRE" != "@taishods/core" || "$VERSION" != "${GITHUB_REF_NAME#v}" ]]; then
+            echo "::error::dist-core/ dice $NOMBRE@$VERSION y la etiqueta es $GITHUB_REF_NAME."
+            exit 1
+          fi
+
+      # El .tgz que se publica es exactamente este: se calcula su checksum acá y el job de publicación lo vuelve a verificar.
+      - name: Empaquetar y calcular el checksum
+        id: empaquetar
+        run: |
+          mkdir -p paquete
+          npm pack ./dist-core --ignore-scripts --pack-destination paquete
+          ARCHIVO="$(ls paquete)"
+          if [[ "$(ls paquete | wc -l)" != "1" || "$ARCHIVO" != *.tgz ]]; then
+            echo "::error::Se esperaba un único .tgz en paquete/ y hay: $ARCHIVO"
+            exit 1
+          fi
+          (cd paquete && sha256sum "$ARCHIVO" > SHA256SUMS)
+          echo "archivo=$ARCHIVO" >> "$GITHUB_OUTPUT"
+          echo "sha256=$(cut -d' ' -f1 paquete/SHA256SUMS)" >> "$GITHUB_OUTPUT"
+          cat paquete/SHA256SUMS
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: paquete
+          path: paquete/
+          if-no-files-found: error
+          retention-days: 7
+
+  publicar:
+    needs: construir
+    if: github.repository == 'taishoDS/core'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # La aprobación manual es acá, con el .tgz ya construido. Este job no hace checkout ni instala dependencias.
+    environment: publicar
+    permissions:
+      id-token: write   # el token OIDC que npm canjea por permiso de publicación y por la procedencia
+    steps:
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      # El publicador de confianza necesita npm 11.5.1 o más nuevo.
+      - name: Actualizar npm
+        run: npm install -g npm@^11.5.1 --ignore-scripts
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: paquete
+          path: paquete/
+
+      - name: Verificar el checksum
+        env:
+          ARCHIVO: ${{ needs.construir.outputs.archivo }}
+          SHA256: ${{ needs.construir.outputs.sha256 }}
+        run: |
+          cd paquete
+          if [[ "$(ls | grep -c '\.tgz$')" != "1" ]]; then
+            echo "::error::El artefacto debe traer un único .tgz."
+            exit 1
+          fi
+          # Dos comprobaciones: contra el valor que calculó el job de construcción (salida del job, no del artefacto)
+          # y contra el archivo de sumas que viaja en el artefacto.
+          echo "$SHA256  $ARCHIVO" | sha256sum --check --strict -
+          sha256sum --check --strict SHA256SUMS
+
+      - name: Publicar en npm con procedencia
+        env:
+          ARCHIVO: ${{ needs.construir.outputs.archivo }}
+        run: npm publish "./paquete/$ARCHIVO" --provenance --access public

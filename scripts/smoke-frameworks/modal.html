@@ -1,0 +1,22 @@
+<button type="button" class="ts button size-md variant-primary" id="abrir-modal" commandfor="confirmar" command="show-modal">
+  Invitar a Ana Torres
+</button>
+
+<dialog id="confirmar" closedby="any" class="ts modal-dialog" aria-labelledby="confirmar-titulo">
+  <div class="ts modal size-md">
+    <div class="ts modal-header">
+      <h2 id="confirmar-titulo" class="ts modal-title">Invitar a Ana Torres al equipo</h2>
+    </div>
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">Va a poder ver y editar los proyectos de Producción y Staging.</p>
+    </div>
+    <div class="ts modal-footer">
+      <button type="button" class="ts button size-md variant-secondary" id="cerrar-modal" commandfor="confirmar" command="close">
+        Cancelar
+      </button>
+      <button type="button" class="ts button size-md variant-primary" commandfor="confirmar" command="close">
+        Invitar
+      </button>
+    </div>
+  </div>
+</dialog>

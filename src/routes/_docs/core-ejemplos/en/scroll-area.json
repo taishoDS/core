@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Scrollable activity log",
+    "html": "<div tabindex=\"0\" class=\"ts scroll-area orientation-vertical max-h-160\" data-ts-max-height=\"160px\">\n  <div class=\"ts flex flex-col gap-half p-half\">\n    <p class=\"ts type-copy-14\">Ana Torres deployed “Dashboard” to Production.</p>\n    <p class=\"ts type-copy-14\">Bruno Díaz canceled a “Marketing site” deployment.</p>\n    <p class=\"ts type-copy-14\">Carla Ruiz approved the “Payments API” changes.</p>\n    <p class=\"ts type-copy-14\">Diego Sosa moved “Mobile app” to Staging.</p>\n    <p class=\"ts type-copy-14\">Elena Vega invited a new member as Viewer.</p>\n    <p class=\"ts type-copy-14\">The “Data pipeline” deployment is queued.</p>\n  </div>\n</div>"
+  }
+]

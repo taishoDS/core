@@ -1,0 +1,975 @@
+<div class="ts flex flex-col gap-base max-w-screen-sm">
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s1" class="ts input-label">Cantidad</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s1"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="1"
+        min="0"
+        max="10"
+        step="1"
+        aria-label="Cantidad"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s2" class="ts input-label">Usuarios</label>
+    <div class="ts number-input size-md variant-danger" data-ts-number="" data-ts-allow-wheel="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s2"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="5"
+        min="1"
+        max="5"
+        step="1"
+        aria-label="Usuarios"
+        aria-invalid="true"
+        aria-describedby="ts-number-input-s2-hint"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="ts input-footer">
+      <div id="ts-number-input-s2-hint" class="ts input-hint variant-danger" aria-live="polite">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-14"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" x2="12" y1="8" y2="12" />
+          <line x1="12" x2="12.01" y1="16" y2="16" />
+        </svg>
+        <span>El plan Free admite hasta 5 usuarios.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s3" class="ts input-label">Precio del plan Pro</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <div class="ts number-input-prefix">USD</div>
+      <input
+        type="number"
+        id="ts-number-input-s3"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="25"
+        min="0"
+        step="0.5"
+        aria-label="Precio del plan Pro"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s4" class="ts input-label">Almacenamiento</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s4"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="50"
+        min="10"
+        max="500"
+        step="10"
+        aria-label="Almacenamiento"
+      />
+      <div class="ts number-input-suffix">GB</div>
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s5" class="ts input-label">Instancias de Staging</label>
+    <div class="ts number-input size-md" data-ts-number="" data-ts-large-step="25">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s5"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="20"
+        min="0"
+        max="100"
+        step="5"
+        aria-label="Instancias de Staging"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s6" class="ts input-label">Usuarios activos</label>
+    <div class="ts number-input size-md is-readonly" data-ts-number="">
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s6"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="4"
+        step="1"
+        readonly=""
+        aria-label="Usuarios activos"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s7" class="ts input-label">Réplicas en Producción</label>
+    <div class="ts number-input size-md is-loading" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s7"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="3"
+        min="1"
+        max="10"
+        step="1"
+        aria-label="Réplicas en Producción"
+        aria-busy="true"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s8" class="ts input-label">Precio del plan</label>
+    <div
+      class="ts number-input size-md"
+      data-ts-number=""
+      data-ts-locale="es-ES"
+      data-ts-number-format='{"style":"currency","currency":"USD","useGrouping":"always"}'
+    >
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="text"
+        inputmode="decimal"
+        role="spinbutton"
+        aria-valuenow="12500.5"
+        aria-valuemin="0"
+        aria-valuetext="12.500,50 US$"
+        id="ts-number-input-s8"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="12.500,50 US$"
+        min="0"
+        step="0.5"
+        aria-label="Precio del plan"
+        aria-describedby="ts-number-input-s8-hint"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <input type="hidden" name="precio-plan" value="12500.5" data-ts-number-raw="" />
+    <div class="ts input-footer">
+      <div id="ts-number-input-s8-hint" class="ts input-hint variant-default">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-14"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4" />
+          <path d="M12 8h.01" />
+        </svg>
+        <span>Se factura por mes.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s9" class="ts input-label">Descuento</label>
+    <div
+      class="ts number-input size-md"
+      data-ts-number=""
+      data-ts-locale="es-ES"
+      data-ts-number-format='{"style":"percent"}'
+    >
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="text"
+        inputmode="decimal"
+        role="spinbutton"
+        aria-valuenow="0.15"
+        aria-valuemin="0"
+        aria-valuemax="1"
+        aria-valuetext="15 %"
+        id="ts-number-input-s9"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="15 %"
+        min="0"
+        max="1"
+        step="0.05"
+        aria-label="Descuento"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <input type="hidden" name="descuento" value="0.15" data-ts-number-raw="" />
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s10" class="ts input-label">Ajuste de capacidad</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s10"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="0"
+        min="-10"
+        max="10"
+        step="1"
+        aria-label="Ajuste de capacidad"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s11" class="ts input-label">Presupuesto fijo</label>
+    <div
+      class="ts number-input size-md is-disabled"
+      data-ts-number=""
+      data-ts-locale="es-ES"
+      data-ts-number-format='{"style":"currency","currency":"USD","useGrouping":"always"}'
+    >
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="text"
+        inputmode="decimal"
+        role="spinbutton"
+        aria-valuenow="12500.5"
+        aria-valuemin="0"
+        aria-valuetext="12.500,50 US$"
+        id="ts-number-input-s11"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="12.500,50 US$"
+        min="0"
+        step="0.5"
+        disabled=""
+        aria-label="Presupuesto fijo"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        disabled=""
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <input
+      type="hidden"
+      name="presupuesto-fijo"
+      value="12500.5"
+      disabled=""
+      data-ts-number-raw=""
+    />
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s12" class="ts input-label">Precio mínimo</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="-1"
+        aria-label="Decrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+          </svg>
+        </span>
+      </button>
+      <input
+        type="number"
+        id="ts-number-input-s12"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="25"
+        min="0"
+        step="1"
+        aria-label="Precio mínimo"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        aria-label="Limpiar campo"
+        data-ts-clear=""
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only"
+        data-number-btn="true"
+        data-ts-number-step="1"
+        aria-label="Incrementar"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="ts input-wrapper">
+    <label for="ts-number-input-s13" class="ts input-label">Presupuesto mensual</label>
+    <div class="ts number-input size-md" data-ts-number="">
+      <div class="ts number-input-prefix">USD</div>
+      <input
+        type="number"
+        id="ts-number-input-s13"
+        data-ts-number-field=""
+        class="ts number-input-field"
+        value="1200"
+        min="0"
+        step="100"
+        aria-label="Presupuesto mensual"
+      />
+      <span class="ts number-input-spinner" data-ts-number-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+    </div>
+  </div>
+</div>

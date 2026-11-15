@@ -1,0 +1,14 @@
+[
+  {
+    "titulo": "Notifications on",
+    "html": "<label for=\"ts-toggle-s1\" class=\"ts toggle size-md variant-primary is-checked\"\n  ><input\n    type=\"checkbox\"\n    role=\"switch\"\n    aria-checked=\"true\"\n    id=\"ts-toggle-s1\"\n    checked=\"\"\n    class=\"ts toggle-input\"\n  />\n  <div class=\"ts toggle-track\">\n    <div class=\"ts toggle-thumb\">\n      <span data-toggle-spinner=\"\" aria-hidden=\"true\"\n        ><span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Loading\"></span\n      ></span>\n    </div>\n  </div>\n  <span class=\"ts toggle-label\">Notifications</span></label\n>"
+  },
+  {
+    "titulo": "Dark mode off",
+    "html": "<label for=\"ts-toggle-s2\" class=\"ts toggle size-md variant-primary\"\n  ><input\n    type=\"checkbox\"\n    role=\"switch\"\n    aria-checked=\"false\"\n    id=\"ts-toggle-s2\"\n    class=\"ts toggle-input\"\n  />\n  <div class=\"ts toggle-track\">\n    <div class=\"ts toggle-thumb\">\n      <span data-toggle-spinner=\"\" aria-hidden=\"true\"\n        ><span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Loading\"></span\n      ></span>\n    </div>\n  </div>\n  <span class=\"ts toggle-label\">Dark mode</span></label\n>"
+  },
+  {
+    "titulo": "Option locked by plan",
+    "html": "<label for=\"ts-toggle-s3\" class=\"ts toggle size-md variant-primary is-disabled\"\n  ><input\n    type=\"checkbox\"\n    role=\"switch\"\n    aria-checked=\"false\"\n    id=\"ts-toggle-s3\"\n    disabled=\"\"\n    class=\"ts toggle-input\"\n  />\n  <div class=\"ts toggle-track\">\n    <div class=\"ts toggle-thumb\">\n      <span data-toggle-spinner=\"\" aria-hidden=\"true\"\n        ><span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Loading\"></span\n      ></span>\n    </div>\n  </div>\n  <span class=\"ts toggle-label\">Custom domain (Enterprise plan)</span></label\n>"
+  }
+]

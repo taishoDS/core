@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "“New” badge",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-default\"> New </span>"
+  },
+  {
+    "titulo": "Deployment status: ready",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-success\"> Ready </span>"
+  },
+  {
+    "titulo": "Deployment status: queued, with dot",
+    "html": "<span class=\"ts badge size-md fill-subtle variant-warning\"\n  ><span data-badge-dot=\"\" aria-hidden=\"true\"></span> Queued\n</span>"
+  },
+  {
+    "titulo": "Deployment status: failed, solid fill",
+    "html": "<span class=\"ts badge size-md fill-solid variant-danger\"> Failed </span>"
+  }
+]

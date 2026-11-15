@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Acción principal",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-primary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Guardar </span>\n</button>"
+  },
+  {
+    "titulo": "Acción secundaria",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-secondary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Cancelar </span>\n</button>"
+  },
+  {
+    "titulo": "Acción destructiva",
+    "html": "<button type=\"button\" class=\"ts button size-md variant-danger\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Eliminar proyecto </span>\n</button>"
+  },
+  {
+    "titulo": "Acción no disponible",
+    "html": "<button type=\"button\" disabled=\"\" class=\"ts button size-md variant-primary\">\n  <span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n  <span data-ts-content=\"\"> Desplegar </span>\n</button>"
+  }
+]

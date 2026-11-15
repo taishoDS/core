@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Card with a glow that follows the pointer",
+    "html": "<div class=\"ts card variant-default padding-lg has-glow\" data-ts-spotlight=\"\">\n  <span data-card-spotlight=\"\" aria-hidden=\"true\"></span>\n  <h3 class=\"ts type-heading-20\">Pro plan · 12 seats</h3>\n  <p class=\"ts type-copy-14 color-subtle\">Includes the Production and Staging environments.</p>\n</div>"
+  }
+]

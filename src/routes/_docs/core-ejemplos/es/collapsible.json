@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Detalles de un despliegue",
+    "html": "<div class=\"ts collapsible\" data-ts-accordion=\"\">\n  <details data-ts-accordion-item=\"\" data-ts-value=\"collapsible\">\n    <summary\n      class=\"ts collapsible-trigger\"\n      data-ts-accordion-trigger=\"\"\n      aria-controls=\"ts-collapsible-s1\"\n    >\n      <span>Detalles del despliegue</span>\n      <span data-collapsible-icon=\"\" aria-hidden=\"true\"\n        ><svg\n          xmlns=\"http://www.w3.org/2000/svg\"\n          width=\"16\"\n          height=\"16\"\n          viewBox=\"0 0 24 24\"\n          fill=\"none\"\n          stroke=\"currentColor\"\n          stroke-width=\"2\"\n          stroke-linecap=\"round\"\n          stroke-linejoin=\"round\"\n          class=\"ts icon icon-16\"\n        >\n          <path d=\"m6 9 6 6 6-6\" /></svg\n      ></span>\n    </summary>\n    <div\n      id=\"ts-collapsible-s1\"\n      class=\"ts collapsible-content\"\n      role=\"region\"\n      data-ts-accordion-content=\"\"\n    >\n      <p class=\"ts type-copy-14 color-subtle\">Construido en 2 min 14 s desde la rama principal.</p>\n    </div>\n  </details>\n</div>"
+  }
+]

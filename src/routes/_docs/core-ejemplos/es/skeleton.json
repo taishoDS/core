@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Marcadores de carga de texto",
+    "html": "<div class=\"ts skeleton variant-text h-24 w-1/2\" aria-hidden=\"true\"></div>\n<div class=\"ts skeleton variant-text h-14\" aria-hidden=\"true\"></div>\n<div class=\"ts skeleton variant-text h-14 w-3/4\" aria-hidden=\"true\"></div>"
+  }
+]

@@ -1,0 +1,24 @@
+{
+	// Sólo emite los `.d.ts` del CLI/API pública de la Entrega B (src/generate,
+	// src/generate-cli, src/bin), para el paquete `@taishods/core` (dist-core/).
+	// El JS lo produce esbuild (ver scripts/build-core-package.ts); acá sólo
+	// interesan los tipos para `exports['./generate'].types`.
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"strict": true,
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		// `naming-emitidos.ts` lo importa Node sin bundler (type-stripping), así que sus imports llevan la extensión `.ts`.
+		"allowImportingTsExtensions": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"types": ["node"],
+		"rootDir": "src",
+		"outDir": "dist-core/types"
+	},
+	"include": ["src/generate/**/*.ts", "src/generate-cli/**/*.ts", "src/bin/**/*.ts", "src/config/taisho.types.ts"],
+	"exclude": ["src/generate/**/*.test.ts", "src/generate-cli/**/*.test.ts", "**/*.fixture.ts"]
+}

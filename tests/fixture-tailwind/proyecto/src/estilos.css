@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+	--color-brand-500: #4f46e5;
+	--color-sunset-500: #f97316;
+}
+
+.btn {
+	@apply rounded-lg bg-blue-500 px-4 py-2 text-white;
+}
+
+.chip {
+	@apply inline-flex items-center gap-1 rounded-full px-2 text-sm md:px-3;
+}

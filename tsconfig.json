@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"types": ["node", "vite/client"],
+		"paths": {
+			"@taishods/core": ["./src/lib/theme/createTheme.ts"],
+			"@taishods/core/vite": ["./src/generate-cli/vite.ts"],
+			"@taishods/core/classes": ["./src/lib/types/classes.d.ts"],
+			"@taishods/core/generate": ["./src/generate/index.ts"],
+			"@taishods/core/density": ["./src/lib/theme/density.ts"],
+			"@taishods/core/motion-scale": ["./src/lib/theme/motion-scale.ts"],
+			"@taishods/core/icon-utils": ["./src/generate/icon-utils.ts"],
+			"@taishods/core/lucide-aliases": ["./src/generate/lucide-aliases.ts"]
+		}
+	},
+	"include": ["src", "scripts"]
+}

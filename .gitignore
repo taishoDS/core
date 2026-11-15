@@ -1,0 +1,11 @@
+node_modules/
+dist-core/
+.core-directo/
+.corte-ensayo
+*.log
+.DS_Store
+src/lib/css/*
+!src/lib/css/manifiesto-componentes.json
+src/lib/tokens/
+src/lib/types/
+src/lib/icons-internal.ts

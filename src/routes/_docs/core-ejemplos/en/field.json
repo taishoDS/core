@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Required field with hint",
+    "html": "<div class=\"ts max-w-screen-sm\">\n  <div class=\"ts input-wrapper\">\n    <label id=\"ts-field-s1-label\" for=\"ts-field-s1\" class=\"ts input-label\"\n      >Billing email<span class=\"ts required-indicator\" aria-hidden=\"true\">*</span></label\n    >\n    <div class=\"ts input-wrapper\">\n      <div class=\"ts input size-md variant-default\" data-ts-input=\"\">\n        <input\n          id=\"ts-field-s1\"\n          value=\"\"\n          type=\"email\"\n          required=\"\"\n          class=\"ts input-field\"\n          aria-describedby=\"ts-field-s1-message\"\n          placeholder=\"ada@example.com\"\n        />\n        <div class=\"ts input-actions\">\n          <span class=\"ts input-loading\" data-ts-field-spinner=\"\" hidden=\"\"\n            ><span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Loading…\"></span\n          ></span>\n        </div>\n      </div>\n    </div>\n    <div class=\"ts input-footer\">\n      <div id=\"ts-field-s1-message\" class=\"ts input-hint variant-default\">\n        <span>We’ll send the receipt there.</span>\n      </div>\n    </div>\n  </div>\n</div>"
+  }
+]

@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Lista vacía con acción",
+    "html": "<div class=\"ts empty-state\">\n  <span class=\"ts empty-state-icon\" aria-hidden=\"true\"\n    ><svg\n      xmlns=\"http://www.w3.org/2000/svg\"\n      width=\"32\"\n      height=\"32\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      stroke-width=\"2\"\n      stroke-linecap=\"round\"\n      stroke-linejoin=\"round\"\n      class=\"ts icon icon-32\"\n    >\n      <polyline points=\"22 12 16 12 14 15 10 15 8 12 2 12\" />\n      <path\n        d=\"M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z\"\n      /></svg\n  ></span>\n  <p class=\"ts empty-state-title\">Todavía no hay despliegues</p>\n  <p class=\"ts empty-state-description\">Cuando se lance el primero, aparecerá en esta lista.</p>\n  <div class=\"ts empty-state-actions\">\n    <a href=\"#\" class=\"ts button size-md variant-primary\"\n      ><span data-ts-spinner=\"\"><span class=\"ts spinner size-sm\" aria-hidden=\"true\"></span></span>\n      <span data-ts-content=\"\"> Crear despliegue </span></a\n    >\n  </div>\n</div>"
+  }
+]

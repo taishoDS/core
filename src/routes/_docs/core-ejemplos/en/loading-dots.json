@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Saving indicator",
+    "html": "<p class=\"ts type-copy-14\">\n  Saving<span class=\"ts loading-dots size-md\" role=\"status\" aria-label=\"Loading…\"\n    ><span></span> <span></span> <span></span\n  ></span>\n</p>"
+  }
+]

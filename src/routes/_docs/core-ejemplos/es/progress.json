@@ -1,0 +1,26 @@
+[
+  {
+    "titulo": "Barra con etiqueta",
+    "html": "<div\n  class=\"ts progress size-md variant-default\"\n  role=\"progressbar\"\n  aria-label=\"Subiendo\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"35\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"35\"></div>\n</div>"
+  },
+  {
+    "titulo": "Variante de éxito",
+    "html": "<div\n  class=\"ts progress size-md variant-success\"\n  role=\"progressbar\"\n  aria-label=\"Progreso\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"80\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"80\"></div>\n</div>"
+  },
+  {
+    "titulo": "Indeterminada",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-indeterminate\"\n  role=\"progressbar\"\n  aria-label=\"Progreso\"\n>\n  <div data-progress-fill=\"\"></div>\n</div>"
+  },
+  {
+    "titulo": "Por pasos",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-steps\"\n  role=\"progressbar\"\n  aria-label=\"Asientos en uso\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"5\"\n  aria-valuenow=\"3\"\n  aria-valuetext=\"3 de 5\"\n>\n  <span data-progress-step=\"\" class=\"is-filled\"></span\n  ><span data-progress-step=\"\" class=\"is-filled\"></span\n  ><span data-progress-step=\"\" class=\"is-filled\"></span><span data-progress-step=\"\"></span\n  ><span data-progress-step=\"\"></span>\n</div>"
+  },
+  {
+    "titulo": "Por segmentos",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-stacked\"\n  role=\"progressbar\"\n  aria-label=\"Cuota del plan Pro\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"60\"\n  aria-valuetext=\"Usado 40, Reservado 20 de 100\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"40\" class=\"variant-brand\"></div>\n  <div data-progress-fill=\"\" data-ts-value=\"20\" class=\"variant-warning\"></div>\n</div>"
+  },
+  {
+    "titulo": "Circular con valor",
+    "html": "<div\n  class=\"ts progress size-md variant-default shape-circle\"\n  role=\"progressbar\"\n  aria-label=\"Despliegue de API de pagos\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"72\"\n>\n  <svg viewBox=\"0 0 100 100\" aria-hidden=\"true\" focusable=\"false\">\n    <circle data-progress-track=\"\" cx=\"50\" cy=\"50\" r=\"45\" stroke-width=\"10\"></circle>\n    <circle\n      data-progress-arc=\"\"\n      cx=\"50\"\n      cy=\"50\"\n      r=\"45\"\n      stroke-width=\"10\"\n      pathLength=\"100\"\n      stroke-dasharray=\"72 100\"\n    ></circle></svg\n  ><span data-progress-value=\"\">72%</span>\n</div>"
+  }
+]

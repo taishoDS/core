@@ -1,0 +1,9 @@
+---
+import modal from '../modal.html?raw';
+import select from '../select.html?raw';
+const { titulo, enlace, texto } = Astro.props;
+---
+<h1 class="ts type-heading-36">{titulo}</h1>
+<a href={enlace} class="ts link" id="ir-otra">{texto}</a>
+<Fragment set:html={modal} />
+<Fragment set:html={select} />

@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Registro de actividad con scroll",
+    "html": "<div tabindex=\"0\" class=\"ts scroll-area orientation-vertical max-h-160\" data-ts-max-height=\"160px\">\n  <div class=\"ts flex flex-col gap-half p-half\">\n    <p class=\"ts type-copy-14\">Ana Torres desplegó «Panel de control» en Producción.</p>\n    <p class=\"ts type-copy-14\">Bruno Díaz canceló un despliegue de «Sitio marketing».</p>\n    <p class=\"ts type-copy-14\">Carla Ruiz aprobó los cambios de «API de pagos».</p>\n    <p class=\"ts type-copy-14\">Diego Sosa movió «App móvil» a Staging.</p>\n    <p class=\"ts type-copy-14\">Elena Vega invitó a un nuevo miembro como Lector.</p>\n    <p class=\"ts type-copy-14\">El despliegue de «Data pipeline» quedó en cola.</p>\n  </div>\n</div>"
+  }
+]

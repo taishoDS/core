@@ -1,0 +1,182 @@
+<div class="ts flex flex-col gap-double">
+  <div class="ts max-w-screen-sm">
+    <div class="ts slider size-md" data-ts-slider="">
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s1-label" for="ts-slider-s1"
+          >Límite de asientos</label
+        >
+      </div>
+      <input
+        id="ts-slider-s1"
+        type="range"
+        class="ts slider-track size-md"
+        min="0"
+        max="100"
+        step="1"
+        value="40"
+        aria-label="Límite de asientos"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="40"
+      />
+    </div>
+  </div>
+  <div class="ts max-w-screen-sm flex flex-col gap-base">
+    <div
+      class="ts slider size-md is-range"
+      data-ts-slider=""
+      data-ts-slider-range=""
+      data-ts-slider-format="{v} USD"
+      role="group"
+      aria-labelledby="ts-slider-s2-label"
+    >
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s2-label" for="ts-slider-s2"
+          >Rango de precio</label
+        >
+        <span class="ts slider-value" data-ts-slider-value="">⁨20 USD⁩ – ⁨80 USD⁩</span>
+      </div>
+      <div class="ts slider-range size-md" data-ts-slider-rail="">
+        <input
+          id="ts-slider-s2"
+          type="range"
+          class="ts slider-track size-md is-start"
+          min="0"
+          max="100"
+          step="5"
+          name="precio-desde"
+          value="20"
+          data-ts-slider-thumb="0"
+          aria-label="Mínimo"
+          aria-labelledby="ts-slider-s2-label ts-slider-s2"
+          aria-valuemin="0"
+          aria-valuemax="80"
+          aria-valuenow="20"
+          aria-valuetext="20 USD"
+        />
+        <input
+          id="ts-slider-s2-end"
+          type="range"
+          class="ts slider-track size-md is-end"
+          min="0"
+          max="100"
+          step="5"
+          name="precio-hasta"
+          value="80"
+          data-ts-slider-thumb="1"
+          aria-label="Máximo"
+          aria-labelledby="ts-slider-s2-label ts-slider-s2-end"
+          aria-valuemin="20"
+          aria-valuemax="100"
+          aria-valuenow="80"
+          aria-valuetext="80 USD"
+        />
+      </div>
+      <div class="ts slider-marks"><span>0</span> <span>100</span></div>
+    </div>
+    <div class="ts slider size-md is-vertical" data-ts-slider="" data-ts-slider-format="{v}%">
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s3-label" for="ts-slider-s3">Capacidad</label>
+        <span class="ts slider-value" data-ts-slider-value="">60%</span>
+      </div>
+      <input
+        id="ts-slider-s3"
+        type="range"
+        class="ts slider-track size-md"
+        min="0"
+        max="100"
+        step="1"
+        value="60"
+        aria-label="Capacidad"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="60"
+        aria-valuetext="60%"
+        aria-orientation="vertical"
+      />
+    </div>
+    <div class="ts slider size-md is-readonly" data-ts-slider="" data-ts-slider-format="{v}%">
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s4-label" for="ts-slider-s4"
+          >Cuota de uso</label
+        >
+        <span class="ts slider-value" data-ts-slider-value="">65%</span>
+      </div>
+      <input
+        id="ts-slider-s4"
+        type="range"
+        class="ts slider-track size-md"
+        min="0"
+        max="100"
+        step="1"
+        name="cuota-uso"
+        value="65"
+        aria-label="Cuota de uso"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="65"
+        aria-valuetext="65%"
+        aria-readonly="true"
+      />
+    </div>
+    <div
+      class="ts slider size-md"
+      data-ts-slider=""
+      data-ts-slider-format="{v} asientos"
+      data-ts-slider-values="5,10,25,50,100,250"
+    >
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s5-label" for="ts-slider-s5"
+          >Asientos del plan</label
+        >
+        <span class="ts slider-value" data-ts-slider-value="">25 asientos</span>
+      </div>
+      <div class="ts slider-ticks" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <input
+        id="ts-slider-s5"
+        type="range"
+        class="ts slider-track size-md"
+        min="0"
+        max="5"
+        step="1"
+        value="2"
+        aria-label="Asientos del plan"
+        aria-valuemin="5"
+        aria-valuemax="250"
+        aria-valuenow="25"
+        aria-valuetext="25 asientos"
+      />
+      <input type="hidden" name="asientos-plan" value="25" />
+      <div class="ts slider-marks"><span>5 asientos</span> <span>250 asientos</span></div>
+    </div>
+    <div
+      class="ts slider size-md"
+      data-ts-slider=""
+      data-ts-slider-format="{v} asientos"
+      data-ts-slider-values="5,25,100"
+      data-ts-slider-valuetexts="5 asientos, Free|25 asientos, Pro|100 asientos, Enterprise"
+    >
+      <div class="ts slider-header">
+        <label class="ts slider-label" id="ts-slider-s6-label" for="ts-slider-s6">Plan</label>
+        <span class="ts slider-value" data-ts-slider-value="">25 asientos</span>
+      </div>
+      <div class="ts slider-ticks" aria-hidden="true"><span></span><span></span><span></span></div>
+      <input
+        id="ts-slider-s6"
+        type="range"
+        class="ts slider-track size-md"
+        min="0"
+        max="2"
+        step="1"
+        value="1"
+        aria-label="Plan"
+        aria-valuemin="5"
+        aria-valuemax="100"
+        aria-valuenow="25"
+        aria-valuetext="25 asientos, Pro"
+      />
+    </div>
+  </div>
+</div>

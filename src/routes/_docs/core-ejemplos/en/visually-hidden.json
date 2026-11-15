@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Text for screen readers only",
+    "html": "<p class=\"ts type-copy-14\">\n  This text is visible.<span class=\"ts sr-only\">And only a screen reader reads this one.</span>\n</p>"
+  }
+]

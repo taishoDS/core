@@ -1,0 +1,76 @@
+<div class="ts flex flex-col gap-base">
+  <div
+    class="ts progress size-md variant-default"
+    role="progressbar"
+    aria-label="Subiendo"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="35"
+  >
+    <div data-progress-fill="" data-ts-value="35"></div>
+  </div>
+  <div
+    class="ts progress size-md variant-success"
+    role="progressbar"
+    aria-label="Progreso"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="80"
+  >
+    <div data-progress-fill="" data-ts-value="80"></div>
+  </div>
+  <div
+    class="ts progress size-md variant-default is-indeterminate"
+    role="progressbar"
+    aria-label="Progreso"
+  >
+    <div data-progress-fill=""></div>
+  </div>
+  <div
+    class="ts progress size-md variant-default is-steps"
+    role="progressbar"
+    aria-label="Asientos en uso"
+    aria-valuemin="0"
+    aria-valuemax="5"
+    aria-valuenow="3"
+    aria-valuetext="3 de 5"
+  >
+    <span data-progress-step="" class="is-filled"></span
+    ><span data-progress-step="" class="is-filled"></span
+    ><span data-progress-step="" class="is-filled"></span><span data-progress-step=""></span
+    ><span data-progress-step=""></span>
+  </div>
+  <div
+    class="ts progress size-md variant-default is-stacked"
+    role="progressbar"
+    aria-label="Cuota del plan Pro"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="60"
+    aria-valuetext="Usado 40, Reservado 20 de 100"
+  >
+    <div data-progress-fill="" data-ts-value="40" class="variant-brand"></div>
+    <div data-progress-fill="" data-ts-value="20" class="variant-warning"></div>
+  </div>
+  <div
+    class="ts progress size-md variant-default shape-circle"
+    role="progressbar"
+    aria-label="Despliegue de API de pagos"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="72"
+  >
+    <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <circle data-progress-track="" cx="50" cy="50" r="45" stroke-width="10"></circle>
+      <circle
+        data-progress-arc=""
+        cx="50"
+        cy="50"
+        r="45"
+        stroke-width="10"
+        pathLength="100"
+        stroke-dasharray="72 100"
+      ></circle></svg
+    ><span data-progress-value="">72%</span>
+  </div>
+</div>

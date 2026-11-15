@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Página de layout (sólo utilidades)</title>
+</head>
+<body class="ts bg-gray-100 color-gray-900">
+  <header class="ts flex items-center justify-between gap-base px-24 py-16 bg-gray-200 sticky top-0">
+    <a href="/" class="ts text-20 weight-bold tracking-tight">Marca</a>
+    <nav class="ts hidden md:flex gap-base text-14 weight-medium">
+      <a href="#a" class="ts color-gray-700">Producto</a>
+      <a href="#b" class="ts color-gray-700">Precios</a>
+      <a href="#c" class="ts color-gray-700">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="ts max-w-1024 mx-auto p-24">
+    <section class="ts flex flex-col md:flex-row items-center gap-double py-48">
+      <div class="ts flex flex-col gap-base md:w-1/2">
+        <h1 class="ts text-36 lg:text-48 weight-bold leading-tight tracking-tighter">Un título de portada</h1>
+        <p class="ts text-18 leading-28 color-gray-700">Una bajada que explica la propuesta en dos renglones, sin ningún componente.</p>
+        <div class="ts flex flex-wrap gap-half">
+          <a href="#x" class="ts px-20 py-8 radius-md bg-gray-900 color-gray-100 weight-medium">Empezar</a>
+          <a href="#y" class="ts px-20 py-8 radius-md border border-gray-300 weight-medium">Ver más</a>
+        </div>
+      </div>
+      <div class="ts w-full md:w-1/2 aspect-video radius-xl bg-gray-300 overflow-hidden relative">
+        <span class="ts absolute top-12 start-12 px-8 py-4 radius-full bg-gray-100 text-12 uppercase tracking-wide">Nuevo</span>
+      </div>
+    </section>
+
+    <section class="ts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-base py-32">
+      <article class="ts flex flex-col gap-half p-24 radius-lg bg-gray-200 shadow-sm">
+        <h2 class="ts text-20 weight-semibold">Primera tarjeta</h2>
+        <p class="ts text-14 leading-18 color-gray-600 line-clamp-3">Texto de la tarjeta que se corta a las tres líneas cuando es demasiado largo para el espacio disponible.</p>
+      </article>
+      <article class="ts flex flex-col gap-half p-24 radius-lg bg-gray-200 shadow-sm">
+        <h2 class="ts text-20 weight-semibold">Segunda tarjeta</h2>
+        <p class="ts text-14 leading-18 color-gray-600 truncate">Una línea que se trunca con puntos suspensivos</p>
+      </article>
+      <article class="ts flex flex-col gap-half p-24 radius-lg bg-gray-200 shadow-sm md:col-span-2 lg:col-span-1">
+        <h2 class="ts text-20 weight-semibold">Tercera tarjeta</h2>
+        <p class="ts text-14 leading-18 color-gray-600">Ocupa dos columnas en tablet y una en escritorio.</p>
+      </article>
+    </section>
+
+    <section class="ts cq py-32">
+      <div class="ts grid grid-cols-1 @md:grid-cols-2 gap-base">
+        <div class="ts p-16 radius-md border border-gray-300 text-14">Panel que reacciona a su contenedor, no al viewport.</div>
+        <div class="ts p-16 radius-md border border-gray-300 text-14 align-center">Segundo panel, centrado.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ts flex flex-col md:flex-row justify-between gap-base px-24 py-32 bg-gray-900 color-gray-100 text-14">
+    <p>Pie de página</p>
+    <ul class="ts flex gap-base items-center">
+      <li><a href="#t" class="ts underline">Términos</a></li>
+      <li><a href="#p" class="ts underline">Privacidad</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<div
+  class="ts file-upload"
+  data-ts-file-upload=""
+  data-ts-max-size="2000000"
+  data-ts-file-error-size="Demasiado grande (máx. 1.9 MB)"
+>
+  <input
+    type="file"
+    data-ts-file-input=""
+    class="ts sr-only"
+    tabindex="-1"
+    aria-label="Adjuntos"
+    accept=""
+    multiple=""
+  />
+  <div class="ts file-upload-zone">
+    <div class="ts file-upload-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="ts icon icon-32"
+      >
+        <path d="M12 3v12" />
+        <path d="m17 8-5-5-5 5" />
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+      </svg>
+    </div>
+    <p class="ts file-upload-title">Arrastrar archivos aquí o usar el botón</p>
+    <p class="ts file-upload-hint">Adjuntos</p>
+    <p class="ts file-upload-hint">Hasta 2 MB por archivo</p>
+    <button type="button" class="ts button size-sm variant-secondary" data-ts-file-trigger="">
+      <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+      <span data-ts-content=""
+        ><span data-ts-icon-prefix=""
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-16"
+          >
+            <path d="M12 3v12" />
+            <path d="m17 8-5-5-5 5" />
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /></svg
+        ></span>
+        Seleccionar archivos
+      </span>
+    </button>
+  </div>
+  <ul class="ts file-upload-list" role="list" data-ts-file-list="" hidden=""></ul>
+  <template data-ts-file-template=""
+    ><li class="ts file-upload-item">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="ts icon icon-20"
+      >
+        <path
+          d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+        />
+        <path d="M14 2v5a1 1 0 0 0 1 1h5" />
+      </svg>
+      <div data-file-info=""><span data-file-name=""></span> <span data-file-size=""></span></div>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only flex-shrink-0"
+        data-file-remove="true"
+        aria-label="Quitar {nombre}"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-14"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button></li
+  ></template>
+  <template data-ts-file-error-icon=""
+    ><svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="ts icon icon-20"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" x2="12" y1="8" y2="12" />
+      <line x1="12" x2="12.01" y1="16" y2="16" /></svg
+  ></template>
+</div>

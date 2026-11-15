@@ -1,0 +1,10 @@
+[
+  {
+    "titulo": "Internal and external links",
+    "html": "<p class=\"ts type-copy-14\">\n  Read the <a class=\"ts link\" href=\"#\">docs</a> or check out the\n  <a class=\"ts link\" href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">repository</a>.\n</p>"
+  },
+  {
+    "titulo": "Link that runs an action",
+    "html": "<p class=\"ts type-copy-14\">\n  We couldn’t process the payment. <button type=\"button\" class=\"ts link\">Try again</button>\n</p>"
+  }
+]

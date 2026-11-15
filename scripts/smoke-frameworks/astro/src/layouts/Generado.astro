@@ -1,0 +1,21 @@
+---
+// El Core como lo deja `taisho generate`: taisho/{fonts,theme,taisho}.css y taisho/taisho.core.js
+import { ClientRouter } from 'astro:transitions';
+import '../../taisho/fonts.css';
+import '../../taisho/theme.css';
+import '../../taisho/taisho.css';
+const { router = false } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smoke Astro</title>
+  {router && <ClientRouter />}
+</head>
+<body class="ts flex flex-col items-start gap-base p-double">
+  <slot />
+  <script>import '../../taisho/taisho.core.js';</script>
+</body>
+</html>

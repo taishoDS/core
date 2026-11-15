@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Campo obligatorio con ayuda",
+    "html": "<div class=\"ts max-w-screen-sm\">\n  <div class=\"ts input-wrapper\">\n    <label id=\"ts-field-s1-label\" for=\"ts-field-s1\" class=\"ts input-label\"\n      >Correo de facturación<span class=\"ts required-indicator\" aria-hidden=\"true\">*</span></label\n    >\n    <div class=\"ts input-wrapper\">\n      <div class=\"ts input size-md variant-default\" data-ts-input=\"\">\n        <input\n          id=\"ts-field-s1\"\n          value=\"\"\n          type=\"email\"\n          required=\"\"\n          class=\"ts input-field\"\n          aria-describedby=\"ts-field-s1-message\"\n          placeholder=\"ada@ejemplo.com\"\n        />\n        <div class=\"ts input-actions\">\n          <span class=\"ts input-loading\" data-ts-field-spinner=\"\" hidden=\"\"\n            ><span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Cargando...\"></span\n          ></span>\n        </div>\n      </div>\n    </div>\n    <div class=\"ts input-footer\">\n      <div id=\"ts-field-s1-message\" class=\"ts input-hint variant-default\">\n        <span>Ahí te mandamos el comprobante.</span>\n      </div>\n    </div>\n  </div>\n</div>"
+  }
+]

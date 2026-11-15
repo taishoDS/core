@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Account details in a popover",
+    "html": "<div class=\"ts popover-root\">\n  <button\n    type=\"button\"\n    class=\"ts button size-md variant-secondary\"\n    popovertarget=\"ts-popover-s1\"\n    aria-haspopup=\"dialog\"\n    aria-expanded=\"false\"\n  >\n    View details\n  </button>\n  <div\n    id=\"ts-popover-s1\"\n    popover=\"auto\"\n    class=\"ts popover placement-bottom-start is-anchored\"\n    role=\"dialog\"\n    aria-modal=\"false\"\n    aria-label=\"Account details\"\n    tabindex=\"-1\"\n  >\n    <p class=\"ts type-copy-14\">Your Pro plan renews on September 3.</p>\n  </div>\n</div>"
+  }
+]

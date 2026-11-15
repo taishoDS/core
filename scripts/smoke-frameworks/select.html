@@ -1,0 +1,102 @@
+<div class="ts select-wrapper">
+    <span id="ts-select-s1-label" class="ts select-label">Invitar como</span>
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="invitar-como"
+        aria-labelledby="ts-select-s1-label"
+      >
+        <option value="" selected="">Elegir un rol</option>
+        <option value="admin" disabled="">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="lector">Lector</option>
+              </select>
+      <button
+        id="ts-select-s1"
+        type="button"
+        hidden=""
+        class="ts select-field is-placeholder"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s1-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s1-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir un rol"
+          data-ts-count-suffix="seleccionados"
+          >Elegir un rol</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="invitar-como" value="" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s1-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Invitar como"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-disabled"
+          role="option"
+          data-ts-value="admin"
+          aria-selected="false"
+          aria-disabled="true"
+          disabled=""
+        >
+          <span data-select-option-label="">Admin</span></button
+        ><button
+          id="ts-select-s1-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="editor"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Editor</span></button
+        ><button
+          id="ts-select-s1-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="lector"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Lector</span>
+        </button>
+      </div>
+    </div>
+  </div>

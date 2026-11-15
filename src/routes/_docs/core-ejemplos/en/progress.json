@@ -1,0 +1,26 @@
+[
+  {
+    "titulo": "Bar with label",
+    "html": "<div\n  class=\"ts progress size-md variant-default\"\n  role=\"progressbar\"\n  aria-label=\"Uploading\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"35\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"35\"></div>\n</div>"
+  },
+  {
+    "titulo": "Success variant",
+    "html": "<div\n  class=\"ts progress size-md variant-success\"\n  role=\"progressbar\"\n  aria-label=\"Progress\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"80\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"80\"></div>\n</div>"
+  },
+  {
+    "titulo": "Indeterminate",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-indeterminate\"\n  role=\"progressbar\"\n  aria-label=\"Progress\"\n>\n  <div data-progress-fill=\"\"></div>\n</div>"
+  },
+  {
+    "titulo": "Steps",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-steps\"\n  role=\"progressbar\"\n  aria-label=\"Seats in use\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"5\"\n  aria-valuenow=\"3\"\n  aria-valuetext=\"3 of 5\"\n>\n  <span data-progress-step=\"\" class=\"is-filled\"></span\n  ><span data-progress-step=\"\" class=\"is-filled\"></span\n  ><span data-progress-step=\"\" class=\"is-filled\"></span><span data-progress-step=\"\"></span\n  ><span data-progress-step=\"\"></span>\n</div>"
+  },
+  {
+    "titulo": "Segments",
+    "html": "<div\n  class=\"ts progress size-md variant-default is-stacked\"\n  role=\"progressbar\"\n  aria-label=\"Pro plan quota\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"60\"\n  aria-valuetext=\"Used 40, Reserved 20 of 100\"\n>\n  <div data-progress-fill=\"\" data-ts-value=\"40\" class=\"variant-brand\"></div>\n  <div data-progress-fill=\"\" data-ts-value=\"20\" class=\"variant-warning\"></div>\n</div>"
+  },
+  {
+    "titulo": "Circular with value",
+    "html": "<div\n  class=\"ts progress size-md variant-default shape-circle\"\n  role=\"progressbar\"\n  aria-label=\"Payments API deployment\"\n  aria-valuemin=\"0\"\n  aria-valuemax=\"100\"\n  aria-valuenow=\"72\"\n>\n  <svg viewBox=\"0 0 100 100\" aria-hidden=\"true\" focusable=\"false\">\n    <circle data-progress-track=\"\" cx=\"50\" cy=\"50\" r=\"45\" stroke-width=\"10\"></circle>\n    <circle\n      data-progress-arc=\"\"\n      cx=\"50\"\n      cy=\"50\"\n      r=\"45\"\n      stroke-width=\"10\"\n      pathLength=\"100\"\n      stroke-dasharray=\"72 100\"\n    ></circle></svg\n  ><span data-progress-value=\"\">72%</span>\n</div>"
+  }
+]

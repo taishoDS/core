@@ -1,0 +1,210 @@
+<button
+  type="button"
+  class="ts button size-md variant-primary"
+  commandfor="ts-modal-demo"
+  command="show-modal"
+>
+  Invitar a Ana Torres
+</button>
+<dialog
+  id="ts-modal-demo"
+  closedby="any"
+  class="ts modal-dialog"
+  aria-labelledby="ts-modal-title-s1"
+>
+  <div class="ts modal size-md">
+    <div class="ts modal-header">
+      <h2 id="ts-modal-title-s1" class="ts modal-title">Invitar a Ana Torres al equipo</h2>
+      <button
+        type="button"
+        class="ts button size-sm variant-tertiary shape-square is-icon-only flex-shrink-0"
+        aria-label="Cerrar"
+        commandfor="ts-modal-demo"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-18"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">Va a poder ver y editar los proyectos de Producción y Staging.</p>
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-secondary"
+        commandfor="ts-modal-demo"
+        command="close"
+      >
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="ts button size-md variant-primary"
+        commandfor="ts-modal-demo"
+        command="close"
+      >
+        Invitar
+      </button>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-secondary"
+  commandfor="ts-modal-rename"
+  command="show-modal"
+>
+  Renombrar el proyecto
+</button>
+<dialog
+  id="ts-modal-rename"
+  closedby="any"
+  class="ts modal-dialog responsive-sheet"
+  aria-labelledby="ts-modal-title-s2"
+>
+  <div class="ts modal size-md">
+    <div class="ts modal-header">
+      <h2 id="ts-modal-title-s2" class="ts modal-title">Renombrar el proyecto</h2>
+      <button
+        type="button"
+        class="ts button size-sm variant-tertiary shape-square is-icon-only flex-shrink-0"
+        aria-label="Cerrar"
+        commandfor="ts-modal-rename"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-18"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="ts modal-body">
+      <div class="ts input-wrapper">
+        <label class="ts input-label" for="ts-modal-rename-nombre">Nombre del proyecto</label>
+        <div class="ts input size-md variant-default">
+          <input
+            id="ts-modal-rename-nombre"
+            class="ts input-field"
+            value="Panel de control"
+            autofocus=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-secondary"
+  commandfor="ts-modal-plan"
+  command="show-modal"
+>
+  Cambiar de plan
+</button>
+<dialog
+  id="ts-modal-plan"
+  closedby="any"
+  class="ts modal-dialog"
+  aria-labelledby="ts-modal-plan-titulo"
+>
+  <div class="ts modal size-md">
+    <div class="ts modal-header">
+      <div class="ts flex flex-col gap-quarter">
+        <h2 id="ts-modal-plan-titulo" class="ts modal-title">Cambiar al plan Pro</h2>
+        <p class="ts type-copy-14 color-subtle">Panel de control</p>
+      </div>
+      <button
+        type="button"
+        class="ts button size-sm variant-tertiary shape-square is-icon-only flex-shrink-0"
+        aria-label="Cerrar"
+        commandfor="ts-modal-plan"
+        command="close"
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-18"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">El cambio se aplica en el próximo ciclo de facturación.</p>
+    </div>
+  </div>
+</dialog>
+<button
+  type="button"
+  class="ts button size-md variant-secondary"
+  commandfor="ts-modal-despliegue"
+  command="show-modal"
+>
+  Ver el despliegue en curso
+</button>
+<dialog
+  id="ts-modal-despliegue"
+  closedby="none"
+  class="ts modal-dialog"
+  aria-label="Despliegue en curso"
+>
+  <div class="ts modal size-md">
+    <div class="ts modal-body">
+      <p class="ts type-copy-14">
+        Construyendo «API de pagos» en Producción. Esta ventana queda abierta hasta que termine.
+      </p>
+    </div>
+    <div class="ts modal-footer">
+      <button
+        type="button"
+        class="ts button size-md variant-primary"
+        commandfor="ts-modal-despliegue"
+        command="close"
+      >
+        Entendido
+      </button>
+    </div>
+  </div>
+</dialog>

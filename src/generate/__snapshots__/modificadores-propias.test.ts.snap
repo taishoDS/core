@@ -1,0 +1,86 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`modificadores de propias: snapshot > los niveles: base, contexto, estados, group-hover y md:, con un modificador compuesto 1`] = `
+".mi-button {
+  padding: var(--ts-space-half);
+  background-color: var(--color-brand-700);
+}
+.mi-button:where(.destructive) {
+  background-color: var(--color-danger-700);
+}
+.mi-button:where(.outlined) {
+  background: transparent;
+  color: var(--color-brand-700);
+}
+.mi-button:where(.destructive.outlined) {
+  background: transparent;
+  color: var(--color-danger-700);
+}
+@media (width >= 48rem) {
+  .md\\:mi-button {
+  padding: var(--ts-space-half);
+  background-color: var(--color-brand-700);
+  }
+  .md\\:mi-button:where(.destructive) {
+  background-color: var(--color-danger-700);
+  }
+  .md\\:mi-button:where(.outlined) {
+  background: transparent;
+  color: var(--color-brand-700);
+  }
+  .md\\:mi-button:where(.destructive.outlined) {
+  background: transparent;
+  color: var(--color-danger-700);
+  }
+}
+}
+@layer utility-states {
+@media (hover: hover) {
+  .group-hover\\:mi-button:is(:where(.ts.group):hover *) {
+  padding: var(--ts-space-half);
+  background-color: var(--color-brand-700);
+  }
+  .group-hover\\:mi-button:where(.destructive):is(:where(.ts.group):hover *) {
+  background-color: var(--color-danger-700);
+  }
+  .group-hover\\:mi-button:where(.outlined):is(:where(.ts.group):hover *) {
+  background: transparent;
+  color: var(--color-brand-700);
+  }
+  .group-hover\\:mi-button:where(.destructive.outlined):is(:where(.ts.group):hover *) {
+  background: transparent;
+  color: var(--color-danger-700);
+  }
+  .group-hover\\:mi-button:is(:where(.ts.group):hover *):hover {
+  background-color: var(--color-brand-800);
+  }
+  .group-hover\\:mi-button:where(.destructive):is(:where(.ts.group):hover *):hover {
+  background-color: var(--color-danger-800);
+  }
+  .group-hover\\:mi-button:where(.destructive.outlined):is(:where(.ts.group):hover *):hover {
+  background-color: var(--color-danger-100);
+  }
+  .mi-button:hover {
+  background-color: var(--color-brand-800);
+  }
+  .mi-button:where(.destructive):hover {
+  background-color: var(--color-danger-800);
+  }
+  .mi-button:where(.destructive.outlined):hover {
+  background-color: var(--color-danger-100);
+  }
+}
+@media (width >= 48rem) and (hover: hover) {
+  .md\\:mi-button:hover {
+  background-color: var(--color-brand-800);
+  }
+  .md\\:mi-button:where(.destructive):hover {
+  background-color: var(--color-danger-800);
+  }
+  .md\\:mi-button:where(.destructive.outlined):hover {
+  background-color: var(--color-danger-100);
+  }
+}
+}
+"
+`;

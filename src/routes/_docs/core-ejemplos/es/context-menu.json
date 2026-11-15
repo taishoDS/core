@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Menú contextual sobre un proyecto",
+    "html": "<div data-ts-menu=\"\" data-ts-context-menu=\"\">\n  <div class=\"ts card p-base\">Clic derecho sobre «API de pagos».</div>\n  <div class=\"ts context-menu\" data-ts-menu-panel=\"\" hidden=\"\" role=\"menu\" tabindex=\"-1\">\n    <button\n      type=\"button\"\n      role=\"menuitem\"\n      class=\"ts menu-item\"\n      aria-disabled=\"false\"\n      data-ts-value=\"duplicar\"\n    >\n      Duplicar\n    </button>\n    <button\n      type=\"button\"\n      role=\"menuitem\"\n      class=\"ts menu-item\"\n      aria-disabled=\"false\"\n      data-ts-value=\"archivar\"\n    >\n      Archivar\n    </button>\n  </div>\n</div>"
+  }
+]

@@ -1,0 +1,128 @@
+<button type="button" class="ts button size-md variant-secondary" data-ts-command-open="">
+  Buscar un comando… ⌘K
+</button>
+<div data-ts-listbox="command" data-ts-command-palette="" data-ts-shortcut="k">
+  <dialog
+    data-ts-command-dialog=""
+    closedby="any"
+    class="ts command"
+    aria-label="Paleta de comandos"
+  >
+    <div class="ts command-input-wrapper">
+      <div class="ts input-wrapper flex-1">
+        <div class="ts input size-lg variant-bare" data-ts-input="">
+          <input
+            id="ts-input-s2"
+            value=""
+            type="text"
+            class="ts input-field"
+            data-ts-listbox-input=""
+            placeholder="Buscar comandos..."
+            aria-expanded="true"
+            aria-controls="ts-command-list-s1"
+            role="combobox"
+            aria-autocomplete="list"
+          />
+          <div class="ts input-actions">
+            <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+              ><span class="ts spinner size-md" role="status" aria-label="Cargando..."></span
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="ts-command-list-s1"
+      class="ts command-list"
+      data-ts-listbox-panel=""
+      role="listbox"
+      aria-label="Resultados"
+    >
+      <div
+        class="ts command-item"
+        role="option"
+        aria-selected="false"
+        data-ts-value="nuevo"
+        data-ts-keywords="crear añadir"
+      >
+        <span data-cmd-text=""><span data-cmd-label="">Nuevo archivo</span></span>
+      </div>
+      <div
+        class="ts command-item"
+        role="option"
+        aria-selected="false"
+        data-ts-value="abrir"
+        data-ts-keywords="cargar"
+      >
+        <span data-cmd-text=""><span data-cmd-label="">Abrir proyecto</span></span>
+      </div>
+      <div
+        class="ts command-item"
+        role="option"
+        aria-selected="false"
+        data-ts-value="ajustes"
+        data-ts-keywords="config"
+      >
+        <span data-cmd-text=""><span data-cmd-label="">Preferencias</span></span>
+      </div>
+    </div>
+    <div
+      class="ts command-empty"
+      data-ts-listbox-empty=""
+      data-ts-empty-for='Sin resultados para "{q}"'
+      hidden=""
+    >
+      No hay comandos disponibles
+    </div>
+  </dialog>
+</div>
+<p class="ts type-copy-14 color-subtle">
+  Sin comandos: probar <kbd class="ts kbd">⌘</kbd> <kbd class="ts kbd">J</kbd>.
+</p>
+<div data-ts-listbox="command" data-ts-command-palette="" data-ts-shortcut="j">
+  <dialog
+    data-ts-command-dialog=""
+    closedby="any"
+    class="ts command"
+    aria-label="Paleta de comandos"
+  >
+    <div class="ts command-input-wrapper">
+      <div class="ts input-wrapper flex-1">
+        <div class="ts input size-lg variant-bare" data-ts-input="">
+          <input
+            id="ts-input-s4"
+            value=""
+            type="text"
+            class="ts input-field"
+            data-ts-listbox-input=""
+            placeholder="Buscar comandos…"
+            aria-expanded="true"
+            aria-controls="ts-command-list-s3"
+            role="combobox"
+            aria-autocomplete="list"
+          />
+          <div class="ts input-actions">
+            <span class="ts input-loading" data-ts-field-spinner="" hidden=""
+              ><span class="ts spinner size-md" role="status" aria-label="Cargando..."></span
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      id="ts-command-list-s3"
+      class="ts command-list"
+      data-ts-listbox-panel=""
+      role="listbox"
+      aria-label="Resultados"
+    ></div>
+    <div
+      class="ts command-empty"
+      data-ts-listbox-empty=""
+      data-ts-empty-for='Sin resultados para "{q}"'
+      hidden=""
+    >
+      No hay comandos disponibles
+    </div>
+  </dialog>
+</div>

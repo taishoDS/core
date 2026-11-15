@@ -1,0 +1,1289 @@
+<div class="ts flex flex-col gap-base max-w-screen-sm">
+  <div class="ts select-wrapper">
+    <span id="ts-select-s1-label" class="ts select-label">Invitar como</span>
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="invitar-como"
+        aria-labelledby="ts-select-s1-label"
+      >
+        <option value="" selected="">Elegir un rol</option>
+        <option value="admin" disabled="">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="lector">Lector</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s1"
+        type="button"
+        hidden=""
+        class="ts select-field is-placeholder"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s1-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s1-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir un rol"
+          data-ts-count-suffix="seleccionados"
+          >Elegir un rol</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="invitar-como" value="" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s1-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Invitar como"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-disabled"
+          role="option"
+          data-ts-value="admin"
+          aria-selected="false"
+          aria-disabled="true"
+          disabled=""
+        >
+          <span data-select-option-label="">Admin</span></button
+        ><button
+          id="ts-select-s1-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="editor"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Editor</span></button
+        ><button
+          id="ts-select-s1-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="lector"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Lector</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s2-label" class="ts select-label">Proyecto</span>
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="proyecto"
+        aria-labelledby="ts-select-s2-label"
+      >
+        <option value="">Elegir un proyecto</option>
+        <option value="panel">Panel de control</option>
+        <option value="api-pagos" selected="">API de pagos</option>
+        <option value="marketing">Sitio marketing</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s2"
+        type="button"
+        hidden=""
+        class="ts select-field"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s2-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s2-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir un proyecto"
+          data-ts-count-suffix="seleccionados"
+          >API de pagos</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <button
+        type="button"
+        class="ts button size-xs variant-tertiary shape-square is-icon-only select-clear"
+        aria-label="Limpiar campo"
+        data-ts-clear=""
+        hidden=""
+      >
+        <span data-ts-spinner=""><span class="ts spinner size-sm" aria-hidden="true"></span></span>
+        <span data-ts-content="">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="ts icon icon-14"
+          >
+            <path d="M18 6 6 18" />
+            <path d="m6 6 12 12" />
+          </svg>
+        </span>
+      </button>
+      <input type="hidden" name="proyecto" value="api-pagos" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s2-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Proyecto"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s2-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="panel"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Panel de control</span></button
+        ><button
+          id="ts-select-s2-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="api-pagos"
+          aria-selected="true"
+        >
+          <span data-select-option-label="">API de pagos</span>
+          <span data-select-option-check=""
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-14"
+            >
+              <path d="M20 6 9 17l-5-5" /></svg
+          ></span></button
+        ><button
+          id="ts-select-s2-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="marketing"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Sitio marketing</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s3-label" class="ts select-label">Entorno</span>
+    <div
+      class="ts select size-md variant-default is-readonly"
+      data-ts-listbox="select"
+      data-ts-select=""
+    >
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="entorno"
+        aria-labelledby="ts-select-s3-label"
+      >
+        <option value="">Elegir una opción...</option>
+        <option value="produccion" disabled="">Producción</option>
+        <option value="staging" selected="">Staging</option>
+        <option value="desarrollo" disabled="">Desarrollo</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s3"
+        type="button"
+        hidden=""
+        class="ts select-field"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s3-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s3-listbox"
+        aria-readonly="true"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir una opción..."
+          data-ts-count-suffix="seleccionados"
+          >Staging</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="entorno" value="staging" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s3-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Entorno"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s3-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="produccion"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Producción</span></button
+        ><button
+          id="ts-select-s3-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="staging"
+          aria-selected="true"
+        >
+          <span data-select-option-label="">Staging</span>
+          <span data-select-option-check=""
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-14"
+            >
+              <path d="M20 6 9 17l-5-5" /></svg
+          ></span></button
+        ><button
+          id="ts-select-s3-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="desarrollo"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Desarrollo</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s4-label" class="ts select-label">Responsable</span>
+    <div
+      class="ts select size-md variant-default is-loading"
+      data-ts-listbox="select"
+      data-ts-select=""
+    >
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="responsable"
+        aria-labelledby="ts-select-s4-label"
+      >
+        <option value="" selected="">Cargando responsables</option>
+        <option value="ana">Ana Torres</option>
+        <option value="bruno">Bruno Díaz</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s4"
+        type="button"
+        hidden=""
+        class="ts select-field is-placeholder"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s4-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s4-listbox"
+        aria-busy="true"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Cargando responsables"
+          data-ts-count-suffix="seleccionados"
+          >Cargando responsables</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="responsable" value="" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s4-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Responsable"
+        aria-multiselectable="false"
+        aria-busy="true"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s4-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="ana"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Ana Torres</span></button
+        ><button
+          id="ts-select-s4-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="bruno"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Bruno Díaz</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s5-label" class="ts select-label">Notificar a</span>
+    <div
+      class="ts select size-md variant-default"
+      data-ts-listbox="select"
+      data-ts-select=""
+      data-ts-multiple=""
+    >
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="notificar"
+        multiple=""
+        aria-labelledby="ts-select-s5-label"
+      >
+        <option value="ana" selected="">Ana Torres</option>
+        <option value="bruno">Bruno Díaz</option>
+        <option value="carla" selected="">Carla Ruiz</option>
+        <option value="diego">Diego Sosa</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s5"
+        type="button"
+        hidden=""
+        class="ts select-field"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s5-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s5-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir personas"
+          data-ts-count-suffix="seleccionados"
+          >2 seleccionados</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="notificar" disabled="" data-ts-listbox-template="" />
+      <input
+        type="hidden"
+        name="notificar"
+        value="ana"
+        disabled=""
+        data-ts-listbox-value=""
+      /><input type="hidden" name="notificar" value="carla" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s5-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Notificar a"
+        aria-multiselectable="true"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s5-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="ana"
+          aria-selected="true"
+        >
+          <span
+            aria-hidden="true"
+            class="ts checkbox size-sm variant-primary is-checked"
+            data-select-option-checkbox="true"
+          >
+            <span class="ts checkbox-box"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-check"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-minus"
+              >
+                <path d="M5 12h14" /></svg
+            ></span>
+          </span>
+          <span data-select-option-label="">Ana Torres</span></button
+        ><button
+          id="ts-select-s5-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="bruno"
+          aria-selected="false"
+        >
+          <span
+            aria-hidden="true"
+            class="ts checkbox size-sm variant-primary"
+            data-select-option-checkbox="true"
+          >
+            <span class="ts checkbox-box"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-check"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-minus"
+              >
+                <path d="M5 12h14" /></svg
+            ></span>
+          </span>
+          <span data-select-option-label="">Bruno Díaz</span></button
+        ><button
+          id="ts-select-s5-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="carla"
+          aria-selected="true"
+        >
+          <span
+            aria-hidden="true"
+            class="ts checkbox size-sm variant-primary is-checked"
+            data-select-option-checkbox="true"
+          >
+            <span class="ts checkbox-box"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-check"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-minus"
+              >
+                <path d="M5 12h14" /></svg
+            ></span>
+          </span>
+          <span data-select-option-label="">Carla Ruiz</span></button
+        ><button
+          id="ts-select-s5-opt-3"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="diego"
+          aria-selected="false"
+        >
+          <span
+            aria-hidden="true"
+            class="ts checkbox size-sm variant-primary"
+            data-select-option-checkbox="true"
+          >
+            <span class="ts checkbox-box"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-check"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="ts icon icon-10 checkbox-icon checkbox-icon-minus"
+              >
+                <path d="M5 12h14" /></svg
+            ></span>
+          </span>
+          <span data-select-option-label="">Diego Sosa</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s10-label" class="ts select-label">Plan</span>
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="plan"
+        aria-labelledby="ts-select-s10-label"
+      >
+        <option value="" selected="">Elegir un plan</option>
+        <option value="free">Free</option>
+        <option value="pro">Pro</option>
+        <option value="enterprise">Enterprise</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s10"
+        type="button"
+        hidden=""
+        class="ts select-field is-placeholder"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s10-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s10-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir un plan"
+          data-ts-count-suffix="seleccionados"
+          >Elegir un plan</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="plan" value="" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s10-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Plan"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s10-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="free"
+          aria-selected="false"
+          aria-labelledby="ts-select-s10-optlabel-0"
+          aria-describedby="ts-select-s10-optdesc-0"
+        >
+          <span data-select-option-icon="" aria-hidden="true"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-16"
+            >
+              <path
+                d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"
+              />
+              <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" />
+              <path d="M5 21h14" /></svg
+          ></span>
+          <span data-select-option-text=""
+            ><span id="ts-select-s10-optlabel-0" data-select-option-label="">Free</span>
+            <span id="ts-select-s10-optdesc-0" data-select-option-description=""
+              >Para probar el workspace.</span
+            ></span
+          ></button
+        ><button
+          id="ts-select-s10-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="pro"
+          aria-selected="false"
+          aria-labelledby="ts-select-s10-optlabel-1"
+          aria-describedby="ts-select-s10-optdesc-1"
+        >
+          <span data-select-option-icon="" aria-hidden="true"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-16"
+            >
+              <path
+                d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"
+              /></svg
+          ></span>
+          <span data-select-option-text=""
+            ><span id="ts-select-s10-optlabel-1" data-select-option-label="">Pro</span>
+            <span id="ts-select-s10-optdesc-1" data-select-option-description=""
+              >Despliegues ilimitados para tu equipo.</span
+            ></span
+          ></button
+        ><button
+          id="ts-select-s10-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="enterprise"
+          aria-selected="false"
+          aria-labelledby="ts-select-s10-optlabel-2"
+          aria-describedby="ts-select-s10-optdesc-2"
+        >
+          <span data-select-option-icon="" aria-hidden="true"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-16"
+            >
+              <path d="M10 12h4" />
+              <path d="M10 8h4" />
+              <path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+              <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+              <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg
+          ></span>
+          <span data-select-option-text=""
+            ><span id="ts-select-s10-optlabel-2" data-select-option-label="">Enterprise</span>
+            <span id="ts-select-s10-optdesc-2" data-select-option-description=""
+              >SSO y soporte dedicado.</span
+            ></span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s11-label" class="ts select-label"
+      >Rol<span class="ts required-indicator" aria-hidden="true">*</span></span
+    >
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="rol"
+        required=""
+        aria-labelledby="ts-select-s11-label"
+        aria-describedby="ts-select-s11-hint"
+      >
+        <option value="">Elegir una opción...</option>
+        <option value="admin">Admin</option>
+        <option value="editor" selected="">Editor</option>
+        <option value="lector">Lector</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s11"
+        type="button"
+        hidden=""
+        class="ts select-field"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s11-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s11-listbox"
+        aria-required="true"
+        aria-describedby="ts-select-s11-hint"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir una opción..."
+          data-ts-count-suffix="seleccionados"
+          >Editor</span
+        >
+      </button>
+      <input
+        type="text"
+        class="ts required-proxy"
+        data-ts-required-proxy=""
+        tabindex="-1"
+        aria-hidden="true"
+        autocomplete="off"
+        required=""
+        disabled=""
+        value="editor"
+      />
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="rol" value="editor" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s11-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Rol"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s11-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="admin"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Admin</span></button
+        ><button
+          id="ts-select-s11-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="editor"
+          aria-selected="true"
+        >
+          <span data-select-option-label="">Editor</span>
+          <span data-select-option-check=""
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-14"
+            >
+              <path d="M20 6 9 17l-5-5" /></svg
+          ></span></button
+        ><button
+          id="ts-select-s11-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="lector"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Lector</span>
+        </button>
+      </div>
+    </div>
+    <div class="ts input-footer">
+      <div id="ts-select-s11-hint" class="ts input-hint variant-default">
+        <span>Define los permisos en el workspace.</span>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s12-label" class="ts select-label">Facturación</span>
+    <div
+      class="ts select size-md variant-default is-disabled"
+      data-ts-listbox="select"
+      data-ts-select=""
+    >
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="facturacion"
+        disabled=""
+        aria-labelledby="ts-select-s12-label"
+      >
+        <option value="">Elegir una opción...</option>
+        <option value="free">Free</option>
+        <option value="pro" selected="">Pro</option>
+        <option value="enterprise">Enterprise</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s12"
+        type="button"
+        disabled=""
+        hidden=""
+        class="ts select-field"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s12-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s12-listbox"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir una opción..."
+          data-ts-count-suffix="seleccionados"
+          >Pro</span
+        >
+      </button>
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="facturacion" value="pro" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s12-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Facturación"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s12-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="free"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Free</span></button
+        ><button
+          id="ts-select-s12-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option is-selected"
+          role="option"
+          data-ts-value="pro"
+          aria-selected="true"
+        >
+          <span data-select-option-label="">Pro</span>
+          <span data-select-option-check=""
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="ts icon icon-14"
+            >
+              <path d="M20 6 9 17l-5-5" /></svg
+          ></span></button
+        ><button
+          id="ts-select-s12-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="enterprise"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Enterprise</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="ts select-wrapper">
+    <span id="ts-select-s13-label" class="ts select-label"
+      >Permiso inicial<span class="ts required-indicator" aria-hidden="true">*</span></span
+    >
+    <div class="ts select size-md variant-default" data-ts-listbox="select" data-ts-select="">
+      <select
+        class="ts select-field appearance-none"
+        data-ts-listbox-native=""
+        name="permiso"
+        required=""
+        aria-labelledby="ts-select-s13-label"
+      >
+        <option value="" selected="">Elegir un permiso</option>
+        <option value="admin">Admin</option>
+        <option value="editor">Editor</option>
+        <option value="lector">Lector</option>
+        <!>
+      </select>
+      <button
+        id="ts-select-s13"
+        type="button"
+        hidden=""
+        class="ts select-field is-placeholder"
+        data-ts-listbox-trigger=""
+        role="combobox"
+        aria-labelledby="ts-select-s13-label"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        aria-controls="ts-select-s13-listbox"
+        aria-required="true"
+      >
+        <span
+          data-ts-listbox-label=""
+          data-ts-placeholder="Elegir un permiso"
+          data-ts-count-suffix="seleccionados"
+          >Elegir un permiso</span
+        >
+      </button>
+      <input
+        type="text"
+        class="ts required-proxy"
+        data-ts-required-proxy=""
+        tabindex="-1"
+        aria-hidden="true"
+        autocomplete="off"
+        required=""
+        disabled=""
+        value=""
+      />
+      <span class="ts select-spinner" data-ts-listbox-spinner="" hidden=""
+        ><span class="ts spinner size-sm" role="status" aria-label="Cargando..."></span
+      ></span>
+      <input type="hidden" name="permiso" value="" disabled="" data-ts-listbox-value="" />
+      <div class="ts select-chevron">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="ts icon icon-16"
+        >
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </div>
+      <div
+        id="ts-select-s13-listbox"
+        class="ts select-dropdown placement-bottom"
+        data-ts-listbox-panel=""
+        hidden=""
+        role="listbox"
+        aria-label="Permiso inicial"
+        aria-multiselectable="false"
+        tabindex="-1"
+      >
+        <div class="ts select-loading" data-ts-listbox-loading="" hidden="">
+          <span class="ts spinner size-sm" role="none" aria-label="" aria-hidden="true"></span>
+          <span>Cargando...</span>
+        </div>
+        <button
+          id="ts-select-s13-opt-0"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="admin"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Admin</span></button
+        ><button
+          id="ts-select-s13-opt-1"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="editor"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Editor</span></button
+        ><button
+          id="ts-select-s13-opt-2"
+          type="button"
+          tabindex="-1"
+          class="ts select-option"
+          role="option"
+          data-ts-value="lector"
+          aria-selected="false"
+        >
+          <span data-select-option-label="">Lector</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

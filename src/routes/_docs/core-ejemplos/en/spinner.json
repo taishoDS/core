@@ -1,0 +1,6 @@
+[
+  {
+    "titulo": "Three sizes",
+    "html": "<div class=\"ts flex gap-base items-center\">\n  <span class=\"ts spinner size-sm\" role=\"status\" aria-label=\"Loading\"></span>\n  <span class=\"ts spinner size-md\" role=\"status\" aria-label=\"Loading\"></span>\n  <span class=\"ts spinner size-lg\" role=\"status\" aria-label=\"Loading\"></span>\n</div>"
+  }
+]

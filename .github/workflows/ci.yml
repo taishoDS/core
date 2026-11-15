@@ -1,0 +1,95 @@
+# Integración continua del repo público. Corre sólo en máquinas alojadas por GitHub (ubuntu-latest, windows-latest,
+# macos-latest): nunca en máquinas propias, porque un pull request de un fork ejecutaría código ajeno en ellas.
+#
+# Qué cubre:
+#   - `verificar`: el paquete completo en Node 22, 24 y 26 (el piso declarado es 22.18): generar, armar el paquete, pruebas
+#     unitarias, instalación del tarball en un proyecto limpio (`test:core-package`) y el mismo tarball dentro de un
+#     proyecto Vite sin framework (`smoke:vite`).
+#   - `cli`: el comando `taisho` instalado desde el tarball en Windows y macOS (`smoke:cli`).
+#
+# Las acciones de terceros van fijadas por SHA (el comentario dice la versión); Dependabot propone las actualizaciones.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verificar:
+    name: Node ${{ matrix.node }} en Linux
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24, 26]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar CSS, tokens y tipos
+        run: npm run generate
+
+      - name: Armar el paquete (dist-core/)
+        run: npm run build:core
+
+      - name: Pruebas
+        run: npm test
+
+      - name: El paquete instalado en un proyecto limpio
+        run: npm run test:core-package
+
+      - name: El paquete dentro de un proyecto Vite
+        run: npm run smoke:vite
+
+  cli:
+    name: CLI en ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Generar CSS, tokens y tipos
+        run: npm run generate
+
+      - name: Smoke del CLI (init y generate desde el tarball)
+        # `runner.temp` sólo existe a nivel de paso: declarado en el `env` del job, GitHub rechaza el archivo entero.
+        env:
+          SMOKE_DIR: ${{ runner.temp }}/taisho-smoke-cli
+        run: npm run smoke:cli
