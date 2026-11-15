@@ -90,3 +90,31 @@ export async function construirAvisoLlaveJs(): Promise<string> {
 	});
 	return outputFiles[0].text;
 }
+
+export interface ArchivoJs {
+	ruta: string;
+	texto: string;
+}
+
+/**
+ * El JS completo, para cuando no hay `content`: los mismos archivos que arma `build:core` (`core.js` + sus trozos `core.*.js`,
+ * con los componentes pesados cargándose a pedido), pero con el prefijo `taisho.core` de la salida del consumidor.
+ * Instalado, se copian del paquete (hermanos de `cli.js`); en el repo no existen, así que se arman con el mismo constructor.
+ */
+export async function construirCoreCompleto(): Promise<ArchivoJs[]> {
+	const aqui = path.dirname(fileURLToPath(import.meta.url));
+	if (!fs.existsSync(path.join(aqui, 'core.js'))) {
+		const ruta = '../../scripts/build-core-directo';
+		const { construirCoreDirecto } = (await import(/* @vite-ignore */ ruta)) as { construirCoreDirecto: (o: { minify: boolean; banner: string }) => Promise<ArchivoJs[]> };
+		return construirCoreDirecto({ minify: true, banner: `/* TaishoDS — ${DEFAULT_COPYRIGHT} */` });
+	}
+	const hermanos = (a: string) => a === 'core.js' || /^core\.[\w-]+\.js$/.test(a);
+	return fs
+		.readdirSync(aqui)
+		.filter(hermanos)
+		.sort()
+		.map((a) => ({
+			ruta: `taisho.${a}`,
+			texto: fs.readFileSync(path.join(aqui, a), 'utf8').replace(/(["'])\.\/core\.([\w-]+\.js)\1/g, '$1./taisho.core.$2$1'),
+		}));
+}

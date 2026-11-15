@@ -29,7 +29,7 @@ cat > index.html <<'HTML'
   <link rel="stylesheet" href="taisho/fonts.css">
   <link rel="stylesheet" href="taisho/theme.css">
   <link rel="stylesheet" href="taisho/taisho.css">
-  <script type="module" src="node_modules/@taishods/core/core.js"></script>
+  <script type="module" src="taisho/taisho.core.js"></script>
 </head>
 <body>
   <main class="ts flex flex-col gap-base">
@@ -83,6 +83,36 @@ for c in flex gap-base button collapsible-trigger type-heading-24; do
 done
 grep -qF ':where(.ts).grid{' "$CSS" && falla "entró :where(.ts).grid, que la página no usa"
 echo "ok: taisho.css existe, minificado, con las clases usadas y sin las que no"
+[ -f taisho/taisho.core.js ] || falla "no existe taisho/taisho.core.js"
+echo "ok: el JS de la página está en la carpeta de salida (con content, sólo lo que usa)"
+
+paso "sin content: el JS completo sale junto al CSS, con las rutas del sitio (public/)"
+mkdir -p "$DIR/sin-content/public"
+cd "$DIR/sin-content"
+cp -R "$DIR/proyecto/node_modules" "$DIR/proyecto/package.json" .
+corre npx --no-install taisho init --yes
+grep -qF "out: 'public/taisho'" taisho.config.ts || falla "init no escribió out: 'public/taisho'"
+grep -v '^[[:space:]]*content:' taisho.config.ts > sin.config.ts && mv sin.config.ts taisho.config.ts
+SALIDA="$(npx --no-install taisho generate)"
+echo "$SALIDA"
+echo "$SALIDA" | grep -qF 'src="/taisho/taisho.core.js"' || falla "generate no imprimió la ruta del sitio del JS"
+echo "$SALIDA" | grep -qF 'href="/taisho/taisho.full.css"' || falla "generate no imprimió la ruta del sitio del CSS"
+echo "$SALIDA" | grep -qF 'node_modules' && falla "generate nombró node_modules"
+for f in taisho.core.js taisho.core.table.js taisho.core.date-picker.js taisho.core.key-warning.js taisho.full.css theme.css; do
+  [ -f "public/taisho/$f" ] || falla "falta public/taisho/$f"
+done
+echo "ok: public/taisho/ trae el JS completo y el CSS completo"
+echo "JS copiado: $(cat public/taisho/taisho.core*.js | wc -c | tr -d ' ') B ($(cat public/taisho/taisho.core*.js | gzip -9 | wc -c | tr -d ' ') B gzip, entero); sólo el que carga siempre: $(gzip -9 -c public/taisho/taisho.core.js | wc -c | tr -d ' ') B gzip"
+
+paso "con un empaquetador en el package.json, init propone ./taisho aunque exista public/"
+mkdir -p "$DIR/con-vite/public"
+cd "$DIR/con-vite"
+ln -s "$DIR/proyecto/node_modules" node_modules
+echo '{ "name": "con-vite", "devDependencies": { "vite": "^8.0.0" } }' > package.json
+corre npx --no-install taisho init --yes
+grep -qF "out: './taisho'" taisho.config.ts || falla "con vite, init no propuso ./taisho"
+echo "ok: con vite, out: './taisho'"
+cd "$DIR/proyecto"
 
 paso "peso de taisho.css"
 echo "sin comprimir: $(wc -c < "$CSS" | tr -d ' ') B"

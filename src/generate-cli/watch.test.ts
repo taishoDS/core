@@ -116,6 +116,15 @@ describe('taisho watch', { timeout: 30_000 }, () => {
 		expect(logs.join('\n')).toMatch(/✅ .*taisho\/ al día \(4 archivos, \d+ ms\)\. Mirando 1 archivos de content, la config y src\/icons\/\. Ctrl\+C para salir\./);
 	});
 
+	it('escribe en el out de la config y no lee esa carpeta como content', async () => {
+		const dir = proyecto({ ...CONFIG, out: 'public/taisho', content: ['**/*.{html,js}'] });
+		await arrancar(dir);
+		expect(fs.existsSync(path.join(dir, 'public/taisho/taisho.css'))).toBe(true);
+		expect(fs.existsSync(path.join(dir, 'public/taisho/taisho.core.js'))).toBe(true);
+		expect(fs.existsSync(path.join(dir, 'taisho'))).toBe(false);
+		expect(logs.join('\n')).toMatch(/✅ .*public\/taisho\/ al día .* Mirando 1 archivos de content/);
+	});
+
 	it('un cambio en un archivo de content regenera el CSS', async () => {
 		const dir = proyecto();
 		await arrancar(dir);

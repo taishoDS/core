@@ -36,14 +36,14 @@ import {
 import { listarContent, readContent } from './read-content';
 import { archivosElegidos, descubrirPaquetes, extensionesDe, leerArchivoDelPaquete, versionDelCore, type PaqueteConManifiesto } from './descubrir-paquetes';
 import { clasesDeContenido, soloClases } from './solo-clases';
-import { construirCoreJs, construirAvisoLlaveJs, ARCHIVO_AVISO_LLAVE } from './core-js';
+import { construirCoreJs, construirCoreCompleto, construirAvisoLlaveJs, ARCHIVO_AVISO_LLAVE, type ArchivoJs } from './core-js';
 import { conRequeridos, modulosDeArchivo, modulosDeSlugs, type NombreModulo } from '../lib/core/modulos';
 
 export interface WriteConsumerOutputResult {
 	temas: string[];
 	fonts: string;
 	sistema: string;
-	js: string | null;
+	js: string;
 	iconos: string | null;
 	tipos: string | null;
 	warnings: EngineWarning[];
@@ -155,6 +155,7 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 	let ultimoTema: { css: string; vars: string; temas: string[] } | undefined;
 	let ultimoSprite: { huella: string; sprite: string } | undefined;
 	let ultimoJs: { clave: string; js: string } | undefined;
+	let jsCompleto: ArchivoJs[] | undefined;
 	let avisoLlaveJs: string | undefined;
 	let avisosPrevios = new Set<string>();
 
@@ -261,7 +262,8 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 		let css: string;
 		let min: string;
 		let warningsCompile: EngineWarning[];
-		let js: string | null = null;
+		let js: string;
+		let archivosJs: ArchivoJs[];
 		if (conContent) {
 			sincronizar(cambio);
 			dePaquetes = archivosDePaquete();
@@ -294,6 +296,8 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 				stats.jsArmados++;
 			}
 			js = ultimoJs.js;
+			avisoLlaveJs ??= await construirAvisoLlaveJs();
+			archivosJs = [{ ruta: 'taisho.core.js', texto: js }, { ruta: ARCHIVO_AVISO_LLAVE, texto: avisoLlaveJs }];
 		} else {
 			entradas = new Map();
 			if (!cfg.completo) {
@@ -305,6 +309,12 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 			}
 			({ css, min } = cfg.completo);
 			warningsCompile = cfg.completo.warnings;
+			if (!jsCompleto) {
+				jsCompleto = await construirCoreCompleto();
+				stats.jsArmados++;
+			}
+			archivosJs = jsCompleto;
+			js = jsCompleto.find((a) => a.ruta === 'taisho.core.js')!.texto;
 		}
 		const sistema = conContent ? 'taisho.css' : 'taisho.full.css';
 
@@ -352,11 +362,7 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 		const salidas: Array<[string, string]> = [['fonts.css', cfg.fonts]];
 		nombresTemas.forEach((nombre, i) => salidas.push([nombre, temasCss[i]]));
 		salidas.push([sistema, min]);
-		if (js !== null) {
-			salidas.push(['taisho.core.js', js]);
-			avisoLlaveJs ??= await construirAvisoLlaveJs();
-			salidas.push([ARCHIVO_AVISO_LLAVE, avisoLlaveJs]);
-		}
+		for (const { ruta, texto } of archivosJs) salidas.push([ruta, texto]);
 		const iconos = sprite.includes('<symbol') ? 'taisho.icons.svg' : null;
 		if (iconos) salidas.push([iconos, sprite]);
 
@@ -365,6 +371,8 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 
 		fs.mkdirSync(targetDir, { recursive: true });
 		if (tipos === null) fs.rmSync(path.join(targetDir, ARCHIVO_TIPOS), { force: true });
+		const nombresJs = new Set(archivosJs.map((a) => a.ruta));
+		for (const f of fs.readdirSync(targetDir)) if (/^taisho\.core\..+\.js$/.test(f) && !nombresJs.has(f)) fs.rmSync(path.join(targetDir, f));
 		const escritos: string[] = [];
 		for (const [nombre, datos] of salidas) {
 			const destino = path.join(targetDir, nombre);

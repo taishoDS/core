@@ -71,6 +71,19 @@ describe('taisho() — plugin de Vite', () => {
 		expect(fs.existsSync(path.join(dir, 'taisho/theme.css'))).toBe(true);
 	});
 
+	it('la salida es el `out` de la config; la opción `out` del plugin manda sobre ella', async () => {
+		const dir = proyecto();
+		fs.writeFileSync(path.join(dir, 'taisho.config.ts'), fs.readFileSync(path.join(dir, 'taisho.config.ts'), 'utf8').replace('fontFaces: [],', "fontFaces: [], out: 'public/taisho',"));
+		fs.writeFileSync(path.join(dir, 'main.js'), 'export {};\n');
+		const construir = (plugin: ReturnType<typeof taisho>) =>
+			build({ root: dir, configFile: false, logLevel: 'silent', plugins: [plugin], build: { write: false, lib: { entry: 'main.js', formats: ['es'], cssFileName: 'x' } } });
+		await construir(taisho());
+		expect(fs.existsSync(path.join(dir, 'public/taisho/taisho.css'))).toBe(true);
+		expect(fs.existsSync(path.join(dir, 'taisho'))).toBe(false);
+		await construir(taisho({ out: 'otra' }));
+		expect(fs.existsSync(path.join(dir, 'otra/taisho.css'))).toBe(true);
+	});
+
 	it('un error de config corta el build', async () => {
 		const dir = proyecto();
 		fs.writeFileSync(path.join(dir, 'taisho.config.ts'), 'export default {};\n');

@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { performance } from 'node:perf_hooks';
 import { DEFAULT_CUSTOM_ICONS_DIR, type TaishoConfig } from '../generate';
-import { cargarConfig, displayPath } from './generate';
+import { cargarConfig, carpetaDeSalida, displayPath } from './generate';
 import { crearMotor } from './motor';
 import { listarContent } from './read-content';
 import { idioma, m, usarIdioma, type Lang } from './idioma';
@@ -36,13 +36,13 @@ export async function iniciarWatch(options: WatchOptions = {}): Promise<Watch> {
 	const cwd = options.cwd ?? process.cwd();
 	const configPath = path.resolve(cwd, options.configPath ?? 'taisho.config.ts');
 	const configDir = path.dirname(configPath);
-	const targetDir = path.resolve(cwd, options.outDir ?? 'taisho');
 	const paqueteJson = path.join(cwd, 'package.json');
 	const iconosDir = path.resolve(cwd, DEFAULT_CUSTOM_ICONS_DIR);
 	const t0 = performance.now();
 
 	usarIdioma(options.lang);
 	let config: TaishoConfig = await cargarConfig(configPath, options.lang);
+	const targetDir = carpetaDeSalida(config, configPath, options.outDir, cwd);
 	const motor = crearMotor(config, { targetDir, cwd, configDir, soloSiCambia: true });
 
 	const rel = (abs: string) => path.relative(configDir, abs).split(path.sep).join('/');

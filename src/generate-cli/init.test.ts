@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach, beforeEach, vi } from 'vitest';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { runInit } from './init';
+import { runInit, salidaDetectada } from './init';
 
 const terminal = vi.hoisted(() => ({ respuestas: [] as string[], preguntas: [] as string[] }));
 vi.mock('node:readline/promises', () => ({
@@ -91,6 +91,7 @@ describe('runInit — el idioma', () => {
 			'Theme name [main]: ',
 			'Fonts — (s)ystem or (f)ontsource [s]: ',
 			'Folder for your own icons [src/icons]: ',
+			'Output folder for the CSS and JS [./taisho]: ',
 		]);
 		expect(fs.readFileSync(path.join(dir, 'taisho.config.ts'), 'utf8')).toContain("\tlang: 'en',\n");
 		expect(logSpy.mock.calls[0][0]).toMatch(/^✅ Created /);
@@ -117,5 +118,83 @@ describe('runInit — el idioma', () => {
 		await runInit(dir);
 		expect(terminal.preguntas).toEqual([]);
 		expect(fs.readFileSync(path.join(dir, 'taisho.config.ts'), 'utf8')).toContain("\tlang: 'en',\n");
+	});
+});
+
+describe('runInit — la carpeta de salida', () => {
+	const tty = Object.getOwnPropertyDescriptor(process.stdin, 'isTTY');
+	afterEach(() => {
+		if (tty) Object.defineProperty(process.stdin, 'isTTY', tty);
+		else delete (process.stdin as { isTTY?: boolean }).isTTY;
+		terminal.respuestas = [];
+		terminal.preguntas = [];
+	});
+	const proyecto = (...carpetas: string[]) => {
+		const dir = makeTmpDir('taisho-cli-init-salida-');
+		for (const c of carpetas) fs.mkdirSync(path.join(dir, c));
+		return dir;
+	};
+	const salidaDe = (dir: string) => /^\tout: '(.*)',$/m.exec(fs.readFileSync(path.join(dir, 'taisho.config.ts'), 'utf8'))?.[1];
+
+	it('propone public/taisho, static/taisho o ./taisho según las carpetas del proyecto', () => {
+		expect(salidaDetectada(proyecto())).toBe('./taisho');
+		expect(salidaDetectada(proyecto('public'))).toBe('public/taisho');
+		expect(salidaDetectada(proyecto('static'))).toBe('static/taisho');
+	});
+
+	it('con public/ y static/ elige public/', () => {
+		expect(salidaDetectada(proyecto('public', 'static'))).toBe('public/taisho');
+	});
+
+	it('con un empaquetador en el package.json propone ./taisho aunque existan public/ o static/', () => {
+		const conPaquete = (deps: object, ...carpetas: string[]) => {
+			const dir = proyecto(...carpetas);
+			fs.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(deps));
+			return dir;
+		};
+		expect(salidaDetectada(conPaquete({ devDependencies: { vite: '^8.0.0' } }, 'public'))).toBe('./taisho');
+		expect(salidaDetectada(conPaquete({ devDependencies: { '@sveltejs/kit': '^2.0.0' } }, 'static'))).toBe('./taisho');
+		expect(salidaDetectada(conPaquete({ dependencies: { next: '15.0.0' } }, 'public'))).toBe('./taisho');
+		expect(salidaDetectada(conPaquete({ dependencies: { '@remix-run/react': '2.0.0' } }, 'public'))).toBe('./taisho');
+		expect(salidaDetectada(conPaquete({ peerDependencies: { webpack: '5' } }, 'public', 'static'))).toBe('./taisho');
+	});
+
+	it('un package.json sin empaquetador, vacío o roto no cambia la regla de las carpetas', () => {
+		const sin = proyecto('public');
+		fs.writeFileSync(path.join(sin, 'package.json'), JSON.stringify({ dependencies: { 'lucide-static': '1.0.0', viteish: '1' } }));
+		expect(salidaDetectada(sin)).toBe('public/taisho');
+		const roto = proyecto('static');
+		fs.writeFileSync(path.join(roto, 'package.json'), '{ no es json');
+		expect(salidaDetectada(roto)).toBe('static/taisho');
+	});
+
+	it('un archivo llamado public no cuenta como carpeta', () => {
+		const dir = proyecto();
+		fs.writeFileSync(path.join(dir, 'public'), '');
+		expect(salidaDetectada(dir)).toBe('./taisho');
+	});
+
+	it('sin preguntas (-y o sin TTY) escribe `out` con la detectada, siempre', async () => {
+		Object.defineProperty(process.stdin, 'isTTY', { value: true, configurable: true });
+		const conPublic = proyecto('public');
+		await runInit(conPublic, { yes: true, lang: 'es' });
+		expect(salidaDe(conPublic)).toBe('public/taisho');
+		const limpio = proyecto();
+		await runInit(limpio, { yes: true, lang: 'es' });
+		expect(salidaDe(limpio)).toBe('./taisho');
+		expect(terminal.preguntas).toEqual([]);
+	});
+
+	it('interactivo: la pregunta trae la detectada como default; Enter la deja y una respuesta la cambia', async () => {
+		Object.defineProperty(process.stdin, 'isTTY', { value: true, configurable: true });
+		const a = proyecto('static');
+		await runInit(a, { lang: 'es' });
+		expect(terminal.preguntas.at(-1)).toBe('Carpeta de salida del CSS y el JS [static/taisho]: ');
+		expect(salidaDe(a)).toBe('static/taisho');
+
+		terminal.respuestas = ['', '', '', '', 'public/css/taisho'];
+		const b = proyecto('static');
+		await runInit(b, { lang: 'es' });
+		expect(salidaDe(b)).toBe('public/css/taisho');
 	});
 });

@@ -270,6 +270,11 @@ export function resolveExtend(
         }
     });
     intentar(() => {
+        if (config.out !== undefined && (typeof config.out !== 'string' || config.out.trim() === '')) {
+            throw fallo('out', { code: 'out-invalid', params: { value: config.out } });
+        }
+    });
+    intentar(() => {
         if (config.iconsHtmlDirs !== undefined) throw fallo('iconsHtmlDirs', { code: 'icons-html-dirs-removed', params: {} });
     });
     (config.fontFaces ?? []).forEach((face, i) => {

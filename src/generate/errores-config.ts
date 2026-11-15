@@ -10,6 +10,7 @@ export interface ConfigErrorParams {
 	'unsafe-value': { value: string };
 	'scope-invalid': { value: unknown };
 	'dark-mode-invalid': { value: unknown };
+	'out-invalid': { value: unknown };
 	'icons-html-dirs-removed': Record<string, never>;
 	'brand-required': Record<string, never>;
 	'primary-invalid': Record<string, never>;

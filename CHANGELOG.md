@@ -2,6 +2,27 @@
 
 Todos los cambios relevantes de `@taishods/core` se documentan acá. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## 0.15.1 — 2026-11-15
+
+### Agrega
+
+- **Campo `out` en `taisho.config.ts`: la carpeta de salida.** Precedencia: `--out`, luego `out` de la config y, si no hay ninguno, `./taisho` junto al archivo de config. Lo leen `taisho generate`, `watch`, `check` y `migrate` y el plugin de Vite.
+- **`taisho init` pregunta la carpeta de salida.** Propone `./taisho` si el `package.json` declara un empaquetador (Vite no permite importar JS ni CSS desde `public/`) y, si no, `public/taisho` o `static/taisho` cuando esas carpetas existen.
+- **`taisho generate` copia siempre el JavaScript de comportamiento a la carpeta de salida.** Antes, sin `content`, la línea impresa apuntaba a `node_modules`. Las líneas para pegar salen con la ruta que ve el navegador.
+
+### Cambia
+
+- **El valor por defecto de la salida es relativo al archivo de config, no al directorio desde el que se corre (cambio menor de compatibilidad).** Sólo difiere al usar `--config otra/ruta` sin `--out`: antes la salida iba a `./taisho` del directorio actual; ahora va a `./taisho` junto a esa config. Para conservar la ubicación anterior, se indica `--out` o `out` en la config.
+- El README, `CONSUMING` y la documentación ya no enlazan nada desde `node_modules`, y suman una sección de importaciones para empaquetador.
+
+### In English
+
+- **New `out` field in `taisho.config.ts`: the output folder.** Precedence: `--out`, then the config's `out`, then `./taisho` next to the config file. It is read by `taisho generate`, `watch`, `check` and `migrate`, and by the Vite plugin.
+- **`taisho init` asks for the output folder.** It suggests `./taisho` when `package.json` declares a bundler (Vite cannot import JS or CSS from `public/`), otherwise `public/taisho` or `static/taisho` when those folders exist.
+- **`taisho generate` always copies the behavior JavaScript to the output folder.** Before, without `content`, the printed line pointed into `node_modules`. The lines to paste use the path the browser sees.
+- **Minor compatibility change:** the default output is now relative to the config file, not to the directory where the command runs. It only differs when using `--config other/path` without `--out`: the output used to go to `./taisho` in the current directory and now goes to `./taisho` next to that config. Pass `--out` or set `out` in the config to keep the previous location.
+- The README, `CONSUMING` and the docs no longer link anything from `node_modules`, and add a section on imports for bundlers.
+
 ## 0.15.0 — 2026-11-14
 
 Primera versión pública de TaishoDS Core: el CSS del sistema, los tokens y el JavaScript de comportamiento, para usar en cualquier página HTML, con licencia MIT. Es una versión beta: mientras la versión mayor sea 0, un cambio de versión menor puede traer cambios incompatibles y se anuncian acá.

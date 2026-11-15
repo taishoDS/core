@@ -200,6 +200,15 @@ describe('runCheck — el contrato con CI', () => {
 		expect(process.exitCode).toBe(1);
 	});
 
+	it('con config, la carpeta de salida es el `out` de la config y no se recorre', async () => {
+		escribir('taisho.config.ts', "export default { themes: { a: { colors: { brand: '#4F46E5' } } }, out: 'public/taisho', content: ['**/*.{html,js}'] };\n");
+		escribir('public/taisho/taisho.core.js', "el.classList.add('ts-flex');\n");
+		escribir('index.html', '<div class="ts flex"></div>\n');
+		await runCheck({});
+		expect(process.exitCode).toBeUndefined();
+		expect(salida.at(-1)).toContain('1 archivo(s) revisado(s), 0 aviso(s)');
+	});
+
 	it('dos clases malas en la misma línea son dos avisos', async () => {
 		escribir('a.html', '<div class="ts gap-bse gap-bsee"></div>\n');
 		await runCheck({});

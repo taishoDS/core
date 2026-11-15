@@ -15,6 +15,20 @@ export function displayPath(absolute: string): string {
 	return rel.startsWith('..') ? absolute : rel || '.';
 }
 
+/** La carpeta de salida: `--out` (relativo a donde se corre) > `out` de la config (relativo a la config) > `./taisho` junto a la config. */
+export function carpetaDeSalida(config: Pick<TaishoConfig, 'out'> | null | undefined, configPath: string, flag: string | undefined, cwd: string): string {
+	if (flag !== undefined) return path.resolve(cwd, flag);
+	const delConfig = typeof config?.out === 'string' && config.out.trim() !== '' ? config.out : DEFAULT_OUT_DIR;
+	return path.resolve(path.dirname(configPath), delConfig);
+}
+
+/** La ruta de `archivo` como la ve el navegador: dentro de `public/` o `static/` es la absoluta del sitio (`/taisho/taisho.css`); si no, la relativa de siempre. */
+export function rutaParaPegar(targetDir: string, archivo: string, configDir: string): string {
+	const absoluto = path.join(targetDir, archivo);
+	const [raiz, ...resto] = path.relative(configDir, absoluto).split(path.sep);
+	return raiz === 'public' || raiz === 'static' ? `/${resto.join('/')}` : displayPath(absoluto);
+}
+
 export interface RunGenerateOptions {
 	configPath?: string;
 	outDir?: string;
@@ -67,7 +81,7 @@ export async function runGenerate(options: RunGenerateOptions): Promise<void> {
 	}
 
 	const cwd = process.cwd();
-	const targetDir = path.resolve(cwd, options.outDir ?? DEFAULT_OUT_DIR);
+	const targetDir = carpetaDeSalida(loaded, configPath, options.outDir, cwd);
 	console.log(m().generate.compilando(displayPath(configPath)));
 
 	let salida: Awaited<ReturnType<typeof writeConsumerOutput>>;
@@ -85,7 +99,7 @@ export async function runGenerate(options: RunGenerateOptions): Promise<void> {
 		process.exitCode = 1;
 	}
 
-	const rel = (archivo: string) => displayPath(path.join(targetDir, archivo));
+	const rel = (archivo: string) => rutaParaPegar(targetDir, archivo, path.dirname(configPath));
 	console.log(m().generate.generado(displayPath(targetDir)));
 	console.log(m().generate.pegar);
 	console.log(`  <link rel="stylesheet" href="${rel(salida.fonts)}">`);
@@ -93,7 +107,7 @@ export async function runGenerate(options: RunGenerateOptions): Promise<void> {
 		console.log(`  <link rel="stylesheet" href="${rel(tema)}">`);
 	}
 	console.log(`  <link rel="stylesheet" href="${rel(salida.sistema)}">`);
-	console.log(`  <script type="module" src="${salida.js === null ? 'node_modules/@taishods/core/core.js' : rel('taisho.core.js')}"></script>`);
+	console.log(`  <script type="module" src="${rel('taisho.core.js')}"></script>`);
 	if (salida.iconos) {
 		console.log(m().generate.iconos);
 		console.log(`  <svg><use href="${rel(salida.iconos)}${m().generate.usoIcono}"></use></svg>`);

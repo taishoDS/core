@@ -18,16 +18,45 @@ interface Respuestas {
 	themeName: string;
 	useFontsource: boolean;
 	customIconsDir: string;
+	outDir: string;
 }
 
-const DEFAULTS: Omit<Respuestas, 'lang'> = {
+const DEFAULTS: Omit<Respuestas, 'lang' | 'outDir'> = {
 	brandHex: '#4F46E5',
 	themeName: 'main',
 	useFontsource: false,
 	customIconsDir: 'src/icons',
 };
 
-function buildConfig({ lang, brandHex, themeName, useFontsource, customIconsDir }: Respuestas): string {
+/** Paquetes que empaquetan: con uno de estos en el package.json el CSS se importa desde el código, así que la salida no va a `public/` ni `static/`. */
+const EMPAQUETADORES = ['vite', 'rollup', 'rolldown', 'webpack', 'parcel', 'esbuild', '@rspack/core', '@rsbuild/core', '@sveltejs/kit', 'astro', 'next', 'nuxt', 'gatsby', 'react-scripts', '@angular/cli'];
+const PREFIJOS_EMPAQUETADORES = ['@remix-run/', '@react-router/'];
+
+function hayEmpaquetador(proyecto: string): boolean {
+	const paquete = path.join(proyecto, 'package.json');
+	if (!fs.existsSync(paquete)) return false;
+	let json: Record<string, unknown>;
+	try {
+		json = JSON.parse(fs.readFileSync(paquete, 'utf8'));
+	} catch {
+		return false;
+	}
+	const nombres = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies'].flatMap((c) => Object.keys((json[c] as object | undefined) ?? {}));
+	return nombres.some((n) => EMPAQUETADORES.includes(n) || PREFIJOS_EMPAQUETADORES.some((p) => n.startsWith(p)));
+}
+
+/**
+ * La carpeta de salida propuesta. Con empaquetador, `./taisho`: el CSS se importa desde el código y Vite no deja importar
+ * lo de `public/` (avisa, y en el build el CSS queda empaquetado y además copiado). Sin empaquetador, la carpeta que sirve el
+ * navegador si el proyecto la tiene (`public/`, o `static/`), si no `./taisho`.
+ */
+export function salidaDetectada(proyecto: string): string {
+	if (hayEmpaquetador(proyecto)) return './taisho';
+	const hay = (carpeta: string) => fs.existsSync(path.join(proyecto, carpeta)) && fs.statSync(path.join(proyecto, carpeta)).isDirectory();
+	return hay('public') ? 'public/taisho' : hay('static') ? 'static/taisho' : './taisho';
+}
+
+function buildConfig({ lang, brandHex, themeName, useFontsource, customIconsDir, outDir }: Respuestas): string {
 	const c = m().init.plantilla;
 	const fontFaces = useFontsource
 		? `[{ source: '@fontsource/geist-sans', subsets: ['latin'], weights: [400, 500, 600, 700] }]`
@@ -71,6 +100,9 @@ ${Object.entries(DEFAULT_STATES).map(([k, hex]) => `\t\t${k}: '${hex}',`).join('
 ${c.iconos}
 	// customIconsDir: '${customIconsDir}',
 
+${c.salida}
+	out: '${outDir}',
+
 ${c.lang}
 	lang: '${lang}',
 };
@@ -79,7 +111,7 @@ export default config;
 `;
 }
 
-async function preguntar(flag: Lang | undefined): Promise<Respuestas> {
+async function preguntar(flag: Lang | undefined, proyecto: string): Promise<Respuestas> {
 	const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 	try {
 		let lang = usarIdioma(flag);
@@ -114,7 +146,10 @@ async function preguntar(flag: Lang | undefined): Promise<Respuestas> {
 		).trim();
 		const customIconsDir = iconsRespuesta || DEFAULTS.customIconsDir;
 
-		return { lang, brandHex, themeName, useFontsource, customIconsDir };
+		const salida = salidaDetectada(proyecto);
+		const outDir = (await rl.question(t.preguntaSalida(salida))).trim() || salida;
+
+		return { lang, brandHex, themeName, useFontsource, customIconsDir, outDir };
 	} finally {
 		rl.close();
 	}
@@ -137,7 +172,7 @@ export async function runInit(dir?: string, options: RunInitOptions = {}): Promi
 	}
 
 	const interactivo = !!process.stdin.isTTY && !options.yes;
-	const respuestas = interactivo ? await preguntar(options.lang) : { ...DEFAULTS, lang };
+	const respuestas = interactivo ? await preguntar(options.lang, targetDir) : { ...DEFAULTS, lang, outDir: salidaDetectada(targetDir) };
 
 	fs.mkdirSync(targetDir, { recursive: true });
 	fs.writeFileSync(configPath, buildConfig(respuestas));

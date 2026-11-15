@@ -14,9 +14,9 @@ Hay dos formas de tenerlo en tu proyecto. Son el mismo Core y se puede pasar de 
 Es la más corta, no instala nada. La versión va fija en la URL:
 
 ```html
-<link rel="stylesheet" href="https://taisho.design/core/0.15.0/taisho.tokens.css" integrity="sha384-+2WHAtu42BCWEq7KajKLeexi0n+E4UXhDgH4f5iQLZWhC0WJf3DNRH2uBr4FrdIV" crossorigin="anonymous">
-<link rel="stylesheet" href="https://taisho.design/core/0.15.0/taisho.full.css" integrity="sha384-Q4p8fayuCmybnPl6l9HXyJZz4RweEW3ls0TT6mYaODd89tmBm/RhF5aMRrFXMJSb" crossorigin="anonymous">
-<script type="module" src="https://taisho.design/core/0.15.0/taisho.core.js" integrity="sha384-aDnCXLrAb0LOoe1+BB7FZmWSc9VilhinDNU4cu4E4m+NaiWTM539k3rhWDg23Ib5" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://taisho.design/core/0.15.1/taisho.tokens.css" integrity="sha384-+2WHAtu42BCWEq7KajKLeexi0n+E4UXhDgH4f5iQLZWhC0WJf3DNRH2uBr4FrdIV" crossorigin="anonymous">
+<link rel="stylesheet" href="https://taisho.design/core/0.15.1/taisho.full.css" integrity="sha384-ZKmW+Qt250kHVvsit6RM7serrbDXvLttvBIKzHlrhKnFV7Bal6NSFc0Ld16k/m0l" crossorigin="anonymous">
+<script type="module" src="https://taisho.design/core/0.15.1/taisho.core.js" integrity="sha384-AEROM85MrEJoTq8ilp/I9le3EX6EntjfccTSSC3IVEbsaAE9s19OTFb6us6oEuKP" crossorigin="anonymous"></script>
 ```
 
 El orden importa: primero el tema, que define las variables; después el CSS del sistema, que las
@@ -30,21 +30,30 @@ se corre el comando `taisho` desde la raíz de tu proyecto (Node 22.18 o más nu
 
 ```bash
 npm i -D @taishods/core
-npx taisho init       # pregunta idioma, marca, nombre del tema, fuentes e íconos propios, y escribe taisho.config.ts
-npx taisho generate   # compila tu CSS a ./taisho/
+npx taisho init       # pregunta idioma, marca, nombre del tema, fuentes e íconos propios y la carpeta de salida, y escribe taisho.config.ts
+npx taisho generate   # compila tu CSS y copia el JS de comportamiento a esa carpeta
 ```
 
-Al terminar, `generate` imprime los `<link>` exactos para pegar en tu HTML. El JS de
-comportamiento queda en `node_modules/@taishods/core/core.js` y se carga con
-`<script type="module">`.
-
-Para no generar nada, el tema del sistema y el CSS completo también se pueden enlazar directo
-desde `node_modules`, en este orden:
+La carpeta de salida es la que se despliega con el sitio (por ejemplo `public/taisho`, `static/taisho` o
+`./taisho`); `init` propone una según la estructura del proyecto y la guarda en `taisho.config.ts`. Al
+terminar, `generate` imprime las líneas `<link>` y `<script>` exactas para pegar en el HTML. Tanto el CSS
+como el JS de comportamiento quedan en esa carpeta, juntos:
 
 ```html
-<link rel="stylesheet" href="node_modules/@taishods/core/css/tokens/taisho.css">
-<link rel="stylesheet" href="node_modules/@taishods/core/css/taisho.full.css">
-<script type="module" src="node_modules/@taishods/core/core.js"></script>
+<link rel="stylesheet" href="taisho/theme.css">
+<link rel="stylesheet" href="taisho/taisho.css">
+<script type="module" src="taisho/taisho.core.js"></script>
+```
+
+### Con un empaquetador (Vite y similares)
+
+Si el proyecto ya usa un empaquetador, el CSS y el JS se importan por nombre desde el paquete, sin copiar
+ni enlazar archivos:
+
+```js
+import '@taishods/core/css/tokens/taisho.css'; // el tema del sistema
+import '@taishods/core/css/taisho.full.css';   // el CSS completo
+import '@taishods/core/core';                  // el comportamiento
 ```
 
 ## Qué trae

@@ -4,7 +4,7 @@ import path from 'node:path';
 import type { TaishoConfig } from '../generate';
 import { migrarAScope, vocabularioClasico, type TipoNoConvertido } from '../generate/migrar-clasico';
 import { readContent } from './read-content';
-import { loadConfig, isValidConfig } from './generate';
+import { loadConfig, isValidConfig, carpetaDeSalida } from './generate';
 import { m, usarIdioma, type Lang } from './idioma';
 import { mensajeDe } from './errores';
 import { extensionesDelProyecto } from './descubrir-paquetes';
@@ -61,7 +61,7 @@ export async function runMigrate(options: RunMigrateOptions): Promise<void> {
 	const archivos = readContent({
 		globs: options.rutas?.length ? options.rutas.map((r) => globDeRuta(r, cwd, baseDir)) : (config.content ?? CONTENT_POR_DEFECTO),
 		baseDir,
-		outDir: path.resolve(cwd, options.outDir ?? 'taisho'),
+		outDir: carpetaDeSalida(config, configPath, options.outDir, cwd),
 	}).filter((f) => TEXTO.test(f.file) && !f.file.split('/').includes('node_modules'));
 
 	const vocabulario = vocabularioClasico(config, extensionesDelProyecto(cwd));

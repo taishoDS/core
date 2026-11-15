@@ -5,7 +5,7 @@ import type { TaishoConfig } from '../generate';
 import { leerTema, migrarTailwind, prepararTailwind, TEMA_VACIO, unirTemas, type ResultadoMigrarTailwind, type SinConvertirTexto, type TemaTailwind } from '../generate/migrar-tailwind-texto';
 import { TAILWIND_VERSION } from '../generate/tailwind-map';
 import { readContent } from './read-content';
-import { loadConfig, isValidConfig } from './generate';
+import { loadConfig, isValidConfig, carpetaDeSalida } from './generate';
 import { globDeRuta } from './migrate';
 import { idioma, m, usarIdioma, type Lang } from './idioma';
 import { textoMotivo, textoNotas } from './mensajes-avisos';
@@ -221,7 +221,7 @@ export async function runMigrateTailwind(options: RunMigrateTailwindOptions): Pr
 
 	const conRutas = !!options.rutas?.length;
 	const baseDir = !conRutas && config.content ? path.dirname(configPath) : cwd;
-	const outDir = path.resolve(cwd, options.outDir ?? 'taisho');
+	const outDir = carpetaDeSalida(config, configPath, options.outDir, cwd);
 	const leer = (globs: string[], excluir?: string[]) => readContent({ globs, baseDir, outDir, excluir }).filter((f) => TEXTO.test(f.file));
 	let archivos;
 	if (conRutas) {

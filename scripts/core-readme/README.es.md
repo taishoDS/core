@@ -30,21 +30,30 @@ se corre el comando `taisho` desde la raíz de tu proyecto (Node 22.18 o más nu
 
 ```bash
 npm i -D @taishods/core
-npx taisho init       # pregunta idioma, marca, nombre del tema, fuentes e íconos propios, y escribe taisho.config.ts
-npx taisho generate   # compila tu CSS a ./taisho/
+npx taisho init       # pregunta idioma, marca, nombre del tema, fuentes e íconos propios y la carpeta de salida, y escribe taisho.config.ts
+npx taisho generate   # compila tu CSS y copia el JS de comportamiento a esa carpeta
 ```
 
-Al terminar, `generate` imprime los `<link>` exactos para pegar en tu HTML. El JS de
-comportamiento queda en `node_modules/@taishods/core/core.js` y se carga con
-`<script type="module">`.
-
-Para no generar nada, el tema del sistema y el CSS completo también se pueden enlazar directo
-desde `node_modules`, en este orden:
+La carpeta de salida es la que se despliega con el sitio (por ejemplo `public/taisho`, `static/taisho` o
+`./taisho`); `init` propone una según la estructura del proyecto y la guarda en `taisho.config.ts`. Al
+terminar, `generate` imprime las líneas `<link>` y `<script>` exactas para pegar en el HTML. Tanto el CSS
+como el JS de comportamiento quedan en esa carpeta, juntos:
 
 ```html
-<link rel="stylesheet" href="node_modules/@taishods/core/css/tokens/taisho.css">
-<link rel="stylesheet" href="node_modules/@taishods/core/css/taisho.full.css">
-<script type="module" src="node_modules/@taishods/core/core.js"></script>
+<link rel="stylesheet" href="taisho/theme.css">
+<link rel="stylesheet" href="taisho/taisho.css">
+<script type="module" src="taisho/taisho.core.js"></script>
+```
+
+### Con un empaquetador (Vite y similares)
+
+Si el proyecto ya usa un empaquetador, el CSS y el JS se importan por nombre desde el paquete, sin copiar
+ni enlazar archivos:
+
+```js
+import '@taishods/core/css/tokens/taisho.css'; // el tema del sistema
+import '@taishods/core/css/taisho.full.css';   // el CSS completo
+import '@taishods/core/core';                  // el comportamiento
 ```
 
 ## Qué trae

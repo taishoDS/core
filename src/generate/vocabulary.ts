@@ -49,6 +49,11 @@ export interface TaishoConfig {
      */
     safelist?: string[];
     /**
+     * Carpeta donde `taisho generate`, `taisho watch` y el plugin `taisho()` escriben el CSS y el JS, relativa a esta config.
+     * Predeterminado: `./taisho`. Manda `--out` (o la opción `out` del plugin) sobre esta; `taisho init` la escribe.
+     */
+    out?: string;
+    /**
      * Cómo se activa el modo oscuro. `'class'` (predeterminado): sólo con la clase `dark` en `<html>`. `'media'`: sigue la
      * preferencia del sistema, sin script en el `<head>`; la clase `dark` lo fuerza oscuro y la clase `light` lo fuerza claro.
      */

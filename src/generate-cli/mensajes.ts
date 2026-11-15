@@ -28,11 +28,11 @@ Uso:
     --yes, -y                    Sin preguntas: escribe el starter con defaults
   taisho generate [config]       Compila tu taisho.config.ts a una carpeta autocontenida
     --config <path>              Ruta al config (default: ./taisho.config.ts)
-    --out <dir>                  Carpeta de salida (default: ./taisho/)
+    --out <dir>                  Carpeta de salida (default: el out de tu config; si no, ./taisho/)
     --strict                     Sale con 1 si hubo cualquier aviso (la salida se escribe igual)
   taisho watch [config]          Regenera tu CSS cada vez que cambia tu content, tu config o src/icons/
     --config <path>              Ruta al config (default: ./taisho.config.ts)
-    --out <dir>                  Carpeta de salida (default: ./taisho/)
+    --out <dir>                  Carpeta de salida (default: el out de tu config; si no, ./taisho/)
                                  Ctrl+C para salir (con 0). Un import dentro de tu config no se detecta
   taisho migrate --from classic [rutas]  Pasa tu código del modo clásico (ts-flex) al modo scope (ts flex)
     [rutas]                      Archivos o carpetas a revisar (reemplazan a content; sin ellas y sin content, no se tocan los .md)
@@ -42,7 +42,7 @@ Uso:
     [rutas]                      Archivos o carpetas a revisar (reemplazan a content; los .css se leen, nunca se escriben)
     --write                      Aplica los cambios (sin esto sólo reporta)
     --config <path>              Ruta al config: de ahí salen content, el vocabulario y los colores
-    --out <dir>                  Carpeta de salida de generate, que no se lee (default: ./taisho/)
+    --out <dir>                  Carpeta de salida de generate, que no se lee (default: el out de tu config; si no, ./taisho/)
                                  Sale con 0 si corrió (haya pendientes o no), 2 si no pudo correr (uso, config o Tailwind 3)
   taisho check [rutas…]          Avisa clases y variables del DS mal escritas en tu código
     [rutas]                      Archivos, carpetas o globs (sin ellas: content, o el proyecto sin dist/build/coverage)
@@ -85,6 +85,7 @@ Uso:
 		preguntaTema: (def: string) => `Nombre del tema [${def}]: `,
 		preguntaFuentes: `Fuentes — (s)istema o (f)ontsource [s]: `,
 		preguntaIconos: (def: string) => `Carpeta de íconos propios [${def}]: `,
+		preguntaSalida: (def: string) => `Carpeta de salida del CSS y el JS [${def}]: `,
 		plantilla: {
 			cabecera: ` * Config de TaishoDS para tu marca — equivalente a \`tailwind.config.js\`.
  * Se corre \`taisho generate\` para compilar el CSS a partir de esto.`,
@@ -100,6 +101,8 @@ Uso:
 			estados: `	// Colores semilla de los estados semánticos (success/warning/info/danger).`,
 			iconos: `	// SVGs propios (además de lucide-static). El nombre de archivo (sin .svg)
 	// es el nombre del ícono.`,
+			salida: `	// Carpeta donde \`taisho generate\` escribe el CSS y el JS (relativa a este archivo).
+	// Dentro de public/ o static/ se sirve tal cual; \`--out\` tiene prioridad.`,
 			lang: `	// Idioma de los mensajes de \`taisho\` (es | en). Sin la clave, el del sistema.`,
 		},
 	},
@@ -199,11 +202,11 @@ Usage:
     --yes, -y                    Skip the questions and write the starter with defaults
   taisho generate [config]       Compile your taisho.config.ts to a self-contained folder
     --config <path>              Path to the config (default: ./taisho.config.ts)
-    --out <dir>                  Output folder (default: ./taisho/)
+    --out <dir>                  Output folder (default: the out in your config; else ./taisho/)
     --strict                     Exit with 1 on any warning (the output is still written)
   taisho watch [config]          Regenerate your CSS whenever your content, your config, or src/icons/ changes
     --config <path>              Path to the config (default: ./taisho.config.ts)
-    --out <dir>                  Output folder (default: ./taisho/)
+    --out <dir>                  Output folder (default: the out in your config; else ./taisho/)
                                  Press Ctrl+C to exit (with 0). An import inside your config isn't detected
   taisho migrate --from classic [paths]  Move your code from classic mode (ts-flex) to scope mode (ts flex)
     [paths]                      Files or folders to check (they replace content; without them or content, .md files are left alone)
@@ -213,7 +216,7 @@ Usage:
     [paths]                      Files or folders to check (they replace content; .css files are read, never written)
     --write                      Apply the changes (without it, it only reports)
     --config <path>              Path to the config, which provides content, the vocabulary, and the colors
-    --out <dir>                  Output folder of generate, which isn't read (default: ./taisho/)
+    --out <dir>                  Output folder of generate, which isn't read (default: the out in your config; else ./taisho/)
                                  Exits with 0 if it ran (with or without pending items), 2 if it couldn't run (usage, config, or Tailwind 3)
   taisho check [paths…]          Flag misspelled DS classes and variables in your code
     [paths]                      Files, folders, or globs (by default, content, or the project minus dist/build/coverage)
@@ -256,6 +259,7 @@ Usage:
 		preguntaTema: (def) => `Theme name [${def}]: `,
 		preguntaFuentes: `Fonts — (s)ystem or (f)ontsource [s]: `,
 		preguntaIconos: (def) => `Folder for your own icons [${def}]: `,
+		preguntaSalida: (def) => `Output folder for the CSS and JS [${def}]: `,
 		plantilla: {
 			cabecera: ` * TaishoDS config for your brand, the equivalent of \`tailwind.config.js\`.
  * Run \`taisho generate\` to compile the CSS from it.`,
@@ -271,6 +275,8 @@ Usage:
 			estados: `	// Seed colors for the status colors (success/warning/info/danger).`,
 			iconos: `	// Your own SVGs (on top of lucide-static). The file name (without .svg)
 	// is the icon name.`,
+			salida: `	// Folder where \`taisho generate\` writes the CSS and JS (relative to this file).
+	// Inside public/ or static/ it's served as is; \`--out\` overrides it.`,
 			lang: `	// Language of \`taisho\` messages (es | en). Without the key, the system's.`,
 		},
 	},

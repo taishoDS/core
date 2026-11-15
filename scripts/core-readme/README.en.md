@@ -30,20 +30,30 @@ command from your project root (Node 22.18 or later):
 
 ```bash
 npm i -D @taishods/core
-npx taisho init       # asks for the language, brand, theme name, fonts, and your own icons, and writes taisho.config.ts
-npx taisho generate   # compiles your CSS to ./taisho/
+npx taisho init       # asks for the language, brand, theme name, fonts, your own icons, and the output folder, and writes taisho.config.ts
+npx taisho generate   # compiles your CSS and copies the behavior JS to that folder
 ```
 
-When it's done, `generate` prints the exact `<link>` tags to paste into your HTML. The behavior JS lives in
-`node_modules/@taishods/core/core.js` and loads with `<script type="module">`.
-
-If you'd rather not generate anything, you can also link the system theme and the full CSS straight from
-`node_modules`, in this order:
+The output folder is the one that ships with your site (for example `public/taisho`, `static/taisho`, or
+`./taisho`); `init` suggests one based on your project layout and saves it in `taisho.config.ts`. When it's
+done, `generate` prints the exact `<link>` and `<script>` lines to paste into your HTML. Both the CSS and the
+behavior JS end up in that folder, side by side:
 
 ```html
-<link rel="stylesheet" href="node_modules/@taishods/core/css/tokens/taisho.css">
-<link rel="stylesheet" href="node_modules/@taishods/core/css/taisho.full.css">
-<script type="module" src="node_modules/@taishods/core/core.js"></script>
+<link rel="stylesheet" href="taisho/theme.css">
+<link rel="stylesheet" href="taisho/taisho.css">
+<script type="module" src="taisho/taisho.core.js"></script>
+```
+
+### With a bundler (Vite and similar)
+
+If the project already uses a bundler, the CSS and the JS are imported by name from the package, with no
+files to copy or link:
+
+```js
+import '@taishods/core/css/tokens/taisho.css'; // the system theme
+import '@taishods/core/css/taisho.full.css';   // the full CSS
+import '@taishods/core/core';                  // the behavior
 ```
 
 ## What's included

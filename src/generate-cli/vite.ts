@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Plugin, ResolvedConfig, ViteDevServer } from 'vite';
-import { isValidConfig, loadConfig } from './generate';
+import { carpetaDeSalida, isValidConfig, loadConfig } from './generate';
 import type { TaishoConfig } from '../generate';
 import { crearMotor, type Cambio, type Motor } from './motor';
 import { idioma, m, usarIdioma } from './idioma';
@@ -12,7 +12,7 @@ import { mensajeDe } from './errores';
 export interface TaishoViteOptions {
 	/** Ruta al `taisho.config.ts`, relativa a la raíz de Vite. Default: `./taisho.config.ts`. */
 	config?: string;
-	/** Carpeta de salida, relativa a la raíz de Vite. Default: `./taisho/`. */
+	/** Carpeta de salida, relativa a la raíz de Vite. Manda sobre el `out` de la config. Default: ese `out`; sin él, `./taisho/`. */
 	out?: string;
 }
 
@@ -81,6 +81,7 @@ export function taisho(options: TaishoViteOptions = {}): Plugin {
 		usarIdioma(undefined, cargada);
 		let salida;
 		if (!motor) {
+			targetDir = carpetaDeSalida(cargada, configPath, options.out === undefined ? undefined : path.resolve(vite.root, options.out), vite.root);
 			motor = crearMotor(cargada, { targetDir, cwd: vite.root, configDir: configDir(), soloSiCambia: true });
 			salida = await motor.actualizar();
 		} else {

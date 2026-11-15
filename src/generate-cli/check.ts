@@ -7,7 +7,7 @@ import type { Aviso } from '../generate/avisos-clases';
 import { defaultStates } from '../config/taisho.user';
 import taisho from '../config/themes/taisho';
 import { readContent } from './read-content';
-import { loadConfig, isValidConfig } from './generate';
+import { loadConfig, isValidConfig, carpetaDeSalida } from './generate';
 import { globDeRuta } from './migrate';
 import { idioma, m, usarIdioma, type Lang } from './idioma';
 import { warningText } from './mensajes-avisos';
@@ -94,7 +94,7 @@ export async function runCheck(options: RunCheckOptions): Promise<void> {
 
 	const conGlobs = !!options.globs?.length;
 	const baseDir = !conGlobs && config?.content ? path.dirname(configPath) : cwd;
-	const outDir = path.resolve(cwd, 'taisho');
+	const outDir = carpetaDeSalida(config, configPath, undefined, cwd);
 	const leer = (globs: string[], excluir?: string[]) => readContent({ globs, baseDir, outDir, excluir }).filter((f) => TEXTO.test(f.file));
 	let archivos: ContentFile[];
 	if (conGlobs) {
