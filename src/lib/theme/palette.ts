@@ -1,7 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { neutrals } from './neutrals.ts';
 import type { NeutralMap } from './neutrals.ts';
-import { luminanceOklch, maxChroma, wcagRatio } from './color-math.ts';
+import { inGamut, luminanceOklch, maxChroma, wcagRatio } from './color-math.ts';
 import type { Gamut } from './color-math.ts';
 
 export type { Gamut };
@@ -180,16 +180,30 @@ export interface Scale {
 
 const fmt = (l: number, c: number, h: number) => `oklch(${l.toFixed(4)} ${c.toFixed(4)} ${h.toFixed(2)})`;
 
+const bytes = (l: number, c: number, h: number): string => { const { r, g, b } = oklchToRgb(l, c, h); return [r, g, b].map(v => Math.round(v * 255)).join(); };
+/** El color de partida que queda exacto: si redondear a 4 decimales lo mueve un valor de 8 bits, se escribe con más. */
+function fmtSeed(l: number, c: number, h: number): string {
+    const exacto = bytes(l, c, h);
+    for (const d of [4, 5, 6]) {
+        const L = +l.toFixed(d), C = +c.toFixed(d), H = +h.toFixed(d - 2);
+        if (d === 6 || bytes(L, C, H) === exacto) return `oklch(${l.toFixed(d)} ${c.toFixed(d)} ${h.toFixed(d - 2)})`;
+    }
+    return fmt(l, c, h);
+}
+
 export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair: [ContrastNeutral, ContrastNeutral] = DEFAULT_NEUTRALS[mode]): Scale {
     const sp = SPEC[mode], isLight = mode === 'light';
     const Ls = seed.l, Hs = seed.h;
-    const Cs = Math.min(seed.c, maxChroma(Ls, Hs, gamut));
+    // Cerca del azul puro el borde de la gama se cruza dos veces a lo largo de la croma y `maxChroma` da el primer
+    // cruce: una semilla que ya está dentro de la gama no se recorta.
+    const Cs = inGamut(Ls, seed.c, Hs, gamut) ? seed.c : Math.min(seed.c, maxChroma(Ls, Hs, gamut));
     const Rs = wcagRatio(luminanceOklch(Ls, Cs, Hs), sp.bgY);
 
     let k = 0, best = Infinity;
     sp.win.forEach(([a, b], i) => {
         const d = Rs < a ? Math.log(a / Rs) : Rs > b ? Math.log(Rs / b) : 0;
-        const score = d * 100 + Math.abs(Math.log(Rs / sp.target[i]));
+        // La ventana que contiene el ratio gana siempre: pegado a su borde, el objetivo del paso vecino puede quedar más cerca.
+        const score = (d > 0 ? 1e6 : 0) + d * 100 + Math.abs(Math.log(Rs / sp.target[i]));
         if (score < best) { best = score; k = i; }
     });
     const [wa, wb] = sp.win[k];
@@ -222,7 +236,7 @@ export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair:
         const y = luminanceOklch(L, C, H);
         const { neutral, ratio } = pickContrast(y, pair);
         return {
-            shade: SHADES[i], l: L, c: C, h: H, y, ratio: wcagRatio(y, sp.bgY), css: fmt(L, C, H),
+            shade: SHADES[i], l: L, c: C, h: H, y, ratio: wcagRatio(y, sp.bgY), css: i === k && !adjusted ? fmtSeed(L, C, H) : fmt(L, C, H),
             contrast: neutral.ref, contrastRatio: ratio,
             seed: i === k,
         };

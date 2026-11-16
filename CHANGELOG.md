@@ -18,6 +18,8 @@ Todos los cambios relevantes de `@taishods/core` se documentan aquí. El formato
 - **`taisho generate` avisa de `lucide-static` sólo si hay íconos usados que no se resuelven por faltar el paquete,** y dice la consecuencia.
 - **En Windows, las rutas que `taisho generate` da para pegar en el HTML salen con `/`,** como las ve el navegador.
 - **El archivo `NOTICE` del paquete nombra los íconos de Lucide que el Core incluye** (los trazos que usan `core.js` y los ejemplos de `mcp/`) y trae el texto de su licencia.
+- **Los azules casi puros quedan exactos en su paso.** Con colores como `#0000ff` o `#0000cc`, el motor de paletas recortaba la saturación del color de partida aunque la pantalla sRGB pudiera mostrarlo, y el paso salía con otro azul (`#0031e5` en lugar de `#0000ff`) sin avisar. Ahora un color que ya está dentro de la gama no se recorta. Sólo cambia el resultado para esos azules; el resto de las paletas sale igual.
+- **Un color pegado al borde entre dos pasos ya no se corre.** El motor de paletas podía mandarlo al paso vecino y moverlo un poco, aunque el suyo lo contenía; pasaba en 10 de 8.192 escalas de prueba. Y un color de partida cuyo valor cambiaba en 1 sobre 255 al escribirse con cuatro decimales ahora se escribe con los que hagan falta para quedar exacto.
 
 ### In English
 
@@ -35,6 +37,8 @@ Todos los cambios relevantes de `@taishods/core` se documentan aquí. El formato
 - **`taisho generate` warns about `lucide-static` only when icons in use cannot be resolved because the package is missing,** and says what follows from it.
 - **On Windows, the paths `taisho generate` prints to paste into the HTML use `/`,** as the browser sees them.
 - **The package's `NOTICE` file names the Lucide icons Core includes** (the paths used by `core.js` and the examples in `mcp/`) and carries the text of their license.
+- **Near-pure blues stay exact on their step.** With colors like `#0000ff` or `#0000cc`, the palette engine clipped the starting color's chroma even though an sRGB screen could show it, and the step came out as a different blue (`#0031e5` instead of `#0000ff`) with no notice. A color that is already inside the gamut is no longer clipped. Only those blues change; every other palette comes out the same.
+- **A color right at the edge between two steps is no longer shifted.** The palette engine could send it to the neighboring step and move it slightly, even though its own step contained it; that happened in 10 of 8,192 test scales. And a starting color whose value changed by 1 in 255 when written with four decimals is now written with as many as it takes to stay exact.
 
 ## 0.15.1 — 2026-11-15
 

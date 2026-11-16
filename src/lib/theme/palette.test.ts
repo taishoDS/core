@@ -67,7 +67,7 @@ describe('barrido de semillas', () => {
                 expect(Math.abs(sc.dL), label(c)).toBeLessThanOrEqual(0.03);
             } else {
                 expect(sc.dL).toBe(0);
-                const cs = Math.min(c.seed.c, maxChroma(c.seed.l, c.seed.h, c.gamut));
+                const cs = inGamut(c.seed.l, c.seed.c, c.seed.h, c.gamut) ? c.seed.c : Math.min(c.seed.c, maxChroma(c.seed.l, c.seed.h, c.gamut));
                 expect([st.l, st.c, st.h], label(c)).toEqual([c.seed.l, cs, c.seed.h]);
             }
         }
@@ -183,6 +183,23 @@ describe('semillas', () => {
         expect(dark.steps[dark.seedStep].shade).toBe('600');
         expect(light.adjusted || dark.adjusted).toBe(false);
     });
+    it('azules casi puros: el borde de sRGB se cruza dos veces a lo largo de la saturación y la semilla, que está dentro, no se recorta', () => {
+        for (const hex of ['#0000ff', '#0000ee', '#0000cc', '#0011dd', '#000082']) for (const mode of MODES) {
+            const seed = parseSeed(hex);
+            expect(maxChroma(seed.l, seed.h, 'srgb'), hex).toBeLessThan(seed.c);
+            const scale = buildScale(seed, mode);
+            if (scale.adjusted) continue;
+            const s = scale.steps[scale.seedStep];
+            expect(toHex(s.l, s.c, s.h), `${hex} ${mode}`).toBe(hex);
+        }
+    });
+    it('pegado al borde entre dos pasos, el color va al paso cuya ventana lo contiene y no se corre', () => {
+        for (const hex of ['#33cc33', '#aabb11', '#ddaa00']) {
+            const sc = buildScale(parseSeed(hex), 'dark');
+            expect(sc.adjusted, hex).toBe(false);
+            expect(sc.steps[sc.seedStep].shade, hex).toBe('700');
+        }
+    });
     it('la semilla exacta vuelve a su hex al redondear (8 bits)', () => {
         let ok = 0, n = 0;
         for (const c of CASES) {
@@ -190,7 +207,20 @@ describe('semillas', () => {
             const [l, cc, h] = c.scale.steps[c.scale.seedStep].css.match(/[\d.]+/g)!.map(Number);
             n++; if (toHex(l, cc, h) === c.hex.toLowerCase()) ok++;
         }
-        expect(ok / n).toBeGreaterThan(0.99);
+        expect(ok).toBe(n);
+    });
+    it('en el barrido de 4.096 colores (16 valores por canal), todo color de partida que no se corre vuelve a su hex', () => {
+        const mal: string[] = [];
+        for (let r = 0; r < 256; r += 17) for (let g = 0; g < 256; g += 17) for (let b = 0; b < 256; b += 17) {
+            const hex = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+            for (const mode of MODES) {
+                const sc = buildScale(parseSeed(hex), mode);
+                if (sc.adjusted) continue;
+                const [l, c, h] = sc.steps[sc.seedStep].css.match(/[\d.]+/g)!.map(Number);
+                if (toHex(l, c, h) !== hex) mal.push(`${hex} ${mode} -> ${toHex(l, c, h)}`);
+            }
+        }
+        expect(mal).toEqual([]);
     });
 });
 
