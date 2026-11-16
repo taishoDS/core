@@ -1,0 +1,30 @@
+{
+  "nombre": "Badge",
+  "guia": {
+    "what": "A compact label for statuses, categories, or counts. It has a subtle or solid fill (`fill-subtle`, `fill-solid`), a status dot with an optional pulse (`data-badge-dot`, `is-pulse`), an icon before or after (`ts badge-prefix`, `ts badge-suffix`), and it can be a link (`<a class=\"ts badge\" href>`).",
+    "whenUse": [
+      "Showing something’s status in one word, like “Active,” “Beta,” or “Expired.”",
+      "Placing a count or a category next to a heading or a row.",
+      "You want it to read at a glance, without being a control."
+    ],
+    "whenAvoid": [
+      "The user needs to remove it or click it to filter → `tag`.",
+      "The message needs more than two words → `note`.",
+      "It’s an action, not a label → `button`."
+    ],
+    "dos": [
+      "The text has to state the status. Color alone isn’t enough.",
+      "Use the dot to reinforce a live status, never to replace the label."
+    ],
+    "donts": [
+      "Don’t use it as a button. If it needs to be clicked, it’s something else.",
+      "Don’t put sentences in it. A long badge stops being compact."
+    ],
+    "related": [
+      "tag",
+      "note",
+      "button"
+    ]
+  },
+  "nucleo": "Purely presentational."
+}

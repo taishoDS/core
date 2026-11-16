@@ -1,7 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import fs from 'node:fs';
 import path from 'node:path';
-import type { ContentFile, TaishoConfig } from '../generate';
+import type { ContentFile, TaishoConfig, TaishoExtensions } from '../generate';
 import { avisosDeCheck, varsDeclaradas, varsDelTema } from '../generate/avisos-check';
 import type { Aviso } from '../generate/avisos-clases';
 import { defaultStates } from '../config/taisho.user';
@@ -37,12 +37,15 @@ export interface ResultadoJson {
 	warnings: AvisoJson[];
 }
 
+export const avisoAJson = (a: Aviso, lang: Lang): AvisoJson =>
+	({ file: a.file, line: a.line, column: a.column, rule: a.rule, severity: a.severity, code: a.code, params: a.params, message: warningText(a, lang), ...(a.suggestion && { suggestion: a.suggestion }) }) as AvisoJson;
+
 const uso = (mensaje: string) => {
 	console.error(mensaje);
 	process.exitCode = 2;
 };
 
-const configDeFabrica = (): TaishoConfig => ({ themes: { taisho }, fontFaces: [], defaultStates });
+export const configDeFabrica =(): TaishoConfig => ({ themes: { taisho }, fontFaces: [], defaultStates });
 
 function cssImportado(archivos: readonly ContentFile[], baseDir: string): string[] {
 	const vistos = new Set<string>();
@@ -70,27 +73,73 @@ function cssImportado(archivos: readonly ContentFile[], baseDir: string): string
 	return textos;
 }
 
-export async function runCheck(options: RunCheckOptions): Promise<void> {
-	const cwd = process.cwd();
-	const configPath = path.resolve(cwd, options.configPath ?? 'taisho.config.ts');
-	usarIdioma(options.lang);
+export interface Proyecto {
+	cwd: string;
+	configPath: string;
+	/** `null` si el proyecto no tiene `taisho.config.ts`. */
+	config: TaishoConfig | null;
+	extensiones: TaishoExtensions;
+}
+
+/** Un proyecto que no se pudo cargar: `lineas` es lo que se le dice a quien lo usa, una por línea. */
+export class ErrorDeProyecto extends Error {
+	constructor(readonly lineas: string[]) {
+		super(lineas.join('\n'));
+	}
+}
+
+/** Carga la config del proyecto (si existe) y las extensiones de sus paquetes. Lanza `ErrorDeProyecto` si no se puede. */
+export async function cargarProyecto(cwd: string, configPath?: string): Promise<Proyecto> {
+	const ruta = path.resolve(cwd, configPath ?? 'taisho.config.ts');
 	let config: TaishoConfig | null = null;
-	if (fs.existsSync(configPath)) {
+	if (fs.existsSync(ruta)) {
 		let cargada: unknown;
 		try {
-			cargada = await loadConfig(configPath);
+			cargada = await loadConfig(ruta);
 		} catch (err) {
-			console.error(m().config.noCargo(path.relative(cwd, configPath)));
-			console.error(mensajeDe(err));
-			process.exitCode = 2;
-			return;
+			throw new ErrorDeProyecto([m().config.noCargo(path.relative(cwd, ruta)), String(mensajeDe(err))]);
 		}
-		if (!isValidConfig(cargada)) return uso(m().config.invalida(path.relative(cwd, configPath)));
+		if (!isValidConfig(cargada)) throw new ErrorDeProyecto([m().config.invalida(path.relative(cwd, ruta))]);
 		config = cargada;
-		usarIdioma(options.lang, config);
-	} else if (options.configPath) {
-		return uso(m().config.noEncontrada(path.relative(cwd, configPath)));
+	} else if (configPath) {
+		throw new ErrorDeProyecto([m().config.noEncontrada(path.relative(cwd, ruta))]);
 	}
+	return { cwd, configPath: ruta, config, extensiones: extensionesDelProyecto(cwd) };
+}
+
+/**
+ * La config con la que se revisa el código. Sin `taisho.config.ts` es la de fábrica, con las escalas de color y las
+ * variables que declara el CSS que `archivos` importa.
+ */
+export function configParaCheck(proyecto: Proyecto, archivos: readonly ContentFile[], baseDir: string): { config: TaishoConfig; validasExtra: string[] } {
+	if (proyecto.config) return { config: proyecto.config, validasExtra: [] };
+	const { extensiones } = proyecto;
+	const config = configDeFabrica();
+	const importados = cssImportado(archivos, baseDir);
+	const conocidos = varsDelTema(config, extensiones);
+	const validasExtra = importados.flatMap((css) => [...varsDeclaradas(css)]);
+	const semilla = taisho.colors.brand;
+	const colores: typeof taisho.colors & Record<string, string> = { ...taisho.colors };
+	for (const css of importados) {
+		for (const m of css.matchAll(/--color-([a-z][\w-]*)-500\s*:/g)) if (!conocidos.has(`--color-${m[1]}-500`)) colores[m[1]] = semilla;
+	}
+	return { config: { ...config, themes: { taisho: { ...taisho, colors: colores }} }, validasExtra };
+}
+
+export async function runCheck(options: RunCheckOptions): Promise<void> {
+	const cwd = process.cwd();
+	usarIdioma(options.lang);
+	let proyecto: Proyecto;
+	try {
+		proyecto = await cargarProyecto(cwd, options.configPath);
+	} catch (err) {
+		if (!(err instanceof ErrorDeProyecto)) throw err;
+		for (const linea of err.lineas) console.error(linea);
+		process.exitCode = 2;
+		return;
+	}
+	const { configPath, config, extensiones } = proyecto;
+	if (config) usarIdioma(options.lang, config);
 
 	const conGlobs = !!options.globs?.length;
 	const baseDir = !conGlobs && config?.content ? path.dirname(configPath) : cwd;
@@ -110,27 +159,12 @@ export async function runCheck(options: RunCheckOptions): Promise<void> {
 		if (!archivos.length) return uso(m().check.sinArchivos(!!config?.content));
 	}
 
-	const extensiones = extensionesDelProyecto(cwd);
-	let validasExtra: string[] = [];
-	if (!config) {
-		config = configDeFabrica();
-		const importados = cssImportado(archivos, baseDir);
-		const conocidos = varsDelTema(config, extensiones);
-		validasExtra = importados.flatMap((css) => [...varsDeclaradas(css)]);
-		const semilla = taisho.colors.brand;
-		const colores: typeof taisho.colors & Record<string, string> = { ...taisho.colors };
-		for (const css of importados) {
-			for (const m of css.matchAll(/--color-([a-z][\w-]*)-500\s*:/g)) if (!conocidos.has(`--color-${m[1]}-500`)) colores[m[1]] = semilla;
-		}
-		config = { ...config, themes: { taisho: { ...taisho, colors: colores }} };
-	}
+	const { config: configFinal, validasExtra } = configParaCheck(proyecto, archivos, baseDir);
 
-	const avisos = avisosDeCheck(archivos, config, validasExtra, extensiones, { otherScale: options.otherScale });
+	const avisos = avisosDeCheck(archivos, configFinal, validasExtra, extensiones, { otherScale: options.otherScale });
 	const resumen = m().check.resumen(archivos.length, avisos.length);
 	if (options.format === 'json') {
-		const warnings = avisos.map(
-			(a) => ({ file: a.file, line: a.line, column: a.column, rule: a.rule, severity: a.severity, code: a.code, params: a.params, message: warningText(a, idioma()), ...(a.suggestion && { suggestion: a.suggestion }) }) as AvisoJson,
-		);
+		const warnings = avisos.map((a) => avisoAJson(a, idioma()));
 		const resultado: ResultadoJson = { version: VERSION_JSON, files: archivos.length, warnings };
 		console.log(JSON.stringify(resultado, null, 2));
 		console.error(resumen);

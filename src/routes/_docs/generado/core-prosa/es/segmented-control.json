@@ -1,0 +1,44 @@
+{
+  "nombre": "SegmentedControl",
+  "guia": {
+    "what": "Selector de una opción entre pocas, mutuamente excluyentes. Es un radiogroup: se navega con flechas (la selección sigue al foco) y expone su valor. Ideal para alternar vistas o filtros donde un Select sería excesivo.",
+    "whenUse": [
+      "Alternar entre 2–4 opciones que conviene tener siempre a la vista (vistas, filtros).",
+      "El cambio se ve al instante y no vale la pena abrir un panel.",
+      "Se busca que las opciones y la elegida se lean de un golpe."
+    ],
+    "whenAvoid": [
+      "Son muchas opciones o no entran → `select`.",
+      "Las opciones necesitan descripción o van en vertical → `radio`.",
+      "Es navegación entre secciones de contenido, no un valor → `tabs`."
+    ],
+    "dos": [
+      "Textos cortos y parejos: entran en el mismo ancho sin romperse.",
+      "Un puñado de opciones como máximo; si hay dudas, ya conviene un `select`."
+    ],
+    "donts": [
+      "No se usa para navegar entre páginas o vistas grandes → `tabs`.",
+      "No se meten seis opciones: se aprieta y pierde legibilidad."
+    ],
+    "related": [
+      "radio",
+      "select",
+      "tabs"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ←",
+      "action": "Siguiente y anterior segmento (con vuelta al otro extremo). En una página RTL se invierten: ← avanza y → retrocede."
+    },
+    {
+      "keys": "↓ ↑",
+      "action": "Siguiente y anterior segmento, igual que en un grupo de radios nativo; no dependen de la dirección de escritura."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Primer y último segmento habilitado."
+    }
+  ],
+  "nucleo": "La selección y la navegación por teclado entre segmentos las lleva el Core. Selecciona el segmento, mantiene `aria-checked` y mueve con las flechas entre opciones."
+}

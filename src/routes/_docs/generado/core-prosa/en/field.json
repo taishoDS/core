@@ -1,0 +1,29 @@
+{
+  "nombre": "Field",
+  "guia": {
+    "what": "The form primitive. It ties the label, hint, and error to their control—an id shared with the label, `aria-describedby` pointing to the message, `aria-invalid`, and the `required`/`disabled` states. In HTML, that’s the `ts input-label`, the control, and the `ts input-hint`, side by side. You write the label, hint, and error once, right there.",
+    "whenUse": [
+      "Almost every time you add a control. It’s what ties the label, hint, and error to it.",
+      "You need to show an error or hint that’s tied to the field and announced by screen readers.",
+      "You want a single place to handle `required`/`disabled` for the label and control together."
+    ],
+    "whenAvoid": [
+      "The control is self-explanatory and has no visible label (an icon button) → give it an `aria-label` directly.",
+      "It’s a standalone `toggle` or `checkbox` with its label beside it, not a field with a label on top."
+    ],
+    "dos": [
+      "Use a real label, not a placeholder. The placeholder disappears as soon as you type.",
+      "One Field per control. To group several, wrap them in a `fieldset`."
+    ],
+    "donts": [
+      "Don’t repeat the label or hint on the control. They go once, tied to it.",
+      "Don’t use it for layout. It wires up accessibility; it isn’t a layout."
+    ],
+    "related": [
+      "input",
+      "select",
+      "textarea"
+    ]
+  },
+  "nucleo": "It’s a wrapper for the label, hint, and error. The control inside (Input, Textarea) brings its own behavior. Nothing of its own. The example’s `<input>` carries Input’s attributes (`data-ts-input`, `data-ts-field-spinner`) for the loading state and the `debounce`. Input’s Core script handles them, not Field’s."
+}

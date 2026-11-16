@@ -1,0 +1,44 @@
+{
+  "nombre": "CommandPalette",
+  "guia": {
+    "what": "A ⌘K-style command palette with fuzzy search over grouped actions, fully keyboard-navigable. It opens with `⌘/Ctrl + K` or from a button.",
+    "whenUse": [
+      "The app has many actions and destinations, and you want fast, searchable access to all of them.",
+      "Your audience uses the keyboard and values getting anywhere without the mouse.",
+      "You want one place to navigate and run actions instead of hunting for buttons."
+    ],
+    "whenAvoid": [
+      "It’s a few actions on a specific trigger → `menu`.",
+      "You’re capturing a form value, not running commands → `combobox`.",
+      "The actions apply to an element and open with a right-click → `context-menu`."
+    ],
+    "dos": [
+      "Group the commands and write good labels. That’s what gets filtered.",
+      "Also offer a visible path (a ⌘K button) so people can discover it."
+    ],
+    "donts": [
+      "Don’t make it the only way in. Not everyone knows ⌘K exists.",
+      "Don’t put destructive commands behind a quick match without a confirmation."
+    ],
+    "related": [
+      "menu",
+      "combobox",
+      "select"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Move through the results."
+    },
+    {
+      "keys": "Enter",
+      "action": "Runs the highlighted command."
+    },
+    {
+      "keys": "Esc",
+      "action": "Closes the palette."
+    }
+  ],
+  "nucleo": "It combines a global keyboard shortcut, filtering, and focus. A global keyboard shortcut, filtering, and list navigation. Home and End move the caret in the input. It’s built on a modal `<dialog>`, so a single Esc press closes it. The “no results” text comes from a template in `data-ts-empty-for`."
+}

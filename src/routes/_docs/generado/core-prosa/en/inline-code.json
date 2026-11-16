@@ -1,0 +1,25 @@
+{
+  "nombre": "InlineCode",
+  "guia": {
+    "what": "A code fragment inside a paragraph. It renders as a `<code>` with the look of Code, but inline, and its size follows the surrounding text.",
+    "whenUse": [
+      "You’re naming a prop, a file, a value, or a command in the middle of a sentence.",
+      "You want it to stand out from the text without interrupting the reading."
+    ],
+    "whenAvoid": [
+      "It’s a multi-line snippet → `code`.",
+      "It’s a keyboard key → `kbd`."
+    ],
+    "dos": [
+      "Use it for everything that’s written literally in code."
+    ],
+    "donts": [
+      "Don’t use it for emphasis. That’s what text emphasis is for."
+    ],
+    "related": [
+      "code",
+      "kbd"
+    ]
+  },
+  "nucleo": "Purely presentational."
+}

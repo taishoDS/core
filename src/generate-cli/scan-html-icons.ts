@@ -58,13 +58,13 @@ export interface RecursosIconos {
 	lucideNodes: Record<string, Array<[string, Record<string, string | number>]>>;
 	lucideAliases: Record<string, string>;
 	customIcons: Record<string, IconEntry>;
+	lucideAusente?: boolean;
 }
 
-export function cargarLucide(nodeModulesBase: string): Pick<RecursosIconos, 'lucideNodes' | 'lucideAliases'> {
+export function cargarLucide(nodeModulesBase: string): Pick<RecursosIconos, 'lucideNodes' | 'lucideAliases' | 'lucideAusente'> {
 	const nodesPath = path.resolve(nodeModulesBase, 'node_modules/lucide-static/icon-nodes.json');
 	if (!fs.existsSync(nodesPath)) {
-		console.warn(m().generate.lucideFalta);
-		return { lucideNodes: {}, lucideAliases: {} };
+		return { lucideNodes: {}, lucideAliases: {}, lucideAusente: true };
 	}
 	const lucideNodes = JSON.parse(fs.readFileSync(nodesPath, 'utf8'));
 	return { lucideNodes, lucideAliases: loadLucideAliases(path.dirname(nodesPath), lucideNodes) };
@@ -95,17 +95,28 @@ export function spriteDeUsos(recursos: RecursosIconos, usos: Iterable<UsoDeIcono
 
 	const used = new Set<string>();
 	const unknown: Array<{ name: string; origen: string }> = [];
+	const sinResolver = new Set<string>();
 	for (const name of safelist) {
 		if (isKnown(name)) used.add(name);
-		else unknown.push({ name, origen: 'taisho.config.ts (icons)' });
+		else {
+			unknown.push({ name, origen: 'taisho.config.ts (icons)' });
+			sinResolver.add(name);
+		}
 	}
 	for (const { origen, nombres, soloAviso } of usos) {
 		for (const name of nombres) {
 			if (isKnown(name)) used.add(name);
-			else if (!soloAviso) unknown.push({ name, origen });
-			else console.warn(m().generate.iconoIgnorado(name, origen));
+			else if (!soloAviso) {
+				unknown.push({ name, origen });
+				sinResolver.add(name);
+			} else {
+				sinResolver.add(name);
+				console.warn(m().generate.iconoIgnorado(name, origen));
+			}
 		}
 	}
+
+	if (recursos.lucideAusente && sinResolver.size > 0) console.warn(m().generate.lucideFalta(sinResolver.size));
 
 	if (unknown.length > 0) {
 		const candidates = [...Object.keys(lucideNodes), ...Object.keys(lucideAliases), ...Object.keys(customIcons)];

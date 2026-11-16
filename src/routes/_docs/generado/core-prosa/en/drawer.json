@@ -1,0 +1,36 @@
+{
+  "nombre": "Drawer",
+  "guia": {
+    "what": "A panel that slides in from an edge of the screen without fully covering what’s behind it. For secondary or long content—filters, a cart, navigation, details—where keeping the context matters. It uses the same `<dialog>` engine as the Modal.",
+    "whenUse": [
+      "The content is long, or it helps to keep a sense of where it came from.",
+      "Filters, navigation, a cart, or a side detail that opens and closes often.",
+      "On small screens, where an edge-to-edge panel works better than a centered box."
+    ],
+    "whenAvoid": [
+      "The task is brief and deserves the screen’s full attention → `modal`.",
+      "It’s a yes/no confirmation → `alert-dialog`.",
+      "It’s only a menu of actions anchored to a trigger → `menu` or `popover`."
+    ],
+    "dos": [
+      "Choose the side deliberately (`side-left`, `side-right`…)—navigation at the start, details and filters at the end (RTL-aware).",
+      "Give it a header with a title and an explicit close button, in addition to Esc."
+    ],
+    "donts": [
+      "Don’t put the page’s main task in a drawer. If it’s the core work, it belongs on the page.",
+      "Don’t use it for a passing notice—that’s a `toast` or a `banner`."
+    ],
+    "related": [
+      "modal",
+      "menu",
+      "sidebar"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "Closes the panel. If it isn’t dismissible (`closedby=\"none\"`), it does nothing, not even on a second Esc in a row."
+    }
+  ],
+  "nucleo": "It’s a `<dialog>` with invoker commands (`commandfor`), with CSS transforms to slide in from the side."
+}

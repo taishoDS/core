@@ -1,0 +1,25 @@
+{
+  "nombre": "Kbd",
+  "guia": {
+    "what": "Represents a key or a keyboard combination. It renders as a `<kbd>` with the system’s styling.",
+    "whenUse": [
+      "You’re documenting a shortcut, like `⌘K`, `Esc`, or `Ctrl + B`.",
+      "You’re telling the user which key to press, in the interface or in the docs."
+    ],
+    "whenAvoid": [
+      "It’s code, not a key → `inline-code`."
+    ],
+    "dos": [
+      "One key per `<kbd>`, and build combinations from several.",
+      "Use each key’s real name on each platform."
+    ],
+    "donts": [
+      "Don’t use it as a decorative badge. It means “press this.”"
+    ],
+    "related": [
+      "inline-code",
+      "command-palette"
+    ]
+  },
+  "nucleo": "Purely presentational."
+}

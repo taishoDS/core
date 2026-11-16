@@ -1,0 +1,28 @@
+{
+  "nombre": "Link",
+  "guia": {
+    "what": "A text link with the system’s styles—an `<a class=\"ts link\" href>`; an action that looks like a link is a `<button type=\"button\" class=\"ts link\">`. It has variants and a disabled state; external links carry `target=\"_blank\"` and `rel=\"noopener noreferrer\"`.",
+    "whenUse": [
+      "Navigating to another page or to another point in the content.",
+      "The link sits inside text and needs to read as text.",
+      "You’re pointing outside the site. `target=\"_blank\"` with `rel=\"noopener noreferrer\"` opens it in a new tab without handing control to that page."
+    ],
+    "whenAvoid": [
+      "It’s an action that changes something, not a destination → `button`.",
+      "It’s a link that needs to look like a button → an `<a class=\"ts button …\">` (see `button`)."
+    ],
+    "dos": [
+      "Make the text say where it goes: “read the theming guide,” not “click here.”",
+      "Mark external links with `target=\"_blank\"` and `rel=\"noopener noreferrer\"` so they don’t catch people off guard."
+    ],
+    "donts": [
+      "Don’t use a link to trigger destructive actions.",
+      "Don’t leave links that can’t be told apart from plain text."
+    ],
+    "related": [
+      "button",
+      "breadcrumbs"
+    ]
+  },
+  "nucleo": "A native `<a>`, or a native `<button>` with the same look when it’s an action."
+}

@@ -1,0 +1,25 @@
+{
+  "nombre": "InlineCode",
+  "guia": {
+    "what": "Fragmento de código dentro de un párrafo. Se renderiza como `<code>` con el aspecto de Code pero en línea, y su tamaño acompaña al del texto que lo rodea.",
+    "whenUse": [
+      "Se nombra una prop, un archivo, un valor o un comando en medio de una frase.",
+      "Se busca que se distinga del texto sin cortar la lectura."
+    ],
+    "whenAvoid": [
+      "Es un fragmento de varias líneas → `code`.",
+      "Es una tecla del teclado → `kbd`."
+    ],
+    "dos": [
+      "Con esto se marca todo lo que se escribe literal en el código."
+    ],
+    "donts": [
+      "No se usa para enfatizar: para eso está el énfasis del texto."
+    ],
+    "related": [
+      "code",
+      "kbd"
+    ]
+  },
+  "nucleo": "Presentacional puro."
+}

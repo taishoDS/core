@@ -38,7 +38,7 @@ export const contratoCore: Record<string, ContratoCore> = {
     'inline-code': { atributos: [], bytes: 115 },
     'input': { atributos: ['data-ts-clear', 'data-ts-debounce', 'data-ts-field-spinner', 'data-ts-input'], bytes: 4771 },
     'kbd': { atributos: [], bytes: 156 },
-    'link': { atributos: [], bytes: 298 },
+    'link': { atributos: [], bytes: 614 },
     'loading-dots': { atributos: [], bytes: 165 },
     'menu': { atributos: ['data-ts-menu', 'data-ts-menu-panel', 'data-ts-menu-trigger', 'data-ts-value'], bytes: 804 },
     'modal': { atributos: [], bytes: 3752 },

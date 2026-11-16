@@ -1,0 +1,30 @@
+{
+  "nombre": "Banner",
+  "guia": {
+    "what": "A full-width message for a page-wide or app-wide status. It carries a semantic icon based on the variant and optional actions, and it can be dismissible (`data-ts-dismissible`) or stick to the top (`is-sticky`).",
+    "whenUse": [
+      "The message affects the whole page or the whole app, like an outage, an expired plan, or maintenance mode.",
+      "It has to be seen on arrival, without the user looking for it.",
+      "It can carry an action to resolve it right there (retry, upgrade the plan)."
+    ],
+    "whenAvoid": [
+      "The notice is about part of the content, not the whole page → `note`.",
+      "It confirms something the user just did and can go away on its own → `toast`.",
+      "It’s an error on a form field → the `field` `error`."
+    ],
+    "dos": [
+      "One banner at a time. If two compete, neither gets read.",
+      "Put the way out in the banner itself—what happened and what to do about it.",
+      "If it’s `is-sticky`, make it dismissible—a fixed banner that won’t go away gets in the way."
+    ],
+    "donts": [
+      "Don’t use it as a permanent ad. People stop seeing it, and it covers content.",
+      "Don’t let color carry the meaning alone. The text has to say it."
+    ],
+    "related": [
+      "note",
+      "toast"
+    ]
+  },
+  "nucleo": "The banner can be dismissed, and Core handles that. The close button removes the banner from the DOM (or hides it) and, when needed, remembers that it was dismissed."
+}

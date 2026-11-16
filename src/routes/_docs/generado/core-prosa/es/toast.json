@@ -1,0 +1,35 @@
+{
+  "nombre": "Toast",
+  "guia": {
+    "what": "Notificaciones efímeras apiladas en una esquina. Se disparan de dos formas: desde el HTML, con un botón `data-ts-toast-trigger`, o desde el JS propio con la función `toast()`, importada del mismo `taisho.core.js`, con la variante que corresponda (éxito, advertencia, peligro, info). Se pega el contenedor del ejemplo: trae los íconos de cada variante. Sin él, el Core crea uno con el primer aviso: los avisos salen sin ícono y ese primer aviso puede no anunciarse con el lector de pantalla. Cada aviso puede llevar una acción («Deshacer»), se pausa mientras el puntero o el foco están encima y se puede actualizar por id.",
+    "whenUse": [
+      "Confirmar el resultado de una acción que el usuario acaba de hacer: “Guardado”, “Copiado”.",
+      "El aviso no exige respuesta y puede irse solo a los pocos segundos.",
+      "El disparador está en el código (después de un `await`), no en el HTML.",
+      "Una acción reversible («Proyecto eliminado» + `Deshacer`) o un proceso que cambia de estado: «En cola» → «Construyendo» → «Listo»."
+    ],
+    "whenAvoid": [
+      "El mensaje tiene que quedar a la vista hasta que se resuelva → `banner` o `note`.",
+      "Hay que decidir algo antes de seguir → `alert-dialog`.",
+      "Es el error de un campo: va en el campo, no en una esquina → `field`."
+    ],
+    "dos": [
+      "Se disparan con `data-ts-toast-trigger` en un botón o con `toast()` desde el código, y se pega el contenedor del ejemplo: sin él los avisos salen sin ícono.",
+      "Mensajes de una línea; si necesita más texto (la opción `description`), conviene evaluar si no es un `banner` o una `note`.",
+      "Un error que el usuario tiene que leer entero: `duration: 0` para que no se vaya solo.",
+      "Para una operación async, se actualiza el mismo aviso por su id en vez de disparar uno por cada paso (`toast.promise`, o `updateToast` con el aviso o su id).",
+      "Con `action`, conviene darle más tiempo (`duration` de 6000 ms o más): el aviso se pausa con el puntero o el foco encima, pero no todos los usuarios llegan a tiempo."
+    ],
+    "donts": [
+      "No se pone ahí lo único que explica un error grave: se va y no vuelve.",
+      "No se dispara una ráfaga de toasts por una sola acción.",
+      "No se pone en `action` lo único que permite completar la tarea: si el aviso se va, la acción también."
+    ],
+    "related": [
+      "banner",
+      "note",
+      "alert-dialog"
+    ]
+  },
+  "nucleo": "Los avisos se crean en el momento: desde un botón con `data-ts-toast-trigger` o desde tu JS con `toast()`. El contenedor trae los íconos de cada variante. Cola con temporizadores y apilado; pausa del temporizador con el puntero encima o el foco adentro (retoma desde lo que faltaba); botón de acción con callback; `description` (detalle bajo el título); `updateToast` para cambiar un aviso por su elemento o su id; `toast.promise(promesa, { loading, success, error })`, un solo aviso que pasa de cargando a éxito o error; y dos regiones vivas (cortés y asertiva, esta última para `danger`). Hay dos formas de disparar un aviso: desde el HTML, o desde el JS propio con `toast()`, importada del mismo `taisho.core.js`. Se pega el contenedor del ejemplo: trae los íconos de cada variante. Sin él, el Core crea uno, pero los avisos salen sin ícono."
+}

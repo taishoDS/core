@@ -1,0 +1,29 @@
+{
+  "nombre": "EmptyState",
+  "guia": {
+    "what": "El bloque que va cuando una lista, tabla o vista no tiene contenido: ícono, título, descripción y acción, centrados y unificados, en vez de repetir el HTML en cada pantalla.",
+    "whenUse": [
+      "Una lista o tabla puede quedar vacía, sea por primera vez o por un filtro.",
+      "Se busca convertir el vacío en el primer paso: crear, importar, invitar.",
+      "Hace falta distinguir “todavía no hay nada” de “tu búsqueda no encontró nada”."
+    ],
+    "whenAvoid": [
+      "Todavía está cargando: eso es `skeleton` o `spinner`, no un vacío.",
+      "Es un error del sistema, no un estado sin datos → `banner` o `note`."
+    ],
+    "dos": [
+      "Se explica por qué está vacío y qué hacer: la acción va en el propio bloque.",
+      "El vacío inicial se diferencia del vacío por filtro; el segundo ofrece limpiar el filtro."
+    ],
+    "donts": [
+      "No se deja una tabla en blanco sin explicación: parece que se rompió.",
+      "No se usa el mismo texto para “sin datos” y para “sin resultados”."
+    ],
+    "related": [
+      "table",
+      "skeleton",
+      "note"
+    ]
+  },
+  "nucleo": "Composición de texto e ícono."
+}

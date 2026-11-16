@@ -1,0 +1,28 @@
+{
+  "nombre": "Textarea",
+  "guia": {
+    "what": "Campo de texto multilínea. Comparte label, hint, error y variantes con Input, y agrega auto-crecimiento de altura.",
+    "whenUse": [
+      "El texto esperado ocupa varias líneas: un comentario, una descripción, una nota.",
+      "Se busca que el campo crezca con el contenido (auto-resize).",
+      "El usuario necesita ver de una todo lo que ya escribió."
+    ],
+    "whenAvoid": [
+      "El texto es corto y de una línea → `input`.",
+      "Es un valor de un conjunto cerrado → `select`."
+    ],
+    "dos": [
+      "Conviene darle unas filas iniciales acordes a lo que se espera.",
+      "Se arma con el HTML de `field` y, si hay límite, se muestra el contador."
+    ],
+    "donts": [
+      "No se usa para una sola línea sólo porque se ve más grande.",
+      "El límite de caracteres no se esconde si lo hay."
+    ],
+    "related": [
+      "input",
+      "field"
+    ]
+  },
+  "nucleo": "Es un `<textarea>` nativo, más el botón de limpiar, que es propio. Cursor al final del valor inicial, igual que Input. Para que el alto crezca al escribir, se escucha `input` y se copia `scrollHeight` a la altura; sin eso el textarea funciona igual, con altura fija."
+}

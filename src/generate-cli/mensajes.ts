@@ -26,6 +26,7 @@ taisho — TaishoDS personalizable
 Uso:
   taisho init [dir]              Scaffoldea un taisho.config.ts en tu proyecto
     --yes, -y                    Sin preguntas: escribe el starter con defaults
+    --install-icons              Instala lucide-static (los íconos) sin preguntar
   taisho generate [config]       Compila tu taisho.config.ts a una carpeta autocontenida
     --config <path>              Ruta al config (default: ./taisho.config.ts)
     --out <dir>                  Carpeta de salida (default: el out de tu config; si no, ./taisho/)
@@ -50,10 +51,15 @@ Uso:
     --format <text|json>         Formato de salida (default: text; para parsear, json)
     --other-scale                Avisa también las medidas que en otro framework valen distinto (p-4, w-64); apagado por defecto
                                  Sale con 0 limpio, 1 con avisos, 2 si no pudo correr
+  taisho mcp                     Servidor MCP por stdio: deja que un asistente consulte componentes, utilidades y tu tema (sólo lectura, sin red)
+    --config <path>              Ruta al config (default: ./taisho.config.ts; sin él, el tema de fábrica)
   taisho --lang <es|en>          Idioma de los mensajes (default: el lang de tu config; si no, el del sistema)
   taisho --version                Muestra la versión
   taisho --help                   Muestra esta ayuda
 `,
+	mcp: {
+		sinConfig: 'No hay taisho.config.ts en el proyecto: se usa el tema de fábrica. Con `--config <ruta>` se indica otro.',
+	},
 	cli: {
 		opcionDesconocida: (flag: string) => `La opción ${flag} no existe: \`taisho --help\` lista las que hay.`,
 		faltaValor: (flag: string) => `${flag} necesita un valor.`,
@@ -62,6 +68,7 @@ Uso:
 		tailwindNoAcepta: (flags: string[]) => `taisho migrate --from tailwind no acepta ${flags.join(', ')}. Sus flags: --write, --config, --out.`,
 		checkNoAcepta: (flags: string[]) => `taisho check no acepta ${flags.join(', ')}. Sus flags: --config, --format, --other-scale.`,
 		watchNoAcepta: (flags: string[]) => `taisho watch no acepta ${flags.join(', ')}. Sus flags: --config, --out.`,
+		mcpNoAcepta: (flags: string[]) => `taisho mcp no acepta ${flags.join(', ')}. Sus flags: --config.`,
 		formatoInvalido: (formato: string) => `--format "${formato}" no existe: se acepta text o json.`,
 		comandoDesconocido: (cmd: string) => `Comando desconocido: ${cmd}`,
 	},
@@ -86,6 +93,12 @@ Uso:
 		preguntaFuentes: `Fuentes — (s)istema o (f)ontsource [s]: `,
 		preguntaIconos: (def: string) => `Carpeta de íconos propios [${def}]: `,
 		preguntaSalida: (def: string) => `Carpeta de salida del CSS y el JS [${def}]: `,
+		iconosInfo: (comando: string) => `  lucide-static trae los íconos de Lucide (los de <use href="#ts-nombre">). No viene con el Core: se puede instalar más tarde con \`${comando}\`.`,
+		preguntaLucide: '¿Instalar los íconos de Lucide (lucide-static)? (s/n) [s]: ',
+		instalando: (comando: string) => `→ ${comando}`,
+		lucideInstalado: '✅ lucide-static instalado.',
+		lucideFallo: (comando: string) => `⚠️  No se pudo instalar lucide-static. El config quedó creado; se instala a mano con \`${comando}\`.`,
+		lucideSinPreguntar: (comando: string) => `   Los íconos de Lucide (lucide-static) no están instalados. Se instalan con \`${comando}\` (o \`taisho init --install-icons\` en un proyecto nuevo).`,
 		plantilla: {
 			cabecera: ` * Config de TaishoDS para tu marca — equivalente a \`tailwind.config.js\`.
  * Se corre \`taisho generate\` para compilar el CSS a partir de esto.`,
@@ -114,7 +127,7 @@ Uso:
 		iconos: `\nPara los íconos, con los mismos <use href="…#ts-nombre"> que encontró en tu HTML:\n`,
 		usoIcono: '#ts-nombre',
 		tipos: (archivo: string) => `\nTipos de tus clases propias (extend, utilities): con ${archivo} dentro del include de tu tsconfig, entran en TaishoClass.`,
-		lucideFalta: '[taisho generate] lucide-static no encontrado. Se instala con: npm i lucide-static',
+		lucideFalta: (n: number) => `[taisho generate] ${n} ${n === 1 ? 'ícono no se resuelve' : 'íconos no se resuelven'}: falta lucide-static. Se instala con npm i -D lucide-static`,
 		iconoIgnorado: (nombre: string, origen: string) => `[taisho generate] ícono "${nombre}" no existe; se ignora (${origen}, no es markup).`,
 		iconosInexistentes: (lineas: string[], dir: string) =>
 			`Ícono(s) inexistente(s) en #ts-<nombre>:\n${lineas.join('\n')}\n` + `Se corrige el nombre (lucide) o se agrega un SVG en "${dir}/<nombre>.svg".`,
@@ -200,6 +213,7 @@ taisho — customizable TaishoDS
 Usage:
   taisho init [dir]              Scaffold a taisho.config.ts in your project
     --yes, -y                    Skip the questions and write the starter with defaults
+    --install-icons              Install lucide-static (the icons) without asking
   taisho generate [config]       Compile your taisho.config.ts to a self-contained folder
     --config <path>              Path to the config (default: ./taisho.config.ts)
     --out <dir>                  Output folder (default: the out in your config; else ./taisho/)
@@ -224,10 +238,15 @@ Usage:
     --format <text|json>         Output format (default: text; use json to parse it)
     --other-scale                Also flag the sizes that mean something else in another framework (p-4, w-64); off by default
                                  Exits with 0 when clean, 1 with warnings, 2 if it couldn't run
+  taisho mcp                     MCP server over stdio: lets an assistant look up components, utilities, and your theme (read-only, no network)
+    --config <path>              Path to the config (default: ./taisho.config.ts; without it, the factory theme)
   taisho --lang <es|en>          Message language (default: lang in your config, then the system's)
   taisho --version               Show the version
   taisho --help                  Show this help
 `,
+	mcp: {
+		sinConfig: 'There is no taisho.config.ts in the project: the factory theme is used. Pass `--config <path>` to point at another.',
+	},
 	cli: {
 		opcionDesconocida: (flag) => `Unknown option ${flag}. Run \`taisho --help\` to see the options.`,
 		faltaValor: (flag) => `${flag} needs a value.`,
@@ -236,6 +255,7 @@ Usage:
 		tailwindNoAcepta: (flags) => `taisho migrate --from tailwind doesn't take ${oLista(flags)}. Use --write, --config, or --out.`,
 		checkNoAcepta: (flags) => `taisho check doesn't take ${oLista(flags)}. Use --config, --format or --other-scale.`,
 		watchNoAcepta: (flags) => `taisho watch doesn't take ${oLista(flags)}. Use --config or --out.`,
+		mcpNoAcepta: (flags) => `taisho mcp doesn't take ${oLista(flags)}. Use --config.`,
 		formatoInvalido: (formato) => `--format "${formato}" isn't valid. Use text or json.`,
 		comandoDesconocido: (cmd) => `Unknown command "${cmd}".`,
 	},
@@ -260,6 +280,12 @@ Usage:
 		preguntaFuentes: `Fonts — (s)ystem or (f)ontsource [s]: `,
 		preguntaIconos: (def) => `Folder for your own icons [${def}]: `,
 		preguntaSalida: (def) => `Output folder for the CSS and JS [${def}]: `,
+		iconosInfo: (comando) => `  lucide-static provides the Lucide icons (the ones used as <use href="#ts-name">). It doesn't ship with the Core: it can be installed later with \`${comando}\`.`,
+		preguntaLucide: 'Install the Lucide icons (lucide-static)? (y/n) [y]: ',
+		instalando: (comando) => `→ ${comando}`,
+		lucideInstalado: '✅ lucide-static installed.',
+		lucideFallo: (comando) => `⚠️  Couldn't install lucide-static. The config was created; install it by hand with \`${comando}\`.`,
+		lucideSinPreguntar: (comando) => `   The Lucide icons (lucide-static) aren't installed. Install them with \`${comando}\` (or \`taisho init --install-icons\` in a new project).`,
 		plantilla: {
 			cabecera: ` * TaishoDS config for your brand, the equivalent of \`tailwind.config.js\`.
  * Run \`taisho generate\` to compile the CSS from it.`,
@@ -288,7 +314,7 @@ Usage:
 		iconos: `\nFor icons, use the same <use href="…#ts-name"> it found in your HTML:\n`,
 		usoIcono: '#ts-name',
 		tipos: (archivo: string) => `\nTypes for your own classes (extend, utilities): keep ${archivo} inside your tsconfig include and they join TaishoClass.`,
-		lucideFalta: "[taisho generate] Couldn't find lucide-static. Install it with npm i lucide-static",
+		lucideFalta: (n) => `[taisho generate] ${n} ${n === 1 ? "icon doesn't" : "icons don't"} resolve: lucide-static is missing. Install it with npm i -D lucide-static`,
 		iconoIgnorado: (nombre, origen) => `[taisho generate] Icon "${nombre}" doesn't exist, so it's ignored (${origen} isn't markup).`,
 		iconosInexistentes: (lineas, dir) =>
 			`${lineas.length === 1 ? "This icon doesn't" : "These icons don't"} exist (#ts-<name>):\n${lineas.join('\n')}\n` +

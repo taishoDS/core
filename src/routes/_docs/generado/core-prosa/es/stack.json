@@ -1,0 +1,29 @@
+{
+  "nombre": "Stack",
+  "guia": {
+    "what": "Layout flex con espaciado semántico: dirección (`flex-col`, `flex-row`), `gap-*`, alineación y wrap, todo con utilidades `ts`. Hermana de Grid.",
+    "whenUse": [
+      "Los elementos van en una sola dirección: una columna de secciones, una fila de botones.",
+      "Lo que importa es el espacio entre ítems, no que se alineen en columnas.",
+      "Se busca el mismo ritmo de espaciado que el resto del sistema."
+    ],
+    "whenAvoid": [
+      "Los elementos tienen que alinearse en filas y columnas → `grid`.",
+      "Es el ancho de toda la página → `container`."
+    ],
+    "dos": [
+      "Se usan los gaps del sistema en vez de márgenes sueltos en los hijos.",
+      "Si el bloque es una región, se usa el elemento semántico correcto."
+    ],
+    "donts": [
+      "No se meten márgenes en los hijos para corregir el espaciado: se cambia el `gap`.",
+      "No se arma una grilla a fuerza de stacks anidados → `grid`."
+    ],
+    "related": [
+      "grid",
+      "container",
+      "separator"
+    ]
+  },
+  "nucleo": "Layout: flexbox y gap."
+}

@@ -1,0 +1,57 @@
+{
+  "nombre": "Combobox",
+  "guia": {
+    "what": "Un `<input>` editable con autocompletado (patrón APG combobox): se tipea para filtrar la lista y se elige una opción o, con `data-ts-allow-custom` en la raíz, se deja un valor libre. A diferencia del Select, el campo de texto es el control.",
+    "whenUse": [
+      "La lista es larga y filtrar tipeando es la forma natural de llegar a la opción.",
+      "El usuario podría necesitar un valor que no está en la lista (`data-ts-allow-custom`).",
+      "Autocompletar mientras escribe ahorra más que abrir un panel y recorrerlo.",
+      "Hay que asignar varios valores de una lista larga o que viene del servidor, y conviene verlos en el campo (`data-ts-multiple`)."
+    ],
+    "whenAvoid": [
+      "La lista es corta y conocida: abrir y elegir alcanza → `select`.",
+      "Hace falta un buscador dentro del panel, o resumir varias opciones en un contador → `select`.",
+      "No se captura un valor sino que se ejecutan comandos de toda la app → `command-palette`."
+    ],
+    "dos": [
+      "Conviene mostrar un estado vacío claro cuando el filtro no encuentra nada.",
+      "Si se permiten valores libres, debe quedar obvio cómo se confirma uno nuevo."
+    ],
+    "donts": [
+      "No se usa para cuatro opciones: el input mete más fricción que un Select para tan poco.",
+      "No se esconden opciones importantes detrás del filtro sin un default visible."
+    ],
+    "related": [
+      "select",
+      "command-palette",
+      "input"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Recorre las opciones filtradas."
+    },
+    {
+      "keys": "Enter",
+      "action": "Elige la opción enfocada, o confirma el texto escrito."
+    },
+    {
+      "keys": "Escape",
+      "action": "Revierte al valor anterior y cierra."
+    },
+    {
+      "keys": "Enter (múltiple)",
+      "action": "Agrega o quita la opción enfocada sin cerrar el panel. Sin opción enfocada, agrega lo escrito si coincide con una opción o si se admiten valores libres."
+    },
+    {
+      "keys": "Backspace (múltiple)",
+      "action": "Con el campo vacío, quita la última etiqueta. Con texto, borra texto."
+    },
+    {
+      "keys": "Tab (múltiple)",
+      "action": "Recorre los botones para quitar cada etiqueta, antes de llegar al campo."
+    }
+  ],
+  "nucleo": "Es un campo de texto libre con filtrado en vivo y una lista de opciones. Patrón combobox de la APG sobre la lista de Select, más el filtrado mientras se tipea. Escape con el panel abierto no sigue hacia un Popover que lo contenga, y pasar el mouse sobre una opción la activa. Los grupos (`role=\"group\"` con `aria-labelledby`) se filtran ocultando el encabezado del que queda vacío."
+}

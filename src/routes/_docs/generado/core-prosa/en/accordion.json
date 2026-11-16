@@ -1,0 +1,35 @@
+{
+  "nombre": "Accordion",
+  "guia": {
+    "what": "A list of collapsible sections that coordinate with each other. By default, only one opens at a time; with `data-ts-multiple`, several can be open. Each item (`data-ts-accordion-item`) declares its `data-ts-value`.",
+    "whenUse": [
+      "There are several sibling sections, read one at a time, like FAQs or specifications.",
+      "Showing them all open would make the page overwhelming.",
+      "Opening one should close the previous one to keep focus."
+    ],
+    "whenAvoid": [
+      "It’s a single section that opens and closes on its own → `collapsible`.",
+      "They’re alternate views of the same object → `tabs`.",
+      "The content needs to be read in full and in order. Leave it visible."
+    ],
+    "dos": [
+      "Write titles that say what’s inside. They’re the only thing visible when collapsed.",
+      "Leave the first section open if it’s one almost everyone will open."
+    ],
+    "donts": [
+      "Don’t hide essential information in it. Collapsed content gets read far less.",
+      "Don’t nest accordions."
+    ],
+    "related": [
+      "collapsible",
+      "tabs"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Space",
+      "action": "Opens or closes the focused section."
+    }
+  ],
+  "nucleo": "Each item is a `<details>` with its `<summary>`, so the browser opens and closes it—by click and by keyboard—even when JavaScript doesn’t load. Core only adds the rest: opening one closes the others, the event, and opening from code. Without JavaScript, each item opens and closes on its own (Enter and Space on the `<summary>`) and several can be open at once. With Core, without `data-ts-multiple` opening one closes the other, and every change fires a cancelable `ts:change`. To open or close from code, change the `<details>` `open` property. Core follows it and that change doesn’t fire `ts:change`. A disabled item carries `aria-disabled=\"true\"` on the `<summary>`; without JavaScript it still opens."
+}

@@ -1,0 +1,35 @@
+{
+  "nombre": "Code",
+  "guia": {
+    "what": "Bloque de código con etiqueta de lenguaje y botón de copiar. El texto es el contenido del bloque. No aplica syntax highlighting por sí solo: mantiene el paquete liviano y sin dependencias.",
+    "whenUse": [
+      "Se muestra un fragmento que el lector va a copiar y pegar.",
+      "Es un bloque de varias líneas: un comando, un archivo de config, un snippet.",
+      "Conviene decir en qué lenguaje está.",
+      "Hay alternativas del mismo código (CDN o npm): las pestañas van en el encabezado del bloque, no encima."
+    ],
+    "whenAvoid": [
+      "Es un nombre de prop o de archivo dentro de una frase → `inline-code`.",
+      "Es una tecla o un atajo → `kbd`."
+    ],
+    "dos": [
+      "El bloque debe poder copiarse: es la razón por la que existe el botón.",
+      "Se muestra el fragmento mínimo que se entiende solo."
+    ],
+    "donts": [
+      "No se pegan archivos enteros cuando alcanza con diez líneas.",
+      "No se usa para resaltar texto que no es código."
+    ],
+    "related": [
+      "inline-code",
+      "kbd"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ← / Home / End",
+      "action": "Sólo con pestañas en el encabezado: cambian a la pestaña siguiente, a la anterior, a la primera y a la última, igual que en Tabs."
+    }
+  ],
+  "nucleo": "El botón de copiar confirma la acción con un aviso breve, y eso lo hace el Core. Copia el texto al portapapeles y muestra el acuse durante 2 segundos: el nombre «Copiado» (`data-ts-copied-label`) y el ✓ (`<template data-ts-copied-icon>`). Después vuelve al reposo; pulsar de nuevo reinicia los 2 segundos."
+}

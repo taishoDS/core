@@ -1,0 +1,30 @@
+{
+  "nombre": "Note",
+  "guia": {
+    "what": "Bloque de mensaje contextual dentro del contenido, no de ancho completo. Es el lugar de las aclaraciones, advertencias y tips que van pegados a lo que están explicando. Admite título, acciones y cierre.",
+    "whenUse": [
+      "La aclaración sólo tiene sentido al lado de lo que acompaña (un paso, un campo, un párrafo).",
+      "Se busca destacar algo del contenido sin sacar al usuario de donde está.",
+      "Hace falta jerarquía por variante (info, éxito, advertencia, peligro) dentro de la página."
+    ],
+    "whenAvoid": [
+      "El estado es de toda la página o la app → `banner`.",
+      "Es efímero y no hace falta que quede escrito → `toast`.",
+      "Es sólo una etiqueta corta de estado, sin prosa → `badge`."
+    ],
+    "dos": [
+      "La nota va junto a lo que explica, no al final de la página.",
+      "`ts note-title` se usa cuando el cuerpo pasa de una línea: da el resumen de un vistazo."
+    ],
+    "donts": [
+      "No se salpican notas cada dos párrafos: si todo está destacado, nada lo está.",
+      "La información esencial no va en una nota descartable."
+    ],
+    "related": [
+      "banner",
+      "toast",
+      "badge"
+    ]
+  },
+  "nucleo": "La nota descartable se oculta con su botón de cerrar, y eso lo hace el Core. El botón con `data-ts-dismiss` oculta la nota (`data-ts-dismissible`) y avisa con `ts:change`. Sin botón de cerrar es marcado estático."
+}

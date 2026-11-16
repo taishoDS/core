@@ -1,0 +1,53 @@
+{
+  "nombre": "Menu",
+  "guia": {
+    "what": "A dropdown menu of actions anchored to a trigger (APG menu pattern). The trigger has `data-ts-menu-trigger`; the panel has `data-ts-menu-panel`, with `ts menu-item`, `ts menu-separator`, and `ts menu-label` inside. It’s for running actions, not for choosing a value.",
+    "whenUse": [
+      "Grouping secondary actions behind a button (“⋯”, “Options”).",
+      "The actions don’t fit comfortably in the toolbar, but they’re used often.",
+      "Each item does something (navigate, edit, delete) and doesn’t leave a value selected."
+    ],
+    "whenAvoid": [
+      "You’re choosing a form value that stays selected → `select`.",
+      "The menu opens with a right-click on some content → `context-menu`.",
+      "They’re app-wide commands, searchable with ⌘K → `command-palette`."
+    ],
+    "dos": [
+      "Group items with `ts menu-label` and `ts menu-separator`, and keep destructive actions apart and at the end.",
+      "The trigger needs an accessible name (text or `aria-label`)."
+    ],
+    "donts": [
+      "Don’t put a form inside. It’s a list of actions, not a panel → `popover`.",
+      "Don’t hide the screen’s primary action inside a menu."
+    ],
+    "related": [
+      "context-menu",
+      "command-palette",
+      "select",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Move through the items."
+    },
+    {
+      "keys": "Enter / Space",
+      "action": "Activates the focused item."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Goes to the first / last item."
+    },
+    {
+      "keys": "Tab",
+      "action": "Closes the menu, and focus moves on to the next element on the page (it doesn’t move through the items)."
+    },
+    {
+      "keys": "Esc",
+      "action": "Closes and returns focus to the trigger."
+    }
+  ],
+  "nucleo": "The Popover API shows the menu, but doesn’t navigate it. The keyboard and submenus are Core’s. The APG menu pattern—programmatic focus on the items (`tabindex=\"-1\"`), ↑ ↓, Home and End, Tab to close, opening submenus, and cascading close."
+}

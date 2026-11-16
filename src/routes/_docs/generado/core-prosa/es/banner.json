@@ -1,0 +1,30 @@
+{
+  "nombre": "Banner",
+  "guia": {
+    "what": "Mensaje de ancho completo para un estado global de la página o la app. Lleva ícono semántico según la variante, acciones opcionales, y puede ser descartable (`data-ts-dismissible`) o quedar fijo arriba (`is-sticky`).",
+    "whenUse": [
+      "El mensaje afecta a toda la página o a toda la app: una caída, un plan vencido, un modo de mantenimiento.",
+      "Tiene que verse sí o sí al entrar, sin que el usuario lo busque.",
+      "Puede llevar una acción para resolverlo ahí mismo (reintentar, actualizar el plan)."
+    ],
+    "whenAvoid": [
+      "El aviso es sobre una parte del contenido y no sobre la página entera → `note`.",
+      "Es la confirmación de algo que el usuario acaba de hacer, y puede irse solo → `toast`.",
+      "Es el error de un campo de formulario → el `error` del `field`."
+    ],
+    "dos": [
+      "Un banner por vez: si hay dos compitiendo, ninguno se lee.",
+      "La salida va en el propio banner: qué pasó y qué hacer al respecto.",
+      "Si es `is-sticky`, debe poder descartarse — un banner fijo que no se va estorba."
+    ],
+    "donts": [
+      "No se usa de cartel publicitario permanente: se vuelve ciego y tapa contenido.",
+      "El color no debe cargar solo con el significado: el texto tiene que decirlo."
+    ],
+    "related": [
+      "note",
+      "toast"
+    ]
+  },
+  "nucleo": "El banner se puede descartar, y eso lo hace el Core. El botón de cerrar saca el banner del DOM (o lo oculta) y, si corresponde, recuerda que se descartó."
+}

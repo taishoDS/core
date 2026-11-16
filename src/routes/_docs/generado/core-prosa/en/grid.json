@@ -1,0 +1,29 @@
+{
+  "nombre": "Grid",
+  "guia": {
+    "what": "A grid with two sides: a content grid (`ts grid-container` with `grid-cols-*` and `gap-*`, which adapts to width with `sm:` and `lg:`), and a grid with divider lines between cells.",
+    "whenUse": [
+      "The elements line up in rows and columns, like a gallery, a dashboard, or a grid of cards.",
+      "You want the columns to adapt to the available width on their own.",
+      "You want divider lines between cells."
+    ],
+    "whenAvoid": [
+      "It runs in a single direction → `stack`.",
+      "It’s data compared field by field → `table`."
+    ],
+    "dos": [
+      "Start with `grid-cols-1` and add columns as the width grows (`sm:grid-cols-2`, `lg:grid-cols-3`). It adjusts on its own.",
+      "Keep cells at an even height when the grid reads as a whole."
+    ],
+    "donts": [
+      "Don’t set more columns than the content needs at each width.",
+      "Don’t use it for tabular data → `table`."
+    ],
+    "related": [
+      "stack",
+      "card",
+      "table"
+    ]
+  },
+  "nucleo": "Layout: CSS Grid."
+}

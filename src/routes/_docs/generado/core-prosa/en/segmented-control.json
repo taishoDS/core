@@ -1,0 +1,44 @@
+{
+  "nombre": "SegmentedControl",
+  "guia": {
+    "what": "Picks one of a few mutually exclusive options. It’s a radiogroup—you move through it with the arrow keys (selection follows focus), and it exposes its value. A good fit for switching views or filters where a Select would be overkill.",
+    "whenUse": [
+      "Switching between 2–4 options that should always be visible (views, filters).",
+      "The change shows up instantly, and opening a panel isn’t worth it.",
+      "You want the options and the selected one to read at a glance."
+    ],
+    "whenAvoid": [
+      "There are many options, or they don’t fit → `select`.",
+      "The options need a description or stack vertically → `radio`.",
+      "It’s navigation between content sections, not a value → `tabs`."
+    ],
+    "dos": [
+      "Keep labels short and similar in length, so they fit the same width without wrapping.",
+      "A handful of options at most. If you’re unsure, it’s already a `select`."
+    ],
+    "donts": [
+      "Don’t use it to move between pages or large views → `tabs`.",
+      "Don’t cram in six options. It gets tight and loses legibility."
+    ],
+    "related": [
+      "radio",
+      "select",
+      "tabs"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ←",
+      "action": "Next and previous segment (wrapping around). On an RTL page they swap: ← moves forward and → moves back."
+    },
+    {
+      "keys": "↓ ↑",
+      "action": "Next and previous segment, like a native radio group. They don’t depend on the writing direction."
+    },
+    {
+      "keys": "Home / End",
+      "action": "First and last enabled segment."
+    }
+  ],
+  "nucleo": "Core owns the selection and keyboard navigation between segments. Selects the segment, keeps `aria-checked` in sync, and moves between options with the arrow keys."
+}

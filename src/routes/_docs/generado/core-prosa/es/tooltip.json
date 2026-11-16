@@ -1,0 +1,36 @@
+{
+  "nombre": "Tooltip",
+  "guia": {
+    "what": "Etiqueta flotante que aparece al pasar el puntero o enfocar su disparador. El disparador va dentro de un `data-ts-tooltip-root`, y el texto corto en un elemento `data-ts-tooltip` con `role=\"tooltip\"`.",
+    "whenUse": [
+      "Nombrar un control que sólo muestra un ícono.",
+      "Aclarar un dato o una abreviatura sin ocupar lugar en la interfaz.",
+      "Lo que dice es un complemento: si no se lee, no se pierde nada."
+    ],
+    "whenAvoid": [
+      "La información es necesaria para completar la tarea → debe estar visible (por ejemplo la ayuda del campo, `ts input-hint`).",
+      "Hay que poder hacer clic dentro → `popover`.",
+      "Son acciones sobre un objeto → `menu`."
+    ],
+    "dos": [
+      "Texto corto, una línea: es una etiqueta, no documentación.",
+      "Botón de sólo ícono: además del tooltip, conviene darle su `aria-label`."
+    ],
+    "donts": [
+      "No se esconde ahí lo que el usuario necesita: en touch no hay hover.",
+      "No se ponen links ni botones adentro — no se pueden alcanzar."
+    ],
+    "related": [
+      "popover",
+      "field",
+      "button"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Cierra el tooltip visible, esté el foco en el disparador o en otro lado. La tecla se consume: un modal o un menú que haya debajo se cierra con el Escape siguiente."
+    }
+  ],
+  "nucleo": "Se muestra con la Popover API, pero el posicionamiento y los retardos son propios del Core. Retardo de aparición y de desaparición, y posicionamiento. Junto al borde de la ventana deja el mismo margen que la separación con el disparador (6 px)."
+}

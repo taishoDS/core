@@ -1,0 +1,38 @@
+{
+  "nombre": "Radio",
+  "guia": {
+    "what": "Selección única dentro de un conjunto. Las opciones comparten `name` y van dentro de un `role=\"radiogroup\"`. Soporta una descripción por opción (`has-description`) y, en el grupo, label, error y ayuda.",
+    "whenUse": [
+      "Elegir exactamente una de pocas opciones que conviene ver todas a la vez.",
+      "Las opciones necesitan una descripción o más contexto (`has-description`).",
+      "Se busca que comparar entre opciones sea visible sin abrir nada."
+    ],
+    "whenAvoid": [
+      "Son 2–4 opciones para alternar una vista o filtro → `segmented-control`.",
+      "Las opciones son muchas y no entran cómodas → `select`.",
+      "Se pueden elegir varias → `checkbox`."
+    ],
+    "dos": [
+      "Las opciones van siempre dentro de un `role=\"radiogroup\"`, con una marcada por defecto.",
+      "El grupo lleva un nombre (`aria-label`): es lo que nombra la pregunta (“Entorno”). Dentro del HTML de `field`, el nombre lo pone el `field`.",
+      "El error se muestra una vez en el grupo, no en cada opción.",
+      "Las opciones se ordenan con lógica (frecuencia, magnitud)."
+    ],
+    "donts": [
+      "No se usa para una sola opción de sí/no → `checkbox`.",
+      "No se usa para listas largas: se vuelve una pared de opciones → `select`."
+    ],
+    "related": [
+      "segmented-control",
+      "select",
+      "checkbox"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓ ← →",
+      "action": "Mueve la selección entre las opciones del grupo."
+    }
+  ],
+  "nucleo": "Es un `<input type=\"radio\">` nativo; la agrupación la hace `name`. Para pintar el estado, el Core refleja `checked` en la clase `is-checked` de la etiqueta (y apaga la del resto del grupo); el label, el error, la ayuda y la descripción son marcado que ya trae el ejemplo. Al cambiar la selección, refleja `checked` en la clase `is-checked` de la etiqueta y apaga la de los demás radios con el mismo `name` dentro del mismo formulario (o del mismo contenedor, si no hay formulario). El teclado, el foco y el envío son los del navegador."
+}

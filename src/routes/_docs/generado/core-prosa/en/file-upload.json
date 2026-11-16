@@ -1,0 +1,34 @@
+{
+  "nombre": "FileUpload",
+  "guia": {
+    "what": "A file drop zone with drag and drop. It validates type and size, lists uploaded files, and lets you remove them.",
+    "whenUse": [
+      "The user needs to upload one or more files (images, documents).",
+      "You want to validate type and size before accepting.",
+      "It helps to show what’s already uploaded and let users remove it."
+    ],
+    "whenAvoid": [
+      "A minimal `<input type=\"file\">` is enough, with no list or validation.",
+      "It isn’t a file but a text or number value → the matching control."
+    ],
+    "dos": [
+      "Declare the accepted types and the maximum size, and explain the limit.",
+      "Build it with the `field` markup for the label and validation errors."
+    ],
+    "donts": [
+      "Don’t accept just anything. Validate type and size on the client and on the server.",
+      "Don’t hide the progress or the errors of a failed upload."
+    ],
+    "related": [
+      "field",
+      "button"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Space",
+      "action": "On the “Select files” button, opens the file picker."
+    }
+  ],
+  "nucleo": "It’s built on a native `<input type=\"file\">` and adds drag and drop and the file list. Drag and drop, plus rendering the list of chosen files. With `multiple`, each selection is added to the list (without `multiple`, it replaces it), and each row has its own Remove button. Since the native input doesn’t accumulate files, Core keeps the list and rebuilds `input.files` with only the valid files. Each row comes from a `<template data-ts-file-template>` in the example. The empty list is `hidden`."
+}

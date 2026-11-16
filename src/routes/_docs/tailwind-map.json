@@ -7542,12 +7542,300 @@
       "px": 256
     },
     {
+      "tailwind": "-m-px",
+      "taisho": "ts-m-neg-1",
+      "scope": "m-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-mx-px",
+      "taisho": "ts-mx-neg-1",
+      "scope": "mx-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-my-px",
+      "taisho": "ts-my-neg-1",
+      "scope": "my-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-mt-px",
+      "taisho": "ts-mt-neg-1",
+      "scope": "mt-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-mb-px",
+      "taisho": "ts-mb-neg-1",
+      "scope": "mb-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-ms-px",
+      "taisho": "ts-ms-neg-1",
+      "scope": "ms-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-me-px",
+      "taisho": "ts-me-neg-1",
+      "scope": "me-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1
+    },
+    {
+      "tailwind": "-ml-px",
+      "taisho": "ts-ms-neg-1",
+      "scope": "ms-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-px",
+      "taisho": "ts-me-neg-1",
+      "scope": "me-neg-1",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 1,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-0.5",
+      "taisho": "ts-m-neg-2",
+      "scope": "m-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-mx-0.5",
+      "taisho": "ts-mx-neg-2",
+      "scope": "mx-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-my-0.5",
+      "taisho": "ts-my-neg-2",
+      "scope": "my-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-mt-0.5",
+      "taisho": "ts-mt-neg-2",
+      "scope": "mt-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-mb-0.5",
+      "taisho": "ts-mb-neg-2",
+      "scope": "mb-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-ms-0.5",
+      "taisho": "ts-ms-neg-2",
+      "scope": "ms-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-me-0.5",
+      "taisho": "ts-me-neg-2",
+      "scope": "me-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2
+    },
+    {
+      "tailwind": "-ml-0.5",
+      "taisho": "ts-ms-neg-2",
+      "scope": "ms-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-0.5",
+      "taisho": "ts-me-neg-2",
+      "scope": "me-neg-2",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 2,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
       "tailwind": "-m-1",
       "taisho": "ts-m-neg-4",
       "scope": "m-neg-4",
       "familia": "medidas",
       "exacta": true,
       "px": 4
+    },
+    {
+      "tailwind": "-mx-1",
+      "taisho": "ts-mx-neg-4",
+      "scope": "mx-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-my-1",
+      "taisho": "ts-my-neg-4",
+      "scope": "my-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-mt-1",
+      "taisho": "ts-mt-neg-4",
+      "scope": "mt-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-mb-1",
+      "taisho": "ts-mb-neg-4",
+      "scope": "mb-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-ms-1",
+      "taisho": "ts-ms-neg-4",
+      "scope": "ms-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-me-1",
+      "taisho": "ts-me-neg-4",
+      "scope": "me-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4
+    },
+    {
+      "tailwind": "-ml-1",
+      "taisho": "ts-ms-neg-4",
+      "scope": "ms-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-1",
+      "taisho": "ts-me-neg-4",
+      "scope": "me-neg-4",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 4,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-1.5",
+      "taisho": "ts-m-neg-6",
+      "scope": "m-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-mx-1.5",
+      "taisho": "ts-mx-neg-6",
+      "scope": "mx-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-my-1.5",
+      "taisho": "ts-my-neg-6",
+      "scope": "my-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-mt-1.5",
+      "taisho": "ts-mt-neg-6",
+      "scope": "mt-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-mb-1.5",
+      "taisho": "ts-mb-neg-6",
+      "scope": "mb-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-ms-1.5",
+      "taisho": "ts-ms-neg-6",
+      "scope": "ms-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-me-1.5",
+      "taisho": "ts-me-neg-6",
+      "scope": "me-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6
+    },
+    {
+      "tailwind": "-ml-1.5",
+      "taisho": "ts-ms-neg-6",
+      "scope": "ms-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-1.5",
+      "taisho": "ts-me-neg-6",
+      "scope": "me-neg-6",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 6,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
     },
     {
       "tailwind": "-m-2",
@@ -7558,6 +7846,294 @@
       "px": 8
     },
     {
+      "tailwind": "-mx-2",
+      "taisho": "ts-mx-neg-8",
+      "scope": "mx-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-my-2",
+      "taisho": "ts-my-neg-8",
+      "scope": "my-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-mt-2",
+      "taisho": "ts-mt-neg-8",
+      "scope": "mt-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-mb-2",
+      "taisho": "ts-mb-neg-8",
+      "scope": "mb-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-ms-2",
+      "taisho": "ts-ms-neg-8",
+      "scope": "ms-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-me-2",
+      "taisho": "ts-me-neg-8",
+      "scope": "me-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8
+    },
+    {
+      "tailwind": "-ml-2",
+      "taisho": "ts-ms-neg-8",
+      "scope": "ms-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-2",
+      "taisho": "ts-me-neg-8",
+      "scope": "me-neg-8",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 8,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-2.5",
+      "taisho": "ts-m-neg-10",
+      "scope": "m-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-mx-2.5",
+      "taisho": "ts-mx-neg-10",
+      "scope": "mx-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-my-2.5",
+      "taisho": "ts-my-neg-10",
+      "scope": "my-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-mt-2.5",
+      "taisho": "ts-mt-neg-10",
+      "scope": "mt-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-mb-2.5",
+      "taisho": "ts-mb-neg-10",
+      "scope": "mb-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-ms-2.5",
+      "taisho": "ts-ms-neg-10",
+      "scope": "ms-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-me-2.5",
+      "taisho": "ts-me-neg-10",
+      "scope": "me-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10
+    },
+    {
+      "tailwind": "-ml-2.5",
+      "taisho": "ts-ms-neg-10",
+      "scope": "ms-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-2.5",
+      "taisho": "ts-me-neg-10",
+      "scope": "me-neg-10",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 10,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-3",
+      "taisho": "ts-m-neg-12",
+      "scope": "m-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-mx-3",
+      "taisho": "ts-mx-neg-12",
+      "scope": "mx-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-my-3",
+      "taisho": "ts-my-neg-12",
+      "scope": "my-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-mt-3",
+      "taisho": "ts-mt-neg-12",
+      "scope": "mt-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-mb-3",
+      "taisho": "ts-mb-neg-12",
+      "scope": "mb-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-ms-3",
+      "taisho": "ts-ms-neg-12",
+      "scope": "ms-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-me-3",
+      "taisho": "ts-me-neg-12",
+      "scope": "me-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12
+    },
+    {
+      "tailwind": "-ml-3",
+      "taisho": "ts-ms-neg-12",
+      "scope": "ms-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-3",
+      "taisho": "ts-me-neg-12",
+      "scope": "me-neg-12",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 12,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-3.5",
+      "taisho": "ts-m-neg-14",
+      "scope": "m-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-mx-3.5",
+      "taisho": "ts-mx-neg-14",
+      "scope": "mx-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-my-3.5",
+      "taisho": "ts-my-neg-14",
+      "scope": "my-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-mt-3.5",
+      "taisho": "ts-mt-neg-14",
+      "scope": "mt-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-mb-3.5",
+      "taisho": "ts-mb-neg-14",
+      "scope": "mb-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-ms-3.5",
+      "taisho": "ts-ms-neg-14",
+      "scope": "ms-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-me-3.5",
+      "taisho": "ts-me-neg-14",
+      "scope": "me-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14
+    },
+    {
+      "tailwind": "-ml-3.5",
+      "taisho": "ts-ms-neg-14",
+      "scope": "ms-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-3.5",
+      "taisho": "ts-me-neg-14",
+      "scope": "me-neg-14",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 14,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
       "tailwind": "-m-4",
       "taisho": "ts-m-neg-16",
       "scope": "m-neg-16",
@@ -7566,12 +8142,1328 @@
       "px": 16
     },
     {
+      "tailwind": "-mx-4",
+      "taisho": "ts-mx-neg-16",
+      "scope": "mx-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-my-4",
+      "taisho": "ts-my-neg-16",
+      "scope": "my-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-mt-4",
+      "taisho": "ts-mt-neg-16",
+      "scope": "mt-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-mb-4",
+      "taisho": "ts-mb-neg-16",
+      "scope": "mb-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-ms-4",
+      "taisho": "ts-ms-neg-16",
+      "scope": "ms-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-me-4",
+      "taisho": "ts-me-neg-16",
+      "scope": "me-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16
+    },
+    {
+      "tailwind": "-ml-4",
+      "taisho": "ts-ms-neg-16",
+      "scope": "ms-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-4",
+      "taisho": "ts-me-neg-16",
+      "scope": "me-neg-16",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 16,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-5",
+      "taisho": "ts-m-neg-20",
+      "scope": "m-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-mx-5",
+      "taisho": "ts-mx-neg-20",
+      "scope": "mx-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-my-5",
+      "taisho": "ts-my-neg-20",
+      "scope": "my-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-mt-5",
+      "taisho": "ts-mt-neg-20",
+      "scope": "mt-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-mb-5",
+      "taisho": "ts-mb-neg-20",
+      "scope": "mb-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-ms-5",
+      "taisho": "ts-ms-neg-20",
+      "scope": "ms-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-me-5",
+      "taisho": "ts-me-neg-20",
+      "scope": "me-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20
+    },
+    {
+      "tailwind": "-ml-5",
+      "taisho": "ts-ms-neg-20",
+      "scope": "ms-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-5",
+      "taisho": "ts-me-neg-20",
+      "scope": "me-neg-20",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 20,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-6",
+      "taisho": "ts-m-neg-24",
+      "scope": "m-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-mx-6",
+      "taisho": "ts-mx-neg-24",
+      "scope": "mx-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-my-6",
+      "taisho": "ts-my-neg-24",
+      "scope": "my-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-mt-6",
+      "taisho": "ts-mt-neg-24",
+      "scope": "mt-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-mb-6",
+      "taisho": "ts-mb-neg-24",
+      "scope": "mb-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-ms-6",
+      "taisho": "ts-ms-neg-24",
+      "scope": "ms-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-me-6",
+      "taisho": "ts-me-neg-24",
+      "scope": "me-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24
+    },
+    {
+      "tailwind": "-ml-6",
+      "taisho": "ts-ms-neg-24",
+      "scope": "ms-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-6",
+      "taisho": "ts-me-neg-24",
+      "scope": "me-neg-24",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 24,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-7",
+      "taisho": "ts-m-neg-28",
+      "scope": "m-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-mx-7",
+      "taisho": "ts-mx-neg-28",
+      "scope": "mx-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-my-7",
+      "taisho": "ts-my-neg-28",
+      "scope": "my-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-mt-7",
+      "taisho": "ts-mt-neg-28",
+      "scope": "mt-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-mb-7",
+      "taisho": "ts-mb-neg-28",
+      "scope": "mb-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-ms-7",
+      "taisho": "ts-ms-neg-28",
+      "scope": "ms-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-me-7",
+      "taisho": "ts-me-neg-28",
+      "scope": "me-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28
+    },
+    {
+      "tailwind": "-ml-7",
+      "taisho": "ts-ms-neg-28",
+      "scope": "ms-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-7",
+      "taisho": "ts-me-neg-28",
+      "scope": "me-neg-28",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 28,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
       "tailwind": "-m-8",
       "taisho": "ts-m-neg-32",
       "scope": "m-neg-32",
       "familia": "medidas",
       "exacta": true,
       "px": 32
+    },
+    {
+      "tailwind": "-mx-8",
+      "taisho": "ts-mx-neg-32",
+      "scope": "mx-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-my-8",
+      "taisho": "ts-my-neg-32",
+      "scope": "my-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-mt-8",
+      "taisho": "ts-mt-neg-32",
+      "scope": "mt-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-mb-8",
+      "taisho": "ts-mb-neg-32",
+      "scope": "mb-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-ms-8",
+      "taisho": "ts-ms-neg-32",
+      "scope": "ms-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-me-8",
+      "taisho": "ts-me-neg-32",
+      "scope": "me-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32
+    },
+    {
+      "tailwind": "-ml-8",
+      "taisho": "ts-ms-neg-32",
+      "scope": "ms-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-8",
+      "taisho": "ts-me-neg-32",
+      "scope": "me-neg-32",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 32,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-9",
+      "taisho": "ts-m-neg-36",
+      "scope": "m-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-mx-9",
+      "taisho": "ts-mx-neg-36",
+      "scope": "mx-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-my-9",
+      "taisho": "ts-my-neg-36",
+      "scope": "my-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-mt-9",
+      "taisho": "ts-mt-neg-36",
+      "scope": "mt-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-mb-9",
+      "taisho": "ts-mb-neg-36",
+      "scope": "mb-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-ms-9",
+      "taisho": "ts-ms-neg-36",
+      "scope": "ms-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-me-9",
+      "taisho": "ts-me-neg-36",
+      "scope": "me-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36
+    },
+    {
+      "tailwind": "-ml-9",
+      "taisho": "ts-ms-neg-36",
+      "scope": "ms-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-9",
+      "taisho": "ts-me-neg-36",
+      "scope": "me-neg-36",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 36,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-10",
+      "taisho": "ts-m-neg-40",
+      "scope": "m-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-mx-10",
+      "taisho": "ts-mx-neg-40",
+      "scope": "mx-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-my-10",
+      "taisho": "ts-my-neg-40",
+      "scope": "my-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-mt-10",
+      "taisho": "ts-mt-neg-40",
+      "scope": "mt-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-mb-10",
+      "taisho": "ts-mb-neg-40",
+      "scope": "mb-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-ms-10",
+      "taisho": "ts-ms-neg-40",
+      "scope": "ms-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-me-10",
+      "taisho": "ts-me-neg-40",
+      "scope": "me-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40
+    },
+    {
+      "tailwind": "-ml-10",
+      "taisho": "ts-ms-neg-40",
+      "scope": "ms-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-10",
+      "taisho": "ts-me-neg-40",
+      "scope": "me-neg-40",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 40,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-11",
+      "taisho": "ts-m-neg-44",
+      "scope": "m-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-mx-11",
+      "taisho": "ts-mx-neg-44",
+      "scope": "mx-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-my-11",
+      "taisho": "ts-my-neg-44",
+      "scope": "my-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-mt-11",
+      "taisho": "ts-mt-neg-44",
+      "scope": "mt-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-mb-11",
+      "taisho": "ts-mb-neg-44",
+      "scope": "mb-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-ms-11",
+      "taisho": "ts-ms-neg-44",
+      "scope": "ms-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-me-11",
+      "taisho": "ts-me-neg-44",
+      "scope": "me-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44
+    },
+    {
+      "tailwind": "-ml-11",
+      "taisho": "ts-ms-neg-44",
+      "scope": "ms-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-11",
+      "taisho": "ts-me-neg-44",
+      "scope": "me-neg-44",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 44,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-12",
+      "taisho": "ts-m-neg-48",
+      "scope": "m-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-mx-12",
+      "taisho": "ts-mx-neg-48",
+      "scope": "mx-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-my-12",
+      "taisho": "ts-my-neg-48",
+      "scope": "my-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-mt-12",
+      "taisho": "ts-mt-neg-48",
+      "scope": "mt-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-mb-12",
+      "taisho": "ts-mb-neg-48",
+      "scope": "mb-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-ms-12",
+      "taisho": "ts-ms-neg-48",
+      "scope": "ms-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-me-12",
+      "taisho": "ts-me-neg-48",
+      "scope": "me-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48
+    },
+    {
+      "tailwind": "-ml-12",
+      "taisho": "ts-ms-neg-48",
+      "scope": "ms-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-12",
+      "taisho": "ts-me-neg-48",
+      "scope": "me-neg-48",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 48,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-14",
+      "taisho": "ts-m-neg-56",
+      "scope": "m-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-mx-14",
+      "taisho": "ts-mx-neg-56",
+      "scope": "mx-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-my-14",
+      "taisho": "ts-my-neg-56",
+      "scope": "my-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-mt-14",
+      "taisho": "ts-mt-neg-56",
+      "scope": "mt-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-mb-14",
+      "taisho": "ts-mb-neg-56",
+      "scope": "mb-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-ms-14",
+      "taisho": "ts-ms-neg-56",
+      "scope": "ms-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-me-14",
+      "taisho": "ts-me-neg-56",
+      "scope": "me-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56
+    },
+    {
+      "tailwind": "-ml-14",
+      "taisho": "ts-ms-neg-56",
+      "scope": "ms-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-14",
+      "taisho": "ts-me-neg-56",
+      "scope": "me-neg-56",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 56,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-16",
+      "taisho": "ts-m-neg-64",
+      "scope": "m-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-mx-16",
+      "taisho": "ts-mx-neg-64",
+      "scope": "mx-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-my-16",
+      "taisho": "ts-my-neg-64",
+      "scope": "my-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-mt-16",
+      "taisho": "ts-mt-neg-64",
+      "scope": "mt-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-mb-16",
+      "taisho": "ts-mb-neg-64",
+      "scope": "mb-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-ms-16",
+      "taisho": "ts-ms-neg-64",
+      "scope": "ms-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-me-16",
+      "taisho": "ts-me-neg-64",
+      "scope": "me-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64
+    },
+    {
+      "tailwind": "-ml-16",
+      "taisho": "ts-ms-neg-64",
+      "scope": "ms-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-16",
+      "taisho": "ts-me-neg-64",
+      "scope": "me-neg-64",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 64,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-20",
+      "taisho": "ts-m-neg-80",
+      "scope": "m-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-mx-20",
+      "taisho": "ts-mx-neg-80",
+      "scope": "mx-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-my-20",
+      "taisho": "ts-my-neg-80",
+      "scope": "my-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-mt-20",
+      "taisho": "ts-mt-neg-80",
+      "scope": "mt-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-mb-20",
+      "taisho": "ts-mb-neg-80",
+      "scope": "mb-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-ms-20",
+      "taisho": "ts-ms-neg-80",
+      "scope": "ms-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-me-20",
+      "taisho": "ts-me-neg-80",
+      "scope": "me-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80
+    },
+    {
+      "tailwind": "-ml-20",
+      "taisho": "ts-ms-neg-80",
+      "scope": "ms-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-20",
+      "taisho": "ts-me-neg-80",
+      "scope": "me-neg-80",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 80,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-24",
+      "taisho": "ts-m-neg-96",
+      "scope": "m-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-mx-24",
+      "taisho": "ts-mx-neg-96",
+      "scope": "mx-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-my-24",
+      "taisho": "ts-my-neg-96",
+      "scope": "my-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-mt-24",
+      "taisho": "ts-mt-neg-96",
+      "scope": "mt-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-mb-24",
+      "taisho": "ts-mb-neg-96",
+      "scope": "mb-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-ms-24",
+      "taisho": "ts-ms-neg-96",
+      "scope": "ms-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-me-24",
+      "taisho": "ts-me-neg-96",
+      "scope": "me-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96
+    },
+    {
+      "tailwind": "-ml-24",
+      "taisho": "ts-ms-neg-96",
+      "scope": "ms-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-24",
+      "taisho": "ts-me-neg-96",
+      "scope": "me-neg-96",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 96,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-32",
+      "taisho": "ts-m-neg-128",
+      "scope": "m-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-mx-32",
+      "taisho": "ts-mx-neg-128",
+      "scope": "mx-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-my-32",
+      "taisho": "ts-my-neg-128",
+      "scope": "my-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-mt-32",
+      "taisho": "ts-mt-neg-128",
+      "scope": "mt-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-mb-32",
+      "taisho": "ts-mb-neg-128",
+      "scope": "mb-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-ms-32",
+      "taisho": "ts-ms-neg-128",
+      "scope": "ms-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-me-32",
+      "taisho": "ts-me-neg-128",
+      "scope": "me-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128
+    },
+    {
+      "tailwind": "-ml-32",
+      "taisho": "ts-ms-neg-128",
+      "scope": "ms-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-32",
+      "taisho": "ts-me-neg-128",
+      "scope": "me-neg-128",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 128,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-40",
+      "taisho": "ts-m-neg-160",
+      "scope": "m-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-mx-40",
+      "taisho": "ts-mx-neg-160",
+      "scope": "mx-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-my-40",
+      "taisho": "ts-my-neg-160",
+      "scope": "my-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-mt-40",
+      "taisho": "ts-mt-neg-160",
+      "scope": "mt-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-mb-40",
+      "taisho": "ts-mb-neg-160",
+      "scope": "mb-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-ms-40",
+      "taisho": "ts-ms-neg-160",
+      "scope": "ms-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-me-40",
+      "taisho": "ts-me-neg-160",
+      "scope": "me-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160
+    },
+    {
+      "tailwind": "-ml-40",
+      "taisho": "ts-ms-neg-160",
+      "scope": "ms-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-40",
+      "taisho": "ts-me-neg-160",
+      "scope": "me-neg-160",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 160,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-48",
+      "taisho": "ts-m-neg-192",
+      "scope": "m-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-mx-48",
+      "taisho": "ts-mx-neg-192",
+      "scope": "mx-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-my-48",
+      "taisho": "ts-my-neg-192",
+      "scope": "my-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-mt-48",
+      "taisho": "ts-mt-neg-192",
+      "scope": "mt-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-mb-48",
+      "taisho": "ts-mb-neg-192",
+      "scope": "mb-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-ms-48",
+      "taisho": "ts-ms-neg-192",
+      "scope": "ms-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-me-48",
+      "taisho": "ts-me-neg-192",
+      "scope": "me-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192
+    },
+    {
+      "tailwind": "-ml-48",
+      "taisho": "ts-ms-neg-192",
+      "scope": "ms-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-48",
+      "taisho": "ts-me-neg-192",
+      "scope": "me-neg-192",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 192,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-56",
+      "taisho": "ts-m-neg-224",
+      "scope": "m-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-mx-56",
+      "taisho": "ts-mx-neg-224",
+      "scope": "mx-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-my-56",
+      "taisho": "ts-my-neg-224",
+      "scope": "my-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-mt-56",
+      "taisho": "ts-mt-neg-224",
+      "scope": "mt-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-mb-56",
+      "taisho": "ts-mb-neg-224",
+      "scope": "mb-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-ms-56",
+      "taisho": "ts-ms-neg-224",
+      "scope": "ms-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-me-56",
+      "taisho": "ts-me-neg-224",
+      "scope": "me-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224
+    },
+    {
+      "tailwind": "-ml-56",
+      "taisho": "ts-ms-neg-224",
+      "scope": "ms-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-56",
+      "taisho": "ts-me-neg-224",
+      "scope": "me-neg-224",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 224,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-m-64",
+      "taisho": "ts-m-neg-256",
+      "scope": "m-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-mx-64",
+      "taisho": "ts-mx-neg-256",
+      "scope": "mx-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-my-64",
+      "taisho": "ts-my-neg-256",
+      "scope": "my-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-mt-64",
+      "taisho": "ts-mt-neg-256",
+      "scope": "mt-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-mb-64",
+      "taisho": "ts-mb-neg-256",
+      "scope": "mb-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-ms-64",
+      "taisho": "ts-ms-neg-256",
+      "scope": "ms-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-me-64",
+      "taisho": "ts-me-neg-256",
+      "scope": "me-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256
+    },
+    {
+      "tailwind": "-ml-64",
+      "taisho": "ts-ms-neg-256",
+      "scope": "ms-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
+    },
+    {
+      "tailwind": "-mr-64",
+      "taisho": "ts-me-neg-256",
+      "scope": "me-neg-256",
+      "familia": "medidas",
+      "exacta": true,
+      "px": 256,
+      "nota": "lado lógico: sigue el sentido de lectura (RTL); el de Tailwind es físico"
     },
     {
       "tailwind": "rounded-none",
@@ -9612,7 +11504,16 @@
         "min-w-28",
         "min-h-28",
         "max-w-28",
-        "max-h-28"
+        "max-h-28",
+        "-m-28",
+        "-mx-28",
+        "-my-28",
+        "-mt-28",
+        "-mb-28",
+        "-ms-28",
+        "-me-28",
+        "-ml-28",
+        "-mr-28"
       ],
       "motivo": "112px no está en la escala de medidas (sizing)"
     },
@@ -9654,7 +11555,16 @@
         "min-w-36",
         "min-h-36",
         "max-w-36",
-        "max-h-36"
+        "max-h-36",
+        "-m-36",
+        "-mx-36",
+        "-my-36",
+        "-mt-36",
+        "-mb-36",
+        "-ms-36",
+        "-me-36",
+        "-ml-36",
+        "-mr-36"
       ],
       "motivo": "144px no está en la escala de medidas (sizing)"
     },
@@ -9696,7 +11606,16 @@
         "min-w-44",
         "min-h-44",
         "max-w-44",
-        "max-h-44"
+        "max-h-44",
+        "-m-44",
+        "-mx-44",
+        "-my-44",
+        "-mt-44",
+        "-mb-44",
+        "-ms-44",
+        "-me-44",
+        "-ml-44",
+        "-mr-44"
       ],
       "motivo": "176px no está en la escala de medidas (sizing)"
     },
@@ -9738,7 +11657,16 @@
         "min-w-52",
         "min-h-52",
         "max-w-52",
-        "max-h-52"
+        "max-h-52",
+        "-m-52",
+        "-mx-52",
+        "-my-52",
+        "-mt-52",
+        "-mb-52",
+        "-ms-52",
+        "-me-52",
+        "-ml-52",
+        "-mr-52"
       ],
       "motivo": "208px no está en la escala de medidas (sizing)"
     },
@@ -9780,7 +11708,16 @@
         "min-w-60",
         "min-h-60",
         "max-w-60",
-        "max-h-60"
+        "max-h-60",
+        "-m-60",
+        "-mx-60",
+        "-my-60",
+        "-mt-60",
+        "-mb-60",
+        "-ms-60",
+        "-me-60",
+        "-ml-60",
+        "-mr-60"
       ],
       "motivo": "240px no está en la escala de medidas (sizing)"
     },
@@ -9822,7 +11759,16 @@
         "min-w-72",
         "min-h-72",
         "max-w-72",
-        "max-h-72"
+        "max-h-72",
+        "-m-72",
+        "-mx-72",
+        "-my-72",
+        "-mt-72",
+        "-mb-72",
+        "-ms-72",
+        "-me-72",
+        "-ml-72",
+        "-mr-72"
       ],
       "motivo": "288px no está en la escala de medidas (sizing)"
     },
@@ -9864,7 +11810,16 @@
         "min-w-80",
         "min-h-80",
         "max-w-80",
-        "max-h-80"
+        "max-h-80",
+        "-m-80",
+        "-mx-80",
+        "-my-80",
+        "-mt-80",
+        "-mb-80",
+        "-ms-80",
+        "-me-80",
+        "-ml-80",
+        "-mr-80"
       ],
       "motivo": "320px no está en la escala de medidas (sizing)"
     },
@@ -9906,7 +11861,16 @@
         "min-w-96",
         "min-h-96",
         "max-w-96",
-        "max-h-96"
+        "max-h-96",
+        "-m-96",
+        "-mx-96",
+        "-my-96",
+        "-mt-96",
+        "-mb-96",
+        "-ms-96",
+        "-me-96",
+        "-ml-96",
+        "-mr-96"
       ],
       "motivo": "384px no está en la escala de medidas (sizing)"
     },

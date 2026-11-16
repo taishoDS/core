@@ -1,0 +1,27 @@
+{
+  "nombre": "Separator",
+  "guia": {
+    "what": "A divider line that separates content, horizontally or vertically, with an optional label in the middle. It’s the same separator that structures the sections of these docs.",
+    "whenUse": [
+      "Two neighboring blocks cover different things, and spacing alone isn’t enough.",
+      "You want to mark the break between long sections of a page.",
+      "You need a label in the middle of the break (“or,” “More options”)."
+    ],
+    "whenAvoid": [
+      "More breathing room between blocks is enough → `stack` with a larger `gap`.",
+      "Each block already has its own surface → `card`."
+    ],
+    "dos": [
+      "Use it between sections, not between every pair of elements.",
+      "If it’s purely decorative, give it `role=\"none\"` so it doesn’t clutter the accessibility tree."
+    ],
+    "donts": [
+      "Don’t draw lines everywhere. Rhythm comes from spacing; a line is the exception."
+    ],
+    "related": [
+      "stack",
+      "card"
+    ]
+  },
+  "nucleo": "A horizontal or vertical rule."
+}

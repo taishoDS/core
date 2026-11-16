@@ -1,0 +1,29 @@
+{
+  "nombre": "Container",
+  "guia": {
+    "what": "A page wrapper. It caps the maximum width, centers horizontally, and adds side padding (`max-w-*`, `mx-auto`, `px-*`). It replaces the `max-width + margin auto + padding` repeated in every layout, and you write it with whatever semantic element you need (`<main>`, `<section>`).",
+    "whenUse": [
+      "Wrapping a page’s content so it doesn’t stretch edge to edge.",
+      "You want the same width and the same side spacing on every screen.",
+      "You need the wrapper to be a landmark (`main`, `section`)."
+    ],
+    "whenAvoid": [
+      "The block has to span the full width (a `banner`, a full-bleed hero).",
+      "It’s how the content is laid out inside, not the page width → `stack` or `grid`."
+    ],
+    "dos": [
+      "One container per page region, not one inside another.",
+      "Choose the maximum width based on what’s being read. Long-form text wants less width, not more."
+    ],
+    "donts": [
+      "Don’t nest containers. The padding doubles up.",
+      "Don’t use it as a visual box. It doesn’t draw anything → `card`."
+    ],
+    "related": [
+      "stack",
+      "grid",
+      "card"
+    ]
+  },
+  "nucleo": "Layout: max-width and padding."
+}

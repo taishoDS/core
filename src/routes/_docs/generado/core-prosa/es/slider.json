@@ -1,0 +1,58 @@
+{
+  "nombre": "Slider",
+  "guia": {
+    "what": "Selector de un valor dentro de un rango continuo, de una lista de paradas (`data-ts-slider-values`) o de un tramo con dos manijas que no se cruzan (`data-ts-slider-range`). Monta sobre `<input type=\"range\">` nativos, así que arrastre y teclado son los del navegador. Puede mostrar el valor actual y las marcas de mínimo/máximo, ir en vertical (`is-vertical`) o de sólo lectura.",
+    "whenUse": [
+      "El valor es aproximado y el feedback visual del rango ayuda (volumen, opacidad, un umbral).",
+      "Lo que más importa es la relación dentro del rango, más que el número exacto.",
+      "Ajustar arrastrando es más natural que tipear.",
+      "Se filtra por un tramo (precio, cuota de uso, un rango de fechas de despliegue): `data-ts-slider-range`, con dos manijas.",
+      "Los valores posibles forman una escala sin espaciado parejo (asientos de un plan: 5, 10, 25, 50, 100, 250): `data-ts-slider-values` lista las paradas y el control sólo cae en ellas."
+    ],
+    "whenAvoid": [
+      "Hace falta un número exacto → `number-input`.",
+      "El rango es enorme y arrastrar es impreciso → `number-input`.",
+      "Son pocas opciones discretas (Free, Pro, Enterprise) → `segmented-control`."
+    ],
+    "dos": [
+      "Se muestran el valor actual y las marcas de extremo como referencia.",
+      "Con paradas, cada una lleva su texto (`data-ts-slider-format` o `data-ts-slider-texts`): el lector dice «6 px, Suave», no una posición.",
+      "Se elige un `step` que no frustre (ni demasiado fino ni grueso).",
+      "Se guardan o se piden datos cuando se confirma el valor: `ts:commit` sale al soltar; `ts:change` sale en cada movimiento.",
+      "Se usa `aria-readonly=\"true\"` en el input, no `disabled`, cuando el valor se lee y viaja en el form pero no se edita."
+    ],
+    "donts": [
+      "No se usa cuando la precisión importa y el error cuesta.",
+      "No se esconde el valor: sin número, el usuario adivina.",
+      "No se pide una request por cada cambio de un arrastre."
+    ],
+    "related": [
+      "number-input",
+      "segmented-control",
+      "field"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "← →",
+      "action": "Ajusta el valor según `step` (en RTL la flecha derecha resta, como el input nativo)."
+    },
+    {
+      "keys": "↑ ↓",
+      "action": "Igual que las flechas horizontales; en vertical, ↑ sube hacia el máximo."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Va al mínimo o al máximo. Con `is-range`, la manija de inicio frena en la de fin y viceversa."
+    },
+    {
+      "keys": "RePág / AvPág",
+      "action": "Salta varios pasos, como el input nativo. Con paradas (`data-ts-slider-values`) salta una parada, o una décima parte de la lista si hay más de 14."
+    },
+    {
+      "keys": "Tab",
+      "action": "Con `is-range`, recorre las dos manijas (inicio y fin) en ese orden."
+    }
+  ],
+  "nucleo": "Usa un `<input type=\"range\">` nativo para el arrastre y el teclado, y el Core suma el relleno de la pista, los límites de las manijas de `range` y los eventos. Al mover, el Core actualiza el relleno, `aria-valuenow`, los límites ARIA de cada manija y el texto del valor. Las manijas de `range` no se cruzan, y cuando se superponen queda arriba la que tiene lado libre. Clic o arrastre sobre el riel mueven la manija más cercana. `form.reset()` repinta el relleno."
+}

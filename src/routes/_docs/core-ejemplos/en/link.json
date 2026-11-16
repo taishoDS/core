@@ -6,5 +6,9 @@
   {
     "titulo": "Link that runs an action",
     "html": "<p class=\"ts type-copy-14\">\n  We couldn’t process the payment. <button type=\"button\" class=\"ts link\">Try again</button>\n</p>"
+  },
+  {
+    "titulo": "Footer or menu link",
+    "html": "<nav class=\"ts flex gap-base type-copy-14\" aria-label=\"Projects\">\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">Dashboard</a>\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">Payments API</a>\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">Marketing site</a>\n</nav>"
   }
 ]

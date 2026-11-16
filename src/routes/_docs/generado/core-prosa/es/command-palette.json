@@ -1,0 +1,44 @@
+{
+  "nombre": "CommandPalette",
+  "guia": {
+    "what": "Paleta de comandos estilo ⌘K: búsqueda difusa sobre acciones agrupadas, navegable por teclado. Se abre con `⌘/Ctrl + K` o desde un botón.",
+    "whenUse": [
+      "La app tiene muchas acciones y destinos, y hace falta un acceso rápido y buscable a todos.",
+      "Tu público usa teclado y valora llegar a cualquier lado sin el mouse.",
+      "Se busca un único lugar para navegar y ejecutar en vez de cazar botones."
+    ],
+    "whenAvoid": [
+      "Son pocas acciones sobre un disparador puntual → `menu`.",
+      "El caso es capturar un valor de formulario, no ejecutar comandos → `combobox`.",
+      "Las acciones son sobre un elemento con clic derecho → `context-menu`."
+    ],
+    "dos": [
+      "Los comandos se agrupan y se escriben buenos textos: es lo que se filtra.",
+      "Conviene ofrecer también una vía visible (un botón ⌘K) para que se descubra."
+    ],
+    "donts": [
+      "No se convierte en el único camino: no todos saben que existe ⌘K.",
+      "No se ponen comandos destructivos sin confirmación detrás de un match rápido."
+    ],
+    "related": [
+      "menu",
+      "combobox",
+      "select"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Recorre los resultados."
+    },
+    {
+      "keys": "Enter",
+      "action": "Ejecuta el comando resaltado."
+    },
+    {
+      "keys": "Escape",
+      "action": "Cierra la paleta."
+    }
+  ],
+  "nucleo": "Combina un atajo de teclado global, filtrado y foco. Atajo de teclado global, filtrado y navegación de la lista. Inicio y Fin son del cursor de la entrada. Va sobre un `<dialog>` modal: Escape lo cierra con una sola pulsación. Los textos de «sin resultados» salen de una plantilla en `data-ts-empty-for` («Sin resultados para \"…\"»)."
+}

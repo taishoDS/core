@@ -1,0 +1,47 @@
+{
+  "nombre": "ContextMenu",
+  "guia": {
+    "what": "A menu of actions that appears when you right-click an element. The target element has `data-ts-context-menu`, and the items are the same ones the Menu uses.",
+    "whenUse": [
+      "Offering contextual actions on an item (a row, a file, a card).",
+      "As a shortcut for power users, on top of a visible path.",
+      "The actions depend on the element that was right-clicked."
+    ],
+    "whenAvoid": [
+      "It would be the only way to reach the action. Right-click isn’t discoverable on its own → add a visible `menu`.",
+      "The actions are global, not tied to a specific element → `menu` or `command-palette`.",
+      "Your audience uses touch. Mobile has no right-click, so offer another path."
+    ],
+    "dos": [
+      "Duplicate anything important in a visible path. The context menu complements; it doesn’t replace.",
+      "Keep the list short and relevant to what was clicked."
+    ],
+    "donts": [
+      "Don’t make it the only way to do something critical.",
+      "Don’t replicate the app’s entire menu—only what applies to the element."
+    ],
+    "related": [
+      "menu",
+      "command-palette"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Shift+F10 / “ContextMenu” key",
+      "action": "With focus inside the area, opens the menu at its bottom-left corner and focuses the first item."
+    },
+    {
+      "keys": "↑ ↓ Home End",
+      "action": "Move through the items (with wrapping)."
+    },
+    {
+      "keys": "Tab",
+      "action": "Closes the menu, and focus moves on to the next element on the page."
+    },
+    {
+      "keys": "Esc",
+      "action": "Closes the menu and returns focus to whatever had it when the menu opened."
+    }
+  ],
+  "nucleo": "Works like Menu, triggered by a right-click. Everything Menu does, plus positioning at the pointer’s coordinates, suppressing the browser’s menu, and opening with Shift+F10 or the ContextMenu key (at the bottom-left corner of the area, with focus on the first item)."
+}

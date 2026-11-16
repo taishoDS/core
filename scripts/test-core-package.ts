@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { ejecutar } from './ejecutar';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
@@ -125,6 +126,37 @@ function binInstalado(tmp: string): void {
 	console.log('   bin: ayuda 0, uso 2, Node viejo con mensaje claro');
 }
 
+/** `taisho mcp` instalado: stdout es sólo protocolo, lista las seis herramientas, avisa la falta de `ts` y sirve la ficha con prosa. */
+function mcpInstalado(tmp: string): void {
+	const bin = path.join(tmp, 'node_modules/@taishods/core/bin/taisho');
+	const llamada = (id: number, name: string, args: object) => ({ jsonrpc: '2.0', id, method: 'tools/call', params: { name, arguments: args } });
+	const pedidos = [
+		{ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'prueba', version: '0' } } },
+		{ jsonrpc: '2.0', method: 'notifications/initialized' },
+		{ jsonrpc: '2.0', id: 2, method: 'tools/list' },
+		llamada(3, 'validate_markup', { markup: '<div class="flex p-4">x</div>' }),
+		llamada(4, 'get_component', { slug: 'button' }),
+	];
+	const r = spawnSync(process.execPath, [bin, 'mcp', '--lang', 'en'], { cwd: tmp, input: pedidos.map((p) => JSON.stringify(p)).join('\n') + '\n', encoding: 'utf8' });
+	if (r.status !== 0) throw new Error(`taisho mcp tiene que salir con 0 al cerrarse la entrada (salió con ${r.status}): ${r.stderr}`);
+	const respuestas = r.stdout.split('\n').filter(Boolean).map((l) => {
+		try {
+			return JSON.parse(l);
+		} catch {
+			throw new Error(`taisho mcp escribió a stdout algo que no es protocolo: ${l.slice(0, 120)}`);
+		}
+	});
+	const porId = (id: number) => respuestas.find((x) => x.id === id);
+	if (!porId(1)?.result.instructions.includes('`ts`')) throw new Error('initialize tiene que traer las reglas de escritura en `instructions`');
+	const nombres = porId(2)?.result.tools.map((t: { name: string }) => t.name).join();
+	if (nombres !== 'list_components,get_component,search_utilities,validate_markup,translate_tailwind,get_theme') throw new Error(`tools/list inesperado: ${nombres}`);
+	const aviso = JSON.parse(porId(3)?.result.content[0].text);
+	if (aviso.valid !== false || aviso.warnings[0]?.rule !== 'missing-ts') throw new Error(`validate_markup tiene que avisar la falta de \`ts\`: ${JSON.stringify(aviso)}`);
+	const ficha: string = porId(4)?.result.content[0].text;
+	if (!ficha.startsWith('# Button') || !ficha.includes('## When to use it') || !ficha.includes('```html')) throw new Error(`get_component no devolvió la ficha con prosa: ${ficha.slice(0, 200)}`);
+	console.log('   mcp: initialize, 6 herramientas, validate_markup avisa la falta de ts, get_component trae la ficha con prosa');
+}
+
 function main(): void {
 	if (!fs.existsSync(PAQUETE)) {
 		console.error('Falta dist-core/. Corré `npm run build:core` antes.');
@@ -152,6 +184,7 @@ function main(): void {
 		fs.writeFileSync(path.join(tmp, 'smoke.mjs'), SMOKE);
 		process.stdout.write('   ' + correr('node', ['smoke.mjs'], tmp));
 		binInstalado(tmp);
+		mcpInstalado(tmp);
 
 		fs.writeFileSync(path.join(tmp, 'tipos.ts'), TIPOS);
 		fs.writeFileSync(

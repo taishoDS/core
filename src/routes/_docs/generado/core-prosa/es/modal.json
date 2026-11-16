@@ -1,0 +1,38 @@
+{
+  "nombre": "Modal",
+  "guia": {
+    "what": "Diálogo centrado que interrumpe para una tarea acotada — un formulario, un detalle, una confirmación liviana. Monta sobre `<dialog>` nativo: atrapa el foco, cierra con Escape y el fondo queda inerte.",
+    "whenUse": [
+      "La tarea es autocontenida y corta: cabe sin scroll y se resuelve sin salir.",
+      "Interrumpir el flujo está justificado: lo que hay abajo puede esperar.",
+      "Alcanza con que el usuario pueda cerrar tocando el fondo o con Escape."
+    ],
+    "whenAvoid": [
+      "La decisión es destructiva o irreversible y no puede cerrarse sin querer → `alert-dialog`.",
+      "El contenido es largo, secundario o conviene conservar el contexto de al lado (filtros, carrito, navegación) → `drawer`.",
+      "Es un aviso que no exige respuesta inmediata → `banner` o `note` en la propia página."
+    ],
+    "dos": [
+      "Conviene darle un título visible: es el nombre accesible del diálogo y el ancla a la que llega quien lo abre. Con un `header` propio, el nombre lo da `aria-labelledby` (hacia su título) o `aria-label`.",
+      "Una sola tarea por modal. Si aparece un segundo paso, conviene replantear el flujo antes que anidar.",
+      "Si hay un campo que el usuario va a completar primero, conviene darle `autofocus`: `showModal()` lo enfoca al abrir, en cada apertura.",
+      "En pantallas chicas, la clase `responsive-sheet` en el `<dialog>` lo convierte en una hoja inferior más cómoda de alcanzar con el pulgar."
+    ],
+    "donts": [
+      "No se abre un modal desde otro modal: apilar top-layers confunde el foco y el Escape.",
+      "No se usa para confirmaciones que exigen elegir sí o no — para eso el fondo NO debe descartar."
+    ],
+    "related": [
+      "drawer",
+      "alert-dialog",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Cierra el diálogo. Si no es descartable (`closedby=\"none\"`), no hace nada, tampoco al segundo Escape seguido."
+    }
+  ],
+  "nucleo": "Es un `<dialog>` con invoker commands (`commandfor`): abre, cierra, atrapa el foco y pinta el fondo sin una línea de JavaScript (en un navegador con invoker commands)."
+}

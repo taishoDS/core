@@ -1,0 +1,36 @@
+{
+  "nombre": "Popover",
+  "guia": {
+    "what": "Panel flotante anclado a un disparador, para contenido contextual liviano — un detalle, un formulario corto, un par de acciones. El disparador lleva los atributos ARIA (`aria-haspopup`, `aria-expanded`) y abre el panel.",
+    "whenUse": [
+      "El contenido depende del elemento que lo abre y conviene mostrarlo al lado.",
+      "Es liviano y no justifica interrumpir con un diálogo.",
+      "Lo que hay debajo sigue siendo útil mientras el panel está abierto."
+    ],
+    "whenAvoid": [
+      "La tarea merece interrumpir y bloquear el fondo → `modal`.",
+      "Es una lista de acciones sobre un objeto → `menu`.",
+      "Es sólo una etiqueta que describe el disparador → `tooltip`."
+    ],
+    "dos": [
+      "Se ancla al elemento que lo explica y se elige el `placement-*` del panel (`placement-bottom-start`, `placement-top`…) que no tape lo importante.",
+      "Contenido corto: si necesita scroll propio, ya es un `modal` o un `drawer`."
+    ],
+    "donts": [
+      "No se mete un flujo de varios pasos en un popover.",
+      "No se abre con hover: un panel con controles se abre con un clic."
+    ],
+    "related": [
+      "modal",
+      "menu",
+      "tooltip"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Cierra y devuelve el foco al trigger."
+    }
+  ],
+  "nucleo": "Usa la Popover API para mostrar y ocultar; el resto es posicionamiento. Ancla el panel al disparador con CSS anchor positioning. El disparador sale con `aria-expanded=\"false\"` y el Core lo mantiene al abrir y cerrar. Los controles (`input`, `select`, `textarea`) de un panel `.ts.popover` cerrado quedan `disabled` (marca `data-ts-popover-off`; no se toca lo que ya estaba deshabilitado) y se restauran al abrir: no viajan en el formulario ni bloquean su validación mientras el panel está cerrado. Esa parte necesita el script del Core; sin él los campos viajan. El valor de un campo se conserva al reabrir."
+}

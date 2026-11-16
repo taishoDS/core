@@ -1,0 +1,53 @@
+{
+  "nombre": "Menu",
+  "guia": {
+    "what": "Menú desplegable de acciones anclado a un disparador (patrón APG menu). El disparador lleva `data-ts-menu-trigger`; el panel, `data-ts-menu-panel`, con `ts menu-item`, `ts menu-separator` y `ts menu-label` adentro. Es para ejecutar, no para elegir un valor.",
+    "whenUse": [
+      "Agrupar acciones secundarias detrás de un botón (“⋯”, “Opciones”).",
+      "Las acciones no entran cómodas en la barra pero se usan seguido.",
+      "Cada ítem ejecuta algo (navegar, editar, borrar); no deja un valor seleccionado."
+    ],
+    "whenAvoid": [
+      "El caso es elegir un valor de formulario que queda elegido → `select`.",
+      "El menú se dispara con clic derecho sobre un contenido → `context-menu`.",
+      "Son comandos de toda la app, buscables con ⌘K → `command-palette`."
+    ],
+    "dos": [
+      "Se agrupa con `ts menu-label` y `ts menu-separator`, y lo destructivo queda aparte y al final.",
+      "El disparador tiene que tener nombre accesible (texto o `aria-label`)."
+    ],
+    "donts": [
+      "No se mete un formulario adentro: es una lista de acciones, no un panel → `popover`.",
+      "La acción primaria de la pantalla no se esconde dentro de un menú."
+    ],
+    "related": [
+      "context-menu",
+      "command-palette",
+      "select",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Recorre los ítems."
+    },
+    {
+      "keys": "Enter / Espacio",
+      "action": "Activa el ítem enfocado."
+    },
+    {
+      "keys": "Inicio / Fin",
+      "action": "Va al primer / último ítem."
+    },
+    {
+      "keys": "Tab",
+      "action": "Cierra el menú y el foco sigue al próximo elemento de la página (no recorre los ítems)."
+    },
+    {
+      "keys": "Escape",
+      "action": "Cierra y devuelve el foco al trigger."
+    }
+  ],
+  "nucleo": "La Popover API muestra el menú, pero no navega: el teclado y los submenús son del Core. Patrón menu de la APG: foco por código en los ítems (`tabindex=\"-1\"`), ↑ ↓, Inicio y Fin, Tab que cierra, apertura de submenús y cierre en cascada."
+}

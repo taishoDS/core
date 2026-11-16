@@ -1,0 +1,58 @@
+{
+  "nombre": "Slider",
+  "guia": {
+    "what": "Picks a value within a continuous range, from a list of stops (`data-ts-slider-values`), or a span with two thumbs that can’t cross (`data-ts-slider-range`). It’s built on native `<input type=\"range\">` elements, so dragging and keyboard behavior come from the browser. It can show the current value and the min/max marks, run vertically (`is-vertical`), or be read-only.",
+    "whenUse": [
+      "The value is approximate and visual feedback on the range helps (volume, opacity, a threshold).",
+      "Where the value sits in the range matters more than the exact number.",
+      "Dragging to adjust feels more natural than typing.",
+      "You filter by a span (price, usage quota, a range of deployment dates). Use `data-ts-slider-range`, with two thumbs.",
+      "The possible values follow an uneven scale (plan seats: 5, 10, 25, 50, 100, 250). `data-ts-slider-values` lists the stops, and the control only lands on them."
+    ],
+    "whenAvoid": [
+      "You need an exact number → `number-input`.",
+      "The range is huge and dragging is imprecise → `number-input`.",
+      "It’s a few discrete options (Free, Pro, Enterprise) → `segmented-control`."
+    ],
+    "dos": [
+      "Show the current value and the end marks for reference.",
+      "With stops, give each one its text (`data-ts-slider-format` or `data-ts-slider-texts`). The screen reader says “6 px, Suave,” not a position.",
+      "Pick a `step` that doesn’t frustrate—neither too fine nor too coarse.",
+      "Save or fetch data when the value is committed. `ts:commit` fires on release; `ts:change` fires on every movement.",
+      "Use `aria-readonly=\"true\"` on the input, not `disabled`, when the value is shown and submitted with the form but can’t be edited."
+    ],
+    "donts": [
+      "Don’t use it when precision matters and mistakes are costly.",
+      "Don’t hide the value. Without a number, the user is guessing.",
+      "Don’t send a request for every change during a drag."
+    ],
+    "related": [
+      "number-input",
+      "segmented-control",
+      "field"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "← →",
+      "action": "Adjusts the value by `step` (in RTL, the right arrow decreases it, like the native input)."
+    },
+    {
+      "keys": "↑ ↓",
+      "action": "Same as the horizontal arrows. When vertical, ↑ moves toward the maximum."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Goes to the minimum or the maximum. With `is-range`, the start handle stops at the end handle and vice versa."
+    },
+    {
+      "keys": "Page Up / Page Down",
+      "action": "Jumps several steps, like the native input. With stops (`data-ts-slider-values`), it moves one stop, or a tenth of the list when there are more than 14."
+    },
+    {
+      "keys": "Tab",
+      "action": "With `is-range`, moves through both handles (start, then end)."
+    }
+  ],
+  "nucleo": "It uses a native `<input type=\"range\">` for dragging and the keyboard. Core adds the track fill, the `range` handle limits, and the events. On every move, Core updates the fill, `aria-valuenow`, each handle’s ARIA limits, and the value text. `range` handles don’t cross, and when they overlap, the one with room to move stays on top. Clicking or dragging on the rail moves the nearest handle. `form.reset()` repaints the fill."
+}

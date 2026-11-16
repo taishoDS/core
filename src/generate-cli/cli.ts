@@ -20,6 +20,7 @@ function showHelp() {
 
 const FLAGS_DE_CHECK = new Set(['config', 'format', 'help', 'version', 'lang', 'other-scale']);
 const FLAGS_DE_WATCH = new Set(['config', 'out', 'help', 'version', 'lang']);
+const FLAGS_DE_MCP = new Set(['config', 'help', 'version', 'lang']);
 
 const uso = (mensaje: string) => {
 	console.error(mensaje);
@@ -60,6 +61,7 @@ function parseCli() {
 			config: { type: 'string' },
 			out: { type: 'string' },
 			yes: { type: 'boolean', short: 'y', default: false },
+			'install-icons': { type: 'boolean', default: false },
 			from: { type: 'string' },
 			write: { type: 'boolean', default: false },
 			format: { type: 'string' },
@@ -92,10 +94,11 @@ async function ejecutar(args: ReturnType<typeof parseCli>) {
 	const [cmd, ...rest] = args.positionals;
 	if (cmd !== 'check' && cmd !== 'watch' && !(cmd === 'migrate' && args.values.from === 'tailwind') && args.values.format !== undefined) return uso(m().cli.opcionDesconocida('--format'));
 	if (!['generate', 'check', 'watch'].includes(cmd) && args.values.strict) return uso(m().cli.opcionDesconocida('--strict'));
+	if (cmd !== 'init' && args.values['install-icons']) return uso(m().cli.opcionDesconocida('--install-icons'));
 	if (cmd !== 'check' && args.values['other-scale']) return uso(m().cli.opcionDesconocida('--other-scale'));
 	switch (cmd) {
 		case 'init':
-			await runInit(rest[0], { yes: args.values.yes, lang });
+			await runInit(rest[0], { yes: args.values.yes, installIcons: args.values['install-icons'], lang });
 			return;
 		case 'generate': {
 			const configPath = args.values.config ?? rest[0];
@@ -151,6 +154,14 @@ async function ejecutar(args: ReturnType<typeof parseCli>) {
 				return;
 			}
 			await runWatch({ configPath: args.values.config ?? rest[0], outDir: args.values.out, lang });
+			return;
+		}
+		case 'mcp': {
+			const { yes, write, ...resto } = args.values;
+			const ajenos = [...Object.entries(resto).filter(([k, v]) => v !== undefined && v !== false && !FLAGS_DE_MCP.has(k)).map(([k]) => `--${k}`), ...(yes ? ['--yes'] : []), ...(write ? ['--write'] : [])];
+			if (ajenos.length) return uso(m().cli.mcpNoAcepta(ajenos));
+			const { runMcp } = await import('./mcp/servidor');
+			await runMcp({ configPath: args.values.config, lang });
 			return;
 		}
 		default:

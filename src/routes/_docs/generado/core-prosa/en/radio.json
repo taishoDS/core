@@ -1,0 +1,38 @@
+{
+  "nombre": "Radio",
+  "guia": {
+    "what": "A single choice within a set. The options share a `name` and sit inside a `role=\"radiogroup\"`. Supports a description per option (`has-description`) and, on the group, a label, error, and hint.",
+    "whenUse": [
+      "Choosing exactly one of a few options that are best seen all at once.",
+      "The options need a description or more context (`has-description`).",
+      "You want comparing the options to be visible without opening anything."
+    ],
+    "whenAvoid": [
+      "It’s 2–4 options to switch a view or filter → `segmented-control`.",
+      "There are too many options to fit comfortably → `select`.",
+      "More than one can be chosen → `checkbox`."
+    ],
+    "dos": [
+      "Always put the options inside a `role=\"radiogroup\"` and leave one checked by default.",
+      "Give the group a name (`aria-label`). It names the question (“Environment”). Inside the `field` markup, the `field` provides the name.",
+      "Show the error once on the group, not on each option.",
+      "Order the options logically (by frequency or magnitude)."
+    ],
+    "donts": [
+      "Don’t use it for a single yes/no option → `checkbox`.",
+      "Don’t use it for long lists. It turns into a wall of options → `select`."
+    ],
+    "related": [
+      "segmented-control",
+      "select",
+      "checkbox"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓ ← →",
+      "action": "Moves the selection between the group’s options."
+    }
+  ],
+  "nucleo": "It’s a native `<input type=\"radio\">`, grouped by `name`. To paint the state, Core mirrors `checked` to the label’s `is-checked` class (and clears it from the rest of the group). The label, error, hint, and description are markup the example already includes. When the selection changes, it mirrors `checked` to the label’s `is-checked` class and clears it from the other radios with the same `name` in the same form (or the same container when there is no form). Keyboard, focus, and submission are the browser’s."
+}

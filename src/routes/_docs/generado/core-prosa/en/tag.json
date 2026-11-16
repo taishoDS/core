@@ -1,0 +1,36 @@
+{
+  "nombre": "Tag",
+  "guia": {
+    "what": "A label for classifying or filtering content—categories, applied filters, keywords. Unlike the Badge, it’s designed to be interactive: clickable (`is-clickable`) and/or dismissible (`data-ts-dismissible`), with a prefix, sizes, and shapes.",
+    "whenUse": [
+      "Representing applied filters the user can remove one by one.",
+      "Listing keywords or categories people can click to navigate or filter.",
+      "The user adds and removes items from a set."
+    ],
+    "whenAvoid": [
+      "It’s purely informational and nobody will click it → `badge`.",
+      "It’s the screen’s primary action → `button`.",
+      "It’s a choice between a few mutually exclusive options → `segmented-control`."
+    ],
+    "dos": [
+      "If it’s dismissible, removing it should have an immediate, visible effect.",
+      "Keep labels short. Tags are read as a group, not one by one."
+    ],
+    "donts": [
+      "Don’t make a tag clickable if it leads nowhere. It promises something it doesn’t deliver.",
+      "Don’t mix interactive tags with informational labels in the same row → use `badge` for those."
+    ],
+    "related": [
+      "badge",
+      "button",
+      "segmented-control"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Space",
+      "action": "Activates the remove button, when the tag is removable."
+    }
+  ],
+  "nucleo": "It’s dismissible and responds to the keyboard. Removes the tag on click or Backspace and notifies the container. An `is-clickable` tag also responds to Enter and Space, with the same `click` as a button."
+}

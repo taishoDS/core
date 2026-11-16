@@ -1,0 +1,30 @@
+{
+  "nombre": "Breadcrumbs",
+  "guia": {
+    "what": "Ruta de navegación jerárquica: muestra dónde está el usuario y le da la vuelta hacia arriba. Colapsa los tramos del medio cuando la ruta es larga.",
+    "whenUse": [
+      "El contenido vive en una jerarquía de varios niveles y conviene mostrar el camino.",
+      "El usuario puede llegar directo desde afuera y necesita ubicarse.",
+      "Subir un nivel es un movimiento frecuente."
+    ],
+    "whenAvoid": [
+      "El sitio es plano y no hay jerarquía que mostrar → `nav-bar`.",
+      "Es el avance dentro de una lectura, no la jerarquía → `pager`.",
+      "Es el índice de la página actual → `toc`."
+    ],
+    "dos": [
+      "Debe reflejar la jerarquía real, no el historial de clics del usuario.",
+      "Con rutas largas, se colapsa el medio y quedan visibles el principio y el final."
+    ],
+    "donts": [
+      "El nivel actual no se hace clicable: ya está ahí.",
+      "No se usan como sustituto de una navegación principal."
+    ],
+    "related": [
+      "nav-bar",
+      "sidebar",
+      "toc"
+    ]
+  },
+  "nucleo": "Las rutas largas se colapsan detrás de un `…`, y expandirlas lo hace el Core. Alterna el tramo colapsado."
+}

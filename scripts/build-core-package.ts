@@ -49,6 +49,15 @@ Este producto se distribuye bajo la licencia MIT (ver LICENSE).
 El nombre "Taisho", el logo y la identidad visual NO están cubiertos por esa
 licencia. El código se puede usar, modificar y redistribuir; no se puede presentar una
 versión propia como si fuera Taisho ni usar el nombre para identificarla.
+
+--------------------------------------------------------------------------------
+
+Íconos de terceros
+
+core.js y los ejemplos de mcp/ incluyen trazos de íconos de Lucide
+(https://lucide.dev). Se distribuyen bajo la licencia de ese proyecto, que sigue:
+
+${fs.readFileSync(path.join(RAIZ, 'node_modules/lucide-static/LICENSE'), 'utf8').trim()}
 `;
 
 const leerReadme = (idioma: 'es' | 'en') =>
@@ -140,6 +149,16 @@ async function main(): Promise<void> {
 		),
 		outdir: path.join(SALIDA, 'core-modules'),
 	});
+	// Los datos que lee `taisho mcp`: los ejemplos HTML y la prosa de cada componente del Core (sin variantes), por idioma.
+	for (const [origen, destino] of [['src/routes/_docs/core-ejemplos', 'mcp/ejemplos'], ['src/routes/_docs/generado/core-prosa', 'mcp/prosa']]) {
+		for (const idioma of ['es', 'en']) {
+			const dir = path.join(SALIDA, destino, idioma);
+			fs.mkdirSync(dir, { recursive: true });
+			for (const archivo of fs.readdirSync(path.join(RAIZ, 'src/routes/_docs/generado/core-prosa', idioma))) {
+				fs.writeFileSync(path.join(dir, archivo), JSON.stringify(JSON.parse(fs.readFileSync(path.join(RAIZ, origen, idioma, archivo), 'utf8'))));
+			}
+		}
+	}
 	fs.mkdirSync(path.join(SALIDA, 'bin'), { recursive: true });
 	// El bin lleva la guardia de versión de Node adentro y carga `cli.js` recién después (import dinámico): en un Node viejo el
 	// `cli.js` no llega a evaluarse, y el usuario ve el mensaje en vez de un error crudo.
@@ -208,7 +227,7 @@ async function main(): Promise<void> {
 				peerDependencies: { vite: '>=6' },
 				peerDependenciesMeta: { vite: { optional: true } },
 				dependencies: { jiti: pkg.dependencies.jiti, esbuild: pkg.devDependencies.esbuild },
-				files: ['css', 'core.js', 'core.*.js', 'core-modules', 'theme.js', 'generate.js', 'cli.js', 'vite.js', 'shared', 'bin', 'types', 'NOTICE', 'TRADEMARK.md', 'README.en.md'],
+				files: ['css', 'core.js', 'core.*.js', 'core-modules', 'theme.js', 'generate.js', 'cli.js', 'vite.js', 'mcp', 'shared', 'bin', 'types', 'NOTICE', 'TRADEMARK.md', 'README.en.md'],
 			},
 			null,
 			2,

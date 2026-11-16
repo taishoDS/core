@@ -1,0 +1,28 @@
+{
+  "nombre": "Textarea",
+  "guia": {
+    "what": "A multi-line text field. It shares the label, hint, error, and variants with Input, and adds auto-growing height.",
+    "whenUse": [
+      "The expected text spans several lines, like a comment, description, or note.",
+      "You want the field to grow with its content (auto-resize).",
+      "The user needs to see everything they’ve written at once."
+    ],
+    "whenAvoid": [
+      "The text is short and fits on one line → `input`.",
+      "It’s a value from a closed set → `select`."
+    ],
+    "dos": [
+      "Give it a starting number of rows that matches what you expect.",
+      "Build it with the `field` markup and, if there’s a limit, show the counter."
+    ],
+    "donts": [
+      "Don’t use it for a single line just because it looks bigger.",
+      "Don’t hide the character limit if there is one."
+    ],
+    "related": [
+      "input",
+      "field"
+    ]
+  },
+  "nucleo": "It’s a native `<textarea>`, plus its own clear button. The caret starts at the end of the initial value, as in Input. To make the height grow as you type, listen to `input` and copy `scrollHeight` to the height. Without it, the textarea still works, at a fixed height."
+}

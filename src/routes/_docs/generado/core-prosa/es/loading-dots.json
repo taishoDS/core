@@ -1,0 +1,29 @@
+{
+  "nombre": "LoadingDots",
+  "guia": {
+    "what": "Tres puntos animados para señalar actividad de forma discreta, pensados para ir inline junto a texto o dentro de un botón. Heredan `currentColor`.",
+    "whenUse": [
+      "La señal de carga va inline y no tiene que robar atención.",
+      "Se reemplaza el texto de un botón mientras se envía.",
+      "La espera es breve y el spinner se ve pesado al lado del texto."
+    ],
+    "whenAvoid": [
+      "La carga ocupa un bloque entero de la pantalla → `spinner` o `skeleton`.",
+      "Se sabe cuánto falta → `progress`."
+    ],
+    "dos": [
+      "Se usan a la altura del texto que acompañan: heredan el color y el tamaño del contexto.",
+      "En un botón, se mantiene el ancho para que no salte al volver el texto."
+    ],
+    "donts": [
+      "No se usan como indicador principal de una carga larga: no comunican avance.",
+      "No se dejan animando cuando la operación ya terminó o falló."
+    ],
+    "related": [
+      "spinner",
+      "progress",
+      "skeleton"
+    ]
+  },
+  "nucleo": "Animación CSS."
+}

@@ -1334,7 +1334,7 @@ export function buildComponentsCSS(
 
     componentsCSS += `@utility ts-nav-bar-item {\n`;
     componentsCSS += `  @apply ts-inline-flex ts-items-center ts-gap-quarter ts-px-half ts-py-quarter ts-radius-md ts-font-sans ts-text-14 ts-weight-medium ts-color-subtle ts-no-underline ts-bg-transparent ts-border-none ts-cursor-pointer ts-outline-none ts-transition-colors ts-whitespace-nowrap;\n`;
-    componentsCSS += `  &:hover:not([aria-disabled="true"]) { @apply ts-bg-highlight ts-color-copy; }\n`;
+    componentsCSS += `  &:hover:not([aria-disabled="true"]), &:focus-visible:not([aria-disabled="true"]) { @apply ts-bg-highlight ts-color-copy; }\n`;
     componentsCSS += `  &.is-active { @apply ts-color-heading ts-bg-highlight; }\n`;
     componentsCSS += `  &[aria-disabled="true"] { @apply ts-disabled; }\n`;
     componentsCSS += `  &:disabled { @apply ts-disabled; }\n`;
@@ -1494,7 +1494,7 @@ export function buildComponentsCSS(
     componentsCSS += `}\n\n`;
     componentsCSS += `@utility ts-breadcrumbs-link {\n`;
     componentsCSS += `  @apply ts-flex ts-items-center ts-gap-quarter ts-color-subtle ts-cursor-pointer ts-no-underline ts-transition-colors;\n`;
-    componentsCSS += `  &:hover:not(.is-disabled) {\n`;
+    componentsCSS += `  &:hover:not(.is-disabled), &:focus-visible:not(.is-disabled) {\n`;
     componentsCSS += `    @apply ts-color-copy;\n`;
     componentsCSS += `  }\n`;
     componentsCSS += `}\n\n`;
@@ -1514,7 +1514,7 @@ export function buildComponentsCSS(
     componentsCSS += `  border-inline-start: var(--ts-border-width-2) solid transparent;\n`;
     componentsCSS += `  &.level-3 { @apply ts-ps-base; }\n`;
     componentsCSS += `  &:hover { @apply ts-color-copy; }\n`;
-    componentsCSS += `  &:focus-visible { @apply ts-focus-ring ts-radius-sm; }\n`;
+    componentsCSS += `  &:focus-visible { @apply ts-color-copy ts-focus-ring ts-radius-sm; }\n`;
     componentsCSS += `  &.is-active {\n`;
     componentsCSS += `    @apply ts-color-copy ts-weight-medium;\n`;
     componentsCSS += `    border-inline-start-color: var(--color-gray-1000);\n`;
@@ -1528,8 +1528,8 @@ export function buildComponentsCSS(
     componentsCSS += `@utility ts-pager-link {\n`;
     componentsCSS += `  @apply ts-flex-1 ts-flex ts-items-center ts-gap-half ts-p-base ts-radius-lg ts-no-underline ts-box-border ts-transition-colors ts-min-w-0;\n`;
     componentsCSS += `  border: var(--ts-border-width-1) solid var(--color-gray-200);\n`;
-    componentsCSS += `  &:hover { @apply ts-bg-gray-100; border-color: var(--color-gray-300); }\n`;
-    componentsCSS += `  &:hover .ts-pager-icon, &:hover .ts-pager-dir { @apply ts-color-heading; }\n`;
+    componentsCSS += `  &:hover, &:focus-visible { @apply ts-bg-gray-100; border-color: var(--color-gray-300); }\n`;
+    componentsCSS += `  &:hover .ts-pager-icon, &:hover .ts-pager-dir, &:focus-visible .ts-pager-icon, &:focus-visible .ts-pager-dir { @apply ts-color-heading; }\n`;
     componentsCSS += `  &:focus-visible { @apply ts-outline-none ts-focus-ring; }\n`;
     componentsCSS += `  &.is-next { justify-content: flex-end; }\n`;
     componentsCSS += `  &.is-next .ts-pager-text { text-align: end; }\n`;
@@ -1707,7 +1707,7 @@ export function buildComponentsCSS(
     componentsCSS += `  &.is-toggle {\n`;
     componentsCSS += `    @apply ts-flex ts-items-center ts-justify-between ts-gap-half ts-w-full ts-border-none ts-bg-transparent ts-cursor-pointer ts-align-start ts-radius-md ts-transition-colors ts-box-border;\n`;
     componentsCSS += `    &:hover { @apply ts-color-heading; }\n`;
-    componentsCSS += `    &:focus-visible { @apply ts-outline-none ts-focus-ring; }\n`;
+    componentsCSS += `    &:focus-visible { @apply ts-color-heading ts-outline-none ts-focus-ring; }\n`;
     componentsCSS += `  }\n`;
     componentsCSS += `  & [data-sidebar-group-icon] { @apply ts-flex ts-flex-shrink-0 ts-transition-transform; transform: rotate(-90deg); }\n`;
     componentsCSS += `  &.is-open [data-sidebar-group-icon] { transform: rotate(0deg); }\n`;
@@ -1721,10 +1721,10 @@ export function buildComponentsCSS(
     componentsCSS += `  & [data-sidebar-icon] { @apply ts-flex ts-items-center ts-justify-center ts-flex-shrink-0; }\n`;
     componentsCSS += `  & [data-sidebar-label] { @apply ts-flex-1 ts-truncate; }\n`;
     componentsCSS += `  & [data-sidebar-badge] { @apply ts-flex-shrink-0 ts-ms-auto; }\n`;
-    componentsCSS += `  &:hover { @apply ts-bg-gray-100 ts-color-heading; }\n`;
+    componentsCSS += `  &:hover, &:focus-visible { @apply ts-bg-gray-100 ts-color-heading; }\n`;
     componentsCSS += `  &:focus-visible { @apply ts-outline-none ts-focus-ring; }\n`;
     componentsCSS += `  &.is-active { @apply ts-bg-gray-200 ts-color-heading ts-weight-medium; }\n`;
-    componentsCSS += `  &.is-disabled { @apply ts-disabled; &:hover { @apply ts-bg-transparent ts-color-subtle; } }\n`;
+    componentsCSS += `  &.is-disabled { @apply ts-disabled; &:hover, &:focus-visible { @apply ts-bg-transparent ts-color-subtle; } }\n`;
     componentsCSS += `}\n`;
     componentsCSS += `@utility ts-sidebar-footer {\n`;
     componentsCSS += `  @apply ts-p-half ts-flex-shrink-0 ts-box-border ts-overflow-hidden ts-border-t-gray-200;\n`;
@@ -2174,6 +2174,7 @@ export function buildComponentsCSS(
     componentsCSS += `  &:focus-visible { @apply ts-focus-ring ts-radius-sm; }\n`;
     componentsCSS += `  &.variant-subtle { @apply ts-color-subtle; text-decoration-color: transparent; }\n`;
     componentsCSS += `  &.variant-subtle:hover { text-decoration-color: currentColor; @apply ts-color-copy; }\n`;
+    componentsCSS += `  &.variant-subtle:focus-visible { @apply ts-color-copy; }\n`;
     componentsCSS += `  &.variant-none { text-decoration: none; &:hover { text-decoration: underline; text-decoration-color: var(--color-gray-400); } }\n`;
     componentsCSS += `  &.is-disabled { @apply ts-disabled ts-pointer-events-none; }\n`;
     componentsCSS += `  /* Sin href es un <button>: el mismo aspecto que el <a>, sin lo que el navegador le pone a un botón */\n`;

@@ -1,0 +1,30 @@
+{
+  "nombre": "Skeleton",
+  "guia": {
+    "what": "Placeholder animado que reserva el espacio del contenido mientras carga, para que nada salte cuando llega. El tamaño se define con utilidades (`w-*`, `h-*`, `size-*`) y la forma con `variant-text`, `variant-circle` o `variant-rect`.",
+    "whenUse": [
+      "Se va a cargar contenido cuya forma ya se conoce: una lista, una tarjeta, un perfil.",
+      "Se busca evitar el salto de layout que produce el contenido al aparecer.",
+      "La espera es de la primera carga y llenar la pantalla ayuda a percibirla más corta."
+    ],
+    "whenAvoid": [
+      "La espera es de una acción puntual, no de contenido → `spinner`.",
+      "Se sabe el porcentaje de avance → `progress`.",
+      "No hay contenido que cargar: está vacío de verdad → `empty-state`."
+    ],
+    "dos": [
+      "Se copia la forma real del contenido: mismos tamaños, mismo orden.",
+      "Es decorativo: conviene acompañarlo con un texto de estado si el usuario necesita saber que está cargando."
+    ],
+    "donts": [
+      "No se dibuja un esqueleto que no se parece a lo que llega después: el salto igual ocurre.",
+      "No se usa para esperas de segundos largos sin ningún otro aviso."
+    ],
+    "related": [
+      "spinner",
+      "progress",
+      "empty-state"
+    ]
+  },
+  "nucleo": "Animación CSS."
+}

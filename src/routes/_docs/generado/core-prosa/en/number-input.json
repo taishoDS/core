@@ -1,0 +1,44 @@
+{
+  "nombre": "NumberInput",
+  "guia": {
+    "what": "A numeric field with increment and decrement buttons. It respects `min`, `max`, and `step`, responds to the arrow keys, and with `data-ts-number-format` shows currency, thousands separators, or percentages without losing the raw number.",
+    "whenUse": [
+      "Capturing an exact amount with a defined step, like a quantity, age, or price.",
+      "It helps to adjust in steps with the buttons or arrow keys.",
+      "The precise value matters, not an approximation."
+    ],
+    "whenAvoid": [
+      "The value is approximate within a range, and visual feedback helps → `slider`.",
+      "It isn’t a number but text → `input`."
+    ],
+    "dos": [
+      "Set `min`/`max`/`step` to match the real data.",
+      "Use `data-ts-number-format` for prices and percentages. Users see “$12,500.50” and the form receives 12500.5.",
+      "Build it with the `field` markup for the label and errors."
+    ],
+    "donts": [
+      "Don’t use it for huge ranges where typing is faster than stepping.",
+      "Don’t skip the limits. Letting any number through pushes the error downstream."
+    ],
+    "related": [
+      "slider",
+      "input",
+      "field"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Add or subtract `step` from the value (0.5 + 1 = 1.5), like the buttons."
+    },
+    {
+      "keys": "Home End",
+      "action": "Go to `min` / `max`. Without that limit, they keep their native behavior (moving the text caret)."
+    },
+    {
+      "keys": "Page Up Page Down",
+      "action": "Jump by the large step (`data-ts-large-step` on the root; ten times the step by default)."
+    }
+  ],
+  "nucleo": "It’s built on a native `<input>`, but the +/− buttons and arrow-key stepping are its own. Increments and decrements within `min`, `max`, and `step`, and restores the last valid value on blur. Home and End go to `min` and `max` (only if they’re set). Page Up and Page Down jump by `step × 10`. The text isn’t rewritten while you type, and a number beyond ±`Number.MAX_SAFE_INTEGER` is clamped on blur. With `min` at 0 or above, the `-` sign isn’t accepted."
+}

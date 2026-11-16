@@ -1,0 +1,30 @@
+{
+  "nombre": "Skeleton",
+  "guia": {
+    "what": "An animated placeholder that reserves space for content while it loads, so nothing jumps when it arrives. Size is set with utilities (`w-*`, `h-*`, `size-*`) and shape with `variant-text`, `variant-circle`, or `variant-rect`.",
+    "whenUse": [
+      "You’re about to load content whose shape you already know, like a list, a card, or a profile.",
+      "You want to avoid the layout shift content causes when it appears.",
+      "It’s the first load, and filling the screen makes the wait feel shorter."
+    ],
+    "whenAvoid": [
+      "The wait is for a one-off action, not content → `spinner`.",
+      "You know the percentage of progress → `progress`.",
+      "There’s no content to load because it’s genuinely empty → `empty-state`."
+    ],
+    "dos": [
+      "Copy the real shape of the content, with the same sizes and the same order.",
+      "It’s decorative. Add a status text if the user needs to know something is loading."
+    ],
+    "donts": [
+      "Don’t draw a skeleton that doesn’t resemble what arrives. The jump still happens.",
+      "Don’t use it for waits of several seconds with no other notice."
+    ],
+    "related": [
+      "spinner",
+      "progress",
+      "empty-state"
+    ]
+  },
+  "nucleo": "CSS animation."
+}

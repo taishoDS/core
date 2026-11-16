@@ -6,5 +6,9 @@
   {
     "titulo": "Enlace que ejecuta una acción",
     "html": "<p class=\"ts type-copy-14\">\n  No pudimos procesar el pago. <button type=\"button\" class=\"ts link\">Reintentar</button>\n</p>"
+  },
+  {
+    "titulo": "Enlace de pie o de menú",
+    "html": "<nav class=\"ts flex gap-base type-copy-14\" aria-label=\"Proyectos\">\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">Panel de control</a>\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">API de pagos</a>\n  <a class=\"ts link variant-subtle hover:no-underline\" href=\"#\">Sitio marketing</a>\n</nav>"
   }
 ]

@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach, beforeEach, vi } from 'vitest';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import { runInit, salidaDetectada } from './init';
+import { gestorDetectado, runInit, salidaDetectada } from './init';
 
 const terminal = vi.hoisted(() => ({ respuestas: [] as string[], preguntas: [] as string[] }));
 vi.mock('node:readline/promises', () => ({
@@ -13,6 +13,11 @@ vi.mock('node:readline/promises', () => ({
 			close() {},
 		}),
 	},
+}));
+
+const instalador = vi.hoisted(() => ({ llamadas: [] as Array<{ cmd: string; args: string[]; cwd?: string }>, status: 0 as number | null }));
+vi.mock('node:child_process', () => ({
+	spawnSync: (cmd: string, args: string[], opts: { cwd?: string }) => (instalador.llamadas.push({ cmd, args, cwd: opts.cwd }), { status: instalador.status }),
 }));
 
 const tmpDirs: string[] = [];
@@ -196,5 +201,107 @@ describe('runInit — la carpeta de salida', () => {
 		const b = proyecto('static');
 		await runInit(b, { lang: 'es' });
 		expect(salidaDe(b)).toBe('public/css/taisho');
+	});
+});
+
+describe('runInit — lucide-static', () => {
+	const tty = Object.getOwnPropertyDescriptor(process.stdin, 'isTTY');
+	const conTty = () => Object.defineProperty(process.stdin, 'isTTY', { value: true, configurable: true });
+	const sinTty = () => Object.defineProperty(process.stdin, 'isTTY', { value: undefined, configurable: true });
+	// idioma, marca, tema, fuentes, íconos propios, salida; la de lucide va después
+	const RESTO = ['es', '', '', '', '', ''];
+	afterEach(() => {
+		if (tty) Object.defineProperty(process.stdin, 'isTTY', tty);
+		else delete (process.stdin as { isTTY?: boolean }).isTTY;
+		terminal.respuestas = [];
+		terminal.preguntas = [];
+		instalador.llamadas = [];
+		instalador.status = 0;
+	});
+	const proyecto = (...archivos: string[]) => {
+		const dir = makeTmpDir('taisho-cli-init-lucide-');
+		fs.writeFileSync(path.join(dir, 'package.json'), '{}');
+		for (const a of archivos) fs.writeFileSync(path.join(dir, a), '');
+		return dir;
+	};
+	const pregunta = () => terminal.preguntas.at(-1);
+
+	it('interactivo, acepta: instala como dependencia de desarrollo y muestra el comando', async () => {
+		conTty();
+		terminal.respuestas = [...RESTO, ''];
+		const dir = proyecto();
+		await runInit(dir);
+		expect(pregunta()).toBe('¿Instalar los íconos de Lucide (lucide-static)? (s/n) [s]: ');
+		expect(instalador.llamadas).toEqual([{ cmd: 'npm', args: ['install', '-D', 'lucide-static'], cwd: dir }]);
+		expect(logSpy).toHaveBeenCalledWith('→ npm install -D lucide-static');
+		expect(process.exitCode).toBeUndefined();
+	});
+
+	it('interactivo, rechaza: no instala', async () => {
+		conTty();
+		terminal.respuestas = [...RESTO, 'n'];
+		await runInit(proyecto());
+		expect(terminal.preguntas.at(-1)).toContain('lucide-static');
+		expect(instalador.llamadas).toEqual([]);
+	});
+
+	it('interactivo, en inglés: pregunta y avisa en inglés', async () => {
+		conTty();
+		terminal.respuestas = ['en', '', '', '', '', '', 'y'];
+		await runInit(proyecto());
+		expect(terminal.preguntas.at(-1)).toBe('Install the Lucide icons (lucide-static)? (y/n) [y]: ');
+		expect(instalador.llamadas).toHaveLength(1);
+	});
+
+	it('ya instalado: no pregunta ni instala', async () => {
+		conTty();
+		terminal.respuestas = RESTO;
+		const dir = proyecto();
+		fs.mkdirSync(path.join(dir, 'node_modules/lucide-static'), { recursive: true });
+		fs.writeFileSync(path.join(dir, 'node_modules/lucide-static/icon-nodes.json'), '{}');
+		await runInit(dir);
+		expect(terminal.preguntas.some((p) => p.includes('lucide'))).toBe(false);
+		expect(instalador.llamadas).toEqual([]);
+	});
+
+	it('sin TTY: no instala e imprime el comando exacto', async () => {
+		sinTty();
+		await runInit(proyecto('pnpm-lock.yaml'));
+		expect(terminal.preguntas).toEqual([]);
+		expect(instalador.llamadas).toEqual([]);
+		expect(logSpy.mock.calls.flat().join('\n')).toContain('`pnpm add -D lucide-static`');
+	});
+
+	it('sin TTY con installIcons: instala sin preguntar', async () => {
+		sinTty();
+		const dir = proyecto('yarn.lock');
+		await runInit(dir, { installIcons: true });
+		expect(terminal.preguntas).toEqual([]);
+		expect(instalador.llamadas).toEqual([{ cmd: 'yarn', args: ['add', '-D', 'lucide-static'], cwd: dir }]);
+	});
+
+	it('sin package.json: no ofrece nada', async () => {
+		sinTty();
+		await runInit(makeTmpDir('taisho-cli-init-sinpkg-'), { installIcons: true });
+		expect(instalador.llamadas).toEqual([]);
+	});
+
+	it('si la instalación falla, init termina bien y muestra el comando a mano', async () => {
+		sinTty();
+		instalador.status = 1;
+		const dir = proyecto();
+		await runInit(dir, { installIcons: true, lang: 'en' });
+		expect(process.exitCode).toBeUndefined();
+		expect(fs.existsSync(path.join(dir, 'taisho.config.ts'))).toBe(true);
+		expect(errorSpy.mock.calls.flat().join('\n')).toContain('install it by hand with `npm install -D lucide-static`');
+	});
+
+	it('detecta el gestor por el lockfile; sin ninguno, npm', () => {
+		expect(gestorDetectado(proyecto())).toBe('npm');
+		expect(gestorDetectado(proyecto('package-lock.json'))).toBe('npm');
+		expect(gestorDetectado(proyecto('pnpm-lock.yaml'))).toBe('pnpm');
+		expect(gestorDetectado(proyecto('yarn.lock'))).toBe('yarn');
+		expect(gestorDetectado(proyecto('bun.lockb'))).toBe('bun');
+		expect(gestorDetectado(proyecto('bun.lock'))).toBe('bun');
 	});
 });

@@ -1,0 +1,36 @@
+{
+  "nombre": "Tag",
+  "guia": {
+    "what": "Etiqueta para clasificar o filtrar contenido — categorías, filtros aplicados, keywords. A diferencia del Badge, está pensada para ser interactiva: clicable (`is-clickable`) y/o descartable (`data-ts-dismissible`), con prefijo, tamaños y formas.",
+    "whenUse": [
+      "Representar filtros aplicados que el usuario puede quitar uno por uno.",
+      "Listar keywords o categorías en las que se puede hacer clic para navegar o filtrar.",
+      "El usuario agrega y saca ítems de un conjunto."
+    ],
+    "whenAvoid": [
+      "Es sólo informativo y nadie lo va a tocar → `badge`.",
+      "Es una acción principal de la pantalla → `button`.",
+      "Es una elección entre pocas opciones excluyentes → `segmented-control`."
+    ],
+    "dos": [
+      "Si es descartable, que quitarlo tenga un efecto visible inmediato.",
+      "Los textos se mantienen cortos: los tags se leen en grupo, no de a uno."
+    ],
+    "donts": [
+      "Un tag que no lleva a ningún lado no se hace clicable: promete algo que no cumple.",
+      "No se mezclan tags interactivos con etiquetas informativas en la misma fila → para esas se usa `badge`."
+    ],
+    "related": [
+      "badge",
+      "button",
+      "segmented-control"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Espacio",
+      "action": "Activa el botón de quitar, cuando el tag es removible."
+    }
+  ],
+  "nucleo": "Es descartable y responde al teclado. Quita el tag con clic o Backspace y avisa al contenedor. Un tag `is-clickable` también responde a Enter y Espacio, con el mismo `click` de un botón."
+}

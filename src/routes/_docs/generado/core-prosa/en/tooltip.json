@@ -1,0 +1,36 @@
+{
+  "nombre": "Tooltip",
+  "guia": {
+    "what": "A floating label that appears when its trigger is hovered or focused. The trigger goes inside a `data-ts-tooltip-root`, and the short text in a `data-ts-tooltip` element with `role=\"tooltip\"`.",
+    "whenUse": [
+      "Naming a control that only shows an icon.",
+      "Clarifying a value or an abbreviation without taking up space in the interface.",
+      "What you’re saying is supplementary. If nobody reads it, nothing is lost."
+    ],
+    "whenAvoid": [
+      "The information is required to complete the task → make it visible (for example, the field hint, `ts input-hint`).",
+      "People need to click inside it → `popover`.",
+      "It’s actions on an object → `menu`."
+    ],
+    "dos": [
+      "Short text, one line. It’s a label, not documentation.",
+      "For an icon-only button, give it its `aria-label` in addition to the tooltip."
+    ],
+    "donts": [
+      "Don’t hide what the user needs in it. Touch screens have no hover.",
+      "Don’t put links or buttons inside—they can’t be reached."
+    ],
+    "related": [
+      "popover",
+      "field",
+      "button"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "Closes the visible tooltip, whether focus is on the trigger or elsewhere. The key is consumed: a modal or menu underneath closes with the next Esc."
+    }
+  ],
+  "nucleo": "It’s shown with the Popover API, but positioning and delays are Core’s own. Show and hide delays, and positioning. Next to the viewport edge, it keeps the same margin as its offset from the trigger (6 px)."
+}

@@ -1,0 +1,53 @@
+{
+  "nombre": "Select",
+  "guia": {
+    "what": "Selector de un valor de una lista conocida. No es el `<select>` nativo: soporta grupos, búsqueda interna, selección múltiple y opciones con ícono y descripción. El panel vive en el top-layer del navegador (Popover API).",
+    "whenUse": [
+      "Se elige uno o varios elementos de un conjunto conocido y acotado que se recorre de un vistazo.",
+      "Hace falta selección múltiple o un buscador dentro del panel.",
+      "Es un campo de formulario: el valor elegido queda y se envía."
+    ],
+    "whenAvoid": [
+      "La lista es larga y tipear para filtrar es la interacción principal → `combobox`.",
+      "El usuario tiene que poder escribir un valor que no está en la lista → `combobox` con `data-ts-allow-custom`.",
+      "El caso no es elegir un valor sino disparar una acción → `menu`."
+    ],
+    "dos": [
+      "El campo se etiqueta con el HTML de `field`: label, ayuda y error atados al control.",
+      "Las opciones se ordenan con criterio (frecuencia o alfabético) y se agrupan si son muchas."
+    ],
+    "donts": [
+      "No se usa para dos o tres opciones excluyentes que conviene ver siempre → `segmented-control` o `radio`.",
+      "No se mezclan acciones (“Editar”, “Borrar”) entre las opciones: un Select elige, no ejecuta."
+    ],
+    "related": [
+      "combobox",
+      "menu",
+      "radio",
+      "segmented-control"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Recorre las opciones."
+    },
+    {
+      "keys": "Home End",
+      "action": "Llevan a la primera o a la última opción habilitada."
+    },
+    {
+      "keys": "Enter / Espacio",
+      "action": "Elige la opción resaltada."
+    },
+    {
+      "keys": "Escape",
+      "action": "Cierra sin cambiar la selección."
+    },
+    {
+      "keys": "Tab",
+      "action": "Cierra el panel y el foco sigue su camino: las opciones no son tabulables."
+    }
+  ],
+  "nucleo": "Es una lista de opciones propia, no un `<select>` nativo: tiene teclado, búsqueda por escritura y selección múltiple. Lista de opciones completa (patrón listbox de la APG): abrir y cerrar, foco, ↑ ↓, Home, End, búsqueda por escritura, selección múltiple, botón de limpiar y posicionamiento. Tab con el panel abierto lo cierra y el foco sigue. El texto del disparador y el estado `is-placeholder` salen de la selección."
+}

@@ -1,0 +1,35 @@
+{
+  "nombre": "NavBar",
+  "guia": {
+    "what": "Barra de navegación horizontal: marca al inicio, ítems y acciones. Bajo el breakpoint colapsa detrás de un botón hamburguesa. Los ítems son enlaces con estado activo.",
+    "whenUse": [
+      "Las secciones principales son pocas y entran en una línea.",
+      "Se busca la marca, la navegación y las acciones de cuenta en el mismo lugar.",
+      "El contenido gana con el ancho completo por debajo."
+    ],
+    "whenAvoid": [
+      "Son muchas secciones y subsecciones (una doc, un panel) → `sidebar`.",
+      "Es navegación dentro de una misma página → `toc` o `tabs`."
+    ],
+    "dos": [
+      "Pocos ítems y siempre los mismos: la barra es el mapa estable del sitio.",
+      "Se marca el ítem activo para que se sepa dónde está parado el usuario."
+    ],
+    "donts": [
+      "No se mete ahí toda la navegación de un panel: no entra y se rompe en mobile.",
+      "No se deja fija (`is-sticky`) si tapa contenido en pantallas bajas."
+    ],
+    "related": [
+      "sidebar",
+      "breadcrumbs",
+      "menu"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Con el menú móvil abierto, lo cierra; si el foco estaba dentro del menú, vuelve al botón de menú."
+    }
+  ],
+  "nucleo": "Decide entre la barra y el menú compacto según el ancho, y abre y cierra ese menú. Abre y cierra el menú móvil. El corte responsive puede resolverse por container query, sin JavaScript. Escape cierra el menú (`data-ts-toggle-escape`) y devuelve el foco al botón si estaba dentro; un puntero presionado fuera de la barra (`data-ts-toggle-root`) también lo cierra (`data-ts-toggle-outside`)."
+}

@@ -1,0 +1,80 @@
+{
+  "nombre": "DatePicker",
+  "guia": {
+    "what": "Selección de una fecha: un disparador tipo input abre un calendario navegable por teclado (patrón APG). Trabaja con `Date` nativo y cero dependencias; los nombres de mes y día salen de `Intl`. El panel vive en el top-layer nativo (Popover API). Con `data-ts-range` elige un tramo (inicio y fin) en el mismo calendario, con `data-ts-date-preset` suma atajos (hoy, últimos 7 días, este mes) en una columna junto a la grilla, y con `data-ts-date-text` se puede escribir la fecha en un campo de texto.",
+    "whenUse": [
+      "Capturar una fecha donde ver el calendario ayuda a elegir (reservas, vencimientos).",
+      "Hace falta un tramo con inicio y fin (una ventana de despliegue, un periodo de facturación): `data-ts-range`.",
+      "El contexto del mes o la semana importa para decidir.",
+      "La gente conoce la fecha de memoria o la pega de otro lado (un vencimiento, un ticket): `data-ts-date-text` suma un campo donde se escribe.",
+      "Hay elecciones que se repiten (hoy, los últimos 7 días, este mes): se suman como atajos con `data-ts-date-preset`.",
+      "Hace falta restringir a un rango (`data-ts-min`/`data-ts-max`) o respetar un locale (`data-ts-locale`).",
+      "Se busca el campo completo, con label, ayuda y error.",
+      "Hay días que no se pueden elegir (fines de semana, feriados, una regla propia) o que conviene señalar con una marca (reuniones, despliegues)."
+    ],
+    "whenAvoid": [
+      "La fecha es conocida y tipear es más rápido (una fecha de nacimiento) → un `input` con formato.",
+      "Es sólo una hora, sin fecha, o un valor que no es una fecha → el control que corresponda."
+    ],
+    "dos": [
+      "Se restringe a las fechas válidas con `data-ts-min`/`data-ts-max`, y los días sueltos que no se pueden elegir se marcan con `data-ts-disabled-weekdays`, `data-ts-disabled-dates` o `setDatePickerDisabledDate`.",
+      "`data-ts-day-marks` señala eventos con un punto y un texto corto: el texto llega al lector de pantalla y al `title`.",
+      "Mientras se traen marcas o días no disponibles del servidor, se llama a `setDatePickerLoading(root, true)`: no bloquea el campo.",
+      "Se arma con el HTML de `field` para formularios, o con su label, ayuda y error pegados al campo si va suelto; el formato esperado debe quedar claro.",
+      "En el campo tipeable (`data-ts-date-text`), `readonly` muestra una fecha que no se edita, en vez de `disabled`: sigue enfocable y se lee mejor.",
+      "Para los atajos relativos se usan las claves (`today`, `last-7-days`, `last-30-days`, `this-week`, `this-month`, `last-month`): se resuelven al hacer clic, no al armar la página.",
+      "Con `data-ts-range`, si va en un formulario, se pone `name` en los dos `<input type=\"hidden\">` (`data-ts-date-input=\"start\"` y `\"end\"`): viajan dos fechas `yyyy-mm-dd`, inicio y fin."
+    ],
+    "donts": [
+      "No se obliga a navegar meses para una fecha lejana ya conocida.",
+      "No se activa `data-ts-date-text` si sólo se elige entre pocas fechas del calendario: un campo editable invita a errores de tipeo que el calendario evita.",
+      "No se espera `ts:change` en el primer clic de un rango: sale recién cuando el rango está completo o se limpia.",
+      "No se pasa una clave de rango en un calendario simple (ni `today` como rango de varios días): no se dibuja y en desarrollo avisa.",
+      "No se asume un formato: se respeta el locale del usuario.",
+      "El color de la marca no es la única señal: siempre se escribe su `label`."
+    ],
+    "related": [
+      "field",
+      "input"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "← → ↑ ↓",
+      "action": "Mueve el día enfocado (día y semana). En RTL la grilla se espeja: ← avanza un día y → retrocede."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Primer y último día de la semana."
+    },
+    {
+      "keys": "RePág / AvPág",
+      "action": "Mes anterior y siguiente; si el día no existe en ese mes, cae en el último."
+    },
+    {
+      "keys": "Mayús + RePág / AvPág",
+      "action": "Año anterior y siguiente."
+    },
+    {
+      "keys": "Enter / Espacio",
+      "action": "Selecciona el día enfocado, cierra el calendario y devuelve el foco al disparador."
+    },
+    {
+      "keys": "Enter / Espacio (con `data-ts-range`)",
+      "action": "La primera vez fija el inicio y el calendario sigue abierto; las flechas mueven la vista previa del tramo; la segunda vez fija el fin, cierra y devuelve el foco al disparador. Escape a mitad de camino descarta el inicio."
+    },
+    {
+      "keys": "Tab (atajos)",
+      "action": "Con atajos (`data-ts-date-preset`), Tab recorre primero los atajos (columna al inicio del panel) y después el calendario; al abrir, el foco sigue en el día. Enter, Espacio o clic en un atajo confirma el valor, cierra el panel y devuelve el foco al disparador."
+    },
+    {
+      "keys": "Escribir / Enter / Tab (`data-ts-date-input`)",
+      "action": "Con el campo tipeable, clic o Tab entran sin abrir el calendario (el botón de calendario es otro tabulable, después del campo). Enter o salir del campo confirma lo escrito; si es ilegible, inexistente, fuera del rango permitido o un día no disponible, el texto vuelve al último valor válido, y vacío quita la fecha. Dentro de un `<form>`, Enter deja seguir el envío. En rango, Tab pasa del campo de inicio al de fin sin confirmar; el par se confirma al salir del grupo."
+    },
+    {
+      "keys": "Enter / Espacio / clic (disparador)",
+      "action": "Abre el calendario con el foco en el día enfocable (el seleccionado o, sin valor, hoy). Escape lo cierra y devuelve el foco al disparador."
+    }
+  ],
+  "nucleo": "Es un calendario propio con navegación por teclado; el `<input>` nativo sólo aporta el campo de texto. Dibuja la grilla del calendario, navega por teclado y formatea la fecha. Con disparador funciona completo, con el calendario en un panel que abre, cierra y devuelve el foco. Cada día lleva su nombre accesible con la fecha completa. Si los atributos de abajo cambian por JavaScript, el calendario se redibuja."
+}

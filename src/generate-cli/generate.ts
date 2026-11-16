@@ -26,7 +26,7 @@ export function carpetaDeSalida(config: Pick<TaishoConfig, 'out'> | null | undef
 export function rutaParaPegar(targetDir: string, archivo: string, configDir: string): string {
 	const absoluto = path.join(targetDir, archivo);
 	const [raiz, ...resto] = path.relative(configDir, absoluto).split(path.sep);
-	return raiz === 'public' || raiz === 'static' ? `/${resto.join('/')}` : displayPath(absoluto);
+	return raiz === 'public' || raiz === 'static' ? `/${resto.join('/')}` : displayPath(absoluto).split(path.sep).join('/'); // va a un `href`: siempre `/`, también en Windows
 }
 
 export interface RunGenerateOptions {

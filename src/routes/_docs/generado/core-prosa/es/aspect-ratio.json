@@ -1,0 +1,29 @@
+{
+  "nombre": "AspectRatio",
+  "guia": {
+    "what": "Mantiene una relación de aspecto fija para su contenido — imágenes, video, iframes, mapas — para que nada salte mientras carga. La relación va en `data-ts-ratio`; el hijo directo llena la caja.",
+    "whenUse": [
+      "Se va a insertar un medio de tamaño desconocido y el layout no debe saltar.",
+      "Todas las piezas de una grilla tienen que tener la misma forma.",
+      "Es un embed (video, mapa) que necesita una caja proporcional."
+    ],
+    "whenAvoid": [
+      "La imagen tiene un alto fijo conocido: no hace falta.",
+      "Es contenido de texto: la altura la manda el texto."
+    ],
+    "dos": [
+      "La relación se elige por el contenido real (16/9 para video, 1/1 para retratos).",
+      "Combinalo con `skeleton` si el medio tarda en llegar."
+    ],
+    "donts": [
+      "No se usa para recortar algo que hay que ver entero.",
+      "No se ponen varios hijos: el que llena la caja es el hijo directo."
+    ],
+    "related": [
+      "card",
+      "skeleton",
+      "avatar"
+    ]
+  },
+  "nucleo": "El ratio es un valor continuo: lo lee la hoja de estilos desde `--ts-aspect-ratio`, y esa variable la escribe el Core. Hasta que el Core corre, sólo se ven bien 1 y 16/9, que además llevan su clase (`ts aspect-square`, `aspect-video`); cualquier otro ratio se ve cuadrado. El ratio se pasa en `data-ts-ratio=\"1.3333\"` sobre el elemento. El Core lo lleva a `--ts-aspect-ratio` al iniciar y cada vez que el atributo cambia. No hay interacción: es sólo el valor de reposo."
+}

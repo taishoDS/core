@@ -1,0 +1,41 @@
+{
+  "nombre": "AlertDialog",
+  "guia": {
+    "what": "Diálogo que fuerza una decisión antes de seguir: bloquea, y a diferencia de Modal el fondo NO lo descarta. Para confirmaciones destructivas o irreversibles — borrar, cancelar, descartar cambios.",
+    "whenUse": [
+      "La acción es destructiva o irreversible y merece una confirmación explícita.",
+      "Cerrar sin querer tendría consecuencias: hace falta una respuesta deliberada.",
+      "La elección se reduce a dos o tres caminos claros (confirmar / cancelar)."
+    ],
+    "whenAvoid": [
+      "Es información o una tarea que puede cerrarse sin costo → `modal`.",
+      "El aviso no bloquea nada y puede vivir en la página → `banner` o `note`.",
+      "Es una notificación de algo que ya pasó → `toast`."
+    ],
+    "dos": [
+      "El botón nombra la acción: “Borrar proyecto”, no “Aceptar”.",
+      "La acción peligrosa se marca visualmente (`variant-danger` en el botón de confirmar) y la cancelación queda como salida segura.",
+      "Si el borrado no tiene vuelta atrás (un proyecto entero, una cuenta), se puede pedir tipear el nombre para confirmar con `data-ts-confirm-text`: Confirmar queda deshabilitado hasta que coincide."
+    ],
+    "donts": [
+      "No se usa para avisos neutros: si nada se pierde, no se bloquea al usuario.",
+      "No se ofrecen cinco opciones — si hay más de un par de caminos, no es una confirmación."
+    ],
+    "related": [
+      "modal",
+      "toast",
+      "note"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Cancela — nunca confirma: la acción destructiva requiere intención."
+    },
+    {
+      "keys": "Enter",
+      "action": "Activa el botón enfocado."
+    }
+  ],
+  "nucleo": "Es un `<dialog>` modal: abrir, cerrar, atrapar el foco y Escape los hace el navegador, y la variante destructiva es sólo estilo. Lo único que pide JavaScript es la confirmación por escrito: tipear un texto exacto para habilitar Confirmar. Sólo con confirmación por escrito: el `<dialog>` lleva `data-ts-confirm-text=\"...\"`, el campo `data-ts-confirm-input` y el botón `data-ts-confirm` (que sale `disabled`). El Core lo habilita cuando lo tipeado coincide exacto, lo vuelve a bloquear al cargar y vacía el campo al cerrar el diálogo. Sin confirmación por escrito no hay nada que iniciar: el foco inicial cae en el campo, el primer control del diálogo."
+}

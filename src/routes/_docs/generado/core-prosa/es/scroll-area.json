@@ -1,0 +1,29 @@
+{
+  "nombre": "ScrollArea",
+  "guia": {
+    "what": "Contenedor de scroll acotado con scrollbar propio: más fino que el de la página y hover-reveal (el thumb aparece al pasar el mouse o al enfocar adentro). Se acota con un alto o un ancho máximos (`data-ts-max-height`, `data-ts-max-width`). Es el que usan por dentro los paneles largos.",
+    "whenUse": [
+      "Una zona tiene que scrollear por su cuenta sin arrastrar la página: una lista, un panel.",
+      "El contenido supera el alto disponible y se busca acotarlo, no truncarlo.",
+      "Se busca el mismo scrollbar fino de los paneles del sistema."
+    ],
+    "whenAvoid": [
+      "Es el scroll de la página entera: se deja al navegador.",
+      "El contenido entra: un scroll que nunca aparece sólo estorba."
+    ],
+    "dos": [
+      "Se acota con una altura máxima (`data-ts-max-height`) en vez de una altura fija: se adapta mejor.",
+      "Debe quedar visible que hay más abajo — un corte limpio parece final de contenido."
+    ],
+    "donts": [
+      "No se anidan áreas de scroll: el usuario nunca sabe cuál está moviendo.",
+      "No se esconden ahí acciones importantes que quedan fuera de la vista."
+    ],
+    "related": [
+      "sidebar",
+      "table",
+      "container"
+    ]
+  },
+  "nucleo": "El tope de alto o ancho es un valor continuo: lo leen `--ts-scroll-area-max-h` y `--ts-scroll-area-max-w`, y esas variables las escribe el Core. Hasta que el Core corre, sólo tienen tope los valores de la escala (`ts max-h-160`) y `100%`, que llevan su clase; cualquier otro valor queda sin tope. La medida CSS (`180px`, `30rem`) se pasa en `data-ts-max-height` o `data-ts-max-width`. El Core la lleva a la variable al iniciar y cuando el atributo cambia. El scroll es el nativo del navegador."
+}

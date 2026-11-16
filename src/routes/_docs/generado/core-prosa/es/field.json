@@ -1,0 +1,29 @@
+{
+  "nombre": "Field",
+  "guia": {
+    "what": "Primitiva de formularios: ata el label, la ayuda y el error a su control — id compartido con el label, `aria-describedby` al mensaje, `aria-invalid` y los estados `required`/`disabled`. En HTML son el `ts input-label`, el control y el `ts input-hint`, uno junto al otro; el label, la ayuda y el error se escriben una sola vez, ahí.",
+    "whenUse": [
+      "Casi siempre que se agrega un control: es lo que ata label, hint y error al control.",
+      "Hace falta mostrar un error o una ayuda ligada al campo y anunciada por el lector.",
+      "Se busca un solo lugar que maneje `required`/`disabled` del conjunto label+control."
+    ],
+    "whenAvoid": [
+      "El control se explica solo y no lleva label visible (un botón de ícono) → conviene darle un `aria-label` directo.",
+      "Es un `toggle` o `checkbox` suelto con su etiqueta al lado, no un campo con label arriba."
+    ],
+    "dos": [
+      "El label es el real, no un placeholder: el placeholder se va al escribir.",
+      "Un Field por control; para agrupar varios, se usa un `fieldset` alrededor."
+    ],
+    "donts": [
+      "El label y la ayuda no se repiten en el control: van una sola vez, atados a él.",
+      "No se usa para maquetar: es cableado de accesibilidad, no un layout."
+    ],
+    "related": [
+      "input",
+      "select",
+      "textarea"
+    ]
+  },
+  "nucleo": "Es un envoltorio de etiqueta, ayuda y error. El control de adentro (Input, Textarea) trae su propio comportamiento. Nada propio. El `<input>` del ejemplo lleva los atributos de Input (`data-ts-input`, `data-ts-field-spinner`) para el estado de carga y el `debounce`; los resuelve el Core de Input, no el de Field."
+}

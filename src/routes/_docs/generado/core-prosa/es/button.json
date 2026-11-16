@@ -1,0 +1,31 @@
+{
+  "nombre": "Button",
+  "guia": {
+    "what": "Dispara una acción. Es un `<button class=\"ts button …\">`, o un `<a class=\"ts button …\" href>` cuando tiene que navegar. Trae variantes, tamaños, formas, estados (disabled/loading) e íconos.",
+    "whenUse": [
+      "Ejecutar una acción: enviar, guardar, abrir un overlay, confirmar.",
+      "Hace falta jerarquía entre acciones (primary/secondary/ghost/danger).",
+      "Es un enlace que tiene que verse como botón: se escribe `<a class=\"ts button …\" href>`."
+    ],
+    "whenAvoid": [
+      "Es sólo navegación en medio de un texto → `link`.",
+      "Es un on/off que aplica al instante → `toggle`.",
+      "Son varias acciones agrupadas detrás de un disparador → `menu`."
+    ],
+    "dos": [
+      "Una acción primaria por contexto; el resto, secundarias.",
+      "Botón de sólo ícono: lleva `aria-label`; el texto nombra la acción.",
+      "Si se toca en mobile, conviene el tamaño `lg` (48px de alto): `sm` y `md` quedan por debajo del tap target mínimo de 48×48 recomendado para touch."
+    ],
+    "donts": [
+      "No se ponen cinco botones primarios: dejan de guiar.",
+      "No se usa un botón para navegar como si fuera texto → `link`."
+    ],
+    "related": [
+      "link",
+      "toggle",
+      "menu"
+    ]
+  },
+  "nucleo": "Es un `<button>` nativo: foco, teclado y envío de formularios los resuelve el navegador. El JS del Core es opcional y sólo cubre el estado de carga: un botón o enlace con `aria-disabled=\"true\"` no se activa (ni el click, ni Enter o Espacio, ni el envío de un formulario) aunque siga enfocable, y `setButtonLoading()` pone todo el estado de carga junto, con el texto «Cargando» para el lector de pantalla en el idioma de la página."
+}

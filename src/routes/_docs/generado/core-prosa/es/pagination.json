@@ -1,0 +1,29 @@
+{
+  "nombre": "Pagination",
+  "guia": {
+    "what": "Navegación entre páginas de un conjunto grande de datos. Dibuja el rango de páginas a partir de `data-ts-total` (cuántas son), colapsa el medio en “…” y puede mostrar el selector de tamaño de página (`data-ts-page-size-control`).",
+    "whenUse": [
+      "Hay muchos registros y hace falta saber cuántos son y en cuál página se está.",
+      "El usuario tiene que poder volver a una página concreta.",
+      "Conviene dejarlo elegir cuántos ítems ver por página."
+    ],
+    "whenAvoid": [
+      "El contenido tiene orden de lectura y no es un conjunto de datos → `pager`.",
+      "La lista es corta y entra entera: no se parte.",
+      "Es una tabla que ya resuelve su propio recorrido → `table`."
+    ],
+    "dos": [
+      "Se muestra el total: es lo que le dice al usuario cuánto falta.",
+      "La página se mantiene en la URL, para que se pueda compartir y volver."
+    ],
+    "donts": [
+      "No se pagina de a cinco ítems: obliga a hacer clic todo el tiempo.",
+      "No se mezclan paginado y scroll infinito en la misma lista."
+    ],
+    "related": [
+      "pager",
+      "table"
+    ]
+  },
+  "nucleo": "La página actual la lleva el Core: como HTML estático no cambia de página. Marca la página activa, redibuja la ventana de números y emite el cambio. Incluye los botones de los extremos (`data-ts-page-first` y `data-ts-page-last`), la etiqueta «11–20 de 200» (`data-ts-page-label`) y el selector de ítems por página (`data-ts-page-size-control`). Cada botón lleva su nombre accesible."
+}

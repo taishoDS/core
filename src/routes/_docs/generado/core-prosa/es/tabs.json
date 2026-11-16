@@ -1,0 +1,48 @@
+{
+  "nombre": "Tabs",
+  "guia": {
+    "what": "Alterna entre vistas relacionadas dentro del mismo contexto. Expone el valor seleccionado: cada solapa declara el suyo (`data-ts-value`) y se muestra el panel que le corresponde. Tiene variantes y orientación vertical (`orientation-vertical`).",
+    "whenUse": [
+      "Son vistas alternativas del mismo objeto: detalle, actividad, configuración.",
+      "Sólo una tiene sentido a la vez y cambiar es barato.",
+      "El usuario no necesita comparar dos vistas al mismo tiempo."
+    ],
+    "whenAvoid": [
+      "Es un valor de un formulario, no una vista → `segmented-control`.",
+      "Son páginas distintas con URL propia → `nav-bar` o `sidebar`.",
+      "El contenido conviene leerlo entero y de corrido → `accordion` o secciones planas."
+    ],
+    "dos": [
+      "Etiquetas cortas que digan qué hay adentro.",
+      "Pocas solapas: si no entran en una línea, no es el componente."
+    ],
+    "donts": [
+      "No se esconde en una solapa algo que el usuario necesita ver siempre.",
+      "No se usan para pasos de un proceso: eso tiene orden, las solapas no."
+    ],
+    "related": [
+      "segmented-control",
+      "accordion",
+      "sidebar"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ←",
+      "action": "En un tablist horizontal (`orientation-horizontal`) cambian a la pestaña siguiente y a la anterior, con vuelta al otro extremo. En una página RTL se invierten: ← avanza y → retrocede. En el tablist vertical no hacen nada."
+    },
+    {
+      "keys": "↓ ↑",
+      "action": "En un tablist vertical (`orientation-vertical`, que expone `aria-orientation=\"vertical\"`) cambian a la pestaña siguiente y a la anterior. En el horizontal no hacen nada y la página sigue desplazándose."
+    },
+    {
+      "keys": "Home / End",
+      "action": "Primera y última pestaña habilitada."
+    },
+    {
+      "keys": "Tab",
+      "action": "Sale del tablist: la pestaña activa es el único tab-stop y el siguiente es el panel (`tabindex=\"0\"`)."
+    }
+  ],
+  "nucleo": "El panel activo lo cambia el Core; el marcado ya trae `role=\"tab\"`. Cambia el panel activo y mantiene `aria-selected` y `tabindex`. Las flechas ← y → mueven entre pestañas (patrón de la APG)."
+}

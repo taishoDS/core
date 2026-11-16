@@ -1,0 +1,30 @@
+{
+  "nombre": "Input",
+  "guia": {
+    "what": "A single-line text field. Supports a label, hint, error, prefixes and suffixes, a character counter, and a clear button (`data-ts-clear`).",
+    "whenUse": [
+      "Capturing short, single-line text, like a name, email, search query, or code.",
+      "You need a prefix or suffix (a unit, an icon) or a clear button.",
+      "Use `type` to switch to email, password, or tel and get the right system keyboard."
+    ],
+    "whenAvoid": [
+      "The text can be long or span several lines → `textarea`.",
+      "It’s a number with limits and a step → `number-input`.",
+      "It’s a date → `date-picker`."
+    ],
+    "dos": [
+      "Build it with the `field` markup for the label and messages.",
+      "Pick the right `type`. It improves the mobile keyboard and validation."
+    ],
+    "donts": [
+      "Don’t use the placeholder as a label.",
+      "Don’t use it to choose from a closed set → `select`."
+    ],
+    "related": [
+      "field",
+      "textarea",
+      "number-input"
+    ]
+  },
+  "nucleo": "It’s a native `<input>`, plus its own clear button. Keeps the field in sync. On init, the caret of every field with a value moves to the end, so `element.focus()` from code doesn’t type before the existing text. Tab (which selects everything) and clicking work as usual."
+}

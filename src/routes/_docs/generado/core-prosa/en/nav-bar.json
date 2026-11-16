@@ -1,0 +1,35 @@
+{
+  "nombre": "NavBar",
+  "guia": {
+    "what": "A horizontal navigation bar with a brand at the start, items, and actions. Below the breakpoint, it collapses behind a hamburger button. Items are links with an active state.",
+    "whenUse": [
+      "There are only a few main sections, and they fit on one line.",
+      "You want the brand, navigation, and account actions in one place.",
+      "The content benefits from the full width below it."
+    ],
+    "whenAvoid": [
+      "There are many sections and subsections (docs, a dashboard) → `sidebar`.",
+      "It’s navigation within a single page → `toc` or `tabs`."
+    ],
+    "dos": [
+      "Few items, always the same ones. The bar is the site’s stable map.",
+      "Mark the active item so users know where they are."
+    ],
+    "donts": [
+      "Don’t put a dashboard’s entire navigation in it. It won’t fit, and it breaks on mobile.",
+      "Don’t make it sticky (`is-sticky`) if it covers content on short screens."
+    ],
+    "related": [
+      "sidebar",
+      "breadcrumbs",
+      "menu"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "With the mobile menu open, closes it. If focus was inside the menu, it returns to the menu button."
+    }
+  ],
+  "nucleo": "Switches between the full bar and the compact menu based on width, and opens and closes that menu. Opens and closes the mobile menu. The responsive breakpoint can be handled with a container query, without JavaScript. Esc closes the menu (`data-ts-toggle-escape`) and returns focus to the button if focus was inside. A pointer press outside the bar (`data-ts-toggle-root`) also closes it (`data-ts-toggle-outside`)."
+}

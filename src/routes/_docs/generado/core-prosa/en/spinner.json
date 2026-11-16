@@ -1,0 +1,30 @@
+{
+  "nombre": "Spinner",
+  "guia": {
+    "what": "A circular loading indicator for short waits with no known progress. It takes the text color (`currentColor`), so it adapts to wherever you put it.",
+    "whenUse": [
+      "The operation is short and you don’t know how long it’ll take.",
+      "It has to fit in a small spot, like inside a button, next to a heading, or in a cell.",
+      "It’s enough to say “this is working,” with no further detail."
+    ],
+    "whenAvoid": [
+      "You can calculate progress → `progress`.",
+      "A structure that will take up space later is loading → `skeleton`, which prevents layout shift.",
+      "It’s inline activity in the middle of text → `loading-dots`."
+    ],
+    "dos": [
+      "Set the `aria-label` to what’s being waited on. It’s what the screen reader announces.",
+      "Put it where the result will appear, so the wait has a place."
+    ],
+    "donts": [
+      "Don’t put up a full-screen spinner if you can draw the structure with `skeleton`.",
+      "Don’t leave a spinner running forever. If something fails, show the error."
+    ],
+    "related": [
+      "loading-dots",
+      "progress",
+      "skeleton"
+    ]
+  },
+  "nucleo": "CSS animation."
+}

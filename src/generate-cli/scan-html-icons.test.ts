@@ -181,3 +181,28 @@ describe('scanHtmlIcons — sprite standalone para HTML plano', () => {
 		}
 	});
 });
+
+describe('aviso de lucide-static ausente', () => {
+	const sinLucide = (cwd: string, html: string) => {
+		fs.writeFileSync(path.join(cwd, 'index.html'), html);
+		return () =>
+			scanHtmlIcons({ roots: ['.'], skip: path.join(cwd, 'taisho'), customIconsDir: 'src/icons', cwd, nodeModulesBase: cwd });
+	};
+
+	it('sin íconos usados no avisa nada', () => {
+		const cwd = makeTmpDir();
+		const aviso = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		sinLucide(cwd, '<p>sin íconos</p>')();
+		expect(aviso).not.toHaveBeenCalled();
+		aviso.mockRestore();
+	});
+
+	it('con íconos que no se resuelven avisa la consecuencia, una sola vez', () => {
+		const cwd = makeTmpDir();
+		const aviso = vi.spyOn(console, 'warn').mockImplementation(() => {});
+		expect(sinLucide(cwd, '<svg><use href="#ts-sun"></use></svg><svg><use href="#ts-moon"></use></svg>')).toThrow(/sun/);
+		expect(aviso).toHaveBeenCalledTimes(1);
+		expect(aviso).toHaveBeenCalledWith(expect.stringContaining('2 íconos no se resuelven: falta lucide-static. Se instala con npm i -D lucide-static'));
+		aviso.mockRestore();
+	});
+});

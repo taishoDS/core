@@ -1,0 +1,27 @@
+{
+  "nombre": "Separator",
+  "guia": {
+    "what": "Línea divisoria para separar contenido, horizontal o vertical, con etiqueta opcional al centro. Es el mismo separador que estructura las secciones de esta documentación.",
+    "whenUse": [
+      "Dos bloques vecinos tratan de cosas distintas y el espacio solo no alcanza.",
+      "Se busca marcar el corte entre secciones largas de una página.",
+      "Hace falta una etiqueta en el medio del corte (“o”, “Más opciones”)."
+    ],
+    "whenAvoid": [
+      "Alcanza con más aire entre bloques → `stack` con más `gap`.",
+      "Cada bloque ya tiene su propia superficie → `card`."
+    ],
+    "dos": [
+      "Se usa entre secciones, no entre cada par de elementos.",
+      "Si es puramente decorativo, se deja con `role=\"none\"` para que no ensucie el árbol."
+    ],
+    "donts": [
+      "No se dibujan líneas por todos lados: el ritmo se hace con espacio, la línea es la excepción."
+    ],
+    "related": [
+      "stack",
+      "card"
+    ]
+  },
+  "nucleo": "Regla horizontal/vertical."
+}

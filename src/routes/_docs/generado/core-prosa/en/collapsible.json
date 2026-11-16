@@ -1,0 +1,34 @@
+{
+  "nombre": "Collapsible",
+  "guia": {
+    "what": "Shows or hides a block of content with a height transition. Unlike the Accordion, it’s independent—a single section, with no coordination with others. The trigger can be customized.",
+    "whenUse": [
+      "There’s a secondary detail most people don’t need to see, like advanced options or a log.",
+      "It’s a single section with no siblings to coordinate with.",
+      "You want to control whether it’s open from outside. Change the trigger’s `aria-expanded`."
+    ],
+    "whenAvoid": [
+      "It’s several sibling sections read one at a time → `accordion`.",
+      "The content is contextual and floating → `popover`."
+    ],
+    "dos": [
+      "Make the trigger say what it will reveal, not just “Show more.”",
+      "Leave it open by default if the content matters in most cases."
+    ],
+    "donts": [
+      "Don’t hide an error or anything that requires action in it.",
+      "Don’t use it for a list of sections. That’s what `accordion` is for."
+    ],
+    "related": [
+      "accordion",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Space",
+      "action": "Toggles the content."
+    }
+  ],
+  "nucleo": "It’s a `<details>` with its `<summary>`, so it opens and closes without JavaScript. Core only adds the event and opening from code. Without JavaScript it opens and closes on its own, by click and with Enter or Space. With Core it fires a cancelable `ts:change`. To open it from code, change the `<details>` `open` property, as in Accordion."
+}

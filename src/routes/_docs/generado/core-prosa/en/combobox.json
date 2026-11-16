@@ -1,0 +1,57 @@
+{
+  "nombre": "Combobox",
+  "guia": {
+    "what": "An editable `<input>` with autocomplete (APG combobox pattern). You type to filter the list and pick an option, or—with `data-ts-allow-custom` on the root—keep a free-form value. Unlike the Select, the text field is the control.",
+    "whenUse": [
+      "The list is long, and typing to filter is the natural way to reach an option.",
+      "The user might need a value that isn’t in the list (`data-ts-allow-custom`).",
+      "Autocompleting as they type saves more than opening a panel and scanning it.",
+      "You need to assign several values from a long or server-backed list, and it helps to see them in the field (`data-ts-multiple`)."
+    ],
+    "whenAvoid": [
+      "The list is short and known, so opening it and picking is enough → `select`.",
+      "You want a search box inside the panel, or to summarize several options as a count → `select`.",
+      "You’re not capturing a value but running app-wide commands → `command-palette`."
+    ],
+    "dos": [
+      "Show a clear empty state when the filter finds nothing.",
+      "If you allow free-form values, make it obvious how to confirm a new one."
+    ],
+    "donts": [
+      "Don’t use it for four options. For so few, the input adds more friction than a Select.",
+      "Don’t hide important options behind the filter without a visible default."
+    ],
+    "related": [
+      "select",
+      "command-palette",
+      "input"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Move through the filtered options."
+    },
+    {
+      "keys": "Enter",
+      "action": "Selects the focused option, or confirms the typed text."
+    },
+    {
+      "keys": "Esc",
+      "action": "Reverts to the previous value and closes."
+    },
+    {
+      "keys": "Enter (multiple)",
+      "action": "Adds or removes the focused option without closing the panel. With no focused option, adds the typed text if it matches an option or free-form values are allowed."
+    },
+    {
+      "keys": "Backspace (multiple)",
+      "action": "With an empty field, removes the last tag. With text, deletes text."
+    },
+    {
+      "keys": "Tab (multiple)",
+      "action": "Moves through each tag’s remove button before reaching the field."
+    }
+  ],
+  "nucleo": "It’s a free-text field with live filtering and a list of options. The APG combobox pattern on top of Select’s list, plus filtering as you type. Esc with the panel open doesn’t propagate to a Popover that contains it, and hovering an option makes it active. Groups (`role=\"group\"` with `aria-labelledby`) are filtered by hiding the heading of any group left empty."
+}

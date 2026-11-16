@@ -1,0 +1,47 @@
+{
+  "nombre": "ContextMenu",
+  "guia": {
+    "what": "Menú de acciones que aparece con clic derecho sobre un elemento. El elemento objetivo lleva `data-ts-context-menu` y los ítems son los mismos del Menu.",
+    "whenUse": [
+      "Ofrecer acciones contextuales sobre un ítem (una fila, un archivo, una tarjeta).",
+      "Como atajo para usuarios expertos, además de una vía visible.",
+      "Las acciones dependen del elemento sobre el que se hace clic derecho."
+    ],
+    "whenAvoid": [
+      "Sería la única forma de llegar a la acción: el clic derecho no se descubre solo → se suma un `menu` visible.",
+      "Las acciones son globales, no sobre un elemento puntual → `menu` o `command-palette`.",
+      "El público es táctil: en mobile no hay clic derecho, así que hace falta otra vía."
+    ],
+    "dos": [
+      "Lo importante se duplica en una vía visible: el menú contextual complementa, no reemplaza.",
+      "La lista se mantiene corta y relevante al objetivo del clic."
+    ],
+    "donts": [
+      "No se pone ahí la única manera de hacer algo crítico.",
+      "No se replica el menú entero de la app: sólo lo que aplica al elemento."
+    ],
+    "related": [
+      "menu",
+      "command-palette"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Shift+F10 / tecla «ContextMenu»",
+      "action": "Con el foco dentro del área, abre el menú en su esquina inferior izquierda y enfoca el primer ítem."
+    },
+    {
+      "keys": "↑ ↓ Inicio Fin",
+      "action": "Recorren los ítems (con wrap)."
+    },
+    {
+      "keys": "Tab",
+      "action": "Cierra el menú y el foco sigue al próximo elemento de la página."
+    },
+    {
+      "keys": "Escape",
+      "action": "Cierra el menú y devuelve el foco a quien lo tenía al abrir."
+    }
+  ],
+  "nucleo": "Funciona como Menu, disparado por clic derecho. Todo lo de Menu, más posicionar en las coordenadas del puntero, suprimir el menú del navegador y abrir con Shift+F10 o la tecla ContextMenu (en la esquina inferior izquierda del área, con el foco en el primer ítem)."
+}

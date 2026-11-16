@@ -1,0 +1,30 @@
+{
+  "nombre": "Breadcrumbs",
+  "guia": {
+    "what": "A hierarchical navigation trail. It shows users where they are and gives them a way back up. It collapses the middle segments when the trail is long.",
+    "whenUse": [
+      "The content lives in a multi-level hierarchy, and showing the path helps.",
+      "Users can land directly from outside and need to get their bearings.",
+      "Going up a level is a frequent move."
+    ],
+    "whenAvoid": [
+      "The site is flat and there’s no hierarchy to show → `nav-bar`.",
+      "It’s progress through a reading sequence, not a hierarchy → `pager`.",
+      "It’s the table of contents for the current page → `toc`."
+    ],
+    "dos": [
+      "Reflect the real hierarchy, not the user’s click history.",
+      "For long trails, collapse the middle and keep the start and end visible."
+    ],
+    "donts": [
+      "Don’t make the current level clickable. The user is already there.",
+      "Don’t use them as a substitute for primary navigation."
+    ],
+    "related": [
+      "nav-bar",
+      "sidebar",
+      "toc"
+    ]
+  },
+  "nucleo": "Long paths collapse behind a `…`, and Core expands them. Toggles the collapsed segment."
+}

@@ -1,0 +1,41 @@
+{
+  "nombre": "AlertDialog",
+  "guia": {
+    "what": "A dialog that forces a decision before moving on. It blocks, and unlike the Modal, clicking the backdrop does NOT dismiss it. For destructive or irreversible confirmations—deleting, canceling, discarding changes.",
+    "whenUse": [
+      "The action is destructive or irreversible and deserves an explicit confirmation.",
+      "Closing it by accident would have consequences, so it needs a deliberate answer.",
+      "The choice comes down to two or three clear paths (confirm / cancel)."
+    ],
+    "whenAvoid": [
+      "It’s information or a task that can be closed at no cost → `modal`.",
+      "The notice doesn’t block anything and can live on the page → `banner` or `note`.",
+      "It’s a notification about something that already happened → `toast`."
+    ],
+    "dos": [
+      "Name the action on the button: “Delete project,” not “OK.”",
+      "Mark the dangerous action visually (`variant-danger` on the confirm button) and leave cancel as the safe way out.",
+      "If the deletion can’t be undone (a whole project, an account), use `data-ts-confirm-text` to ask the user to type the name to confirm. Confirm stays disabled until it matches."
+    ],
+    "donts": [
+      "Don’t use it for neutral notices. If nothing is lost, don’t block the user.",
+      "Don’t offer five options—if there are more than a couple of paths, it isn’t a confirmation."
+    ],
+    "related": [
+      "modal",
+      "toast",
+      "note"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "Cancels—it never confirms. The destructive action requires intent."
+    },
+    {
+      "keys": "Enter",
+      "action": "Activates the focused button."
+    }
+  ],
+  "nucleo": "It’s a modal `<dialog>`. The browser handles opening, closing, focus trapping, and Esc, and the destructive variant is styling only. The only thing that needs JavaScript is typed confirmation—typing an exact text to enable Confirm. Only if you ask for typed confirmation. The `<dialog>` takes `data-ts-confirm-text=\"...\"`, the field takes `data-ts-confirm-input`, and the button takes `data-ts-confirm` (rendered `disabled`). Core enables the button when the typed text matches exactly, disables it again while loading, and clears the field when the dialog closes. Without typed confirmation there’s nothing to initialize. Initial focus lands on the field, the dialog’s first control."
+}

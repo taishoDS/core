@@ -1,0 +1,33 @@
+{
+  "nombre": "Progress",
+  "guia": {
+    "what": "A determinate (with `data-ts-value`) or indeterminate (`is-indeterminate`, continuous animation) progress bar that shows how far along a task is. It has sizes, color variants, and an `aria-label` as its accessible name. It can also be split into segments (`is-steps`, `is-stacked`) for quotas, or drawn as a ring (`shape-circle`).",
+    "whenUse": [
+      "You know how much is left and can express it as a percentage, like an upload, an import, or step 3 of 5.",
+      "The wait is long, and seeing progress keeps the user from giving up.",
+      "You want to show what portion of something is complete (a quota, a checklist).",
+      "It’s a quota in segments. Use `is-steps` for “3 of 5 seats” and `is-stacked` for a plan’s used and reserved amounts.",
+      "The space is small or square (a cell, a card). Use `shape-circle`."
+    ],
+    "whenAvoid": [
+      "The wait is short and you don’t know how much is left → `spinner`.",
+      "It’s subtle activity inside text or a button → `loading-dots`.",
+      "Content that will take up space is loading → `skeleton`."
+    ],
+    "dos": [
+      "Give it an `aria-label`. It’s the bar’s accessible name.",
+      "If you can’t calculate real progress, use `is-indeterminate` instead of making up a number.",
+      "With `is-stacked`, show a color legend next to it. Color alone isn’t enough to tell the segments apart."
+    ],
+    "donts": [
+      "Don’t fake progress. A bar that jumps to 90% and stays there is worse than none.",
+      "Don’t use a bar for a half-second wait. It flickers and gets annoying."
+    ],
+    "related": [
+      "spinner",
+      "loading-dots",
+      "skeleton"
+    ]
+  },
+  "nucleo": "The fill width is a continuous value. The stylesheet reads it from `--ts-progress-value` (0% by default), and Core writes that variable. Until Core runs, the bar looks empty instead of showing its value. Write `data-ts-value=\"40\"` (a percentage) on each `[data-progress-fill]`, including stacked segments. Core copies it to `--ts-progress-value` on init and whenever the attribute changes. The indeterminate bar doesn’t take the attribute. There’s no interaction—it only sets the value at rest."
+}

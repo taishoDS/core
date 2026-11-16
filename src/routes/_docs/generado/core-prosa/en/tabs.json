@@ -1,0 +1,48 @@
+{
+  "nombre": "Tabs",
+  "guia": {
+    "what": "Switches between related views within the same context. It exposes the selected value—each tab declares its own (`data-ts-value`), and the matching panel is shown. It has variants and a vertical orientation (`orientation-vertical`).",
+    "whenUse": [
+      "They’re alternate views of the same object, like details, activity, and settings.",
+      "Only one makes sense at a time, and switching is cheap.",
+      "Users don’t need to compare two views at the same time."
+    ],
+    "whenAvoid": [
+      "It’s a form value, not a view → `segmented-control`.",
+      "They’re separate pages with their own URL → `nav-bar` or `sidebar`.",
+      "The content is best read in full, top to bottom → `accordion` or plain sections."
+    ],
+    "dos": [
+      "Short labels that say what’s inside.",
+      "Few tabs. If they don’t fit on one line, this isn’t the right component."
+    ],
+    "donts": [
+      "Don’t hide something the user always needs to see in a tab.",
+      "Don’t use them for the steps of a process. Steps have an order; tabs don’t."
+    ],
+    "related": [
+      "segmented-control",
+      "accordion",
+      "sidebar"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ←",
+      "action": "In a horizontal tablist (`orientation-horizontal`) they switch to the next and previous tab, wrapping around. On an RTL page they swap: ← moves forward and → moves back. In the vertical tablist they do nothing."
+    },
+    {
+      "keys": "↓ ↑",
+      "action": "In a vertical tablist (`orientation-vertical`, which exposes `aria-orientation=\"vertical\"`) they switch to the next and previous tab. In the horizontal one they do nothing and the page keeps scrolling."
+    },
+    {
+      "keys": "Home / End",
+      "action": "First and last enabled tab."
+    },
+    {
+      "keys": "Tab",
+      "action": "Leaves the tablist. The active tab is the only tab stop, and the next one is the panel (`tabindex=\"0\"`)."
+    }
+  ],
+  "nucleo": "Core switches the active panel. The markup already includes `role=\"tab\"`. Switches the active panel and keeps `aria-selected` and `tabindex` in sync. The ← and → arrow keys move between tabs (APG pattern)."
+}

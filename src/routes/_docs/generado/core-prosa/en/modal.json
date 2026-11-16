@@ -1,0 +1,38 @@
+{
+  "nombre": "Modal",
+  "guia": {
+    "what": "A centered dialog that interrupts for a focused task—a form, a detail view, a light confirmation. It’s built on the native `<dialog>`, so it traps focus, closes with Esc, and makes the background inert.",
+    "whenUse": [
+      "The task is short and self-contained. It fits without scrolling and gets done without leaving.",
+      "Interrupting the flow is justified, because what’s underneath can wait.",
+      "It’s fine for the user to close it by clicking the backdrop or pressing Esc."
+    ],
+    "whenAvoid": [
+      "The decision is destructive or irreversible, and the dialog must not close by accident → `alert-dialog`.",
+      "The content is long or secondary, or the context beside it is worth keeping (filters, cart, navigation) → `drawer`.",
+      "It’s a notice that doesn’t need an immediate response → `banner` or `note` on the page itself."
+    ],
+    "dos": [
+      "Give it a visible title. It’s the dialog’s accessible name and orients whoever lands there. With a custom `header`, `aria-labelledby` (pointing to its title) or `aria-label` provides the name.",
+      "One task per modal. If a second step shows up, rethink the flow instead of nesting.",
+      "If there’s a field the user will fill in first, add `autofocus`. `showModal()` focuses it every time the dialog opens.",
+      "On small screens, the `responsive-sheet` class on the `<dialog>` turns it into a bottom sheet that’s easier to reach with a thumb."
+    ],
+    "donts": [
+      "Don’t open a modal from another modal. Stacked top-layer elements confuse focus and Esc.",
+      "Don’t use it for confirmations that require a yes or no—for those, the backdrop must NOT dismiss."
+    ],
+    "related": [
+      "drawer",
+      "alert-dialog",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "Closes the dialog. If it isn’t dismissible (`closedby=\"none\"`), it does nothing, not even on a second Esc in a row."
+    }
+  ],
+  "nucleo": "It’s a `<dialog>` with invoker commands (`commandfor`). It opens, closes, traps focus, and paints the backdrop without a line of JavaScript (in a browser with invoker commands)."
+}

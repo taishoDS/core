@@ -1,0 +1,30 @@
+{
+  "nombre": "Toc",
+  "guia": {
+    "what": "Índice “En esta página”: lista de anclas a los headings del contenido, con resaltado de la sección visible (scrollspy). Se renderiza como `<nav>` con `aria-current` en el ítem activo.",
+    "whenUse": [
+      "La página es larga y se lee salteando entre secciones.",
+      "Los títulos son suficientemente descriptivos como para servir de mapa.",
+      "Ayuda saber en qué parte del documento se está."
+    ],
+    "whenAvoid": [
+      "La página es corta: el índice ocupa más de lo que ahorra.",
+      "Es navegación entre páginas, no dentro de una → `sidebar` o `nav-bar`.",
+      "Son vistas alternativas del mismo bloque → `tabs`."
+    ],
+    "dos": [
+      "Se indexa un solo nivel de títulos, o dos como mucho.",
+      "`data-ts-offset` se ajusta si hay una barra fija arriba, para que el ancla no quede tapada."
+    ],
+    "donts": [
+      "No se lista cada subtítulo: un índice más largo que la sección no es un índice.",
+      "No se usa para links que salen de la página."
+    ],
+    "related": [
+      "sidebar",
+      "pager",
+      "breadcrumbs"
+    ]
+  },
+  "nucleo": "Marca la sección que se está leyendo mientras se hace scroll, y eso lo hace el Core. Escucha scroll y resize y marca el encabezado activo con `aria-current=\"location\"`. Al llegar al final de la página marca el último."
+}

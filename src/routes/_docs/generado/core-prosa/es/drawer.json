@@ -1,0 +1,36 @@
+{
+  "nombre": "Drawer",
+  "guia": {
+    "what": "Panel que entra desde un borde de la pantalla sin tapar del todo lo de atrás. Para contenido secundario o extenso — filtros, carrito, navegación, detalles — donde conviene no perder el contexto. Mismo motor de `<dialog>` que Modal.",
+    "whenUse": [
+      "El contenido es largo o conviene conservar la referencia espacial de dónde salió.",
+      "Filtros, navegación, carrito o un detalle lateral que se abre y se cierra seguido.",
+      "En pantallas chicas, donde un panel de borde a borde rinde más que un cuadro centrado."
+    ],
+    "whenAvoid": [
+      "La tarea es breve y merece el foco pleno de la pantalla → `modal`.",
+      "Es una confirmación de sí/no → `alert-dialog`.",
+      "Es sólo un menú de acciones anclado a un disparador → `menu` o `popover`."
+    ],
+    "dos": [
+      "El lado se elige con intención (`side-left`, `side-right`…): navegación al inicio, detalles y filtros al final (respeta RTL).",
+      "Conviene darle un encabezado con título y un cierre explícito, además del Escape."
+    ],
+    "donts": [
+      "La tarea principal de la página no va en un cajón: si es el trabajo central, va en la página.",
+      "No se usa para un aviso pasajero — eso es `toast` o `banner`."
+    ],
+    "related": [
+      "modal",
+      "menu",
+      "sidebar"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Escape",
+      "action": "Cierra el panel. Si no es descartable (`closedby=\"none\"`), no hace nada, tampoco al segundo Escape seguido."
+    }
+  ],
+  "nucleo": "Es un `<dialog>` con invoker commands (`commandfor`), con transformaciones de CSS para entrar desde el lateral."
+}

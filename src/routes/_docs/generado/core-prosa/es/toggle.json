@@ -1,0 +1,28 @@
+{
+  "nombre": "Toggle",
+  "guia": {
+    "what": "Interruptor on/off. A diferencia del Checkbox, representa un cambio que aplica de inmediato. Soporta estado de carga e íconos en el thumb.",
+    "whenUse": [
+      "Un ajuste que se activa/desactiva y surte efecto al instante (una preferencia).",
+      "El estado on/off se entiende solo, sin necesidad de “guardar”.",
+      "Se busca reflejar que algo está pasando mientras aplica (estado de carga)."
+    ],
+    "whenAvoid": [
+      "El valor se confirma recién al enviar un formulario → `checkbox`.",
+      "Es una elección entre opciones, no un on/off → `radio` o `segmented-control`."
+    ],
+    "dos": [
+      "Etiqueta que nombre el estado activado, no una acción.",
+      "Si aplicar tarda, se muestra el estado de carga en vez de mentir el resultado."
+    ],
+    "donts": [
+      "No se usa dentro de un formulario que se envía después → `checkbox`.",
+      "No se usa para tres o más estados: es binario."
+    ],
+    "related": [
+      "checkbox",
+      "segmented-control"
+    ]
+  },
+  "nucleo": "Es un `<input type=\"checkbox\">` nativo con estilos de switch. Para pintar el estado, el Core refleja `checked` en la clase `is-checked` de la etiqueta y en el `aria-checked` del switch. Al cambiar el interruptor, refleja `checked` en la clase `is-checked` de la etiqueta y, si el campo lleva `role=\"switch\"`, en su `aria-checked`, para que el estado se anuncie. El teclado, el foco y el envío son los del navegador."
+}

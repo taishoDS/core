@@ -243,9 +243,29 @@ export function construirMapa(entrada: EntradaMapa): MapaTailwind {
             }
         }
     }
-    for (const paso of ['1', '2', '4', '8']) {
+    // Márgenes negativos: `-m-4` → `ms-neg-…`; mismo criterio que los positivos (px de la escala primero, palabra de ritmo si coincide).
+    for (const paso of PASOS) {
+        if (paso === '0') continue;
         const valor = pasoPx(paso);
-        fila(`-m-${paso}`, `ts-m-neg-${valor}`, 'medidas', true, undefined, 'márgenes negativos (`-m-*`): la gramática los define (`m-neg-N`) pero el generador no los emite', valor);
+        for (const [twPref, tsPref, nota] of PREFIJOS_MEDIDA.filter(([prefijo]) => /^m[xytbselr]?$/.test(prefijo))) {
+            const clase = `-${twPref}-${paso}`;
+            const negPref = `${tsPref}-neg`;
+            if (!(String(valor) in sizing)) {
+                sin(`${valor}px no está en la escala de medidas (sizing)`, clase);
+                continue;
+            }
+            if (sirve(`ts-${negPref}-${valor}`) === null) {
+                fila(clase, `ts-${negPref}-${valor}`, 'medidas', true, nota, undefined, valor);
+                continue;
+            }
+            const pasoRitmo = Object.keys(gaps).find((k) => k !== 'none' && px(gaps[k]) === valor);
+            const palabra = pasoRitmo && `ts-${negPref}-${pasoRitmo}`;
+            if (palabra && sirve(palabra) === null) {
+                fila(clase, palabra, 'medidas', true, [nota, 'palabra de ritmo: baja con `compact` (para este prefijo no hay clase en px)'].filter(Boolean).join('. '), undefined, valor);
+            } else {
+                sin(`${negPref}: no hay clase en px ni paso de ritmo para este prefijo`, clase);
+            }
+        }
     }
 
     for (const [nombre, valor] of Object.entries(RADIOS)) {

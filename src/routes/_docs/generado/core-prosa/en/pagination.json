@@ -1,0 +1,29 @@
+{
+  "nombre": "Pagination",
+  "guia": {
+    "what": "Navigation between pages of a large dataset. It draws the page range from `data-ts-total` (the page count), collapses the middle into “…”, and can show a page-size selector (`data-ts-page-size-control`).",
+    "whenUse": [
+      "There are many records, and users need to know how many there are and which page they’re on.",
+      "Users need to be able to go back to a specific page.",
+      "It helps to let users choose how many items to see per page."
+    ],
+    "whenAvoid": [
+      "The content has a reading order and isn’t a dataset → `pager`.",
+      "The list is short and fits in full. Don’t split it.",
+      "It’s a table that already handles its own paging → `table`."
+    ],
+    "dos": [
+      "Show the total. It tells users how much is left.",
+      "Keep the page in the URL so it can be shared and revisited."
+    ],
+    "donts": [
+      "Don’t paginate five items at a time. It forces people to click constantly.",
+      "Don’t mix pagination and infinite scroll in the same list."
+    ],
+    "related": [
+      "pager",
+      "table"
+    ]
+  },
+  "nucleo": "Core owns the current page. As static HTML, it doesn’t change pages. Marks the active page, redraws the window of page numbers, and announces the change with an event. It includes the first and last page buttons (`data-ts-page-first` and `data-ts-page-last`), the “11–20 of 200” label (`data-ts-page-label`), and the page-size selector (`data-ts-page-size-control`). Every button has its own accessible name."
+}

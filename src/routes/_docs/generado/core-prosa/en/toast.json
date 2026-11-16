@@ -1,0 +1,35 @@
+{
+  "nombre": "Toast",
+  "guia": {
+    "what": "Ephemeral notifications stacked in a corner. There are two ways to trigger them: from the HTML, with a `data-ts-toast-trigger` button, or from your JS with the `toast()` function, imported from the same `taisho.core.js`, with the matching variant (success, warning, danger, info). Paste the container from the example, which includes the icons for each variant. Without it, Core creates one with the first toast: toasts show up without an icon, and that first toast may not be announced by a screen reader. Each toast can carry an action (“Undo”), pauses while the pointer or focus is on it, and can be updated by id.",
+    "whenUse": [
+      "Confirming the result of something the user just did, like “Saved” or “Copied.”",
+      "The notification needs no response and can go away on its own after a few seconds.",
+      "The trigger lives in code (after an `await`), not in the HTML.",
+      "A reversible action (“Project deleted” + `Undo`) or a process that changes status, like “Queued” → “Building” → “Ready.”"
+    ],
+    "whenAvoid": [
+      "The message has to stay visible until it’s resolved → `banner` or `note`.",
+      "The user has to decide something before moving on → `alert-dialog`.",
+      "It’s a field error. It belongs on the field, not in a corner → `field`."
+    ],
+    "dos": [
+      "Trigger them with `data-ts-toast-trigger` on a button or with `toast()` from code, and paste the container from the example. Without it, toasts show up without an icon.",
+      "Keep messages to one line. If you need more text (the `description` option), consider whether it’s really a `banner` or a `note`.",
+      "For an error the user has to read in full, set `duration: 0` so it doesn’t go away on its own.",
+      "For an async operation, update the same toast by its id instead of firing one per step (`toast.promise`, or `updateToast` with the toast or its id).",
+      "With `action`, give it more time (a `duration` of 6000 ms or more). The toast pauses while the pointer or focus is on it, but not every user gets there in time."
+    ],
+    "donts": [
+      "Don’t put the only explanation of a serious error in a toast. Once it’s gone, it doesn’t come back.",
+      "Don’t fire a burst of toasts for a single action.",
+      "Don’t put the only way to finish the task in `action`. If the toast goes away, so does the action."
+    ],
+    "related": [
+      "banner",
+      "note",
+      "alert-dialog"
+    ]
+  },
+  "nucleo": "Toasts are created on the fly, from a button with `data-ts-toast-trigger` or from your JS with `toast()`. The container holds the icons for each variant. A queue with timers and stacking. The timer pauses while the pointer is over a toast or focus is inside it (and resumes where it left off). There’s an action button with a callback, a `description` (detail below the title), `updateToast` to change a toast by its element or its id, `toast.promise(promesa, { loading, success, error })` for a single toast that goes from loading to success or error, and two live regions (polite and assertive, the latter for `danger`). There are two ways to trigger a toast—from the HTML, or from your JS with `toast()`, imported from the same `taisho.core.js`. Paste the example’s container, which holds the icons for each variant. Without it, Core creates one, but toasts show up without an icon."
+}

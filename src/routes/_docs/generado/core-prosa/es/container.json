@@ -1,0 +1,29 @@
+{
+  "nombre": "Container",
+  "guia": {
+    "what": "Envoltorio de página: acota el ancho máximo, centra horizontalmente y agrega el padding lateral (`max-w-*`, `mx-auto`, `px-*`). Reemplaza el `max-width + margin auto + padding` repetido en cada layout, y se escribe con el elemento semántico que haga falta (`<main>`, `<section>`).",
+    "whenUse": [
+      "Envolver el contenido de una página para que no se estire de borde a borde.",
+      "Se busca el mismo ancho y el mismo respiro lateral en todas las pantallas.",
+      "Hace falta que el envoltorio sea un landmark (`main`, `section`)."
+    ],
+    "whenAvoid": [
+      "El bloque tiene que ocupar todo el ancho (un `banner`, un hero a sangre).",
+      "Es el reparto interno del contenido, no el ancho de la página → `stack` o `grid`."
+    ],
+    "dos": [
+      "Un container por región de página, no uno adentro de otro.",
+      "El ancho máximo se elige según lo que se lee: el texto largo quiere menos ancho, no más."
+    ],
+    "donts": [
+      "No se anidan containers: el padding se duplica.",
+      "No se usa de caja visual: no dibuja nada → `card`."
+    ],
+    "related": [
+      "stack",
+      "grid",
+      "card"
+    ]
+  },
+  "nucleo": "Layout: max-width y padding."
+}

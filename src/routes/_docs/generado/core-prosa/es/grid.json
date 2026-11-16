@@ -1,0 +1,29 @@
+{
+  "nombre": "Grid",
+  "guia": {
+    "what": "Grilla de dos caras: una grilla de contenido (`ts grid-container` con `grid-cols-*` y `gap-*`, que se adapta por ancho con `sm:` y `lg:`), y una grilla con guías divisorias entre celdas.",
+    "whenUse": [
+      "Los elementos se alinean en filas y columnas: una galería, un tablero, una grilla de cards.",
+      "Se busca que las columnas se adapten solas al ancho disponible.",
+      "Se buscan guías divisorias entre celdas."
+    ],
+    "whenAvoid": [
+      "Es una sola dirección → `stack`.",
+      "Son datos comparables campo a campo → `table`."
+    ],
+    "dos": [
+      "Se empieza con `grid-cols-1` y se suman columnas por ancho (`sm:grid-cols-2`, `lg:grid-cols-3`): se acomoda solo.",
+      "Las celdas mantienen altura pareja cuando la grilla se lee como conjunto."
+    ],
+    "donts": [
+      "No se fijan más columnas de las que el contenido necesita en cada ancho.",
+      "No se usa para tabular datos → `table`."
+    ],
+    "related": [
+      "stack",
+      "card",
+      "table"
+    ]
+  },
+  "nucleo": "Layout: CSS Grid."
+}

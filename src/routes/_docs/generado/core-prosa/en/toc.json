@@ -1,0 +1,30 @@
+{
+  "nombre": "Toc",
+  "guia": {
+    "what": "An “On this page” table of contents. It lists anchors to the content’s headings and highlights the visible section (scrollspy). It renders as a `<nav>` with `aria-current` on the active item.",
+    "whenUse": [
+      "The page is long and people skip between sections.",
+      "The headings are descriptive enough to work as a map.",
+      "It helps to know where you are in the document."
+    ],
+    "whenAvoid": [
+      "The page is short. The table of contents takes up more than it saves.",
+      "It’s navigation between pages, not within one → `sidebar` or `nav-bar`.",
+      "They’re alternate views of the same block → `tabs`."
+    ],
+    "dos": [
+      "Index a single heading level, or two at most.",
+      "Adjust `data-ts-offset` if you have a fixed bar at the top, so the anchor isn’t hidden under it."
+    ],
+    "donts": [
+      "Don’t list every subheading. A table of contents longer than the section isn’t a table of contents.",
+      "Don’t use it for links that leave the page."
+    ],
+    "related": [
+      "sidebar",
+      "pager",
+      "breadcrumbs"
+    ]
+  },
+  "nucleo": "Highlights the section you’re reading as you scroll, and Core handles that. Listens to scroll and resize, and marks the active heading with `aria-current=\"location\"`. At the bottom of the page, it marks the last one."
+}

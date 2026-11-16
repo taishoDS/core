@@ -748,7 +748,7 @@ describe('Link emitido', () => {
 	it('los enlaces son <a href> y la acción es un <button type="button" class="ts link"> (rol y nombre calculados)', () => {
 		montar('link');
 		const enlaces = getAllByRole(document.body, 'link');
-		expect(enlaces.map((a) => a.tagName)).toEqual(['A', 'A']);
+		expect(enlaces.map((a) => a.tagName)).toEqual(['A', 'A', 'A', 'A', 'A']);
 		expect(enlaces.every((a) => a.hasAttribute('href'))).toBe(true);
 		const accion = getByRole(document.body, 'button', { name: /Retry|Try again|Reintentar/ });
 		expect(accion.tagName).toBe('BUTTON');

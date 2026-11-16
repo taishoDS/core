@@ -1,0 +1,44 @@
+{
+  "nombre": "NumberInput",
+  "guia": {
+    "what": "Campo numérico con botones de incremento/decremento. Respeta `min`, `max` y `step`, responde a las flechas del teclado y, con `data-ts-number-format`, muestra moneda, miles o porcentaje sin perder el número crudo.",
+    "whenUse": [
+      "Capturar una cantidad exacta: cantidad, edad, precio, con un paso definido.",
+      "Conviene ajustar de a pasos con los botones o las flechas.",
+      "Lo que importa es el valor preciso, no una aproximación."
+    ],
+    "whenAvoid": [
+      "El valor es aproximado dentro de un rango y ayuda el feedback visual → `slider`.",
+      "No es un número sino texto → `input`."
+    ],
+    "dos": [
+      "Se fijan `min`/`max`/`step` acordes al dato real.",
+      "Para precios y porcentajes se usa `data-ts-number-format`: se ve \"12.500,50 US$\" y el form recibe 12500.5.",
+      "Se arma con el HTML de `field` para el label y los errores."
+    ],
+    "donts": [
+      "No se usa para rangos enormes donde escribir es más rápido que tabular pasos.",
+      "No se omiten los límites: dejar pasar cualquier número traslada el error aguas abajo."
+    ],
+    "related": [
+      "slider",
+      "input",
+      "field"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Suman o restan `step` al valor (0,5 + 1 = 1,5), igual que los botones."
+    },
+    {
+      "keys": "Home End",
+      "action": "Llevan a `min` / `max`. Sin ese límite conservan su función nativa (mover el cursor del texto)."
+    },
+    {
+      "keys": "PageUp PageDown",
+      "action": "Saltan el paso grande (`data-ts-large-step` en la raíz; por defecto, diez veces el paso)."
+    }
+  ],
+  "nucleo": "Se monta sobre un `<input>` nativo, pero los botones +/− y el paso con flechas son propios. Incrementa y decrementa respetando `min`, `max` y `step`, y restaura el último valor válido al perder el foco. Home y End van a `min` y `max` (sólo si existen); PageUp y PageDown saltan `step × 10`. El texto no se reescribe mientras se tipea, y un número fuera de ±`Number.MAX_SAFE_INTEGER` se acota al perder el foco. Con `min` mayor o igual a 0 el signo `-` no se acepta."
+}

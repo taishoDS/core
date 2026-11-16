@@ -76,6 +76,19 @@ describe('tabla Tailwind → TaishoDS', () => {
         expect(clases('flex-none')).toMatchObject({ taisho: 'ts-flex-none', exacta: true });
     });
 
+    it('los márgenes negativos traducen a `neg-` con el lado lógico; lo que no está en la escala queda declarado', () => {
+        expect(clases('-mx-2')).toMatchObject({ taisho: 'ts-mx-neg-8', exacta: true, px: 8 });
+        expect(clases('-mt-4')).toMatchObject({ taisho: 'ts-mt-neg-16', exacta: true });
+        expect(clases('-ml-4')).toMatchObject({ taisho: 'ts-ms-neg-16', exacta: true });
+        expect(clases('-ml-4').nota).toMatch(/lado lógico/);
+        expect(clases('-m-1')).toMatchObject({ taisho: 'ts-m-neg-4' });
+        const motivoDe = (c: string) => mapa.sinEquivalente.find((s) => s.clases.includes(c))?.motivo ?? '';
+        expect(clases('-mx-96')).toBeUndefined();
+        expect(motivoDe('-mx-96')).toMatch(/no está en la escala de medidas/);
+        expect(mapa.filas.filter((f) => f.tailwind.startsWith('-m')).length).toBeGreaterThan(100);
+        expect(JSON.stringify(mapa)).not.toMatch(/no los emite/);
+    });
+
     it('las clases comunes sin equivalente tienen motivo propio, no el genérico', () => {
         const motivoDe = (c: string) => mapa.sinEquivalente.find((s) => s.clases.includes(c))?.motivo ?? '';
         expect(motivoDe('gap-4')).toBe('');

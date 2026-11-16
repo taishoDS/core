@@ -1,0 +1,35 @@
+{
+  "nombre": "Code",
+  "guia": {
+    "what": "A code block with a language label and a copy button. The text is the block’s content. It doesn’t apply syntax highlighting on its own, which keeps the package light and dependency-free.",
+    "whenUse": [
+      "You’re showing a snippet the reader will copy and paste.",
+      "It’s a multi-line block, like a command, a config file, or a snippet.",
+      "It helps to say what language it’s in.",
+      "The same code has alternatives (CDN or npm): the tabs go in the block’s header, not above it."
+    ],
+    "whenAvoid": [
+      "It’s a prop or file name inside a sentence → `inline-code`.",
+      "It’s a key or a shortcut → `kbd`."
+    ],
+    "dos": [
+      "Keep the block copyable. That’s why the button exists.",
+      "Show the smallest snippet that makes sense on its own."
+    ],
+    "donts": [
+      "Don’t paste whole files when ten lines will do.",
+      "Don’t use it to highlight text that isn’t code."
+    ],
+    "related": [
+      "inline-code",
+      "kbd"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "→ ← / Home / End",
+      "action": "Only with tabs in the header: they switch to the next, previous, first, and last tab, as in Tabs."
+    }
+  ],
+  "nucleo": "The copy button confirms the action with brief feedback, and Core handles that. Copies the text to the clipboard and shows the confirmation for 2 seconds—the “Copied” name (`data-ts-copied-label`) and the ✓ (`<template data-ts-copied-icon>`). Then it returns to rest. Pressing it again restarts the 2 seconds."
+}

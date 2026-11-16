@@ -1,0 +1,30 @@
+{
+  "nombre": "Note",
+  "guia": {
+    "what": "A contextual message block within the content, not full width. It’s the place for clarifications, warnings, and tips that sit right next to what they explain. It supports a title, actions, and a close button.",
+    "whenUse": [
+      "The clarification only makes sense next to what it accompanies (a step, a field, a paragraph).",
+      "You want to highlight something in the content without taking the user away from where they are.",
+      "You need hierarchy by variant (info, success, warning, danger) within the page."
+    ],
+    "whenAvoid": [
+      "The status applies to the whole page or app → `banner`.",
+      "It’s ephemeral and doesn’t need to stay written down → `toast`.",
+      "It’s only a short status label, with no prose → `badge`."
+    ],
+    "dos": [
+      "Place the note next to what it explains, not at the end of the page.",
+      "Use `ts note-title` when the body runs longer than one line. It gives the gist at a glance."
+    ],
+    "donts": [
+      "Don’t sprinkle notes every other paragraph. If everything is highlighted, nothing is.",
+      "Don’t put essential information in a dismissible note."
+    ],
+    "related": [
+      "banner",
+      "toast",
+      "badge"
+    ]
+  },
+  "nucleo": "The dismissible note hides with its close button, and Core handles that. The `data-ts-dismiss` button hides the note (`data-ts-dismissible`) and notifies with `ts:change`. Without a close button it is static markup."
+}

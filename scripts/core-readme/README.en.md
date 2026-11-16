@@ -64,11 +64,21 @@ import '@taishods/core/core';                  // the behavior
   wired up through `data-ts-*` attributes.
 - **Theming in the browser** — `createTheme()`: pass it a hex color and everything repaints, with dark mode and
   accessible contrast derived for you.
-- **The `taisho` command** — `init`, `generate`, `watch`, `check`, and `migrate`: they compile the CSS with your brand, rebuild it on save, check your classes, and migrate from other systems.
+- **The `taisho` command** — `init`, `generate`, `watch`, `check`, `migrate`, and `mcp`: they compile the CSS with your brand, rebuild it on save, check your classes, migrate from other systems, and give an AI assistant data about the system.
 
 ## What's not included
 
 Components for any particular framework: Core is HTML, CSS, and JavaScript, and works the same on any page. With a framework in the middle, it was tested in Astro, Next (App Router), and SvelteKit: the versions, the steps, and what wasn't tested are at https://taisho.design/docs/compatibility#frameworks.
+
+## With AI assistants
+
+The site publishes the Core as Markdown for language models: https://taisho.design/llms.txt (the index, with the rules for writing markup) and one sheet per component at `https://taisho.design/en/docs/<component>.md`. In addition, `npx taisho mcp` starts a local, read-only MCP server (no network, no telemetry) with six tools to look up components, utilities, and the project theme and to validate markup. In the client's configuration (those that read `mcpServers`):
+
+```json
+{ "mcpServers": { "taisho": { "command": "npx", "args": ["taisho", "mcp"] } } }
+```
+
+Each client's setup and every tool's responses are at https://taisho.design/en/docs/ai-assistants
 
 ## Documentation
 

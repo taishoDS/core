@@ -1,0 +1,28 @@
+{
+  "nombre": "Pager",
+  "guia": {
+    "what": "Navegación secuencial entre páginas de contenido: enlaces a la anterior y la siguiente al pie de un artículo, con el título de cada destino.",
+    "whenUse": [
+      "El contenido tiene un orden de lectura pensado: una guía, un tutorial, un capítulo.",
+      "Al terminar una página, seguir con la siguiente es lo natural.",
+      "Se busca mostrar a dónde lleva cada lado, no sólo una flecha."
+    ],
+    "whenAvoid": [
+      "Es un conjunto de datos partido en páginas numeradas → `pagination`.",
+      "No hay un orden real entre las páginas → `sidebar` o `toc`."
+    ],
+    "dos": [
+      "Se muestra el título del destino, no sólo “Siguiente”.",
+      "En el primero o el último queda un solo lado: no se inventan destinos."
+    ],
+    "donts": [
+      "No se usa cuando el orden es arbitrario: promete una secuencia que no existe."
+    ],
+    "related": [
+      "pagination",
+      "toc",
+      "sidebar"
+    ]
+  },
+  "nucleo": "Son dos enlaces `<a>`, anterior y siguiente."
+}

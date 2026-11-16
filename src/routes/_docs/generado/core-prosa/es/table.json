@@ -1,0 +1,36 @@
+{
+  "nombre": "Table",
+  "guia": {
+    "what": "Tabla de datos con ordenamiento, selección de filas, estados de carga y vacío, y celdas personalizadas. Puede virtualizar para listas largas.",
+    "whenUse": [
+      "Los datos son homogéneos y se comparan de a filas: mismas columnas para todos.",
+      "Hace falta ordenar, seleccionar o escanear muchos registros.",
+      "La lista es larga y conviene virtualizarla en vez de paginarla."
+    ],
+    "whenAvoid": [
+      "Cada ítem es distinto y se lee como una unidad → `card`.",
+      "El caso es maquetar una grilla de layout, no datos → `grid`.",
+      "No hay datos que mostrar: ese caso es un `empty-state`."
+    ],
+    "dos": [
+      "Se definen los estados de carga y vacío: una tabla en blanco no explica nada.",
+      "Los números se alinean a la derecha y el ancho de columna se mantiene estable al ordenar."
+    ],
+    "donts": [
+      "No se usa para maquetar: para eso están `grid` y `stack`.",
+      "No conviene poner veinte columnas: si no entran, se prioriza y el detalle pasa a otra vista."
+    ],
+    "related": [
+      "card",
+      "pagination",
+      "empty-state"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Espacio",
+      "action": "Sobre una cabecera ordenable, ordena por esa columna (ascendente, descendente). La cabecera es un `<th tabindex=\"0\">` con `aria-sort`, sin `<button>` dentro."
+    }
+  ],
+  "nucleo": "Ordena y virtualiza las filas por ventana. Ordenamiento y virtualización (mide el viewport, calcula la ventana visible y recicla filas). El orden parte siempre del orden original de las filas, así que al cambiar de columna los empates salen en el orden inicial y no en el del último orden. El orden es local: mueve sólo las filas que están en el DOM, así que en una tabla paginada no alcanza a las otras páginas."
+}

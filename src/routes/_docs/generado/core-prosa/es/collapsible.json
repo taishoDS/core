@@ -1,0 +1,34 @@
+{
+  "nombre": "Collapsible",
+  "guia": {
+    "what": "Muestra u oculta un bloque de contenido con una transición de altura. A diferencia del Accordion es independiente: una sola sección, sin coordinación con otras. El disparador se puede personalizar.",
+    "whenUse": [
+      "Hay un detalle secundario que la mayoría no necesita ver: opciones avanzadas, un log.",
+      "Es una sola sección y no tiene hermanos con los que coordinarse.",
+      "Se busca controlar la apertura desde afuera: se cambia el `aria-expanded` del disparador."
+    ],
+    "whenAvoid": [
+      "Son varias secciones hermanas que se leen de a una → `accordion`.",
+      "El contenido es contextual y flotante → `popover`."
+    ],
+    "dos": [
+      "Que el disparador diga qué se va a mostrar, no sólo “Ver más”.",
+      "Queda abierto por defecto si el contenido importa en la mayoría de los casos."
+    ],
+    "donts": [
+      "No se esconde ahí un error o algo que requiere acción.",
+      "No se usa para una lista de secciones: para eso está `accordion`."
+    ],
+    "related": [
+      "accordion",
+      "popover"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Espacio",
+      "action": "Alterna el contenido."
+    }
+  ],
+  "nucleo": "Es un `<details>` con su `<summary>`: abre y cierra sin JavaScript. El Core sólo suma el evento y abrir desde código. Sin JavaScript abre y cierra solo, con clic y con Enter o Espacio. Con el Core emite `ts:change` (cancelable). Se abre desde código cambiando la propiedad `open` del `<details>`, igual que Accordion."
+}

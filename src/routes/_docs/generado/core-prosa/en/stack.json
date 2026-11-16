@@ -1,0 +1,29 @@
+{
+  "nombre": "Stack",
+  "guia": {
+    "what": "A flex layout with semantic spacing—direction (`flex-col`, `flex-row`), `gap-*`, alignment, and wrap, all with `ts` utilities. Grid’s sibling.",
+    "whenUse": [
+      "The elements run in a single direction, like a column of sections or a row of buttons.",
+      "What matters is the space between items, not aligning them into columns.",
+      "You want the same spacing rhythm as the rest of the system."
+    ],
+    "whenAvoid": [
+      "The elements need to line up in rows and columns → `grid`.",
+      "It’s the width of the whole page → `container`."
+    ],
+    "dos": [
+      "Use the system’s gaps instead of one-off margins on the children.",
+      "If the block is a region, use the right semantic element."
+    ],
+    "donts": [
+      "Don’t add margins to the children to fix the spacing. Change the `gap`.",
+      "Don’t force a grid out of nested stacks → `grid`."
+    ],
+    "related": [
+      "grid",
+      "container",
+      "separator"
+    ]
+  },
+  "nucleo": "Layout: flexbox and gap."
+}

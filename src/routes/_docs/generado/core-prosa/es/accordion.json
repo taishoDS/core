@@ -1,0 +1,35 @@
+{
+  "nombre": "Accordion",
+  "guia": {
+    "what": "Lista de secciones colapsables coordinadas entre sí. Por defecto se abre una sola a la vez; con `data-ts-multiple` se pueden abrir varias. Cada ítem (`data-ts-accordion-item`) declara su `data-ts-value`.",
+    "whenUse": [
+      "Hay varias secciones hermanas y se leen de a una: preguntas frecuentes, especificaciones.",
+      "Mostrarlas todas abiertas haría la página inabarcable.",
+      "Conviene que abrir una cierre la anterior para mantener el foco."
+    ],
+    "whenAvoid": [
+      "Es una sola sección que se abre y cierra sola → `collapsible`.",
+      "Son vistas alternativas del mismo objeto → `tabs`.",
+      "El contenido hay que leerlo entero y en orden: debe quedar visible."
+    ],
+    "dos": [
+      "Títulos que digan qué hay adentro: son lo único visible cuando está cerrado.",
+      "La primera sección queda abierta si hay una que casi todos van a abrir."
+    ],
+    "donts": [
+      "No se esconde ahí información esencial: lo colapsado se lee mucho menos.",
+      "No se anidan acordeones."
+    ],
+    "related": [
+      "collapsible",
+      "tabs"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Espacio",
+      "action": "Abre o cierra la sección enfocada."
+    }
+  ],
+  "nucleo": "Cada ítem es un `<details>` con su `<summary>`, así que abrir y cerrar lo hace el navegador, con clic y con teclado, aunque el JavaScript no cargue. Lo que pide el Core es lo demás: que abrir uno cierre los otros, el evento y abrir desde código. Sin JavaScript, cada ítem abre y cierra solo (Enter y Espacio sobre el `<summary>`) y se pueden abrir varios a la vez. Con el Core, sin `data-ts-multiple` abrir uno cierra el otro, y cada cambio emite `ts:change` (cancelable). Para abrir o cerrar desde código, se cambia la propiedad `open` del `<details>`: el Core lo sigue y ese cambio no emite `ts:change`. Un ítem deshabilitado lleva `aria-disabled=\"true\"` en el `<summary>`; sin JavaScript sigue abriéndose."
+}

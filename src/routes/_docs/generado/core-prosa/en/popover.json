@@ -1,0 +1,36 @@
+{
+  "nombre": "Popover",
+  "guia": {
+    "what": "A floating panel anchored to a trigger, for light contextual content—a detail, a short form, a couple of actions. The trigger carries the ARIA attributes (`aria-haspopup`, `aria-expanded`) and opens the panel.",
+    "whenUse": [
+      "The content depends on the element that opens it and is best shown next to it.",
+      "It’s light and doesn’t justify interrupting with a dialog.",
+      "What’s underneath stays useful while the panel is open."
+    ],
+    "whenAvoid": [
+      "The task deserves to interrupt and block the background → `modal`.",
+      "It’s a list of actions on an object → `menu`.",
+      "It’s only a label that describes the trigger → `tooltip`."
+    ],
+    "dos": [
+      "Anchor it to the element it explains, and choose a `placement-*` for the panel (`placement-bottom-start`, `placement-top`…) that doesn’t cover anything important.",
+      "Keep the content short. If it needs its own scroll, it’s already a `modal` or a `drawer`."
+    ],
+    "donts": [
+      "Don’t put a multi-step flow in a popover.",
+      "Don’t open it on hover. A panel with controls opens on click."
+    ],
+    "related": [
+      "modal",
+      "menu",
+      "tooltip"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Esc",
+      "action": "Closes and returns focus to the trigger."
+    }
+  ],
+  "nucleo": "It uses the Popover API to show and hide. The rest is positioning. Anchors the panel to the trigger with CSS anchor positioning. The trigger renders with `aria-expanded=\"false\"`, and Core keeps it in sync on open and close. The controls (`input`, `select`, `textarea`) of a closed `.ts.popover` panel become `disabled` (marked `data-ts-popover-off`; controls you had already disabled are left alone) and are restored on open. That way they aren’t submitted with the form and don’t block its validation while the panel is closed. This part needs the Core script. Without it, the fields are submitted. A field’s value is kept when the panel reopens."
+}

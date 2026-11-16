@@ -1,0 +1,30 @@
+{
+  "nombre": "Card",
+  "guia": {
+    "what": "Contenedor de superficie para agrupar contenido relacionado. Viene con `ts card-media` (imagen) y un grupo de cards (`data-card-grid`, layout responsive), y puede ser clicable como `<a class=\"ts card is-link\" href>`.",
+    "whenUse": [
+      "El contenido se lee como una unidad: un producto, un proyecto, un resumen.",
+      "Cada ítem tiene forma distinta (imagen, texto, acciones) y no entra en una fila.",
+      "Se busca que el bloque se distinga del fondo y se pueda tocar entero."
+    ],
+    "whenAvoid": [
+      "Los ítems son homogéneos y se comparan campo a campo → `table`.",
+      "Sólo hace falta separar bloques de texto → `separator` o espacio.",
+      "Es un aviso, no contenido → `note`."
+    ],
+    "dos": [
+      "Si toda la card es clicable, conviene hacerla un `<a class=\"ts card is-link\" href>` en vez de meter un botón invisible.",
+      "Se mantiene la misma estructura en todas las cards de una grilla."
+    ],
+    "donts": [
+      "No se anidan cards dentro de cards: la jerarquía se pierde.",
+      "No se meten varias acciones distintas en una card que ya es un enlace entero."
+    ],
+    "related": [
+      "table",
+      "grid",
+      "aspect-ratio"
+    ]
+  },
+  "nucleo": "El efecto spotlight sigue al puntero, y eso lo hace el Core. Escucha `pointermove` y escribe dos variables CSS con la posición. Sin eso la Card se ve bien, sin el brillo."
+}

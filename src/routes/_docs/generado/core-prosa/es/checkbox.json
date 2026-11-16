@@ -1,0 +1,33 @@
+{
+  "nombre": "Checkbox",
+  "guia": {
+    "what": "Casilla booleana. Soporta estado indeterminado, descripción (`ts checkbox-description`), modo tarjeta (`is-card`), error (`is-invalid`) y agrupación con `ts checkbox-group`, que incluye “seleccionar todo” (`data-ts-select-all`).",
+    "whenUse": [
+      "Una opción de sí/no que se confirma al enviar el formulario (términos, un flag).",
+      "Elegir varias de una lista, dentro de un `ts checkbox-group`.",
+      "Hace falta el estado indeterminado (un “seleccionar todo” parcial).",
+      "Hay que mostrar un error o una ayuda pegada a la casilla, suelta o dentro del HTML de `field`."
+    ],
+    "whenAvoid": [
+      "El cambio aplica de inmediato, no al enviar → `toggle`.",
+      "Es elegir una sola de varias → `radio`."
+    ],
+    "dos": [
+      "Etiqueta clara en positivo: que marcar signifique lo que dice.",
+      "Para varias relacionadas, se agrupan con `ts checkbox-group`.",
+      "Si la etiqueta sola no alcanza para decidir, se suma una descripción (`has-description`); el modo `is-card` sirve cuando cada opción es una tarjeta (un plan, un canal).",
+      "Un error de grupo (`Elegir al menos un canal.`) va una vez en el grupo, no repetido en cada casilla."
+    ],
+    "donts": [
+      "No se usa para un ajuste que surte efecto en el acto → `toggle`.",
+      "No se arma un grupo donde sólo una puede estar marcada → `radio`.",
+      "No se usa `is-card` para una casilla suelta de aceptar términos: la tarjeta es para elegir entre opciones."
+    ],
+    "related": [
+      "toggle",
+      "radio",
+      "field"
+    ]
+  },
+  "nucleo": "Es un `<input type=\"checkbox\">` nativo: foco, teclado y envío de formularios los resuelve el navegador. Para pintar el estado, el Core refleja `checked` en la clase `is-checked` de la etiqueta; el error, la ayuda y la descripción son marcado que ya trae el ejemplo. Un grupo (`ts checkbox-group`) con casilla «seleccionar todo» (`data-ts-select-all` en la casilla maestra): marca o desmarca todas las demás y queda mixta (`indeterminate`) si hay algunas marcadas."
+}

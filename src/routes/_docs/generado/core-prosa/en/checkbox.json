@@ -1,0 +1,33 @@
+{
+  "nombre": "Checkbox",
+  "guia": {
+    "what": "A boolean checkbox. Supports an indeterminate state, a description (`ts checkbox-description`), card mode (`is-card`), an error (`is-invalid`), and grouping with `ts checkbox-group`, which includes “select all” (`data-ts-select-all`).",
+    "whenUse": [
+      "A yes/no option that’s confirmed when the form is submitted (terms, a flag).",
+      "Choosing several items from a list, inside a `ts checkbox-group`.",
+      "You need the indeterminate state (a partial “select all”).",
+      "You need to show an error or hint right next to the checkbox, on its own or inside the `field` markup."
+    ],
+    "whenAvoid": [
+      "The change applies immediately, not on submit → `toggle`.",
+      "It’s choosing one of several → `radio`."
+    ],
+    "dos": [
+      "Write a clear, positive label, so checking it means what it says.",
+      "Group several related checkboxes with `ts checkbox-group`.",
+      "If the label alone isn’t enough to decide, add a description (`has-description`). The `is-card` mode works when each option is a card (a plan, a channel).",
+      "A group error (`Choose at least one channel.`) goes once on the group, not repeated on every checkbox."
+    ],
+    "donts": [
+      "Don’t use it for a setting that takes effect immediately → `toggle`.",
+      "Don’t build a group where only one can be checked → `radio`.",
+      "Don’t use `is-card` for a standalone accept-the-terms checkbox. Cards are for choosing between options."
+    ],
+    "related": [
+      "toggle",
+      "radio",
+      "field"
+    ]
+  },
+  "nucleo": "It’s a native `<input type=\"checkbox\">`. The browser handles focus, keyboard, and form submission. To paint the state, Core mirrors `checked` to the label’s `is-checked` class. The error, hint, and description are markup the example already includes. A group (`ts checkbox-group`) with a “select all” checkbox (`data-ts-select-all` on the parent checkbox). It checks or unchecks all the others, and turns mixed (`indeterminate`) when only some are checked."
+}

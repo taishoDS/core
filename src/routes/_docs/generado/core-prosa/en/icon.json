@@ -1,0 +1,28 @@
+{
+  "nombre": "Icon",
+  "guia": {
+    "what": "An icon is an inline `<svg class=\"ts icon\">` from the Lucide set. It inherits the text color (`currentColor`), and you copy and paste it like any other HTML.",
+    "whenUse": [
+      "Reinforcing the meaning of an action or a status that already has text.",
+      "An icon-only control where space is tight and the metaphor is well known.",
+      "You want the icon to follow the color and size of its context."
+    ],
+    "whenAvoid": [
+      "The icon would have to carry the meaning alone. Add text.",
+      "It’s a content image, not a symbol → an image with `aspect-ratio`."
+    ],
+    "dos": [
+      "For an icon without text, give the control that contains it an accessible name (`aria-label`).",
+      "Use the same icon for the same concept across the whole product."
+    ],
+    "donts": [
+      "Don’t decorate for decoration’s sake. Every icon competes for attention."
+    ],
+    "related": [
+      "button",
+      "badge",
+      "visually-hidden"
+    ]
+  },
+  "nucleo": "Inserts the icon’s SVG. It has no behavior."
+}

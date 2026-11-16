@@ -1,0 +1,29 @@
+{
+  "nombre": "EmptyState",
+  "guia": {
+    "what": "The block that appears when a list, table, or view has no content. It brings the icon, title, description, and action together, centered, instead of repeating the HTML on every screen.",
+    "whenUse": [
+      "A list or table can end up empty, whether for the first time or because of a filter.",
+      "You want to turn the empty state into a first step, like creating, importing, or inviting.",
+      "You need to tell “nothing here yet” apart from “your search found nothing.”"
+    ],
+    "whenAvoid": [
+      "It’s still loading. That’s a `skeleton` or `spinner`, not an empty state.",
+      "It’s a system error, not a state without data → `banner` or `note`."
+    ],
+    "dos": [
+      "Say why it’s empty and what to do. The action goes in the block itself.",
+      "Distinguish the initial empty state from one caused by a filter. The second offers to clear the filter."
+    ],
+    "donts": [
+      "Don’t leave a table blank without an explanation. It looks broken.",
+      "Don’t use the same text for “no data” and “no results.”"
+    ],
+    "related": [
+      "table",
+      "skeleton",
+      "note"
+    ]
+  },
+  "nucleo": "A composition of text and an icon."
+}

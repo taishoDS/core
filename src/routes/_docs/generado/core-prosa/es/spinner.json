@@ -1,0 +1,30 @@
+{
+  "nombre": "Spinner",
+  "guia": {
+    "what": "Indicador de carga circular para esperas cortas sin progreso conocido. Toma el color del texto (`currentColor`), así que se adapta al contexto donde se ponga.",
+    "whenUse": [
+      "La operación es corta y no se sabe cuánto va a tardar.",
+      "Hay que ocupar un lugar chico: dentro de un botón, al lado de un título, en una celda.",
+      "Alcanza con decir “esto está trabajando”, sin más detalle."
+    ],
+    "whenAvoid": [
+      "El avance se puede calcular → `progress`.",
+      "Se está cargando una estructura que después ocupa lugar → `skeleton`, que evita el salto de layout.",
+      "Es actividad inline en medio de un texto → `loading-dots`."
+    ],
+    "dos": [
+      "El `aria-label` se ajusta a lo que se está esperando: es lo que anuncia el lector de pantalla.",
+      "Va donde va a aparecer el resultado, para que la espera tenga lugar."
+    ],
+    "donts": [
+      "No se pone un spinner por pantalla completa si la estructura se puede dibujar con `skeleton`.",
+      "Un spinner no debe quedar eterno: si falla, se muestra el error."
+    ],
+    "related": [
+      "loading-dots",
+      "progress",
+      "skeleton"
+    ]
+  },
+  "nucleo": "Animación CSS."
+}

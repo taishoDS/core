@@ -1,0 +1,37 @@
+{
+  "nombre": "Sidebar",
+  "guia": {
+    "what": "Navegación lateral persistente. Colapsa a un rail de íconos o se esconde del todo, recuerda su estado y bajo `lg` se convierte sola en un Drawer. Atajo `⌘/Ctrl + B`.",
+    "whenUse": [
+      "Hay muchas secciones, con jerarquía, y conviene tenerlas siempre a la vista.",
+      "El usuario salta seguido entre secciones (docs, panel de administración).",
+      "Se busca que en pantallas chicas la misma navegación se vuelva un panel."
+    ],
+    "whenAvoid": [
+      "Las secciones son pocas y entran arriba → `nav-bar`.",
+      "Es el índice de la página que se está leyendo → `toc`.",
+      "Es un panel temporal que se abre y se cierra → `drawer`."
+    ],
+    "dos": [
+      "Los ítems se agrupan por tema y se marca el activo.",
+      "Conviene dejarla colapsar: en pantallas chicas el contenido vale más que el menú.",
+      "En el rail colapsado, los ítems de un grupo desplegado quedan como íconos: conviene que cada ítem lleve el suyo. Un grupo plegado no se alcanza hasta expandir la barra."
+    ],
+    "donts": [
+      "No se anidan tres niveles de menús: se vuelve un laberinto.",
+      "No se duplica ahí lo que ya está en la barra superior."
+    ],
+    "related": [
+      "nav-bar",
+      "drawer",
+      "toc"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Tab / Enter",
+      "action": "En el rail colapsado, Tab recorre los ítems en forma de ícono y Enter activa el enfocado."
+    }
+  ],
+  "nucleo": "Es un conjunto de piezas (barra, grupos, ítems, disparador) que se coordinan entre sí. Colapsa y expande con persistencia, soporta grupos anidados y marca el ítem activo. Bajo el breakpoint (`data-ts-breakpoint`, por `@media`) la barra se esconde y el HTML trae el Drawer con la misma navegación: el disparador (`data-ts-sidebar-trigger`) lo abre en ventana angosta y colapsa la barra en ventana ancha. Si se agranda la ventana con el Drawer abierto, se cierra y el foco vuelve al disparador."
+}

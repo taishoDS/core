@@ -1,0 +1,28 @@
+{
+  "nombre": "Link",
+  "guia": {
+    "what": "Enlace de texto con los estilos del sistema: un `<a class=\"ts link\" href>`; una acción con aspecto de enlace es un `<button type=\"button\" class=\"ts link\">`. Tiene variantes y estado deshabilitado; los enlaces externos llevan `target=\"_blank\"` y `rel=\"noopener noreferrer\"`.",
+    "whenUse": [
+      "Navegar a otra página o a otro punto del contenido.",
+      "El enlace va dentro de un texto y tiene que leerse como texto.",
+      "El enlace apunta afuera del sitio: `target=\"_blank\"` con `rel=\"noopener noreferrer\"` lo abre en otra pestaña sin pasarle el control a esa página."
+    ],
+    "whenAvoid": [
+      "Es una acción que cambia algo, no un destino → `button`.",
+      "Es un enlace que tiene que verse como botón → un `<a class=\"ts button …\">` (ver `button`)."
+    ],
+    "dos": [
+      "Que el texto diga el destino: “ver la guía de theming”, no “hacer clic acá”.",
+      "Los enlaces externos se marcan con `target=\"_blank\"` y `rel=\"noopener noreferrer\"` para que no sorprendan."
+    ],
+    "donts": [
+      "No se usa un link para disparar acciones destructivas.",
+      "No se dejan links sueltos que no se distinguen del texto plano."
+    ],
+    "related": [
+      "button",
+      "breadcrumbs"
+    ]
+  },
+  "nucleo": "`<a>` nativo, o `<button>` nativo con el mismo aspecto cuando es una acción."
+}

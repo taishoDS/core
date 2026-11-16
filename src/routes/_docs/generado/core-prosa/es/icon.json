@@ -1,0 +1,28 @@
+{
+  "nombre": "Icon",
+  "guia": {
+    "what": "Un ícono es un `<svg class=\"ts icon\">` inline del set Lucide. Hereda el color del texto (`currentColor`) y se copia y pega como cualquier otro HTML.",
+    "whenUse": [
+      "Reforzar el significado de una acción o un estado que ya tiene texto.",
+      "Un control de sólo ícono donde el espacio es mínimo y la metáfora es conocida.",
+      "Se busca que el ícono siga el color y el tamaño del contexto."
+    ],
+    "whenAvoid": [
+      "El ícono tendría que cargar solo con el significado: se agrega texto.",
+      "Es una imagen de contenido, no un símbolo → una imagen con `aspect-ratio`."
+    ],
+    "dos": [
+      "Ícono sin texto: el control que lo contiene lleva nombre accesible (`aria-label`).",
+      "Se usa el mismo ícono para el mismo concepto en todo el producto."
+    ],
+    "donts": [
+      "No se decora por decorar: cada ícono compite por atención."
+    ],
+    "related": [
+      "button",
+      "badge",
+      "visually-hidden"
+    ]
+  },
+  "nucleo": "Inserta el SVG del ícono; no tiene comportamiento."
+}

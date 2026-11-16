@@ -1,0 +1,28 @@
+{
+  "nombre": "Toggle",
+  "guia": {
+    "what": "An on/off switch. Unlike the Checkbox, it represents a change that applies immediately. Supports a loading state and icons in the thumb.",
+    "whenUse": [
+      "A setting that turns on or off and takes effect immediately (a preference).",
+      "The on/off state speaks for itself, with no need to “save.”",
+      "You want to show that something is happening while it applies (loading state)."
+    ],
+    "whenAvoid": [
+      "The value is only confirmed when a form is submitted → `checkbox`.",
+      "It’s a choice between options, not on/off → `radio` or `segmented-control`."
+    ],
+    "dos": [
+      "Write a label that names the “on” state, not an action.",
+      "If applying takes a while, show the loading state instead of faking the result."
+    ],
+    "donts": [
+      "Don’t use it inside a form that gets submitted later → `checkbox`.",
+      "Don’t use it for three or more states. It’s binary."
+    ],
+    "related": [
+      "checkbox",
+      "segmented-control"
+    ]
+  },
+  "nucleo": "It’s a native `<input type=\"checkbox\">` styled as a switch. To paint the state, Core mirrors `checked` to the label’s `is-checked` class and to the switch’s `aria-checked`. When the switch changes, it mirrors `checked` to the label’s `is-checked` class and, if the field has `role=\"switch\"`, to its `aria-checked`, so the state is announced. Keyboard, focus, and submission are the browser’s."
+}

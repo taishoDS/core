@@ -1,0 +1,29 @@
+{
+  "nombre": "LoadingDots",
+  "guia": {
+    "what": "Three animated dots that signal activity subtly, designed to sit inline next to text or inside a button. They inherit `currentColor`.",
+    "whenUse": [
+      "The loading signal sits inline and shouldn’t grab attention.",
+      "You’re replacing a button’s text while a form submits.",
+      "The wait is brief, and a spinner looks heavy next to the text."
+    ],
+    "whenAvoid": [
+      "The loading takes up a whole block of the screen → `spinner` or `skeleton`.",
+      "You know how much is left → `progress`."
+    ],
+    "dos": [
+      "Size them to the text they accompany. They inherit the color and size from their context.",
+      "In a button, keep the width so it doesn’t jump when the text comes back."
+    ],
+    "donts": [
+      "Don’t use them as the main indicator for a long load. They don’t communicate progress.",
+      "Don’t leave them animating once the operation has finished or failed."
+    ],
+    "related": [
+      "spinner",
+      "progress",
+      "skeleton"
+    ]
+  },
+  "nucleo": "CSS animation."
+}

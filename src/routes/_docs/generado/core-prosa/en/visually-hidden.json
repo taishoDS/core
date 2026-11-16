@@ -1,0 +1,27 @@
+{
+  "nombre": "VisuallyHidden",
+  "guia": {
+    "what": "Hides content visually but keeps it in the accessibility tree. Use it to give an icon-only control a text name, or to name a region with a heading that takes up no space. It reuses the `ts sr-only` utility.",
+    "whenUse": [
+      "There’s information the layout conveys visually that screen readers don’t get.",
+      "You want to name a region with a heading that won’t be shown.",
+      "Some context text helps explain a control outside its visual placement."
+    ],
+    "whenAvoid": [
+      "You just want to hide something temporarily. That’s `display: none`, which does remove it from the tree.",
+      "The information is useful to everyone. Show it."
+    ],
+    "dos": [
+      "Use it to complete what the interface conveys only through position or color."
+    ],
+    "donts": [
+      "Don’t hide SEO text or content everyone should read in it.",
+      "Don’t use it to paper over a design problem. If something isn’t clear, fix the design."
+    ],
+    "related": [
+      "icon",
+      "button"
+    ]
+  },
+  "nucleo": "Only the CSS that visually hides content while keeping it accessible."
+}

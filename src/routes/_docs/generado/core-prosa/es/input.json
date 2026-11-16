@@ -1,0 +1,30 @@
+{
+  "nombre": "Input",
+  "guia": {
+    "what": "Campo de texto de una línea. Soporta label, ayuda, error, prefijos y sufijos, contador de caracteres y botón de limpieza (`data-ts-clear`).",
+    "whenUse": [
+      "Capturar texto corto en una línea: nombre, email, búsqueda, un código.",
+      "Hace falta un prefijo/sufijo (una unidad, un ícono) o un botón de limpieza.",
+      "Con `type` se pasa a email/password/tel y se aprovecha el teclado del sistema."
+    ],
+    "whenAvoid": [
+      "El texto puede ser largo o multilínea → `textarea`.",
+      "Es un número con tope y paso → `number-input`.",
+      "Es una fecha → `date-picker`."
+    ],
+    "dos": [
+      "Se arma con el HTML de `field` para el label y los mensajes.",
+      "Se elige el `type` correcto: mejora el teclado móvil y la validación."
+    ],
+    "donts": [
+      "El placeholder no se usa como label.",
+      "No se usa para elegir de un conjunto cerrado → `select`."
+    ],
+    "related": [
+      "field",
+      "textarea",
+      "number-input"
+    ]
+  },
+  "nucleo": "Es un `<input>` nativo, más el botón de limpiar, que es propio. Mantiene el campo al día: el cursor de cada campo con valor queda al final al iniciar, así `element.focus()` desde código no escribe antes del texto. Con Tab (que selecciona todo) y con clic no cambia nada."
+}

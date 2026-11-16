@@ -78,10 +78,6 @@ const REGLAS: Regla[] = [
     [/^la clase de TaishoDS no está emitida \(su vocabulario es más corto que el de Tailwind\)$/, 'the TaishoDS class isn’t emitted (its vocabulary is smaller than Tailwind’s)'],
     [/^la clase de TaishoDS no está emitida$/, 'the TaishoDS class isn’t emitted'],
     [
-        /^márgenes negativos \(`-m-\*`\): la gramática los define \(`m-neg-N`\) pero el generador no los emite$/,
-        'negative margins (`-m-*`)—the naming grammar defines them (`m-neg-N`), but the generator doesn’t emit them',
-    ],
-    [
         /^white, black, current e inherit no son colores del tema \(el color sale de las semillas\): para una superficie, `bg-background-100` o un gris de la escala \(`bg-gray-100`…`bg-gray-1000`\); para el texto, `color-gray-1000` o el color del tema$/,
         'white, black, current, and inherit aren’t theme colors (color comes from the seeds). For a surface, use `bg-background-100` or a gray from the scale (`bg-gray-100`…`bg-gray-1000`); for text, `color-gray-1000` or the theme color',
     ],

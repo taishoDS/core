@@ -184,3 +184,15 @@ describe('guardia de la versión de Node', () => {
 		expect(mensajeNodeMinimo('20.0.0', [], {})).toContain('is required');
 	});
 });
+
+describe('taisho mcp', () => {
+	it('un flag que no es suyo es un error de uso (sale con 2 sin arrancar el servidor)', async () => {
+		for (const flag of ['--out=x', '--write', '--strict']) expect(await correr('mcp', flag), flag).toBe(2);
+		expect(errores.some((e) => /taisho mcp (no acepta|doesn't take)/.test(e))).toBe(true);
+	});
+
+	it('la ayuda lista el comando', async () => {
+		await correr('--help', '--lang', 'es');
+		expect(salida.join('\n')).toContain('taisho mcp');
+	});
+});

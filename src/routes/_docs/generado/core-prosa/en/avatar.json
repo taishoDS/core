@@ -1,0 +1,29 @@
+{
+  "nombre": "Avatar",
+  "guia": {
+    "what": "Represents a user or entity with an image, or with initials derived from the name as a fallback (if the image fails, Core writes them in). Without an explicit tone, it derives a stable one from the name (`tone-*`). It has a status indicator (`status-online`) and stacking with `ts avatar-group`, which collapses the rest into a counter (`data-avatar-overflow`, “+5”).",
+    "whenUse": [
+      "Identifying a person in a list, a comment, or an account bar.",
+      "Showing at a glance who’s involved in something (`ts avatar-group`).",
+      "You want a decent fallback when there’s no photo."
+    ],
+    "whenAvoid": [
+      "It’s a status or a category, not a person → `badge`.",
+      "It’s a content image that needs to be seen clearly → an image with `aspect-ratio`."
+    ],
+    "dos": [
+      "Always set `data-ts-name`. It’s where the initials and the alt text come from.",
+      "Show the name next to the avatar when identity really matters."
+    ],
+    "donts": [
+      "Don’t use the status indicator (`status-*`) as the only indicator. Color alone doesn’t communicate.",
+      "Don’t stack twenty avatars. Show a few and let the rest become a counter.",
+      "Don’t force a tone (`tone-*`) for decoration. The one derived from the name already makes each person recognizable."
+    ],
+    "related": [
+      "badge",
+      "card"
+    ]
+  },
+  "nucleo": "If the image doesn’t load, the avatar falls back to initials, and Core handles that. If the image fails, Core removes it from the DOM, writes the initials, and keeps the person’s name on the container (`role=\"img\"` and `aria-label`). It also covers images that failed before Core ran. On init it checks the `<img>` elements that already finished loading with no natural width, so it doesn’t depend on load order. The initials' tone (`tone-*`) and the group’s `+K` counter are static markup. The CSS paints them, and no JavaScript is needed."
+}

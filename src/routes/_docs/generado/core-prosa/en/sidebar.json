@@ -1,0 +1,37 @@
+{
+  "nombre": "Sidebar",
+  "guia": {
+    "what": "Persistent side navigation. It collapses to an icon rail or hides completely, remembers its state, and turns into a Drawer on its own below `lg`. Shortcut: `⌘/Ctrl + B`.",
+    "whenUse": [
+      "There are many sections, with hierarchy, and keeping them always visible helps.",
+      "Users jump between sections often (docs, an admin dashboard).",
+      "You want the same navigation to become a panel on small screens."
+    ],
+    "whenAvoid": [
+      "There are only a few sections, and they fit at the top → `nav-bar`.",
+      "It’s the table of contents for the page being read → `toc`.",
+      "It’s a temporary panel that opens and closes → `drawer`."
+    ],
+    "dos": [
+      "Group items by topic and mark the active one.",
+      "Let it collapse. On small screens, the content matters more than the menu.",
+      "In the collapsed rail, the items of an expanded group stay as icons, so give each item its own. A collapsed group is not reachable until the bar is expanded."
+    ],
+    "donts": [
+      "Don’t nest menus three levels deep. It turns into a maze.",
+      "Don’t duplicate what’s already in the top bar."
+    ],
+    "related": [
+      "nav-bar",
+      "drawer",
+      "toc"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Tab / Enter",
+      "action": "In the collapsed rail, Tab moves through the items shown as icons, and Enter activates the focused one."
+    }
+  ],
+  "nucleo": "It’s a set of parts (bar, groups, items, trigger) that coordinate with each other. Collapses and expands with persistence, supports nested groups, and marks the active item. Below the breakpoint (`data-ts-breakpoint`, via `@media`), the bar hides, and the HTML includes the Drawer with the same navigation. The trigger (`data-ts-sidebar-trigger`) opens it in a narrow viewport and collapses the bar in a wide one. If you widen the viewport with the Drawer open, it closes and focus returns to the trigger."
+}

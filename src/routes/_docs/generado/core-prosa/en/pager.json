@@ -1,0 +1,28 @@
+{
+  "nombre": "Pager",
+  "guia": {
+    "what": "Sequential navigation between content pages—links to the previous and next page at the end of an article, with each destination’s title.",
+    "whenUse": [
+      "The content has an intended reading order, like a guide, a tutorial, or a chapter.",
+      "When people finish a page, moving on to the next one is the natural step.",
+      "You want to show where each side leads, not just an arrow."
+    ],
+    "whenAvoid": [
+      "It’s a dataset split into numbered pages → `pagination`.",
+      "There’s no real order between the pages → `sidebar` or `toc`."
+    ],
+    "dos": [
+      "Show the destination’s title, not just “Next.”",
+      "On the first or last page, show only one side. Don’t invent destinations."
+    ],
+    "donts": [
+      "Don’t use it when the order is arbitrary. It promises a sequence that doesn’t exist."
+    ],
+    "related": [
+      "pagination",
+      "toc",
+      "sidebar"
+    ]
+  },
+  "nucleo": "Two `<a>` links, previous and next."
+}

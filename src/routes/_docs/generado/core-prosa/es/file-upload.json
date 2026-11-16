@@ -1,0 +1,34 @@
+{
+  "nombre": "FileUpload",
+  "guia": {
+    "what": "Zona de carga de archivos con drag & drop. Valida tipo y tamaño, lista los cargados y permite eliminarlos.",
+    "whenUse": [
+      "El usuario tiene que subir uno o varios archivos (imágenes, documentos).",
+      "Se busca validar tipo y tamaño antes de aceptar.",
+      "Conviene mostrar lo ya cargado y poder quitarlo."
+    ],
+    "whenAvoid": [
+      "Alcanza con un `<input type=\"file\">` mínimo, sin lista ni validación.",
+      "No es un archivo sino un valor de texto o número → el control que corresponda."
+    ],
+    "dos": [
+      "Se declaran los tipos aceptados y el tamaño máximo, y se explica el límite.",
+      "Se arma con el HTML de `field` para el label y los errores de validación."
+    ],
+    "donts": [
+      "No se acepta cualquier cosa: tipo y tamaño se validan en el cliente y en el server.",
+      "No se ocultan el progreso ni los errores de una carga que falla."
+    ],
+    "related": [
+      "field",
+      "button"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Espacio",
+      "action": "Sobre el botón «Seleccionar archivos», abre el selector de archivos."
+    }
+  ],
+  "nucleo": "Se monta sobre un `<input type=\"file\">` nativo y suma arrastrar y soltar y la lista de archivos. Arrastrar y soltar, y pintar la lista de archivos elegidos. Con `multiple`, cada selección se suma a la lista (sin `multiple` la reemplaza) y cada fila tiene su botón «Quitar»; como el input nativo no acumula, el Core guarda la lista y rearma `input.files` sólo con los archivos válidos. La fila sale de un `<template data-ts-file-template>` del ejemplo. La lista vacía va con `hidden`."
+}

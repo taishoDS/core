@@ -1,0 +1,29 @@
+{
+  "nombre": "ScrollArea",
+  "guia": {
+    "what": "A bounded scroll container with its own scrollbar, thinner than the page’s and revealed on hover (the thumb appears when you hover or focus inside). You bound it with a maximum height or width (`data-ts-max-height`, `data-ts-max-width`). It’s what long panels use internally.",
+    "whenUse": [
+      "An area needs to scroll on its own without dragging the page along, like a list or a panel.",
+      "The content is taller than the available space, and you want to bound it, not truncate it.",
+      "You want the same thin scrollbar the system’s panels use."
+    ],
+    "whenAvoid": [
+      "It’s the scroll of the whole page. Leave that to the browser.",
+      "The content fits. A scrollbar that never appears only gets in the way."
+    ],
+    "dos": [
+      "Bound it with a maximum height (`data-ts-max-height`) instead of a fixed height. It adapts better.",
+      "Make it visible that there’s more below—a clean cut looks like the end of the content."
+    ],
+    "donts": [
+      "Don’t nest scroll areas. The user never knows which one they’re moving.",
+      "Don’t hide important actions in it where they end up out of view."
+    ],
+    "related": [
+      "sidebar",
+      "table",
+      "container"
+    ]
+  },
+  "nucleo": "The maximum height or width is a continuous value. `--ts-scroll-area-max-h` and `--ts-scroll-area-max-w` read it, and Core writes those variables. Until Core runs, only the scale values (`ts max-h-160`) and `100%` are capped, because they have their own class. Any other value stays uncapped. Pass the CSS length (`180px`, `30rem`) in `data-ts-max-height` or `data-ts-max-width`. Core copies it to the variable on init and whenever the attribute changes. Scrolling is the browser’s native scrolling."
+}

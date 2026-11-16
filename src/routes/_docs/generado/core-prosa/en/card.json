@@ -1,0 +1,30 @@
+{
+  "nombre": "Card",
+  "guia": {
+    "what": "A surface container for grouping related content. It comes with `ts card-media` (an image) and a card group (`data-card-grid`, a responsive layout), and it can be made clickable as an `<a class=\"ts card is-link\" href>`.",
+    "whenUse": [
+      "The content reads as a unit, like a product, a project, or a summary.",
+      "Each item has a different shape (image, text, actions) and doesn’t fit in a row.",
+      "You want the block to stand out from the background and be clickable as a whole."
+    ],
+    "whenAvoid": [
+      "The items are uniform and compared field by field → `table`.",
+      "You only need to separate blocks of text → `separator` or whitespace.",
+      "It’s a notice, not content → `note`."
+    ],
+    "dos": [
+      "If the whole card is clickable, make it an `<a class=\"ts card is-link\" href>` instead of adding an invisible button.",
+      "Keep the same structure across all the cards in a grid."
+    ],
+    "donts": [
+      "Don’t nest cards inside cards. The hierarchy gets lost.",
+      "Don’t add several different actions to a card that’s already a link as a whole."
+    ],
+    "related": [
+      "table",
+      "grid",
+      "aspect-ratio"
+    ]
+  },
+  "nucleo": "The spotlight effect follows the pointer, and Core handles that. Listens to `pointermove` and writes two CSS variables with the position. Without it, the Card still looks right, just without the glow."
+}

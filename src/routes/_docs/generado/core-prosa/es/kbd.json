@@ -1,0 +1,25 @@
+{
+  "nombre": "Kbd",
+  "guia": {
+    "what": "Representa una tecla o una combinación de teclado. Se renderiza como `<kbd>` con el estilo del sistema.",
+    "whenUse": [
+      "Se documenta un atajo: `⌘K`, `Esc`, `Ctrl + B`.",
+      "Se indica al usuario qué tecla apretar, en la interfaz o en la doc."
+    ],
+    "whenAvoid": [
+      "Es código, no una tecla → `inline-code`."
+    ],
+    "dos": [
+      "Una tecla por `<kbd>`, y la combinación se arma con varios.",
+      "Se respeta el nombre real de la tecla en cada plataforma."
+    ],
+    "donts": [
+      "No se usa de badge decorativo: significa “esto se aprieta”."
+    ],
+    "related": [
+      "inline-code",
+      "command-palette"
+    ]
+  },
+  "nucleo": "Presentacional puro."
+}

@@ -1,0 +1,29 @@
+{
+  "nombre": "AspectRatio",
+  "guia": {
+    "what": "Keeps a fixed aspect ratio for its content—images, video, iframes, maps—so nothing jumps while it loads. The ratio goes in `data-ts-ratio`; the direct child fills the box.",
+    "whenUse": [
+      "You’re embedding media of unknown size and don’t want the layout to jump.",
+      "Every piece in a grid has to have the same shape.",
+      "It’s an embed (video, map) that needs a proportional box."
+    ],
+    "whenAvoid": [
+      "The image has a known fixed height, so you don’t need it.",
+      "It’s text content. The text sets the height."
+    ],
+    "dos": [
+      "Choose the ratio based on the real content (16/9 for video, 1/1 for portraits).",
+      "Combine it with `skeleton` if the media takes a while to arrive."
+    ],
+    "donts": [
+      "Don’t use it to crop something that needs to be seen in full.",
+      "Don’t add several children. The direct child is the one that fills the box."
+    ],
+    "related": [
+      "card",
+      "skeleton",
+      "avatar"
+    ]
+  },
+  "nucleo": "The ratio is a continuous value. The stylesheet reads it from `--ts-aspect-ratio`, and Core writes that variable. Until Core runs, only 1 and 16/9 render correctly, because they also have their own class (`ts aspect-square`, `aspect-video`). Any other ratio renders square. Pass the ratio in `data-ts-ratio=\"1.3333\"` on the element. Core copies it to `--ts-aspect-ratio` on init and whenever the attribute changes. There’s no interaction—it only sets the value at rest."
+}

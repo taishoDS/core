@@ -1,0 +1,36 @@
+{
+  "nombre": "Table",
+  "guia": {
+    "what": "A data table with sorting, row selection, loading and empty states, and custom cells. It can virtualize long lists.",
+    "whenUse": [
+      "The data is uniform and compared row by row, with the same columns for every record.",
+      "You need to sort, select, or scan many records.",
+      "The list is long, and virtualizing it beats paginating it."
+    ],
+    "whenAvoid": [
+      "Each item is different and reads as a unit → `card`.",
+      "You’re building a layout grid, not showing data → `grid`.",
+      "There’s no data to show. That case is an `empty-state`."
+    ],
+    "dos": [
+      "Define the loading and empty states. A blank table explains nothing.",
+      "Right-align numbers, and keep column widths stable when sorting."
+    ],
+    "donts": [
+      "Don’t use it for layout. That’s what `grid` and `stack` are for.",
+      "Don’t add twenty columns. If they don’t fit, prioritize and leave the details for another view."
+    ],
+    "related": [
+      "card",
+      "pagination",
+      "empty-state"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "Enter / Space",
+      "action": "On a sortable header, sorts by that column (ascending, descending). The header is a `<th tabindex=\"0\">` with `aria-sort` and no `<button>` inside."
+    }
+  ],
+  "nucleo": "Sorts rows and virtualizes them by window. Sorting and virtualization (it measures the viewport, computes the visible window, and recycles rows). Sorting always starts from the original row order, so when you switch columns, ties keep their initial order instead of the previous sort’s. Sorting is local: it only moves the rows in the DOM, so in a paginated table it doesn’t reach the other pages."
+}

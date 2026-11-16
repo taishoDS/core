@@ -1,0 +1,33 @@
+{
+  "nombre": "Progress",
+  "guia": {
+    "what": "Barra de progreso determinada (con `data-ts-value`) o indeterminada (`is-indeterminate`, animación continua) para mostrar el avance de una tarea. Tiene tamaños, variantes de color y `aria-label` como nombre accesible. También se parte en tramos (`is-steps`, `is-stacked`) para cuotas, o se dibuja como anillo (`shape-circle`).",
+    "whenUse": [
+      "Se sabe cuánto falta y se puede expresar como porcentaje: una subida, un import, un paso 3 de 5.",
+      "La espera es larga y ver el avance evita que el usuario abandone.",
+      "Se busca mostrar una proporción de algo completado (cuota, checklist).",
+      "Es una cuota por tramos: `is-steps` para \"3 de 5 asientos\", `is-stacked` para usado y reservado del plan.",
+      "El espacio es chico o cuadrado (una celda, una tarjeta): `shape-circle`."
+    ],
+    "whenAvoid": [
+      "La espera es corta y no se sabe cuánto falta → `spinner`.",
+      "Es actividad discreta dentro de un texto o un botón → `loading-dots`.",
+      "Se está cargando contenido que va a ocupar lugar → `skeleton`."
+    ],
+    "dos": [
+      "Conviene darle `aria-label`: es el nombre accesible de la barra.",
+      "Si no se puede calcular el avance real, se usa `is-indeterminate` en vez de inventar un número.",
+      "Con `is-stacked`, la leyenda de colores va al lado: el color solo no alcanza para distinguir los tramos."
+    ],
+    "donts": [
+      "No se falsea el progreso: una barra que salta al 90% y se queda ahí es peor que ninguna.",
+      "No se usa una barra para una espera de medio segundo: parpadea y molesta."
+    ],
+    "related": [
+      "spinner",
+      "loading-dots",
+      "skeleton"
+    ]
+  },
+  "nucleo": "El ancho del relleno es un valor continuo: lo lee la hoja de estilos desde `--ts-progress-value` (por defecto 0 %) y esa variable la escribe el Core. Hasta que el Core corre, la barra se ve vacía en vez de mostrar su valor. Se escribe `data-ts-value=\"40\"` (porcentaje) en cada `[data-progress-fill]`, también en los tramos apilados. El Core lo lleva a `--ts-progress-value` al iniciar y cuando el atributo cambia. La barra indeterminada no lleva el atributo. No hay interacción: es sólo el valor de reposo."
+}

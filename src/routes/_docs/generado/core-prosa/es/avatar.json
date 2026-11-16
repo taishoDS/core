@@ -1,0 +1,29 @@
+{
+  "nombre": "Avatar",
+  "guia": {
+    "what": "Representa a un usuario o entidad con una imagen, o con las iniciales derivadas del nombre como fallback (si la imagen falla, el Core las escribe). Sin tono explícito deriva uno estable del nombre (`tone-*`). Tiene indicador de estado (`status-online`) y apilado con `ts avatar-group`, que resume el resto en un contador (`data-avatar-overflow`, “+5”).",
+    "whenUse": [
+      "Identificar a una persona en una lista, un comentario o una barra de cuenta.",
+      "Mostrar de un vistazo quiénes participan de algo (`ts avatar-group`).",
+      "Se busca un fallback digno cuando no hay foto."
+    ],
+    "whenAvoid": [
+      "Es un estado o una categoría, no una persona → `badge`.",
+      "Es una imagen de contenido que hay que ver bien → una imagen con `aspect-ratio`."
+    ],
+    "dos": [
+      "Siempre se pone `data-ts-name`: es de donde salen las iniciales y el texto alternativo.",
+      "El avatar se acompaña con el nombre cuando la identidad importa de verdad."
+    ],
+    "donts": [
+      "El indicador de estado (`status-*`) no se usa como único indicador: el color solo no comunica.",
+      "No se apilan veinte avatares: se muestran unos pocos y el resto pasa a un contador.",
+      "No se fuerza el tono (`tone-*`) para decorar: el que se deriva del nombre ya hace reconocible a cada persona."
+    ],
+    "related": [
+      "badge",
+      "card"
+    ]
+  },
+  "nucleo": "Si la imagen no carga, el avatar cae a las iniciales, y eso lo hace el Core. Si la imagen falla, la saca del DOM, escribe las iniciales y deja el nombre de la persona en el contenedor (`role=\"img\"` y `aria-label`). También cubre la imagen que falló antes de que corra el Core: al iniciar revisa las `<img>` ya terminadas y sin ancho natural, así que no depende del orden de carga. El tono de las iniciales (`tone-*`) y el contador `+K` del grupo son marcado estático: los pinta el CSS, no hace falta JavaScript."
+}

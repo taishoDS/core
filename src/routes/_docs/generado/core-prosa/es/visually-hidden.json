@@ -1,0 +1,27 @@
+{
+  "nombre": "VisuallyHidden",
+  "guia": {
+    "what": "Oculta contenido a la vista pero lo mantiene en el árbol de accesibilidad. Sirve para darle nombre textual a un control de sólo ícono, o para nombrar una región con un heading sin ocupar espacio. Reutiliza la utilidad `ts sr-only`.",
+    "whenUse": [
+      "Hay información que la vista da por el diseño y el lector de pantalla no recibe.",
+      "Se busca nombrar una región con un heading que no va a mostrarse.",
+      "Un texto de contexto ayuda a entender un control fuera de su lugar visual."
+    ],
+    "whenAvoid": [
+      "Sólo se busca ocultar algo temporalmente: eso es `display: none`, y sí lo saca del árbol.",
+      "La información le sirve a todos: se muestra."
+    ],
+    "dos": [
+      "Sirve para completar lo que la interfaz comunica sólo por posición o color."
+    ],
+    "donts": [
+      "No se esconde ahí texto para SEO ni contenido que todos deberían leer.",
+      "No se usa para tapar un problema de diseño: si algo no se entiende, se arregla el diseño."
+    ],
+    "related": [
+      "icon",
+      "button"
+    ]
+  },
+  "nucleo": "Sólo CSS de ocultamiento accesible."
+}

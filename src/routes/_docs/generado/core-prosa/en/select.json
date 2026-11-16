@@ -1,0 +1,53 @@
+{
+  "nombre": "Select",
+  "guia": {
+    "what": "Picks a value from a known list. It isn’t the native `<select>`—it supports groups, built-in search, multiple selection, and options with an icon and description. The panel lives in the browser’s top layer (Popover API).",
+    "whenUse": [
+      "You pick one or more items from a known, bounded set that can be scanned at a glance.",
+      "You need multiple selection or a search box inside the panel.",
+      "It’s a form field. The chosen value stays and gets submitted."
+    ],
+    "whenAvoid": [
+      "The list is long and typing to filter is the main interaction → `combobox`.",
+      "The user needs to enter a value that isn’t in the list → `combobox` with `data-ts-allow-custom`.",
+      "You’re not choosing a value but triggering an action → `menu`."
+    ],
+    "dos": [
+      "Label it with the `field` markup, which ties the label, hint, and error to the control.",
+      "Order the options deliberately (by frequency or alphabetically), and group them if there are many."
+    ],
+    "donts": [
+      "Don’t use it for two or three mutually exclusive options that should always be visible → `segmented-control` or `radio`.",
+      "Don’t mix actions (“Edit,” “Delete”) into the options. A Select chooses; it doesn’t execute."
+    ],
+    "related": [
+      "combobox",
+      "menu",
+      "radio",
+      "segmented-control"
+    ]
+  },
+  "teclado": [
+    {
+      "keys": "↑ ↓",
+      "action": "Move through the options."
+    },
+    {
+      "keys": "Home End",
+      "action": "Go to the first or last enabled option."
+    },
+    {
+      "keys": "Enter / Space",
+      "action": "Selects the highlighted option."
+    },
+    {
+      "keys": "Esc",
+      "action": "Closes without changing the selection."
+    },
+    {
+      "keys": "Tab",
+      "action": "Closes the panel, and focus moves on. The options aren’t tabbable."
+    }
+  ],
+  "nucleo": "It’s its own list of options, not a native `<select>`. It has keyboard support, typeahead, and multiple selection. A complete option list (APG listbox pattern)—opening and closing, focus, ↑ ↓, Home, End, typeahead, multiple selection, a clear button, and positioning. Tab with the panel open closes it, and focus moves on. The trigger text and the `is-placeholder` state come from the selection."
+}

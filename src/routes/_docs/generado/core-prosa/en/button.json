@@ -1,0 +1,31 @@
+{
+  "nombre": "Button",
+  "guia": {
+    "what": "Triggers an action. It’s a `<button class=\"ts button …\">`, or an `<a class=\"ts button …\" href>` when it needs to navigate. Comes with variants, sizes, shapes, states (disabled/loading), and icons.",
+    "whenUse": [
+      "Running an action, like submitting, saving, opening an overlay, or confirming.",
+      "You need a hierarchy between actions (primary/secondary/ghost/danger).",
+      "It’s a link that needs to look like a button. Write `<a class=\"ts button …\" href>`."
+    ],
+    "whenAvoid": [
+      "It’s only navigation in the middle of text → `link`.",
+      "It’s an on/off that applies immediately → `toggle`.",
+      "It’s several actions grouped behind a trigger → `menu`."
+    ],
+    "dos": [
+      "One primary action per context; everything else is secondary.",
+      "For an icon-only button, add `aria-label` and name the action in it.",
+      "On touch screens, use size `lg` (48 px tall). `sm` and `md` fall below the recommended 48 × 48 minimum touch target."
+    ],
+    "donts": [
+      "Don’t use five primary buttons. None of them stands out anymore.",
+      "Don’t use a button for navigation that reads like text → `link`."
+    ],
+    "related": [
+      "link",
+      "toggle",
+      "menu"
+    ]
+  },
+  "nucleo": "It’s a native `<button>`. The browser handles focus, keyboard, and form submission. Core’s JS is optional and only covers the loading state. A button or link with `aria-disabled=\"true\"` can’t be activated (not by click, Enter, or Space, and it doesn’t submit a form) even though it stays focusable, and `setButtonLoading()` sets the whole loading state at once, with the “Loading” text for screen readers in the page language."
+}

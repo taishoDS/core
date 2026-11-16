@@ -1,0 +1,30 @@
+{
+  "nombre": "Badge",
+  "guia": {
+    "what": "Etiqueta compacta para estados, categorías o conteos. Tiene relleno sutil o sólido (`fill-subtle`, `fill-solid`), punto de estado con pulso opcional (`data-badge-dot`, `is-pulse`), ícono antes o después (`ts badge-prefix`, `ts badge-suffix`), y puede ser un enlace: `<a class=\"ts badge\" href>`.",
+    "whenUse": [
+      "Mostrar el estado de algo en una palabra: “Activo”, “Beta”, “Vencido”.",
+      "Poner un conteo o una categoría al lado de un título o una fila.",
+      "Se busca que se lea de un vistazo, sin que sea un control."
+    ],
+    "whenAvoid": [
+      "El usuario tiene que poder quitarlo o tocarlo para filtrar → `tag`.",
+      "El mensaje necesita más de dos palabras → `note`.",
+      "Es una acción, no una etiqueta → `button`."
+    ],
+    "dos": [
+      "El texto tiene que decir el estado: el color solo no alcanza.",
+      "El punto refuerza un estado en vivo, nunca reemplaza la etiqueta."
+    ],
+    "donts": [
+      "No se usa de botón: si hay que hacer clic, es otra cosa.",
+      "No se meten frases: un badge largo deja de ser compacto."
+    ],
+    "related": [
+      "tag",
+      "note",
+      "button"
+    ]
+  },
+  "nucleo": "Presentacional puro."
+}
