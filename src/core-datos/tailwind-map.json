@@ -10570,6 +10570,20 @@
       "exacta": true
     },
     {
+      "tailwind": "mt-auto",
+      "taisho": "ts-mt-auto",
+      "scope": "mt-auto",
+      "familia": "medidas",
+      "exacta": true
+    },
+    {
+      "tailwind": "mb-auto",
+      "taisho": "ts-mb-auto",
+      "scope": "mb-auto",
+      "familia": "medidas",
+      "exacta": true
+    },
+    {
       "tailwind": "ms-auto",
       "taisho": "ts-ms-auto",
       "scope": "ms-auto",
@@ -11115,6 +11129,20 @@
       "exacta": true
     },
     {
+      "tailwind": "col-auto",
+      "taisho": "ts-col-span-auto",
+      "scope": "col-span-auto",
+      "familia": "grid",
+      "exacta": true
+    },
+    {
+      "tailwind": "col-start-auto",
+      "taisho": "ts-col-start-auto",
+      "scope": "col-start-auto",
+      "familia": "grid",
+      "exacta": true
+    },
+    {
       "tailwind": "w-full",
       "taisho": "ts-w-full",
       "scope": "w-full",
@@ -11261,6 +11289,34 @@
       "taisho": "ts-line-clamp-4",
       "scope": "line-clamp-4",
       "familia": "texto",
+      "exacta": true
+    },
+    {
+      "tailwind": "bg-white",
+      "taisho": "ts-bg-white",
+      "scope": "bg-white",
+      "familia": "color",
+      "exacta": true
+    },
+    {
+      "tailwind": "text-white",
+      "taisho": "ts-color-white",
+      "scope": "color-white",
+      "familia": "color",
+      "exacta": true
+    },
+    {
+      "tailwind": "bg-black",
+      "taisho": "ts-bg-black",
+      "scope": "bg-black",
+      "familia": "color",
+      "exacta": true
+    },
+    {
+      "tailwind": "text-black",
+      "taisho": "ts-color-black",
+      "scope": "color-black",
+      "familia": "color",
       "exacta": true
     },
     {
@@ -12050,16 +12106,12 @@
     },
     {
       "clases": [
-        "bg-white",
-        "text-white",
-        "bg-black",
-        "text-black",
         "bg-current",
         "text-current",
         "bg-inherit",
         "text-inherit"
       ],
-      "motivo": "white, black, current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema"
+      "motivo": "current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema"
     },
     {
       "clases": [
@@ -12179,13 +12231,6 @@
     },
     {
       "clases": [
-        "mt-auto",
-        "mb-auto"
-      ],
-      "motivo": "sólo existen `m-auto`, `mx-auto`, `my-auto`, `ms-auto` y `me-auto`"
-    },
-    {
-      "clases": [
         "md:max-xl:*",
         "min-md:*"
       ],
@@ -12257,6 +12302,7 @@
       "blur de 24px no está en la escala": "a 24px blur isn’t on the scale",
       "blur de 40px no está en la escala": "a 40px blur isn’t on the scale",
       "blur de 64px no está en la escala": "a 64px blur isn’t on the scale",
+      "current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema": "current and inherit aren’t theme colors (color comes from the seeds). For a surface, use `bg-background-100` or a gray from the scale (`bg-gray-100`…`bg-gray-1000`); for text, `color-gray-1000` or the theme color",
       "el ancho `border-N` (1 a 4) dibuja los cuatro lados y `border-none` lo quita: no hay `border-0` ni `border-8`, ni un lado o un eje sin número; el de un solo lado (`border-t-N`) sólo fija el ancho y el trazo lo dibuja `border-t-<familia>-<n>`": "the `border-N` width (1 to 4) draws all four sides and `border-none` removes it: there’s no `border-0` or `border-8`, and no side or axis without a number; the single-side one (`border-t-N`) only sets the width, and `border-t-<family>-<n>` draws the line",
       "el anillo va de 1 a 4 (`ring-1`…`ring-4`): no hay `ring` sin número, `ring-0`, `ring-8` ni `ring-inset`; el anillo de foco lo pone el reset (`:focus-visible`) y cada componente": "the ring goes from 1 to 4 (`ring-1`…`ring-4`): there’s no `ring` without a number, `ring-0`, `ring-8`, or `ring-inset`. The focus ring comes from the reset (`:focus-visible`) and each component",
       "el corte 2xl no está en las pantallas del Core; se agrega con extend.screens": "the 2xl breakpoint isn’t one of Core’s screens; add it with extend.screens",
@@ -12288,10 +12334,8 @@
       "opacidad 85 no está en la escala (0, 30, 40, 50, 60, 70, 75, 80, 90, 100)": "opacity 85 isn’t on the scale (0, 30, 40, 50, 60, 70, 75, 80, 90, 100)",
       "opacidad 95 no está en la escala (0, 30, 40, 50, 60, 70, 75, 80, 90, 100)": "opacity 95 isn’t on the scale (0, 30, 40, 50, 60, 70, 75, 80, 90, 100)",
       "sólo existe `rotate-180`: no hay otros giros; para otro ángulo, una utilidad propia en `utilities`": "only `rotate-180` exists, there are no other rotations; for another angle, your own utility in `utilities`",
-      "sólo existen `m-auto`, `mx-auto`, `my-auto`, `ms-auto` y `me-auto`": "only `m-auto`, `mx-auto`, `my-auto`, `ms-auto`, and `me-auto` exist",
       "valores arbitrarios: el vocabulario es cerrado. La escotilla es un token del config (taisho.user.ts) o una utilidad propia en `utilities`": "arbitrary values—the vocabulary is closed. The way out is a token in your config (taisho.config.ts) or your own utility in `utilities`",
-      "variantes fuera de la lista cerrada: las de estado que existen son hover, focus, focus-visible, active, disabled, checked, invalid, group-*, peer-*, aria-<estado>, data-<nombre> (sólo presencia) y print; para lo demás, una clase propia en tu CSS": "variants outside the closed list. The state variants that exist are hover, focus, focus-visible, active, disabled, checked, invalid, group-*, peer-*, aria-<state>, data-<name> (presence only), and print; for anything else, your own class in your CSS",
-      "white, black, current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema": "white, black, current, and inherit aren’t theme colors (color comes from the seeds). For a surface, use `bg-background-100` or a gray from the scale (`bg-gray-100`…`bg-gray-1000`); for text, `color-gray-1000` or the theme color"
+      "variantes fuera de la lista cerrada: las de estado que existen son hover, focus, focus-visible, active, disabled, checked, invalid, group-*, peer-*, aria-<estado>, data-<nombre> (sólo presencia) y print; para lo demás, una clase propia en tu CSS": "variants outside the closed list. The state variants that exist are hover, focus, focus-visible, active, disabled, checked, invalid, group-*, peer-*, aria-<state>, data-<name> (presence only), and print; for anything else, your own class in your CSS"
     },
     "familias": {
       "alineación": "alignment",

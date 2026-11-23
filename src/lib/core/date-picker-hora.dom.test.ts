@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { init } from './index';
 
-const HTML = fs.readFileSync(path.resolve(__dirname, '../../routes/_docs/core-html/date-picker.html'), 'utf8');
+const HTML = fs.readFileSync(path.resolve(__dirname, '../../core-datos/html/date-picker.html'), 'utf8');
 
 function montarSinFecha(): { picker: HTMLElement; detalles: unknown[] } {
 	document.body.innerHTML = HTML;

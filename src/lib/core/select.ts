@@ -497,8 +497,8 @@ export function alEscribir(destino: Element): boolean {
     const raiz = raizDe(destino);
     if (!raiz) return false;
     if (!lb.estaAbierto(raiz)) lb.abrir(raiz, true);
-    filtrar(raiz, destino.value);
-    avisar(raiz, { component: 'combobox', query: destino.value });
+    // Frenado, el filtrado queda a cargo del código (una búsqueda propia o en el servidor).
+    if (avisar(raiz, { component: 'combobox', query: destino.value })) filtrar(raiz, destino.value);
     return true;
 }
 

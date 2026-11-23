@@ -110,10 +110,10 @@ export function alCambiarTamano(e: Event): void {
     if (!raiz) return;
     const tamano = Number(detalle?.value);
     if (!Number.isFinite(tamano) || tamano <= 0 || tamano === num(raiz, 'page-size', 10)) return;
+    if (!avisar(raiz, { component: 'pagination', page: 1, pageSize: tamano })) return;
     raiz.setAttribute(`${P}page-size`, String(tamano));
     raiz.setAttribute(`${P}total`, String(Math.max(1, Math.ceil(num(raiz, 'items', 0) / tamano))));
     raiz.setAttribute(`${P}page`, '1');
-    avisar(raiz, { component: 'pagination', page: 1, pageSize: tamano });
     pintar(raiz);
 }
 

@@ -2,6 +2,7 @@
 import type { ThemeDef, FontFaceDef, ThemeEntry } from '../config/taisho.types';
 import type { Scales } from '../config/scales';
 import type { DarkMode } from '../lib/theme/modo-oscuro';
+import { DEFAULT_STATES } from '../lib/theme/default-states';
 import { lanzarSiHay, resolveExtend } from './resolve-extend';
 import { cssDeExtensiones, manifiestoDe } from './registro';
 import { validarExtensiones, type TaishoExtensions } from './extension';
@@ -14,7 +15,8 @@ export interface TaishoConfig {
     /** Temas a emitir. La key es el nombre del archivo de salida (p.ej. "taisho" →
      * tokens/taisho.css, "frontend/mi-tema" → tokens/frontend/mi-tema.css). */
     themes: Record<string, ThemeDef>;
-    fontFaces: FontFaceDef[];
+    /** Las fuentes que se cargan; sin la clave, ninguna (la del sistema). */
+    fontFaces?: FontFaceDef[];
     /** Anchos mínimos de ítem para los grids intrínsecos (ts-grid-min-*). */
     gridMins?: Record<string, string>;
     /** Pilas de fuente CSS por familia (--font-sans/--font-mono/--font-display). */
@@ -116,12 +118,7 @@ export interface TaishoConfig {
     lang?: 'es' | 'en';
 }
 
-export const DEFAULT_STATES: Readonly<Record<string, string>> = {
-    success: '#16A34A',
-    warning: '#D97706',
-    info: '#2563EB',
-    danger: '#D42424',
-};
+export { DEFAULT_STATES };
 
 export const DEFAULT_GRID_MINS: Record<string, string> = {
     '2xs': '160px',

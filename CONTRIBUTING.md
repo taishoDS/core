@@ -4,7 +4,7 @@ Las contribuciones son bienvenidas: reportes de errores, mejoras a la documentac
 
 ## Poner el proyecto en marcha
 
-Requiere Node 22.18 o más nuevo.
+Requiere Node 26 o más nuevo.
 
 ```bash
 npm ci

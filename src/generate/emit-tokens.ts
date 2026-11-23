@@ -5,9 +5,9 @@ import {
     densityTokens, densitySpacingCompact, defaultScales, type Scales,
     loopDurations, reducedMotionDuration, iterations, reducedMotionIterations, zIndex, contrastThreshold,
 } from '../config/scales';
-import { diferenciasP3, esSemillaBlanca, getContrastColor, parseSeed, paletasDePrimario, paletasDeSemillas, semillaPrimaria, SHADES } from '../lib/theme/palette';
+import { diferenciasP3, esSemillaBlanca, mismaSemilla, getContrastColor, parseSeed, paletasDePrimario, paletasDeSemillas, semillaPrimaria, SHADES } from '../lib/theme/palette';
 import type { EscalasDeSemillas } from '../lib/theme/palette';
-import { effectiveNeutrals } from '../lib/theme/neutrals';
+import { effectiveNeutrals, fixedColors } from '../lib/theme/neutrals';
 import { luzOscuro, spotlightDeTema } from '../lib/theme/opciones';
 import { interlineadoRtl, reglaRtl, trackingRtl } from '../lib/theme/typography-scale';
 import { anchosDeFocoEnCero } from '../lib/theme/aviso-borde';
@@ -19,6 +19,7 @@ import type { TaishoExtensions } from './extension';
 import { MEDIA_OSCURO, RAIZ_POR_SISTEMA, type DarkMode } from '../lib/theme/modo-oscuro';
 import { bloqueSinLightDark } from '../lib/theme/sin-light-dark';
 import { haloSinLightDark } from './foco';
+import { DEFAULT_STATES } from './vocabulary';
 
 export interface MaterialVars { bg?: string; border?: string; shadowRgb?: string; }
 /**
@@ -47,6 +48,8 @@ export interface ResolvedThemeTokens {
     fonts: Record<string, string>;
     /** paleta → shade → { light, dark? }. Orden: neutros, colores del tema, estados. */
     colors: Record<string, Record<string, ResolvedColor>>;
+    /** Blanco y negro fijos: el mismo valor en claro y en oscuro, sin tinte ni P3. */
+    fixed: Record<'white' | 'black', string>;
     semantic: Record<string, string>;
     /** Orden = orden de `effectiveStates`. */
     states: Record<string, ResolvedState>;
@@ -78,11 +81,9 @@ export interface ResolvedThemeTokens {
     densityOverrides?: { comfortable: Record<string, Record<string, number>>; compact: Record<string, Record<string, number>> };
     material: { light?: MaterialVars; dark?: MaterialVars };
     spotlight: { light: string; dark: string };
-    /** Semillas que el motor tuvo que correr para que el texto se lea: avisos `seed-shifted`. */
+    /** Colores entre dos pasos de la escala que el motor adaptó o dejó exactos sin que el tema lo pidiera: avisos `seed-low-contrast` y `seed-exact`. */
     warnings: WarningData[];
 }
-
-const UMBRAL_AVISO_DL = 0.01;
 
 function tipografiaRtlDeTema(ov: Partial<ThemeDef>, letterSpacingEfectivo: Record<string, string>, sizing: Record<string, number>): string[] | undefined {
     const decls = [
@@ -109,10 +110,16 @@ function densidadDeTema(density: ThemeDef['density']): ResolvedThemeTokens['dens
 function avisosDeSemillas(tema: string, escalas: EscalasDeSemillas, semillas: Record<string, string>): WarningData[] {
     const avisos: WarningData[] = [];
     for (const [familia, { light, dark }] of Object.entries(escalas)) {
+        // Un estado con el valor de fábrica no es una semilla del usuario (`taisho init` lo escribe en su config): no avisa.
+        if (mismaSemilla(semillas[familia], DEFAULT_STATES[familia])) continue;
         if (esSemillaBlanca(semillas[familia])) avisos.push({ code: 'seed-white', params: { theme: tema, color: familia, seed: semillas[familia] } });
         for (const [modo, escala] of [['light', light], ['dark', dark]] as const) {
-            if (!escala.adjusted || Math.abs(escala.dL) < UMBRAL_AVISO_DL) continue;
-            avisos.push({ code: 'seed-shifted', params: { theme: tema, color: familia, seed: semillas[familia], mode: modo, step: SHADES[escala.seedStep], deltaL: escala.dL } });
+            const fit = escala.fit;
+            if (!fit || fit.chosen) continue;
+            const base = { theme: tema, color: familia, seed: semillas[familia], mode: modo, step: SHADES[fit.step], text: fit.text, bg: fit.bg, textShifted: fit.textShifted, bgShifted: fit.bgShifted };
+            avisos.push(fit.resolved === 'shift'
+                ? { code: 'seed-low-contrast', params: { ...base, deltaL: fit.deltaL } }
+                : { code: 'seed-exact', params: base });
         }
     }
     return avisos;
@@ -162,11 +169,12 @@ export function resolveThemeTokens(
     const eff = effectiveNeutrals(ov.neutral);
     const effP3 = effectiveNeutrals(ov.neutral, 'p3');
     const seeds = { ...entry.def.colors, ...effectiveStates };
-    const srgb = paletasDeSemillas(seeds, eff, 'srgb');
-    const p3 = paletasDeSemillas(seeds, effP3, 'p3');
+    const fit = entry.def.seedFit;
+    const srgb = paletasDeSemillas(seeds, eff, 'srgb', { fit });
+    const p3 = paletasDeSemillas(seeds, effP3, 'p3', { fit, segun: srgb.escalas });
     const semillaDelPrimario = semillaPrimaria(entry.def);
-    const prim = paletasDePrimario(semillaDelPrimario, eff, 'srgb');
-    const primP3 = paletasDePrimario(semillaDelPrimario, effP3, 'p3');
+    const prim = paletasDePrimario(semillaDelPrimario, eff, 'srgb', { fit });
+    const primP3 = paletasDePrimario(semillaDelPrimario, effP3, 'p3', { fit, segun: prim.escalas });
     const lightColors: Record<string, Record<string, string>> = { ...eff.light, ...srgb.light, ...prim.light };
     const darkColors: Record<string, Record<string, string>> = { ...eff.dark, ...srgb.dark, ...prim.dark };
     const dif = diferenciasP3(
@@ -209,6 +217,7 @@ export function resolveThemeTokens(
         rtl: tipografiaRtlDeTema(ov, { ...scales.letterSpacing, ...(ov.letterSpacing ?? {}) }, scales.sizing),
         fonts: { ...userFonts, ...(ov.fonts ?? {}) },
         colors,
+        fixed: { ...fixedColors, ...(ov.neutral?.fixed ?? {}) },
         semantic: {
             heading: 'var(--color-gray-1000)',
             copy:    'var(--color-gray-1000)',
@@ -292,6 +301,7 @@ export function buildTokensCSS(model: ResolvedThemeTokens, darkMode: DarkMode = 
             css += `  --color-${pName}-${shade}: ${dark !== undefined ? ld(light, dark) : light};\n`;
         }
     }
+    for (const [k, v] of Object.entries(t.fixed)) css += `  --color-${k}: ${v};\n`;
     for (const [k, v] of Object.entries(t.semantic)) css += `  --ts-color-${k}: ${v};\n`;
     for (const [name, state] of Object.entries(t.states)) {
         if (state.kind === 'status') {

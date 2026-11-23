@@ -115,7 +115,7 @@ const PALABRAS: [string, string, string, string?, boolean?][] = [
     ['font-sans', 'font-sans', 'texto', 'la misma intención, otra pila: la de Tailwind es la del sistema; la de TaishoDS empieza por la fuente de tu tema', false],
     ['font-mono', 'font-mono', 'texto', 'la misma intención, otra pila: la de Tailwind es la del sistema; la de TaishoDS empieza por la fuente mono de tu tema', false],
     ['flex-none', 'flex-none', 'flex'],
-    ['m-auto', 'm-auto', 'medidas'], ['mx-auto', 'mx-auto', 'medidas'], ['my-auto', 'my-auto', 'medidas'],
+    ['m-auto', 'm-auto', 'medidas'], ['mx-auto', 'mx-auto', 'medidas'], ['my-auto', 'my-auto', 'medidas'], ['mt-auto', 'mt-auto', 'medidas'], ['mb-auto', 'mb-auto', 'medidas'],
     ['ms-auto', 'ms-auto', 'medidas'], ['me-auto', 'me-auto', 'medidas'], ['ml-auto', 'ms-auto', 'medidas', LOGICO], ['mr-auto', 'me-auto', 'medidas', LOGICO],
     ['border', 'border-1', 'borde', 'el ancho tiene nombre: `border-1` es 1px (Tailwind dice `border`)'],
     ...['1', '2', '3', '4'].map((n): [string, string, string] => [`border-${n}`, `border-${n}`, 'borde']),
@@ -139,7 +139,7 @@ const PALABRAS: [string, string, string, string?, boolean?][] = [
     ...Array.from({ length: 12 }, (_, i): [string, string, string][] => [
         [`grid-cols-${i + 1}`, `grid-cols-${i + 1}`, 'grid'], [`col-span-${i + 1}`, `col-span-${i + 1}`, 'grid'],
     ]).flat(),
-    ['col-span-full', 'col-span-full', 'grid'],
+    ['col-span-full', 'col-span-full', 'grid'], ['col-auto', 'col-span-auto', 'grid'], ['col-start-auto', 'col-start-auto', 'grid'],
     ...['full', 'auto', 'screen', 'fit'].flatMap((v): [string, string, string][] => [[`w-${v}`, `w-${v}`, 'medidas'], [`h-${v}`, `h-${v}`, 'medidas']]),
     ['min-h-screen', 'min-h-screen', 'medidas'], ['min-h-full', 'min-h-full', 'medidas'], ['min-w-full', 'min-w-full', 'medidas'], ['max-w-full', 'max-w-full', 'medidas'],
     ...['1/2', '1/4', '3/4'].map((f): [string, string, string] => [`w-${f}`, `w-${f}`, 'medidas']),
@@ -170,7 +170,6 @@ const NO_CUBIERTO: SinEquivalente[] = [
     { clases: ['transition'], motivo: 'no hay una `transition` sola: se elige la propiedad (`transition-colors`, `transition-opacity`, `transition-shadow`, `transition-transform`, `transition-all`); `duration-*` y `ease-*` fijan la duración y la curva, y los componentes ya traen su transición; para otra propiedad, una utilidad propia en `utilities`' },
     { clases: ['ring', 'ring-0', 'ring-8', 'ring-inset'], motivo: 'el anillo va de 1 a 4 (`ring-1`…`ring-4`): no hay `ring` sin número, `ring-0`, `ring-8` ni `ring-inset`; el anillo de foco lo pone el reset (`:focus-visible`) y cada componente' },
     { clases: ['outline-hidden'], motivo: 'no hay `outline-hidden`: para quitar el contorno, `outline-none`' },
-    { clases: ['mt-auto', 'mb-auto'], motivo: 'sólo existen `m-auto`, `mx-auto`, `my-auto`, `ms-auto` y `me-auto`' },
     { clases: ['md:max-xl:*', 'min-md:*'], motivo: 'no hay rangos: cada pantalla tiene su variante «desde» (`md:`) y su variante «hasta» (`max-md:`), pero no las dos a la vez en una clase' },
 ];
 
@@ -344,8 +343,10 @@ export function construirMapa(entrada: EntradaMapa): MapaTailwind {
     for (const [tailwind, taisho, familia, nota, exacta = true] of PALABRAS) fila(tailwind, `ts-${taisho}`, familia, exacta, nota, 'la clase de TaishoDS no está emitida (su vocabulario es más corto que el de Tailwind)');
 
     for (const c of COLORES_SUELTOS) {
-        if (sirve(`ts-bg-${c}`) === null) fila(`bg-${c}`, `ts-bg-${c}`, 'color', true);
-        else sin('white, black, current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema', `bg-${c}`, `text-${c}`);
+        if (sirve(`ts-bg-${c}`) === null) {
+            fila(`bg-${c}`, `ts-bg-${c}`, 'color', true);
+            if (sirve(`ts-color-${c}`) === null) fila(`text-${c}`, `ts-color-${c}`, 'color', true);
+        } else sin('current e inherit no son colores del tema (el color sale de las semillas): para una superficie, `bg-background-100` o un gris de la escala (`bg-gray-100`…`bg-gray-1000`); para el texto, `color-gray-1000` o el color del tema', `bg-${c}`, `text-${c}`);
     }
 
     const variantes: Variante[] = [];

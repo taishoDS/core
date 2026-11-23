@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { crearHerramientas, type OpcionesHerramientas } from './herramientas';
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
-const DATOS = { ejemplos: path.join(RAIZ, 'src/routes/_docs/core-ejemplos'), prosa: path.join(RAIZ, 'src/routes/_docs/generado/core-prosa') };
+const DATOS = { ejemplos: path.join(RAIZ, 'src/core-datos/ejemplos'), prosa: path.join(RAIZ, 'src/core-datos/prosa') };
 
 let dir: string;
 const config = (brand: string, extra = '') => `export default { themes: { acme: { colors: { brand: '${brand}' } } }, fontFaces: []${extra} };\n`;
@@ -39,7 +39,10 @@ describe('herramientas del MCP', () => {
 		const boton = lista.find((c: { slug: string }) => c.slug === 'button');
 		expect(boton).toMatchObject({ slug: 'button', name: 'Button', blocks: ['button', 'button-group'], needsJs: false });
 		expect(boton.summary).toMatch(/^Triggers an action\./);
-		expect(lista.find((c: { slug: string }) => c.slug === 'modal').needsJs).toBe(false);
+		// El nivel sale del tier del catálogo, no de los atributos: Modal y Drawer son nativos y Checkbox, Radio, Toggle y Popover
+		// no llevan `data-ts-*`, pero los seis usan el JS del Core.
+		for (const slug of ['modal', 'drawer', 'checkbox', 'radio', 'toggle', 'popover']) expect(lista.find((c: { slug: string }) => c.slug === slug).needsJs, slug).toBe(true);
+		expect(lista.filter((c: { needsJs: boolean }) => c.needsJs)).toHaveLength(40);
 		expect(lista.length).toBeGreaterThan(40);
 		expect(lista.map((c: { slug: string }) => c.slug)).not.toContain('provider');
 	});

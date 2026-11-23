@@ -33,6 +33,7 @@ function collectAliases(node: unknown, out: string[] = []): string[] {
 
 function cssVarToDtcgPath(name: string, t: ResolvedThemeTokens): string | null {
   const strip = (p: string) => name.slice(p.length);
+  if (name === 'color-white' || name === 'color-black') return `color.${strip('color-')}`;
   if (name.startsWith('color-')) {
     const rest = strip('color-');
     const m = /^(.*?)-(\d+(?:-contrast)?|solid(?:-hover|-active)?(?:-contrast)?)$/.exec(rest);

@@ -24,7 +24,7 @@ export const ARCHIVO_AVISO_LLAVE = 'taisho.core.key-warning.js';
 export function entryDelCore(modulos: readonly NombreModulo[], carpeta: string): string {
 	const dir = (archivo: string) => JSON.stringify(path.join(carpeta, archivo).split(path.sep).join('/'));
 	const elegidos = new Set<string>(modulos);
-	const lineas: string[] = [`import { iniciar } from ${dir('nucleo')};`, `import { avisarVersiones } from ${dir('version')};`,`import { pedirAvisoLlave } from ${dir('desarrollo-local')};`,`import { m } from ${dir('registro')};`];
+	const lineas: string[] = [`import { iniciar } from ${dir('nucleo')};`, `import { pedirAvisoLlave, pedirAvisoVersiones } from ${dir('desarrollo-local')};`,`import { m } from ${dir('registro')};`];
 	const conFicha = modulos.filter((n) => n !== 'invalid');
 	for (const n of conFicha) lineas.push(`import { ficha as ${n} } from ${dir(archivoDe(n))};`);
 	lineas.push(`Object.assign(m, { ${conFicha.join(', ')} });`);
@@ -45,7 +45,7 @@ export function entryDelCore(modulos: readonly NombreModulo[], carpeta: string):
 		lineas.push('function falta(nombre, slug) { return () => { throw new Error(`taisho: ${nombre}() no entró a taisho.core.js porque nada de tu contenido lo nombra. Se suma ${slug ? `safelist: [\'${slug}\'] en tu taisho.config.ts` : \'a `content` de tu taisho.config.ts el archivo que la llama\'}.`); }; }');
 	}
 	lineas.push(
-		`export function init(root = document) { avisarVersiones(); if (root.getRootNode() === document) pedirAvisoLlave(() => import('./${ARCHIVO_AVISO_LLAVE}')); iniciar(root); return Promise.resolve(); }`,
+		`export function init(root = document) { pedirAvisoVersiones(() => import('./${ARCHIVO_AVISO_LLAVE}')); if (root.getRootNode() === document) pedirAvisoLlave(() => import('./${ARCHIVO_AVISO_LLAVE}')); iniciar(root); return Promise.resolve(); }`,
 		"if (typeof document !== 'undefined') {",
 		"    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => init());",
 		'    else init();',
@@ -66,6 +66,8 @@ export async function construirCoreJs(modulos: readonly NombreModulo[]): Promise
 		legalComments: 'none',
 		logLevel: 'silent',
 		external: [`./${ARCHIVO_AVISO_LLAVE}`],
+		// El núcleo pide el aviso de los diálogos sin nombre con `import()`: se apunta al mismo archivo hermano (en el repo y en el paquete).
+		plugins: [{ name: 'aviso-hermano', setup: (b) => b.onResolve({ filter: /^\.\/(pesados\/key-warning|aviso-llave\.js)$/ }, () => ({ path: `./${ARCHIVO_AVISO_LLAVE}`, external: true })) }],
 		banner: { js: `/* TaishoDS — ${DEFAULT_COPYRIGHT} */` },
 		define: { __TAISHO_CORE_VERSION__: JSON.stringify(VERSION_CSS) },
 	});

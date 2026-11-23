@@ -5,6 +5,7 @@ import { buildTokensDTCG } from './emit-dtcg';
 import { pruneTheme } from './podar-tema';
 import { buildThemeCss } from '../lib/theme/createTheme';
 import { inGamut } from '../lib/theme/color-math';
+import { mismaSemilla } from '../lib/theme/palette';
 import { defaultStates, userFonts } from '../config/taisho.user';
 import type { ThemeEntry } from '../config/taisho.types';
 import { warningText } from '../generate-cli/mensajes-avisos';
@@ -120,28 +121,59 @@ describe('DTCG y P3', () => {
   });
 });
 
-describe('aviso de semilla corrida', () => {
+describe('avisos de un color entre dos pasos', () => {
   const corrida = entry({ colors: { brand: 'oklch(0.55 0.15 140)' } });
+  const aviso = (e: ThemeEntry, codigo: string) => resolveThemeTokens(e, userFonts, defaultStates).warnings.filter((x) => x.code === codigo);
 
-  it('lo trae el modelo, con familia, paso, cuánto se corrió y por qué', () => {
+  it('un color que no llega a AA se adapta y lo avisa, con familia, paso, cuánto se adaptó y los dos contrastes', () => {
     const datos = resolveThemeTokens(corrida, userFonts, defaultStates).warnings;
     expect(datos.length).toBeGreaterThan(0);
-    expect(datos.every((x) => x.code === 'seed-shifted')).toBe(true);
-    const avisos = datos.map((x) => warningText(x, 'es'));
-    const a = avisos.find((x) => x.includes('modo claro'))!;
+    expect(datos.every((x) => x.code === 'seed-low-contrast')).toBe(true);
+    const a = datos.map((x) => warningText(x, 'es')).find((x) => x.includes('modo claro'))!;
     expect(a).toContain('"brand"');
     expect(a).toContain('oklch(0.55 0.15 140)');
-    expect(a).toMatch(/paso \d+/);
-    expect(a).toMatch(/L [+−]0\.\d{3}/);
-    expect(a).toContain('4,5:1');
+    expect(a).toContain('Se adaptó al borde del paso 600');
+    expect(a).toContain('texto encima 4,27:1 (por debajo de 4,5:1) y contra el fondo 4,58:1');
   });
 
   it('una semilla que encaja no avisa', () => {
     expect(resolveThemeTokens(sinNeutro, userFonts, defaultStates).warnings).toEqual([]);
   });
 
-  it('un corrimiento imperceptible (menos de 0,01 de L) no avisa: las semillas de la plantilla de init', () => {
-    const casi = entry({ colors: { brand: '#2563EB' } });
-    expect(resolveThemeTokens(casi, userFonts, defaultStates).warnings.filter((a) => a.code === 'seed-shifted' && a.params.color === 'brand')).toEqual([]);
+  it('un color que llega a AA con las dos medidas queda exacto y se informa con seed-exact', () => {
+    const exacta = entry({ colors: { brand: '#2563EB' } });
+    expect(aviso(exacta, 'seed-low-contrast')).toEqual([]);
+    const [luz] = aviso(exacta, 'seed-exact');
+    expect(luz.params).toMatchObject({ theme: 't', color: 'brand', seed: '#2563EB', mode: 'light', step: '600' });
+    expect(cssDe(exacta)).toBe(cssDe(entry({ colors: { brand: '#2563EB' }, seedFit: { brand: 'keep' } })));
+    expect(cssDe(exacta)).not.toBe(cssDe(entry({ colors: { brand: '#2563EB' }, seedFit: { brand: 'shift' } })));
+  });
+
+  it("un estado con el valor de fábrica no avisa: lo escribe `taisho init` en la config", () => {
+    const fabrica = entry({ colors: { brand: '#4F46E5' }, states: { info: '#2563EB', danger: '#D42424' } });
+    expect(resolveThemeTokens(fabrica, userFonts, defaultStates).warnings).toEqual([]);
+  });
+
+  it('el valor de fábrica se reconoce escrito en minúsculas, y #abc es #aabbcc', () => {
+    expect(mismaSemilla('#abc', '#aabbcc')).toBe(true);
+    expect(mismaSemilla('#abc', '#aabbcd')).toBe(false);
+    for (const info of ['#2563eb', '#2563EB']) {
+      expect(resolveThemeTokens(entry({ colors: { brand: '#4F46E5' }, states: { info, danger: '#d42424' } }), userFonts, defaultStates).warnings, info).toEqual([]);
+    }
+  });
+
+  it("`seedFit: 'shift'` corre sin avisar y `'keep'` deja el color exacto sin avisar", () => {
+    for (const eleccion of ['shift', 'keep'] as const) {
+      expect(resolveThemeTokens(entry({ colors: { brand: '#767676' }, seedFit: { brand: eleccion } }), userFonts, defaultStates).warnings).toEqual([]);
+    }
+    const css = (e: ThemeEntry) => buildTokensCSS(resolveThemeTokens(e, userFonts, defaultStates));
+    const corrido = css(entry({ colors: { brand: '#767676' }, seedFit: { brand: 'shift' } }));
+    const exacto = css(entry({ colors: { brand: '#767676' }, seedFit: { brand: 'keep' } }));
+    expect(corrido).not.toBe(exacto);
+    expect(css(entry({ colors: { brand: '#767676' } }))).toBe(corrido);
+  });
+
+  it("`seedFit: 'keep'` en una semilla fuera de entre-pasos no cambia nada", () => {
+    expect(cssDe(entry({ colors: COLORES, seedFit: { brand: 'keep' } }))).toBe(cssDe(sinNeutro));
   });
 });

@@ -42,6 +42,8 @@ export function buildAtomicCSS(
         atomicCSS += `@utility ts-col-span-${i} { grid-column: span ${i} / span ${i}; }\n`;
     }
     atomicCSS += `@utility ts-col-span-full { grid-column: 1 / -1; }\n`;
+    atomicCSS += `@utility ts-col-span-auto { grid-column: auto; }\n`;
+    atomicCSS += `@utility ts-col-start-auto { grid-column-start: auto; }\n`;
     for (let i = 1; i <= 12; i++) {
         atomicCSS += `@utility ts-row-span-${i} { grid-row: span ${i} / span ${i}; }\n`;
     }
@@ -217,6 +219,10 @@ export function buildAtomicCSS(
     atomicCSS += `@utility ts-border-none     { border: none; }\n`;
     atomicCSS += `@utility ts-outline-none    { outline: none; }\n`;
     atomicCSS += `@utility ts-bg-transparent  { background: transparent; }\n`;
+    atomicCSS += `@utility ts-bg-white { background-color: var(--color-white); }\n`;
+    atomicCSS += `@utility ts-bg-black { background-color: var(--color-black); }\n`;
+    atomicCSS += `@utility ts-color-white { color: var(--color-white); }\n`;
+    atomicCSS += `@utility ts-color-black { color: var(--color-black); }\n`;
     atomicCSS += `@utility ts-appearance-none { appearance: none; -webkit-appearance: none; }\n`;
 
     for (const k of Object.keys(radius)) {
@@ -342,6 +348,12 @@ export function buildAtomicCSS(
 
     atomicCSS += `@utility ts-mx-auto { margin-inline: auto; }\n`;
     atomicCSS += `@utility ts-my-auto { margin-top: auto; margin-bottom: auto; }\n`;
+    atomicCSS += `@utility ts-pt-safe { padding-top: env(safe-area-inset-top, 0px); }\n`;
+    atomicCSS += `@utility ts-pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }\n`;
+    atomicCSS += `@utility ts-pl-safe { padding-inline-start: env(safe-area-inset-left, 0px); &:where(:dir(rtl)) { padding-inline-start: env(safe-area-inset-right, 0px); } }\n`;
+    atomicCSS += `@utility ts-pr-safe { padding-inline-end: env(safe-area-inset-right, 0px); &:where(:dir(rtl)) { padding-inline-end: env(safe-area-inset-left, 0px); } }\n`;
+    atomicCSS += `@utility ts-mt-auto { margin-top: auto; }\n`;
+    atomicCSS += `@utility ts-mb-auto { margin-bottom: auto; }\n`;
     atomicCSS += `@utility ts-ml-auto { margin-inline-start: auto; }\n`;
     atomicCSS += `@utility ts-mr-auto { margin-inline-end: auto; }\n`;
     atomicCSS += `@utility ts-m-auto  { margin: auto; }\n`;

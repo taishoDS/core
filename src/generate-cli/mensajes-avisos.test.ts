@@ -35,6 +35,9 @@ afterEach(() => {
 	fs.rmSync(dir, { recursive: true, force: true });
 });
 
+const BAJO = { theme: 'main', color: 'brand', seed: '#767676', mode: 'light' as const, step: '600', deltaL: -0.0367, text: 4.33, bg: 4.54, textShifted: 4.72, bgShifted: 5.3 };
+const EXACTO = { theme: 'main', color: 'brand', seed: '#2563EB', mode: 'light' as const, step: '600', text: 4.6, bg: 5.17, textShifted: 4.72, bgShifted: 5.3 };
+
 describe('avisos en inglés', () => {
 	it('cada aviso se arma con sus params, con o sin ubicación', () => {
 		expect(warningLine({ code: 'unknown-class', params: { class: 'md:gap-bse', suggestion: 'md:gap-base' }, file: 'a.html', line: 3 }, 'en')).toBe(
@@ -50,17 +53,34 @@ describe('avisos en inglés', () => {
 		expect(warningText({ code: 'modifier-with-variant', params: { class: 'md:destructive', modifier: 'destructive', utilities: ['mi-button'], suggestion: 'md:mi-button' } }, 'en')).toBe(
 			'"md:destructive" isn\'t emitted. "destructive" is a modifier of "mi-button", and a modifier can\'t take a variant. Put the variant on the utility itself (e.g., "md:mi-button").',
 		);
-		expect(warningText({ code: 'seed-shifted', params: { theme: 'main', color: 'brand', seed: '#DC2626', mode: 'light', step: '600', deltaL: -0.0224 } }, 'en')).toBe(
-			'Theme "main": the "brand" seed (#DC2626) doesn\'t fit any light mode step without breaking text contrast (WCAG AA, 4.5:1), so it was moved to the edge of step 600 (L −0.022, darker). ' +
-				'Legibility wins. For the exact color, pick a seed with a different lightness.',
+		expect(warningText({ code: 'seed-low-contrast', params: { ...BAJO, color: 'brand' } }, 'en')).toBe(
+			'Theme "main": the "brand" color (#767676) doesn\'t reach AA in light mode: text on it 4.33:1 (below 4.5:1), against the background 4.54:1. ' +
+				'It was moved to the edge of step 600: text on it 4.72:1, against the background 5.30:1. ' +
+				"To keep it this way without a warning, write `seedFit: { brand: 'shift' }`; to keep the exact color, `seedFit: { brand: 'keep' }`.",
+		);
+		expect(warningText({ code: 'seed-exact', params: EXACTO }, 'en')).toBe(
+			'Theme "main": the "brand" color (#2563EB) stays exact in light mode, between two steps of the scale: text on it 4.60:1, against the background 5.17:1, both meeting AA (4.5:1). ' +
+				"To hide this note, write `seedFit: { brand: 'keep' }`; to move it to the edge of step 600 (text on it 4.72:1, against the background 5.30:1), `seedFit: { brand: 'shift' }`.",
 		);
 	});
 
-	it('el mismo aviso en español es el de siempre', () => {
-		expect(warningText({ code: 'seed-shifted', params: { theme: 'main', color: 'brand', seed: '#DC2626', mode: 'light', step: '600', deltaL: -0.0224 } }, 'es')).toBe(
-			'Tema "main": la semilla de "brand" (#DC2626) no encaja en ningún paso del modo claro sin romper el contraste del texto (WCAG AA, 4,5:1); se corrió al borde del paso 600: L −0.022, más oscura. ' +
-				'Gana la legibilidad; para el color exacto se elige una semilla con otra luminosidad.',
+	it('los avisos de semilla entre pasos, en español', () => {
+		expect(warningText({ code: 'seed-low-contrast', params: { ...BAJO, color: 'brand' } }, 'es')).toBe(
+			'Tema "main": el color "brand" (#767676) no llega a AA en el modo claro: texto encima 4,33:1 (por debajo de 4,5:1) y contra el fondo 4,54:1. ' +
+				'Se adaptó al borde del paso 600: texto encima 4,72:1 y contra el fondo 5,30:1. ' +
+				"Para dejarlo así sin aviso se escribe `seedFit: { brand: 'shift' }`; para conservar el color exacto, `seedFit: { brand: 'keep' }`.",
 		);
+		expect(warningText({ code: 'seed-exact', params: EXACTO }, 'es')).toBe(
+			'Tema "main": el color "brand" (#2563EB) queda exacto en el modo claro, entre dos pasos de la escala: texto encima 4,60:1 y contra el fondo 5,17:1, los dos con AA (4,5:1). ' +
+				"Para no ver esta nota se escribe `seedFit: { brand: 'keep' }`; para adaptarlo al borde del paso 600 (texto encima 4,72:1, contra el fondo 5,30:1), `seedFit: { brand: 'shift' }`.",
+		);
+	});
+
+	it('una clave que no es un identificador va entre comillas en la sugerencia, y el modo oscuro se nombra', () => {
+		const es = warningText({ code: 'seed-low-contrast', params: { ...BAJO, color: 'brand-2', mode: 'dark', text: 4.38, bg: 4.2 } }, 'es');
+		expect(es).toContain("`seedFit: { 'brand-2': 'shift' }`");
+		expect(es).toContain('en el modo oscuro: texto encima 4,38:1 (por debajo de 4,5:1) y contra el fondo 4,20:1 (por debajo de 4,5:1)');
+		expect(warningText({ code: 'seed-low-contrast', params: { ...BAJO, mode: 'dark', bg: 4.2 } }, 'en')).toContain("in dark mode: text on it 4.33:1 (below 4.5:1), against the background 4.20:1 (below 4.5:1).");
 	});
 
 	it('generate --lang en imprime las líneas ⚠ en inglés', async () => {

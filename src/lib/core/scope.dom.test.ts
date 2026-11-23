@@ -5,7 +5,7 @@ import path from 'node:path';
 import { init, toast, updateToast, clearToasts } from './index';
 import { claseDS } from './dom';
 
-const FRAGMENTOS = path.resolve(__dirname, '../../routes/_docs/core-html');
+const FRAGMENTOS = path.resolve(__dirname, '../../core-datos/html');
 
 function montar(nombre: string): void {
     document.body.innerHTML = fs.readFileSync(path.join(FRAGMENTOS, `${nombre}.html`), 'utf8');

@@ -18,6 +18,7 @@ export interface ConfigErrorParams {
 	'font-italic-missing': { source: string; subset: string; weight: number };
 	'font-styles-invalid': { value: unknown };
 	'primary-in-colors': Record<string, never>;
+	'fixed-in-colors': { name: string };
 	'screen-exists': { name: string };
 	'screen-name-invalid': Record<string, never>;
 	'screen-value-invalid': { value: string };
@@ -131,6 +132,10 @@ export interface ConfigErrorParams {
 	'theme-name-unknown': { scale: string; name: string; extendPath?: string };
 	/** `cornerShape` con un valor que no es `'round'` ni `'squircle'`. */
 	'corner-shape-invalid': { value: unknown };
+	/** Una clave de `seedFit` que no es una familia de color del tema. `families`: las que sí lo son; `suggestion`: la más parecida. */
+	'seed-fit-key-unknown': { key: string; families: string[]; suggestion?: string };
+	/** Un valor de `seedFit` que no es `'shift'` ni `'keep'`. */
+	'seed-fit-value-invalid': { value: unknown };
 	/** Un valor del tipo equivocado para su escala. */
 	'value-type-invalid': { kind: 'integer' | 'font-weight' | 'opacity' | 'duration' | 'iterations' | 'px'; value: unknown };
 	/** Un nivel de `extend.sizing` que ya está en la escala de fábrica o repetido en la lista. */

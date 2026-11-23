@@ -137,7 +137,9 @@ export function alAlternarPopover(e: Event): void {
         destino?.focus();
     } else if (nuevo === 'closed') {
         const activo = document.activeElement;
-        if (!activo || activo === document.body) disparador.focus();
+        // WebKit no enfoca un `<button>` al hacerle clic, así que la restitución nativa no tiene a qué volver: el foco
+        // queda en `body` o todavía dentro del panel ya cerrado. En los dos casos pasa al disparador.
+        if (!activo || activo === document.body || panel.contains(activo)) disparador.focus();
     }
 }
 

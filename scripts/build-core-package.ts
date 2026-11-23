@@ -104,6 +104,7 @@ async function main(): Promise<void> {
 
 	await build({
 		...comun,
+		minify: false,
 		platform: 'node',
 		target: 'es2022',
 		entryPoints: [path.join(RAIZ, 'src/generate/index.ts')],
@@ -111,6 +112,7 @@ async function main(): Promise<void> {
 	});
 	await build({
 		...comun,
+		minify: false,
 		platform: 'node',
 		target: 'es2022',
 		entryPoints: [path.join(RAIZ, 'src/generate-cli/cli.ts')],
@@ -119,6 +121,7 @@ async function main(): Promise<void> {
 	});
 	await build({
 		...comun,
+		minify: false,
 		platform: 'node',
 		target: 'es2022',
 		entryPoints: [path.join(RAIZ, 'src/generate-cli/vite.ts')],
@@ -145,16 +148,18 @@ async function main(): Promise<void> {
 		minify: false,
 		splitting: true,
 		entryPoints: Object.fromEntries(
-			[...(Object.keys(MODULOS) as NombreModulo[]).map(archivoDe), 'nucleo', 'registro', 'roving', 'textos', 'version', 'aviso-llave', 'desarrollo-local'].map((n) => [n, path.join(RAIZ, `src/lib/core/${n}.ts`)]),
+			[...(Object.keys(MODULOS) as NombreModulo[]).map(archivoDe), 'nucleo', 'registro', 'roving', 'textos', 'aviso-llave', 'desarrollo-local'].map((n) => [n, path.join(RAIZ, `src/lib/core/${n}.ts`)]),
 		),
 		outdir: path.join(SALIDA, 'core-modules'),
+		// El núcleo pide el aviso de los diálogos sin nombre con `import()`: apunta al módulo hermano, no lo mete adentro.
+		plugins: [{ name: 'aviso-hermano', setup: (b) => b.onResolve({ filter: /^\.\/pesados\/key-warning$/ }, () => ({ path: './aviso-llave.js', external: true })) }],
 	});
 	// Los datos que lee `taisho mcp`: los ejemplos HTML y la prosa de cada componente del Core (sin variantes), por idioma.
-	for (const [origen, destino] of [['src/routes/_docs/core-ejemplos', 'mcp/ejemplos'], ['src/routes/_docs/generado/core-prosa', 'mcp/prosa']]) {
+	for (const [origen, destino] of [['src/core-datos/ejemplos', 'mcp/ejemplos'], ['src/core-datos/prosa', 'mcp/prosa']]) {
 		for (const idioma of ['es', 'en']) {
 			const dir = path.join(SALIDA, destino, idioma);
 			fs.mkdirSync(dir, { recursive: true });
-			for (const archivo of fs.readdirSync(path.join(RAIZ, 'src/routes/_docs/generado/core-prosa', idioma))) {
+			for (const archivo of fs.readdirSync(path.join(RAIZ, 'src/core-datos/prosa', idioma))) {
 				fs.writeFileSync(path.join(dir, archivo), JSON.stringify(JSON.parse(fs.readFileSync(path.join(RAIZ, origen, idioma, archivo), 'utf8'))));
 			}
 		}

@@ -8,6 +8,6 @@ export default defineConfig({
 		environment: 'jsdom',
 		setupFiles: ['./vitest-setup.ts'],
 		...(process.env.CI ? { testTimeout: 20_000 } : {}),
-		exclude: ['node_modules/**', 'dist-core/**', 'dist-html/**', 'tests/fixture-*/**', 'src/lib/core/emitido.dom.test.ts'],
+		exclude: ['node_modules/**', 'dist-core/**', 'dist-html/**', 'tests/fixture-*/**'],
 	},
 });

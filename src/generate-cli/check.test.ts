@@ -37,6 +37,15 @@ afterEach(() => {
 });
 
 describe('runCheck', () => {
+	it('un proyecto con sólo nombres de una palabra bajo una familia de escala los muestra como aviso y sale 0', async () => {
+		escribir('src/a.svelte', '<div class="ts max-w-container col-span-hero"></div>\n');
+		await runCheck({});
+		const lineas = salida.filter(esAviso);
+		expect(lineas).toHaveLength(2);
+		expect(lineas[0]).toContain('unknown-class  "max-w-container" no existe en el DS');
+		expect(lineas[1]).toContain('unknown-class  "col-span-hero" no existe en el DS');
+		expect(process.exitCode).toBeUndefined();
+	});
 	it('sin config ni globs revisa el proyecto, avisa con archivo:línea y sale 1', async () => {
 		escribir('src/a.svelte', '<div class="ts-flex"></div>\n<div class="ts gap-bse"></div>\n');
 		escribir('src/a.css', 'a { color: var(--color-nada-500); }\n');

@@ -16,7 +16,7 @@ import { respaldosDeFuentes, validarEstilosDeFuentes } from './respaldo-fuentes'
 import { loadLucideAliases } from './lucide-aliases';
 import { collectInternalIcons, buildIconsInternalTS } from './emit-icons-internal';
 import { deriveThemeVocabulary, splitKey, type TaishoConfig, type ThemeVocabulary } from './vocabulary';
-import { warningText } from '../generate-cli/mensajes-avisos';
+import { esAvisoInformativo, marcaDeAviso, warningText } from '../generate-cli/mensajes-avisos';
 
 export { deriveThemeVocabulary, splitKey };
 export type { TaishoConfig, ThemeVocabulary };
@@ -64,15 +64,15 @@ export function orchestrate(config: TaishoConfig, options: OrchestrationOptions 
     const writeCss = (p: string, c: string) => fs.writeFileSync(p, CSS_HEADER + c);
     const writeTs = (p: string, c: string) => fs.writeFileSync(p, TS_HEADER + c);
     writeCss(path.join(cssDir, 'reset.css'), resetCSS);
-    validarEstilosDeFuentes(config.fontFaces, baseDir);
-    writeCss(path.join(cssDir, 'fonts.css'), buildFontsCSS(config.fontFaces, respaldosDeFuentes(config.fontFaces, baseDir)));
+    validarEstilosDeFuentes(config.fontFaces ?? [], baseDir);
+    writeCss(path.join(cssDir, 'fonts.css'), buildFontsCSS(config.fontFaces ?? [], respaldosDeFuentes(config.fontFaces ?? [], baseDir)));
     const tokensDir = path.join(cssDir, 'tokens');
     const dtcgDir = path.resolve(baseDir, 'src/lib/tokens');
     if (!fs.existsSync(tokensDir)) fs.mkdirSync(tokensDir, { recursive: true });
     if (!fs.existsSync(dtcgDir)) fs.mkdirSync(dtcgDir, { recursive: true });
     for (const entry of themeEntries) {
         const model = resolveThemeTokens(entry, userFonts, defaultStates, userScales, options.extensions);
-        for (const aviso of model.warnings) console.warn(`⚠ ${warningText(aviso, 'es')}`);
+        for (const aviso of model.warnings) console[esAvisoInformativo(aviso) ? 'info' : 'warn'](`${marcaDeAviso(aviso)} ${warningText(aviso, 'es')}`);
 
         const outDir = entry.group === 'root' ? tokensDir : path.join(tokensDir, entry.group);
         if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });

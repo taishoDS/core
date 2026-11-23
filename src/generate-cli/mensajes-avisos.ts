@@ -1,7 +1,9 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import type { EngineWarning, WarningData, MotivoTailwind, NotaTailwind, WarningParams, ParamsMotivoTailwind } from '../generate/avisos-tipos';
 import { textoSemillaBlanca } from '../lib/theme/aviso-blanca';
+import { textoSemillaBajoContraste, textoSemillaExacta } from '../lib/theme/aviso-semilla';
 import { textoBordeEnCero } from '../lib/theme/aviso-borde';
+import { UMBRAL_AA } from '../lib/theme/palette';
 import { REGLA_CADENA } from '../generate/propias';
 import { ingles } from '../generate/tailwind-map-en';
 import type { Lang } from './mensajes';
@@ -12,6 +14,8 @@ const lista = (xs: string[]) => xs.map((x) => `"${x}"`).join(', ');
 const yLista = (xs: string[]) => new Intl.ListFormat('en', { type: 'conjunction' }).format(xs);
 const sugerencia = (s?: string) => (s ? ` ¿Se quiso decir "${s}"?` : '');
 const didYouMean = (s?: string) => (s ? ` Did you mean "${s}"?` : '');
+const claveSeedFit = (k: string) => (/^[A-Za-z_$][\w$]*$/.test(k) ? k : `'${k}'`);
+const ratioEn = (r: number) => `${r.toFixed(2)}:1${r < UMBRAL_AA ? ' (below 4.5:1)' : ''}`;
 const REGLA_CADENA_EN = 'at most one context, one print, one group or peer, and one state, in that order, and 3 segments';
 
 const avisosEs: Catalogo<WarningParams> = {
@@ -26,10 +30,8 @@ const avisosEs: Catalogo<WarningParams> = {
 	'out-of-order': (p) => `"${p.class}" está fuera de orden y no se emite.${sugerencia(p.suggestion)}`,
 	'invalid-chain': (p) => `"${p.class}" no se emite: la cadena admite ${REGLA_CADENA}.`,
 	'runtime-class': (p) => `"${p.fragment}" parece compuesta en runtime; se agrega a safelist.`,
-	'seed-shifted': (p) =>
-		`Tema "${p.theme}": la semilla de "${p.color}" (${p.seed}) no encaja en ningún paso del modo ${p.mode === 'light' ? 'claro' : 'oscuro'} sin romper el contraste del texto (WCAG AA, 4,5:1); ` +
-		`se corrió al borde del paso ${p.step}: L ${p.deltaL > 0 ? '+' : '−'}${Math.abs(p.deltaL).toFixed(3)}, más ${p.deltaL > 0 ? 'clara' : 'oscura'}. ` +
-		`Gana la legibilidad; para el color exacto se elige una semilla con otra luminosidad.`,
+	'seed-low-contrast': (p) => textoSemillaBajoContraste(p),
+	'seed-exact': (p) => textoSemillaExacta(p),
 	'seed-white': (p) => textoSemillaBlanca(p.theme, p.color, p.seed),
 	'brand-like-status': (p) =>
 		`Tema "${p.theme}": el primario (${p.brand}) casi no se distingue del estado "${p.status}" (${p.seed}; distancia ${p.distance.toFixed(3)} en OKLab, menos de ${p.threshold}): ` +
@@ -54,6 +56,12 @@ const avisosEs: Catalogo<WarningParams> = {
 	'legacy-prefix-renamed': (p) => `"${p.class}" lleva el prefijo viejo \`ts-\` y es un nombre viejo. Se escribe "${p.suggestion}" con la clase \`ts\` en el mismo elemento.`,
 	'legacy-prefix-removed': (p) => `"${p.class}" lleva el prefijo viejo \`ts-\` y está deprecada sin sucesor: se reemplaza a mano.`,
 	'unknown-var': (p) => `"var(${p.variable})" no existe en el tema.${sugerencia(p.suggestion)}`,
+	'missing-part': (p) =>
+		`"${p.component}" (${p.root}) no tiene ningún elemento con \`${p.attribute}\` adentro. ${p.element ? `Va en su <${p.element}>; sin él` : 'Sin él'}, el JS del Core no hace nada con el componente.`,
+	'missing-part-attribute': (p) =>
+		`"${p.component}" (${p.root}): el <${p.element}> con la clase "${p.class}" no tiene \`${p.attribute}\`; sin él, el botón no hace nada.`,
+	'missing-root-attribute': (p) =>
+		`<${p.element}> tiene la clase "${p.class}" pero no \`${p.attribute}\`: el JS del Core no lo encuentra y el componente se ve pero no responde.`,
 	'css-outside-content': (p) => `usa variables del tema (${lista(p.variables)}) que se podaron porque este .css no está en \`content\`: conviene sumarlo (por ejemplo \`**/*.css\`) y volver a correr.`,
 };
 
@@ -69,10 +77,17 @@ const avisosEn: Catalogo<WarningParams> = {
 	'out-of-order': (p) => `"${p.class}" is out of order and isn't emitted.${didYouMean(p.suggestion)}`,
 	'invalid-chain': (p) => `"${p.class}" isn't emitted. A chain allows ${REGLA_CADENA_EN}.`,
 	'runtime-class': (p) => `"${p.fragment}" looks like it's built at runtime. Add it to safelist.`,
-	'seed-shifted': (p) =>
-		`Theme "${p.theme}": the "${p.color}" seed (${p.seed}) doesn't fit any ${p.mode} mode step without breaking text contrast (WCAG AA, 4.5:1), ` +
-		`so it was moved to the edge of step ${p.step} (L ${p.deltaL > 0 ? '+' : '−'}${Math.abs(p.deltaL).toFixed(3)}, ${p.deltaL > 0 ? 'lighter' : 'darker'}). ` +
-		`Legibility wins. For the exact color, pick a seed with a different lightness.`,
+	'seed-low-contrast': (p) => {
+		const opcion = (v: string) => `\`seedFit: { ${claveSeedFit(p.color)}: '${v}' }\``;
+		return `Theme "${p.theme}": the "${p.color}" color (${p.seed}) doesn't reach AA in ${p.mode} mode: text on it ${ratioEn(p.text)}, against the background ${ratioEn(p.bg)}. ` +
+			`It was moved to the edge of step ${p.step}: text on it ${ratioEn(p.textShifted)}, against the background ${ratioEn(p.bgShifted)}. ` +
+			`To keep it this way without a warning, write ${opcion('shift')}; to keep the exact color, ${opcion('keep')}.`;
+	},
+	'seed-exact': (p) => {
+		const opcion = (v: string) => `\`seedFit: { ${claveSeedFit(p.color)}: '${v}' }\``;
+		return `Theme "${p.theme}": the "${p.color}" color (${p.seed}) stays exact in ${p.mode} mode, between two steps of the scale: text on it ${ratioEn(p.text)}, against the background ${ratioEn(p.bg)}, both meeting AA (4.5:1). ` +
+			`To hide this note, write ${opcion('keep')}; to move it to the edge of step ${p.step} (text on it ${ratioEn(p.textShifted)}, against the background ${ratioEn(p.bgShifted)}), ${opcion('shift')}.`;
+	},
 	'seed-white': (p) =>
 		`Theme "${p.theme}": the "${p.color}" seed (${p.seed}) is almost white. It doesn't show on the light background, and the solid fill (buttons, checkboxes, toggles) can't be white, so it comes out gray. ` +
 		`For a white button use an outlined variant; for the brand, pick a darker seed.`,
@@ -101,6 +116,12 @@ const avisosEn: Catalogo<WarningParams> = {
 	'legacy-prefix-renamed': (p) => `"${p.class}" has the old \`ts-\` prefix and an old name. Write "${p.suggestion}" with the \`ts\` class on the same element.`,
 	'legacy-prefix-removed': (p) => `"${p.class}" has the old \`ts-\` prefix and is deprecated with no replacement. Replace it by hand.`,
 	'unknown-var': (p) => `"var(${p.variable})" isn't defined in the theme.${didYouMean(p.suggestion)}`,
+	'missing-part': (p) =>
+		`"${p.component}" (${p.root}) has no element with \`${p.attribute}\` inside it. ${p.element ? `It goes on its <${p.element}>; without it` : 'Without it'}, the Core's JS does nothing with the component.`,
+	'missing-part-attribute': (p) =>
+		`"${p.component}" (${p.root}): the <${p.element}> with the "${p.class}" class has no \`${p.attribute}\`; without it, the button does nothing.`,
+	'missing-root-attribute': (p) =>
+		`<${p.element}> has the "${p.class}" class but not \`${p.attribute}\`, so the Core's JS never finds it: the component renders but doesn't respond.`,
 	'css-outside-content': (p) => `It uses theme variables (${lista(p.variables)}) that were pruned because this .css isn't in \`content\`. Add it (for example \`**/*.css\`) and run again.`,
 };
 
@@ -245,6 +266,12 @@ const NOTAS = { es: notasEs, en: notasEn };
 export function warningText(warning: WarningData, lang: Lang): string {
 	return (AVISOS[lang][warning.code] as (p: WarningData['params']) => string)(warning.params);
 }
+
+/** Códigos que informan y no piden acción: se imprimen con `ℹ` y no cuentan para `--strict`. */
+const CODIGOS_INFORMATIVOS: ReadonlySet<string> = new Set(['seed-exact']);
+export const esAvisoInformativo = (warning: WarningData): boolean => CODIGOS_INFORMATIVOS.has(warning.code);
+/** La marca con la que se imprime un aviso. */
+export const marcaDeAviso = (warning: WarningData): string => (esAvisoInformativo(warning) ? 'ℹ' : '⚠');
 
 /** El aviso como lo imprimen `generate`, `watch` y el plugin: `archivo:línea: texto`, `archivo: texto` o el texto solo. */
 export function warningLine(warning: EngineWarning, lang: Lang): string {

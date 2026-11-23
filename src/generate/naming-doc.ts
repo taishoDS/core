@@ -9,7 +9,7 @@ const celda = (s: string) => s.replaceAll('|', '\\|');
 export function describirValor(v: Valor): string {
     switch (v.t) {
         case 'espaciado':
-            return `ritmo (\`none\`…\`double\`) o px${v.auto ? ', `auto`' : ''}${v.neg ? ', `neg-` opcional' : ''}`;
+            return `ritmo (\`none\`…\`double\`) o px${v.auto ? ', `auto`' : ''}${v.neg ? ', `neg-` opcional' : ''}${v.safe ? ', `safe`' : ''}`;
         case 'escala':
             return `escala \`${v.de}\`${v.extra?.length ? ` + ${v.extra.map((x) => `\`${x}\``).join(', ')}` : ''}`;
         case 'px':

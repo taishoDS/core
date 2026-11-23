@@ -1,6 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 export interface ThemeDef {
     colors: { brand: string; [slot: string]: string };
+    seedFit?: Record<string, 'shift' | 'keep'>;
     primary?: string;
     states?: Record<string, string>;
     fonts?: Partial<Record<'sans' | 'mono' | 'display', string>>;
@@ -29,6 +30,8 @@ export interface ThemeDef {
         };
         light?: Partial<Record<'gray' | 'background' | 'grayAlpha' | 'overlay', Record<string, string>>>;
         dark?: Partial<Record<'gray' | 'background' | 'grayAlpha' | 'overlay', Record<string, string>>>;
+        /** Blanco y negro fijos (`--color-white`, `--color-black`): el mismo valor en claro y en oscuro, sin tinte ni P3. */
+        fixed?: Partial<Record<'white' | 'black', string>>;
     };
     material?: {
         light?: {

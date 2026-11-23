@@ -78,8 +78,8 @@ const REGLAS: Regla[] = [
     [/^la clase de TaishoDS no está emitida \(su vocabulario es más corto que el de Tailwind\)$/, 'the TaishoDS class isn’t emitted (its vocabulary is smaller than Tailwind’s)'],
     [/^la clase de TaishoDS no está emitida$/, 'the TaishoDS class isn’t emitted'],
     [
-        /^white, black, current e inherit no son colores del tema \(el color sale de las semillas\): para una superficie, `bg-background-100` o un gris de la escala \(`bg-gray-100`…`bg-gray-1000`\); para el texto, `color-gray-1000` o el color del tema$/,
-        'white, black, current, and inherit aren’t theme colors (color comes from the seeds). For a surface, use `bg-background-100` or a gray from the scale (`bg-gray-100`…`bg-gray-1000`); for text, `color-gray-1000` or the theme color',
+        /^current e inherit no son colores del tema \(el color sale de las semillas\): para una superficie, `bg-background-100` o un gris de la escala \(`bg-gray-100`…`bg-gray-1000`\); para el texto, `color-gray-1000` o el color del tema$/,
+        'current and inherit aren’t theme colors (color comes from the seeds). For a surface, use `bg-background-100` or a gray from the scale (`bg-gray-100`…`bg-gray-1000`); for text, `color-gray-1000` or the theme color',
     ],
     [/^el corte (\w+) no está en las pantallas del Core; se agrega con extend\.screens$/, 'the $1 breakpoint isn’t one of Core’s screens; add it with extend.screens'],
     [
@@ -118,7 +118,6 @@ const REGLAS: Regla[] = [
         'there are no color filters, only `blur-*` and `backdrop-blur-*`; for another filter, your own utility in `utilities`',
     ],
     [/^no hay gradientes: el fondo es un color de la escala; para un gradiente, una utilidad propia en `utilities`$/, 'there are no gradients—the background is a color from the scale; for a gradient, your own utility in `utilities`'],
-    [/^sólo existen `m-auto`, `mx-auto`, `my-auto`, `ms-auto` y `me-auto`$/, 'only `m-auto`, `mx-auto`, `my-auto`, `ms-auto`, and `me-auto` exist'],
     [/^el ancho tiene nombre: `border-1` es 1px \(Tailwind dice `border`\)$/, 'the width has a name—`border-1` is 1px (Tailwind just says `border`)'],
     [
         /^misma intención, otra implementación: es un `box-shadow` que pisa a `shadow-\*` \(Tailwind los suma\)$/,

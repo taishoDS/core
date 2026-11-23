@@ -7,6 +7,7 @@ import type { ContentFile, TaishoExtension, TaishoExtensions } from '../generate
 import { ConfigError, type ConfigErrorData, type ConfigKeyError } from '../generate/errores-config';
 import { soloClases } from './solo-clases';
 import { m } from './idioma';
+import { cumpleRango } from './rango-core';
 
 export const NOMBRE_CORE = '@taishods/core';
 const MANIFIESTO = './taisho.manifest.json';
@@ -70,9 +71,9 @@ export function versionDelCore(): string {
 }
 
 export function verificarCore(paquete: Pick<PaqueteConManifiesto, 'nombre' | 'version' | 'core'>, versionCore: string): void {
-	if (paquete.core !== versionCore) {
-		throw new Error(m().generate.coreDistinto(paquete.nombre, paquete.version, NOMBRE_CORE, paquete.core, versionCore));
-	}
+	const cumple = cumpleRango(versionCore, paquete.core);
+	if (cumple === null) throw new Error(m().generate.coreRangoInvalido(paquete.nombre, paquete.version, NOMBRE_CORE, paquete.core));
+	if (!cumple) throw new Error(m().generate.coreDistinto(paquete.nombre, paquete.version, NOMBRE_CORE, paquete.core, versionCore));
 }
 
 export function archivosElegidos(componentes: Record<string, string[]>, tokens: Iterable<string>): string[] {

@@ -1,8 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { iniciar, alClick } from './nucleo';
 import { m, cargador, type Modulos } from './registro';
-import { avisarVersiones } from './version';
-import { pedirAvisoLlave } from './desarrollo-local';
+import { pedirAvisoLlave, pedirAvisoVersiones } from './desarrollo-local';
 import { PESADOS, archivoDe, type NombreModulo } from './modulos';
 import { ficha as accordion } from './accordion';
 import { ficha as alertDialog } from './alert-dialog';
@@ -160,7 +159,7 @@ function vigilar(root: Document | HTMLElement): void {
  */
 export function init(root: Document | HTMLElement = document): Promise<void> {
     Object.assign(m, LIVIANOS);
-    avisarVersiones();
+    pedirAvisoVersiones(() => import('./pesados/key-warning'));
     if (root.getRootNode() === document) pedirAvisoLlave(() => import('./pesados/key-warning'));
     iniciar(root);
     vigilar(root);

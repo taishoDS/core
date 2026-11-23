@@ -1,10 +1,9 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
-// Sin imports a propósito: el bin lo carga ANTES que el resto del CLI, que usa APIs de Node nuevas (`fs.globSync`, `path.matchesGlob`).
-export const NODE_MINIMO = '22.18';
+// Sin imports a propósito: el bin lo carga ANTES que el resto del CLI, que usa APIs de Node nuevas (`fs.globSync`, `path.matchesGlob`). El piso es la LTS activa.
+export const NODE_MINIMO = '26';
 
 export function nodeSirve(version: string): boolean {
-	const [mayor, menor] = version.split('.').map(Number);
-	return mayor > 22 || (mayor === 22 && menor >= 18);
+	return Number(version.split('.')[0]) >= 26;
 }
 
 function idiomaDelArranque(argv: readonly string[], env: Record<string, string | undefined>): 'es' | 'en' {

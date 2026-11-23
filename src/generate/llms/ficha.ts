@@ -17,8 +17,10 @@ export interface DatosFicha {
 	guia?: GuiaFicha;
 	/** Las clases raíz del componente (`button`, `button-group`). */
 	bloques: string[];
-	/** Los atributos `data-ts-*` que el JS del Core lee. Vacío = no necesita JS. */
+	/** Los atributos `data-ts-*` que el JS del Core lee. Puede estar vacío aunque el componente use el JS del Core. */
 	atributos: string[];
+	/** Si usa el JS del Core: `none` nada, `native` lo hace el navegador y el Core lo completa, `core` lo necesita. */
+	js: 'none' | 'native' | 'core';
 	/** Por qué el componente usa (o no) el JS del Core. */
 	nucleo?: string;
 	teclado?: { keys: string; action: string }[];
@@ -35,12 +37,16 @@ export interface OpcionesFicha {
 const TEXTOS = {
 	es: {
 		cuando: 'Cuándo usarlo', cuandoNo: 'Cuándo no usarlo', si: 'Sí', no: 'No', clases: 'Clases', raiz: 'Raíz', modificadores: 'Modificadores',
-		js: 'JavaScript', sinJs: 'No necesita JavaScript.', conJs: 'Necesita el JavaScript del Core (`taisho.core.js`). Atributos:',
+		js: 'JavaScript', sinJs: 'No necesita JavaScript.', conJs: 'Necesita el JavaScript del Core (`taisho.core.js`).',
+		nativo: 'Lo resuelve el navegador, y donde el navegador no llega lo completa el JavaScript del Core (`taisho.core.js`): conviene cargarlo.',
+		atributos: 'Atributos:', sinAtributos: 'No lleva atributos propios: el Core lo encuentra por sus clases.',
 		teclado: 'Teclado', ejemplos: 'Ejemplos', relacionados: 'Relacionados',
 	},
 	en: {
 		cuando: 'When to use it', cuandoNo: 'When not to use it', si: 'Do', no: "Don't", clases: 'Classes', raiz: 'Root', modificadores: 'Modifiers',
-		js: 'JavaScript', sinJs: 'It needs no JavaScript.', conJs: 'It needs the Core JavaScript (`taisho.core.js`). Attributes:',
+		js: 'JavaScript', sinJs: 'It needs no JavaScript.', conJs: 'It needs the Core JavaScript (`taisho.core.js`).',
+		nativo: 'The browser handles it, and where the browser falls short the Core JavaScript (`taisho.core.js`) fills in, so load it.',
+		atributos: 'Attributes:', sinAtributos: 'It has no attributes of its own: Core finds it by its classes.',
 		teclado: 'Keyboard', ejemplos: 'Examples', relacionados: 'Related',
 	},
 } as const;
@@ -84,7 +90,8 @@ export function fichaMarkdown(datos: DatosFicha, idioma: IdiomaLlms, opciones: O
 	if (modificadores.length) clases.push(`${t.modificadores}: ${codigos(modificadores)}`);
 	secciones.push(`${h(1)} ${t.clases}\n\n${lista(clases)}`);
 
-	const js = datos.atributos.length ? `${t.conJs} ${codigos(datos.atributos)}.` : t.sinJs;
+	const atributos = datos.atributos.length ? `${t.atributos} ${codigos(datos.atributos)}.` : t.sinAtributos;
+	const js = datos.js === 'none' ? t.sinJs : datos.js === 'native' ? `${t.nativo}${datos.atributos.length ? ` ${atributos}` : ''}` : `${t.conJs} ${atributos}`;
 	secciones.push(`${h(1)} ${t.js}\n\n${js}${datos.nucleo ? `\n\n${datos.nucleo}` : ''}`);
 
 	if (datos.teclado?.length) secciones.push(`${h(1)} ${t.teclado}\n\n${lista(datos.teclado.map((k) => `\`${k.keys}\`: ${k.action}`))}`);

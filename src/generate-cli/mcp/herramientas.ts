@@ -10,7 +10,7 @@ import { escalasDe } from '../../generate/naming-table';
 import { manifiestoDelCore } from '../../generate/registro';
 import { deriveThemeVocabulary, type TaishoConfig } from '../../generate/vocabulary';
 import { SHADES } from '../../lib/theme/palette';
-import { contratoCore } from '../../routes/_docs/core-contract';
+import { contratoCore } from '../../core-datos/contrato';
 import { avisoAJson, cargarProyecto, configDeFabrica, configParaCheck, VERSION_JSON, type Proyecto, type ResultadoJson } from '../check';
 import { usarIdioma, m, type Lang } from '../idioma';
 import { textoMotivo, textoNotas } from '../mensajes-avisos';
@@ -87,7 +87,7 @@ export function crearHerramientas(opciones: OpcionesHerramientas): Herramienta[]
 					slug,
 					name: nombre,
 					blocks: manifiestoDelCore.componentes[slug].bloques,
-					needsJs: contratoCore[slug].atributos.length > 0,
+					needsJs: contratoCore[slug].js !== 'none',
 					...(guia?.what && { summary: primeraOracion(guia.what) }),
 				};
 			});
@@ -112,6 +112,7 @@ export function crearHerramientas(opciones: OpcionesHerramientas): Herramienta[]
 				guia: prosa.guia,
 				bloques: manifiestoDelCore.componentes[slug].bloques,
 				atributos: contratoCore[slug].atributos,
+				js: contratoCore[slug].js,
 				nucleo: prosa.nucleo,
 				teclado: prosa.teclado,
 				ejemplos: leerJson<DatosFicha['ejemplos']>(datos.ejemplos, idioma, slug),
@@ -166,7 +167,7 @@ export function crearHerramientas(opciones: OpcionesHerramientas): Herramienta[]
 	const validarMarkup: Herramienta = {
 		name: 'validate_markup',
 		description:
-			'Check markup against the project\'s TaishoDS vocabulary, the same as `npx taisho check`: unknown or misspelled classes, elements that use the system\'s classes without the `ts` class, `ts-` prefixes, spacing numbers that mean something else in other frameworks, and CSS variables that do not exist. Call it after writing or editing markup (HTML, Svelte, Vue, JSX) and fix the warnings until `valid` is true. An `other-scale` warning does not make the markup invalid: it is a reminder that the number is pixels here (`p-16` is 16 px), so only check that the pixel value is the intended one.',
+			'Check markup against the project\'s TaishoDS vocabulary and the structure of its Core components, the same as `npx taisho check`: unknown or misspelled classes, elements that use the system\'s classes without the `ts` class, `ts-` prefixes, spacing numbers that mean something else in other frameworks, CSS variables that do not exist, and Core components missing a part their JavaScript needs (a `data-ts-*` attribute on an inner element, or the root attribute itself). Call it after writing or editing markup (HTML, Svelte, Vue, JSX) and fix the warnings until `valid` is true. An `other-scale` warning does not make the markup invalid: it is a reminder that the number is pixels here (`p-16` is 16 px), so only check that the pixel value is the intended one.',
 		inputSchema: {
 			type: 'object',
 			properties: {

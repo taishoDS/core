@@ -8,7 +8,7 @@ import { validarAtomico, escalasDe } from './naming-table';
 import { buildVocabularyColors } from '../config/scales';
 import { userColors, userStates, userGridMins } from '../config/taisho.user';
 
-const ESPERADO = { atomicas: 3081, utilities: 56, componentes: 200, extensionDelSitio: 75, mecanicos: 374 };
+const ESPERADO = { atomicas: 3093, utilities: 56, componentes: 201, extensionDelSitio: 75, mecanicos: 376 };
 
 const E = leerEmitidos();
 const manifiesto = JSON.parse(fs.readFileSync('src/lib/css/manifiesto-componentes.json', 'utf8')) as {

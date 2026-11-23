@@ -1,10 +1,10 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { describe, it, expect } from 'vitest';
-import { buildScale, createPaletteFromHex, getContrastColor, parseSeed, rgbToOklch, oklchToRgb } from './palette';
+import { buildScale, contrastNeutrals, createPaletteFromHex, getContrastColor, parseSeed, rgbToOklch, oklchToRgb } from './palette';
 import type { Gamut, Mode, Oklch, Scale } from './palette';
 import { inGamut, luminanceOklch, maxChroma, oklchToLinear, wcagRatio } from './color-math';
 import { apcaContrast, apcaDeEscala, apcaLuminance } from './apca';
-import { tintMap } from './neutrals';
+import { effectiveNeutrals, tintMap } from './neutrals';
 
 const encode = (x: number) => (x <= 0.0031308 ? 12.92 * x : 1.055 * x ** (1 / 2.4) - 0.055);
 const toHex = (l: number, c: number, h: number) =>
@@ -56,7 +56,7 @@ describe('barrido de semillas', () => {
         expect(bad).toEqual([]);
     });
 
-    it('la semilla queda exacta en su paso o, si cae en la zona muerta, |dL| <= 0.03 y se avisa', () => {
+    it('la semilla queda exacta en su paso o, si cae en la zona muerta, |dL| <= 0.06 (el borde más cercano que llega a AA)', () => {
         let adjusted = 0, maxDL = 0;
         for (const c of CASES) {
             const sc = c.scale, st = sc.steps[sc.seedStep];
@@ -64,7 +64,7 @@ describe('barrido de semillas', () => {
             if (sc.adjusted) {
                 adjusted++;
                 maxDL = Math.max(maxDL, Math.abs(sc.dL));
-                expect(Math.abs(sc.dL), label(c)).toBeLessThanOrEqual(0.03);
+                expect(Math.abs(sc.dL), label(c)).toBeLessThanOrEqual(0.06);
             } else {
                 expect(sc.dL).toBe(0);
                 const cs = inGamut(c.seed.l, c.seed.c, c.seed.h, c.gamut) ? c.seed.c : Math.min(c.seed.c, maxChroma(c.seed.l, c.seed.h, c.gamut));
@@ -262,4 +262,120 @@ describe('tint de neutros', () => {
         const wild = tintMap({ '500': 'oklch(0.5 0 0)' }, 0.5, 145);
         expect(parseFloat(wild['500'].split(' ')[1])).toBeLessThanOrEqual(maxChroma(0.5, 145, 'srgb'));
     });
+});
+
+describe('color entre dos pasos (seedFit)', () => {
+    const medir = (hex: string, mode: Mode, fit?: 'shift' | 'keep') => buildScale(parseSeed(hex), mode, 'srgb', undefined, fit);
+    const dos = (n: number) => +n.toFixed(2);
+    const OBJETIVOS_CLARO = [1.08, 1.22, 1.5, 2.1, 3.6, 6.0, 8.5, 12, 16, 19];
+
+    it.each([
+        ['#707070', 'light', 4.41, 4.95], ['#DC2626', 'light', 4.3, 4.83], ['#767676', 'light', 4.33, 4.54], ['#7a7a7a', 'light', 4.58, 4.29],
+        ['#DC2626', 'dark', 4.55, 4.20], ['#767676', 'dark', 4.28, 4.46], ['#7a7a7a', 'dark', 4.36, 4.72],
+    ] as const)('%s en %s no llega a AA: se adapta al borde del paso 600 (texto %f, fondo %f)', (hex, mode, texto, fondo) => {
+        const sc = medir(hex, mode), fit = sc.fit!;
+        expect([dos(fit.text), dos(fit.bg)]).toEqual([texto, fondo]);
+        expect(fit.resolved).toBe('shift');
+        expect(sc.adjusted).toBe(true);
+        expect(sc.steps[sc.seedStep].shade).toBe('600');
+        expect(fit.textShifted).toBeGreaterThanOrEqual(4.5);
+        expect(fit.bgShifted).toBeGreaterThanOrEqual(4.5);
+        expect(fit.bgShifted).toBeGreaterThan(mode === 'light' ? 5.25 : 4.95);
+        expect(fit.bgShifted).toBeLessThan(mode === 'light' ? 5.4 : 5.1);
+    });
+
+    it.each([['#2563EB', 4.6, 5.17], ['#D42424', 4.59, 5.15]] as const)('%s llega a AA con las dos medidas: queda exacto', (hex, texto, fondo) => {
+        const sc = medir(hex, 'light'), fit = sc.fit!;
+        expect([dos(fit.text), dos(fit.bg)]).toEqual([texto, fondo]);
+        expect(fit.resolved).toBe('keep');
+        expect(sc.adjusted).toBe(false);
+        expect(sc.dL).toBe(0);
+        expect(sc.steps[sc.seedStep].seed).toBe(true);
+    });
+
+    it.each([['#3b82f6', 'light'], ['#4F46E5', 'light'], ['#4F46E5', 'dark']] as const)('%s en %s cae dentro de una ventana: exacto y sin fit', (hex, mode) => {
+        const sc = medir(hex, mode);
+        expect(sc.fit).toBeUndefined();
+        expect(sc.adjusted).toBe(false);
+    });
+
+    it("'keep' deja exacto el paso del color y los demás siguen sus objetivos; 'shift' corre aunque llegue a AA", () => {
+        const base = medir('#767676', 'light', undefined), keep = medir('#767676', 'light', 'keep'), shift = medir('#2563EB', 'light', 'shift');
+        expect(keep.adjusted).toBe(false);
+        expect(keep.steps[keep.seedStep].ratio).toBeCloseTo(keep.seedRatio, 6);
+        keep.steps.forEach((st, i) => { if (i !== keep.seedStep) expect(st.ratio, st.shade).toBeCloseTo(OBJETIVOS_CLARO[i], 1); });
+        expect(keep.steps.filter((st) => st.seed)).toHaveLength(1);
+        expect(keep.fit!.chosen).toBe(true);
+        expect(shift.adjusted).toBe(true);
+        expect(dos(shift.steps[shift.seedStep].ratio)).toBe(5.3);
+        expect(base.fit!.chosen).toBe(false);
+    });
+
+    it('el color casi blanco sigue por su camino: se corre sin fit', () => {
+        const sc = medir('#fefefe', 'light', 'keep');
+        expect(sc.adjusted).toBe(true);
+        expect(sc.fit).toBeUndefined();
+    });
+
+    it('en toda la zona entre pasos existe un borde que llega a AA con las dos medidas (tintes de neutros incluidos)', () => {
+        let entre = 0;
+        for (const mode of MODES) for (let h = 0; h < 360; h += 24) for (const c of [0, 0.1, 0.3]) for (let l = 0.5; l <= 0.7; l += 0.01) {
+            const fit = buildScale({ l, c, h }, mode).fit;
+            if (!fit) continue;
+            entre++;
+            expect(fit.textShifted, `${mode} ${l} ${c} ${h}`).toBeGreaterThanOrEqual(4.5);
+            expect(fit.bgShifted, `${mode} ${l} ${c} ${h}`).toBeGreaterThanOrEqual(4.5);
+        }
+        expect(entre).toBeGreaterThan(50);
+    }, 30_000);
+});
+
+describe('color entre dos pasos: AA medido en 8 bits', () => {
+    // Conversión independiente de la del motor: oklch -> sRGB lineal -> 8 bits (como pinta el navegador) -> luminancia WCAG.
+    const luminancia8 = (l: number, c: number, h: number): number => {
+        const a = c * Math.cos((h * Math.PI) / 180), b = c * Math.sin((h * Math.PI) / 180);
+        const [ll, mm, ss] = [l + 0.3963377774 * a + 0.2158037573 * b, l - 0.1055613458 * a - 0.0638541728 * b, l - 0.0894841775 * a - 1.291485548 * b].map((v) => v ** 3);
+        const lineal = [4.0767416621 * ll - 3.3077115913 * mm + 0.2309699292 * ss, -1.2684380046 * ll + 2.6097574011 * mm - 0.3413193965 * ss, -0.0041960863 * ll - 0.7034186147 * mm + 1.707614701 * ss];
+        const [r, g, bl] = lineal.map((x) => {
+            const cl = Math.min(1, Math.max(0, x));
+            const byte = Math.round((cl <= 0.0031308 ? 12.92 * cl : 1.055 * cl ** (1 / 2.4) - 0.055) * 255);
+            const n = byte / 255;
+            return n <= 0.04045 ? n / 12.92 : ((n + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+    };
+    const razon = (y1: number, y2: number) => (Math.max(y1, y2) + 0.05) / (Math.min(y1, y2) + 0.05);
+    const deCss = (css: string): [number, number, number] => css.match(/[\d.]+/g)!.map(Number) as [number, number, number];
+
+    it('en una grilla de 52³ colores, dos modos y dos juegos de neutros, ningún color exacto ni corrido queda bajo 4,5', () => {
+        const N = 52;
+        let entre = 0, exactos = 0, corridos = 0;
+        for (const tinte of [undefined, { c: 0.02, h: 250 }]) {
+            const eff = effectiveNeutrals(tinte ? { tint: tinte } : undefined);
+            for (const mode of MODES) {
+                const pair = contrastNeutrals(mode === 'dark', eff);
+                const ny = pair.map((n) => luminancia8(n.l, n.c, n.h));
+                const fondo = luminancia8(mode === 'light' ? 1 : 0.12, 0, 0);
+                for (let r = 0; r < N; r++) for (let g = 0; g < N; g++) for (let b = 0; b < N; b++) {
+                    const hex = '#' + [r, g, b].map((i) => Math.round((i * 255) / (N - 1)).toString(16).padStart(2, '0')).join('');
+                    const seed = parseSeed(hex);
+                    const aprox = razon(luminanceOklch(seed.l, seed.c, seed.h), mode === 'light' ? 1 : 0.12 ** 3);
+                    if (aprox < 3.9 || aprox > 5.6) continue;
+                    const sc = buildScale(seed, mode, 'srgb', pair);
+                    if (!sc.fit) continue;
+                    entre++;
+                    if (sc.fit.resolved === 'keep') exactos++; else corridos++;
+                    const y = luminancia8(...deCss(sc.steps[sc.seedStep].css));
+                    const etiqueta = `${hex} ${mode} ${tinte ? 'tinte' : 'fábrica'} ${sc.fit.resolved}`;
+                    expect(Math.max(...ny.map((n) => razon(y, n))), `texto ${etiqueta}`).toBeGreaterThanOrEqual(4.5);
+                    expect(razon(y, fondo), `fondo ${etiqueta}`).toBeGreaterThanOrEqual(4.5);
+                    expect(sc.fit.textShifted, `borde ${etiqueta}`).toBeGreaterThanOrEqual(4.5);
+                    expect(sc.fit.bgShifted, `borde ${etiqueta}`).toBeGreaterThanOrEqual(4.5);
+                }
+            }
+        }
+        expect(entre).toBeGreaterThan(10_000);
+        expect(exactos).toBeGreaterThan(0);
+        expect(corridos).toBeGreaterThan(0);
+    }, 600_000);
 });

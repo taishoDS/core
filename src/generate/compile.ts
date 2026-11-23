@@ -6,6 +6,7 @@ import { buildUtilitiesCSS } from './emit-utilities';
 import { buildResetCSS } from './emit-reset';
 import { buildFlatCSS, pares, parseUtilities, tablaPrefijos, tokenizar } from './emit-flat';
 import { aliasDe, renombrar } from './naming-renames';
+import { modificadoresDeComponentes } from './naming-table';
 import { validarCadena } from './variantes';
 import { deriveThemeVocabulary, type TaishoConfig, type ThemeVocabulary } from './vocabulary';
 import { clasificarComponentes, vecino } from './resolve-extend';
@@ -50,6 +51,9 @@ export interface CompileResult {
     /** Avisos que no frenan la compilación (`{ code, params }`, sin texto): clases armadas en runtime, prefijos desconocidos… Orden de aparición, sin repetidos. */
     warnings: EngineWarning[];
 }
+
+/** Clases que el JS del Core escribe en el DOM de un componente y que el HTML del proyecto no trae. */
+export const CLASES_DEL_JS: Record<string, readonly string[]> = { toast: ['icon', 'icon-14'] };
 
 export function derivarVocabulario(config: TaishoConfig, tema: ThemeVocabulary = deriveThemeVocabulary(config), extensiones: TaishoExtensions = {}) {
     const manifiesto = manifiestoDe(extensiones);
@@ -167,7 +171,7 @@ export function analizarArchivo(v: Vocabulario, file: string, tokens: readonly s
             if (slug) enteros.add(slug);
         }
         if (token.endsWith('{')) {
-            if (onDemand && token === 'variant-{') planas.add(token);
+            if (onDemand) planas.add(token);
             const fragmento = token.slice(0, -1).split(':').pop()!;
             if (vocabulario.some((n) => n.length > fragmento.length && n.startsWith(fragmento))) {
                 avisar({ code: 'runtime-class', params: { fragment: fragmento } });
@@ -195,7 +199,7 @@ export function unirAnalisis(v: Vocabulario, config: TaishoConfig, analisis: Ite
     if (config.scope !== undefined) sumarAviso(warnings, { code: 'scope-option', params: {} });
     const safelist = resolveSafelist(config.safelist, {
         vocabulario,
-        modificadores: new Set([...v.modificadoresPropios.values()].flat()),
+        modificadores: new Set([...[...v.modificadoresPropios.values()].flat(), ...modificadoresDeComponentes(v.components)]),
         prefijos,
         componentes: Object.keys(v.manifiesto.componentes),
         tonos: v.tonos,
@@ -218,9 +222,18 @@ export function unirAnalisis(v: Vocabulario, config: TaishoConfig, analisis: Ite
             const slug = dueno.get(p);
             if (slug) enteros.add(slug);
         }
+        // De un componente usado entra siempre su bloque principal (el de su nombre; si no hay, el primero). Los demás entran si el
+        // proyecto los nombra (o un fragmento armado en runtime, `card-{`, puede generarlos), si los crea el JS del Core (`runtime`)
+        // o si el componente está en el safelist, que lo pide entero.
+        const fragmentos = [...planas].filter((p) => p.endsWith('{')).map((p) => p.slice(0, -1));
+        const nombrado = (b: string) => [b, (v.alias.get(`ts-${b}`) ?? `ts-${b}`).slice(3)].some((n) => planas.has(n) || planas.has(`ts-${n}`) || fragmentos.some((f) => n.startsWith(f)));
+        const delSafelist = new Set([...safelist.componentes, ...[...safelist.planas].filter((p) => p in v.manifiesto.componentes)]);
         for (const slug of enteros) {
+            for (const clase of CLASES_DEL_JS[slug] ?? []) planas.add(clase);
             const c = v.manifiesto.componentes[slug];
-            for (const b of [...c.bloques, ...c.runtime]) forzadas.add(`ts-${b}`);
+            const principales = c.bloques.filter((b) => b === slug || b === slug.replaceAll('-', ''));
+            const principal = new Set(principales.length ? principales : c.bloques.slice(0, 1));
+            for (const b of [...c.bloques.filter((b) => principal.has(b) || delSafelist.has(slug) || nombrado(b)), ...c.runtime]) forzadas.add(`ts-${b}`);
         }
     }
     return { variantes, planas, warnings: [...warnings.values()], forzadas, enteros };

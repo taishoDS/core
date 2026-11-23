@@ -26,7 +26,7 @@ mismo elemento: `class="ts button size-md variant-primary"`.
 ## 2. Con este paquete: tu marca en el CSS
 
 Para que el CSS lleve tus colores y fuentes, y sólo las clases que se usan, se instala el paquete y
-se corre el comando `taisho` desde la raíz de tu proyecto (Node 22.18 o más nuevo):
+se corre el comando `taisho` desde la raíz de tu proyecto (Node 26 o más nuevo):
 
 ```bash
 npm i -D @taishods/core
@@ -58,7 +58,7 @@ import '@taishods/core/core';                  // el comportamiento
 
 ## Qué trae
 
-- **CSS completo** — `css/taisho.full.css`, con todos los componentes y utilidades.
+- **CSS completo** — `css/taisho.full.css`, con todos los componentes del Core y las utilidades.
 - **Tema del sistema** — `css/tokens/taisho.css`.
 - **Comportamiento** — `core.js`: acordeones, pestañas, select, combobox, calendario, tabla
   ordenable y paleta de comandos, que se enganchan por atributos `data-ts-*`.

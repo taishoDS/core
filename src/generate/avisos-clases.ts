@@ -1,5 +1,5 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
-import { esModificador, escalasDe } from './naming-table';
+import { esModificador, escalasDe, modificadoresDeComponentes } from './naming-table';
 import { etiquetaEn } from './llave-scope';
 import { renombrar } from './naming-renames';
 import { vecino } from './resolve-extend';
@@ -12,7 +12,7 @@ import type { WarningData, WarningParams } from './avisos-tipos';
 
 type Vocabulario = ReturnType<typeof derivarVocabulario>;
 
-export type ReglaCheck = 'unknown-class' | 'missing-ts' | 'legacy-prefix' | 'unknown-var' | 'ignored-attribute' | 'other-scale';
+export type ReglaCheck = 'unknown-class' | 'missing-ts' | 'legacy-prefix' | 'unknown-var' | 'ignored-attribute' | 'other-scale' | 'missing-part' | 'missing-root-attribute';
 
 export type Aviso = WarningData & {
 	file: string;
@@ -44,6 +44,20 @@ const MIEMBROS_FAMILIA = 8;
 
 const LARGO_MINIMO_VECINO = 5;
 
+/** Raíces compuestas de escala (`col-span-`, `max-w-`, `gap-x-`…): una palabra suelta tras la raíz que el DS no define se toma por un valor mal escrito. Un nombre propio de una palabra (`max-w-container`) también cae acá; un sufijo con guion (`min-h-screen-mobile`) se tiene por propio. */
+const RAIZ_DE_ESCALA = /^(?:grid|col|row|gap|min|max)-[a-z]+-$/;
+
+
+/** Formas mal escritas que se vieron de verdad → la del DS. `fontsize-12` es el nombre del token (`--ts-fontsize-12`); la utilidad es `text-12`. */
+const EQUIVOCACIONES: readonly [RegExp, string][] = [[/^fontsize-(\d+)$/, 'text-$1']];
+
+function equivocacionConocida(base: string, datos: Datos): string | undefined {
+	for (const [forma, correcta] of EQUIVOCACIONES) {
+		const sugerida = base.replace(forma, correcta);
+		if (sugerida !== base && datos.validos.has(sugerida)) return sugerida;
+	}
+	return undefined;
+}
 
 export interface Datos {
 	validos: Set<string>;
@@ -59,10 +73,7 @@ export interface Datos {
 }
 
 export function datosDe(v: Vocabulario): Datos {
-	const modificadores = new Set<string>();
-	for (const m of v.components.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/\.([A-Za-z_][A-Za-z0-9_-]*)/g)) {
-		if (!m[1].startsWith('ts-') && esModificador(m[1]) && !/^(is|has)-/.test(m[1])) modificadores.add(m[1]);
-	}
+	const modificadores = modificadoresDeComponentes(v.components);
 	const propias = Object.keys(v.userUtilities).filter((k) => !esModificadorPropio(k));
 	const dePropias = new Map<string, string[]>();
 	for (const [componente, mods] of v.modificadoresPropios) for (const m of mods) dePropias.set(m, [...(dePropias.get(m) ?? []), componente]);
@@ -108,7 +119,7 @@ export function datosDe(v: Vocabulario): Datos {
 	return { validos, candidatos, inequivocos, raices, cadenasPropias: v.cadenasPropias, modificadoresPropios: dePropias, prefijos: v.prefijos, deTailwind, sinEquivalente, escalaAjena };
 }
 
-function soloMarkup(archivo: string, contenido: string): string {
+export function soloMarkup(archivo: string, contenido: string): string {
 	const blanco = (t: string) => t.replace(/[^\n]/g, ' ');
 	let texto = contenido;
 	if (/\.astro$/i.test(archivo)) texto = texto.replace(/^---\r?\n[\s\S]*?\r?\n---/, blanco);
@@ -185,9 +196,10 @@ export function avisosDeArchivo(f: ContentFile, datos: Datos, vecinos: Map<strin
 				avisos.push({ file: f.file, ...posicion(pos), rule: 'unknown-class', severity: 'error', code: 'renamed-class', params: { class: token, suggestion: sucesor }, suggestion: sucesor });
 				continue;
 			}
-			const enFamilia = /\d/.test(base) && datos.raices.some((r) => base.startsWith(r));
+			const palabraDeEscala = datos.raices.some((r) => base.startsWith(r) && RAIZ_DE_ESCALA.test(r) && /^[a-z]+$/.test(base.slice(r.length)));
+			const enFamilia = palabraDeEscala || (/\d/.test(base) && datos.raices.some((r) => base.startsWith(r)));
 			const cercano = base.length >= LARGO_MINIMO_VECINO && !esModificador(base) ? (vecinos.has(base) ? vecinos.get(base) : vecinos.set(base, vecino(base, datos.candidatos)).get(base)) : undefined;
-			const deTailwind = datos.deTailwind().get(base);
+			const deTailwind = datos.deTailwind().get(base) ?? equivocacionConocida(base, datos);
 			const prefijoDelDS = base.includes('-') && [...datos.validos].some((n) => n.startsWith(`${base}-`));
 			if (!enFamilia && !cercano && !deTailwind && !prefijoDelDS && !esModificador(base)) {
 				const motivo = datos.sinEquivalente(base);
@@ -195,7 +207,7 @@ export function avisosDeArchivo(f: ContentFile, datos: Datos, vecinos: Map<strin
 				continue;
 			}
 			const sugerida = (cercano ?? deTailwind) && `${variante}${cercano ?? deTailwind}`;
-			avisos.push({ file: f.file, ...posicion(pos), rule: 'unknown-class', severity: 'error', code: 'unknown-class', params: { class: token, ...(sugerida && { suggestion: sugerida }) }, ...(sugerida && { suggestion: sugerida }) });
+			avisos.push({ file: f.file, ...posicion(pos), rule: 'unknown-class', severity: palabraDeEscala && !cercano && !deTailwind && !prefijoDelDS && !esModificador(base) ? 'warning' : 'error', code: 'unknown-class', params: { class: token, ...(sugerida && { suggestion: sugerida }) }, ...(sugerida && { suggestion: sugerida }) });
 		}
 	}
 	for (const m of texto.matchAll(/(?<=\s)([A-Za-z_:@[][^\s=<>"'{}]*)\s*=\s*(["'])([^"'{}$]*)\2/g)) {

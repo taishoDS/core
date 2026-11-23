@@ -120,8 +120,8 @@ function binInstalado(tmp: string): void {
 	const uso = salir([bin, 'generate', '--no-existe']);
 	if (uso.status !== 2) throw new Error(`un flag que no existe tiene que salir con 2 (salió con ${uso.status})`);
 	const nodeViejo = salir(['-r', viejo, bin, '--lang', 'es']);
-	if (nodeViejo.status !== 1 || !nodeViejo.stderr.includes('hace falta Node 22.18 o superior')) {
-		throw new Error(`con Node < 22.18 el bin tiene que avisar «hace falta Node 22.18 o superior» y salir con 1 (salió con ${nodeViejo.status}): ${nodeViejo.stderr}`);
+	if (nodeViejo.status !== 1 || !nodeViejo.stderr.includes('hace falta Node 26 o superior')) {
+		throw new Error(`con Node < 26 el bin tiene que avisar «hace falta Node 26 o superior» y salir con 1 (salió con ${nodeViejo.status}): ${nodeViejo.stderr}`);
 	}
 	console.log('   bin: ayuda 0, uso 2, Node viejo con mensaje claro');
 }

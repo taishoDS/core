@@ -102,7 +102,7 @@ export function vecino(clase: string, candidatos: Iterable<string>): string | un
 const CLAVES_DE_TEMA = [
     'colors', 'primary', 'states', 'fonts', 'radius', 'borderWidths', 'blurs', 'zIndex', 'opacities', 'screens', 'components',
     'cornerShape', 'focusRing', 'contrastThreshold', 'spotlight', 'spacing', 'shadows', 'motion', 'semantic', 'neutral', 'material', 'locked',
-    'fontSizes', 'lineHeights', 'letterSpacing', 'fontWeights', 'density',
+    'fontSizes', 'lineHeights', 'letterSpacing', 'fontWeights', 'density', 'seedFit',
 ];
 const EXTEND_POR_CLAVE: Record<string, string> = { sizing: 'extend.sizing' };
 
@@ -169,7 +169,7 @@ interface EscalaDeTema {
     tipo?: keyof typeof TIPOS_DE_VALOR;
 }
 
-function validarTema(tema: string, def: ThemeDef, escalas: EscalaDeTema[], intentar: (fn: () => void) => void): void {
+function validarTema(tema: string, def: ThemeDef, escalas: EscalaDeTema[], estadosDeFabrica: string[], intentar: (fn: () => void) => void): void {
     const raiz = `themes.${tema}`;
     for (const clave of Object.keys(def)) {
         intentar(() => {
@@ -181,6 +181,17 @@ function validarTema(tema: string, def: ThemeDef, escalas: EscalaDeTema[], inten
     }
     if (def.cornerShape !== undefined && def.cornerShape !== 'round' && def.cornerShape !== 'squircle') {
         intentar(() => { throw fallo(`${raiz}.cornerShape`, { code: 'corner-shape-invalid', params: { value: def.cornerShape } }); });
+    }
+    const familias = [...Object.keys(def.colors ?? {}), ...estadosDeFabrica, ...Object.keys(def.states ?? {}), ...(def.primary === undefined ? [] : ['primary'])];
+    if (esObjeto(def.seedFit)) {
+        for (const [clave, valor] of Object.entries(def.seedFit)) {
+            intentar(() => {
+                if (!familias.includes(clave)) { const suggestion = vecino(clave, familias); throw fallo(`${raiz}.seedFit.${clave}`, { code: 'seed-fit-key-unknown', params: { key: clave, families: [...new Set(familias)], ...(suggestion && { suggestion }) } }); }
+                if (valor !== 'shift' && valor !== 'keep') throw fallo(`${raiz}.seedFit.${clave}`, { code: 'seed-fit-value-invalid', params: { value: valor } });
+            });
+        }
+    } else if (def.seedFit !== undefined) {
+        intentar(() => { throw fallo(`${raiz}.seedFit`, { code: 'seed-fit-value-invalid', params: { value: def.seedFit } }); });
     }
     for (const [clave, validas] of [['spacing', ['gaps', 'spaces']], ['motion', ['durations', 'loops', 'iterations', 'easings']], ['density', ['comfortable', 'compact']]] as const) {
         for (const sub of Object.keys(def[clave] ?? {})) {
@@ -241,9 +252,15 @@ function validarTema(tema: string, def: ThemeDef, escalas: EscalaDeTema[], inten
             }
         }
     }
+    for (const clave of Object.keys(def.neutral?.fixed ?? {})) {
+        if (clave !== 'white' && clave !== 'black') {
+            intentar(() => { throw fallo(`${raiz}.neutral.fixed.${clave}`, { code: 'theme-name-unknown', params: { scale: 'neutral.fixed', name: clave } }); });
+        }
+    }
     const sueltos: [string, unknown][] = [
         ...Object.entries(def.fonts ?? {}).map(([k, v]): [string, unknown] => [`fonts.${k}`, v]),
         ...Object.entries(def.semantic ?? {}).map(([k, v]): [string, unknown] => [`semantic.${k}`, v]),
+        ['neutral.fixed.white', def.neutral?.fixed?.white], ['neutral.fixed.black', def.neutral?.fixed?.black],
         ['focusRing', def.focusRing], ['contrastThreshold', def.contrastThreshold],
         ['spotlight.light', def.spotlight?.light], ['spotlight.dark', def.spotlight?.dark],
         ...(['light', 'dark'] as const).flatMap((modo) => (['bg', 'border', 'shadowRgb'] as const).map((k): [string, unknown] => [`material.${modo}.${k}`, def.material?.[modo]?.[k]])),
@@ -295,6 +312,11 @@ export function resolveExtend(
                 throw fallo(`themes.${tema}.colors.primary`, { code: 'primary-in-colors', params: {} });
             }
         });
+        for (const k of ['white', 'black']) {
+            intentar(() => {
+                if (Object.hasOwn(def.colors ?? {}, k)) throw fallo(`themes.${tema}.colors.${k}`, { code: 'fixed-in-colors', params: { name: k } });
+            });
+        }
         intentar(() => {
             const primary: unknown = semillaPrimaria(def);
             if (primary !== undefined && (typeof primary !== 'string' || primary.trim() === '')) {
@@ -492,7 +514,7 @@ export function resolveExtend(
         { ruta: 'motion.iterations', de: (d) => d.motion?.iterations, nombres: nombresDe(iterations), tipo: 'iterations' },
         { ruta: 'motion.easings', de: (d) => d.motion?.easings, nombres: nombresDe(easings, extend.motion?.easings), extendRuta: 'extend.motion.easings' },
     ];
-    for (const [tema, def] of Object.entries(config.themes)) validarTema(tema, def, escalasDeTema, intentar);
+    for (const [tema, def] of Object.entries(config.themes)) validarTema(tema, def, escalasDeTema, Object.keys(userStates), intentar);
 
     const claves = Object.keys(utilidades);
     const esClaveModificador = (k: string) => k.includes('.');

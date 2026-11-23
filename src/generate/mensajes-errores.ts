@@ -61,6 +61,7 @@ const es: Catalogo<ConfigErrorParams> = {
 	'font-styles-invalid': (p) => `tiene un valor inválido (${JSON.stringify(p.value)}): tiene que ser una lista con 'normal' y/o 'italic', p. ej. styles: ['normal', 'italic'].`,
 	'primary-invalid': () => "tiene un valor inválido: tiene que ser un color (hex u oklch), p. ej. primary: 'oklch(0.15 0 0)'. Si no hace falta un primario aparte, se quita la clave: los botones primarios usan la marca.",
 	'primary-in-colors': () => '`primary` no es un color de paleta: va en `themes.<tema>.primary`, junto a `colors`, no adentro.',
+	'fixed-in-colors': (p) => `\`${p.name}\` no es un color de paleta: el blanco y el negro fijos van en \`themes.<tema>.neutral.fixed.${p.name}\`, no en \`colors\`.`,
 	'screen-exists': (p) =>
 		`ya existe en el DS. El corte de un screen de fábrica (los @media) es fijo; themes.<tema>.screens.${p.name} sólo cambia el token --ts-screen-${p.name} y ts-max-w-screen-${p.name}.`,
 	'screen-name-invalid': () => 'es un nombre inválido: tiene que ser xs (o 2xs…9xs) o 2xl…9xl.',
@@ -81,6 +82,8 @@ const es: Catalogo<ConfigErrorParams> = {
 	'theme-name-unknown': (p) =>
 		`no es un nombre de la escala ${p.scale}: un tema sólo cambia el valor de un nombre que ya existe.${p.extendPath ? ` Para sumarlo se usa ${p.extendPath}.${p.name}.` : ' Esa escala no se puede ampliar.'}`,
 	'corner-shape-invalid': (p) => `tiene un valor inválido (${JSON.stringify(p.value)}): tiene que ser 'round' o 'squircle'.`,
+	'seed-fit-key-unknown': (p) => `"${p.key}" no es una familia de color del tema (${p.families.join(', ')}).${sugerencia(p.suggestion)}`,
+	'seed-fit-value-invalid': (p) => `tiene un valor inválido (${JSON.stringify(p.value)}): tiene que ser 'shift' o 'keep'.`,
 	'value-type-invalid': (p) => `tiene un valor inválido (${JSON.stringify(p.value)}): ${VALOR_ES[p.kind]}`,
 	'sizing-exists': (p) => (p.repeated ? `repite el nivel ${p.level} de la lista.` : `ya existe en el DS. El sizing es fijo: sólo se suman niveles nuevos (un tema no cambia su valor).`),
 	'font-size-needs-line-height': (p) => `necesita un interlineado con el mismo nombre: se suma extend.lineHeights.${p.name}.`,
@@ -202,6 +205,7 @@ const en: Catalogo<ConfigErrorParams> = {
 	'font-styles-invalid': (p) => `has an invalid value (${JSON.stringify(p.value)}): it must be a list with 'normal' and/or 'italic', e.g., styles: ['normal', 'italic'].`,
 	'primary-invalid': () => "has an invalid value. It must be a color (hex or oklch), e.g., primary: 'oklch(0.15 0 0)'. If you don't want a separate primary, remove the key: primary buttons use the brand.",
 	'primary-in-colors': () => '`primary` isn\'t a palette color: it goes in `themes.<theme>.primary`, next to `colors`, not inside it.',
+	'fixed-in-colors': (p) => `\`${p.name}\` isn't a palette color: fixed white and black go in \`themes.<theme>.neutral.fixed.${p.name}\`, not in \`colors\`.`,
 	'screen-exists': (p) =>
 		`already exists in the DS. A built-in screen's breakpoint (the @media) is fixed; themes.<theme>.screens.${p.name} only changes the --ts-screen-${p.name} token and ts-max-w-screen-${p.name}.`,
 	'screen-name-invalid': () => "isn't a valid name. Use xs (or 2xs…9xs) or 2xl…9xl.",
@@ -222,6 +226,8 @@ const en: Catalogo<ConfigErrorParams> = {
 	'theme-name-unknown': (p) =>
 		`isn't a name in the ${p.scale} scale. A theme only changes the value of an existing name.${p.extendPath ? ` To add it use ${p.extendPath}.${p.name}.` : " That scale can't be extended."}`,
 	'corner-shape-invalid': (p) => `has an invalid value (${JSON.stringify(p.value)}). It must be 'round' or 'squircle'.`,
+	'seed-fit-key-unknown': (p) => `"${p.key}" isn't a color family of the theme (${p.families.join(', ')}).${didYouMean(p.suggestion)}`,
+	'seed-fit-value-invalid': (p) => `has an invalid value (${JSON.stringify(p.value)}). It must be 'shift' or 'keep'.`,
 	'value-type-invalid': (p) => `has an invalid value (${JSON.stringify(p.value)}). ${VALOR_EN[p.kind]}`,
 	'sizing-exists': (p) => (p.repeated ? `repeats level ${p.level} of the list.` : `already exists in the DS. The sizing is fixed: you only add new levels (a theme can't change its value).`),
 	'font-size-needs-line-height': (p) => `needs a line height with the same name. Add extend.lineHeights.${p.name}.`,

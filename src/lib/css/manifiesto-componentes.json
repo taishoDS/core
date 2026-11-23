@@ -332,7 +332,8 @@
       "gancho": null,
       "bloques": [
         "number-input",
-        "number-input-field"
+        "number-input-field",
+        "number-input-step"
       ],
       "runtime": []
     },

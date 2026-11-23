@@ -14,9 +14,9 @@ Hay dos formas de tenerlo en tu proyecto. Son el mismo Core y se puede pasar de 
 Es la más corta, no instala nada. La versión va fija en la URL:
 
 ```html
-<link rel="stylesheet" href="https://taisho.design/core/0.16.0/taisho.tokens.css" integrity="sha384-+2WHAtu42BCWEq7KajKLeexi0n+E4UXhDgH4f5iQLZWhC0WJf3DNRH2uBr4FrdIV" crossorigin="anonymous">
-<link rel="stylesheet" href="https://taisho.design/core/0.16.0/taisho.full.css" integrity="sha384-nXkvfhi45iBlfj6WyOwieVBV1uWh8pQaHK9ObB4RPzCC2Rsj7tXlloB4fMGH4l/9" crossorigin="anonymous">
-<script type="module" src="https://taisho.design/core/0.16.0/taisho.core.js" integrity="sha384-AcLAh9bi9NFu/LxLgFXtP6pkTui6MW3eUwTLDBIxFsWjSBwiQqzxo3zTWvBjpnpE" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://taisho.design/core/0.17.0/taisho.tokens.css" integrity="sha384-VMPrJK8fhP6aNSgEn2CP9vxB+K8egd/t1xBN+/OruDS1k+zXuJFa4o5YuvyJzoQg" crossorigin="anonymous">
+<link rel="stylesheet" href="https://taisho.design/core/0.17.0/taisho.full.css" integrity="sha384-gCXB8cDetWCI66AXYnjx4cjDpOTRjzgp56YIFFgo5WsvMKR/v+y0saavwBIMIE/i" crossorigin="anonymous">
+<script type="module" src="https://taisho.design/core/0.17.0/taisho.core.js" integrity="sha384-4utaT8s1WXAiyPZ/iwMgTKRxxPgvYW3QZHXVDQ9U0hm2hCPDOlZ3MzX/KrTGgxkW" crossorigin="anonymous"></script>
 ```
 
 El orden importa: primero el tema, que define las variables; después el CSS del sistema, que las
@@ -26,7 +26,7 @@ mismo elemento: `class="ts button size-md variant-primary"`.
 ## 2. Con este paquete: tu marca en el CSS
 
 Para que el CSS lleve tus colores y fuentes, y sólo las clases que se usan, se instala el paquete y
-se corre el comando `taisho` desde la raíz de tu proyecto (Node 22.18 o más nuevo):
+se corre el comando `taisho` desde la raíz de tu proyecto (Node 26 o más nuevo):
 
 ```bash
 npm i -D @taishods/core
@@ -58,7 +58,7 @@ import '@taishods/core/core';                  // el comportamiento
 
 ## Qué trae
 
-- **CSS completo** — `css/taisho.full.css`, con todos los componentes y utilidades.
+- **CSS completo** — `css/taisho.full.css`, con todos los componentes del Core y las utilidades.
 - **Tema del sistema** — `css/tokens/taisho.css`.
 - **Comportamiento** — `core.js`: acordeones, pestañas, select, combobox, calendario, tabla
   ordenable y paleta de comandos, que se enganchan por atributos `data-ts-*`.

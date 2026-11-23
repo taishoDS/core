@@ -5,6 +5,7 @@ import { avisosEstructuradosDeMarkup } from './avisos-clases';
 import { warningLine } from '../generate-cli/mensajes-avisos';
 import type { TaishoConfig } from './vocabulary';
 
+const severidades = (file: string, content: string) => avisosEstructuradosDeMarkup([{ file, content }], vocabulario).map((a) => `${a.severity}:${a.params && 'class' in a.params ? a.params.class : ''}`);
 const avisosDeMarkup = (archivos: ContentFile[], v: Vocabulario) => [...new Set(avisosEstructuradosDeMarkup(archivos, v).map((a) => warningLine(a, 'es')))];
 
 const config: TaishoConfig = {
@@ -52,6 +53,21 @@ describe('avisosDeMarkup — (A) clase con forma del DS que no existe', () => {
 	});
 	it('las clases del usuario con forma propia siguen sin avisar', () => {
 		expect(avisos('a.html', '<div class="ts container hero-title page news-card lead is-active btn-primary tag-list"></div>')).toEqual([]);
+	});
+	it('un nombre dentro de una familia de escala del DS (col-span-, max-w-, gap-x-…) que no existe avisa sin sugerencia', () => {
+		expect(avisos('a.html', '<div class="ts col-span-huge"></div>')).toEqual(['a.html:1: "col-span-huge" no existe en el DS y no se emite.']);
+		expect(avisos('a.html', '<div class="ts md:max-w-huge gap-x-wide"></div>')).toEqual(['a.html:1: "md:max-w-huge" no existe en el DS y no se emite.', 'a.html:1: "gap-x-wide" no existe en el DS y no se emite.']);
+		expect(severidades('a.html', '<div class="ts max-w-container col-span-hero gap-x-wide col-span-huge"></div>')).toEqual(['warning:max-w-container', 'warning:col-span-hero', 'warning:gap-x-wide', 'warning:col-span-huge']);
+		expect(severidades('a.html', '<div class="ts m-17"></div>')).toEqual(['error:m-17']);
+		expect(severidades('a.html', '<div class="ts max-w-screen max-w-modal"></div>')).toEqual(['error:max-w-screen', 'error:max-w-modal']);
+	});
+	it('un nombre del DS más un sufijo propio no avisa', () => {
+		expect(avisos('a.html', '<div class="ts min-h-screen-propia col-span-full-mobile min-h-screen-mobile grid-cols-auto-fill"></div>')).toEqual([]);
+	});
+	it('`fontsize-N` (el nombre del token) apunta a `text-N`; `slide-3` y un `fontsize-N` sin `text-N` no avisan', () => {
+		expect(avisos('a.html', '<div class="ts fontsize-12 md:fontsize-16"></div>')).toEqual(['a.html:1: "fontsize-12" no existe en el DS y no se emite. ¿Se quiso decir "text-12"?', 'a.html:1: "md:fontsize-16" no existe en el DS y no se emite. ¿Se quiso decir "md:text-16"?']);
+		expect(severidades('a.html', '<div class="ts fontsize-12"></div>')).toEqual(['error:fontsize-12']);
+		expect(avisos('a.html', '<div class="ts slide-3 fontsize-13"></div>')).toEqual([]);
 	});
 	it('un elemento sin `ts` y sin nada inequívoco del DS no avisa nada, ni el typo', () => {
 		expect(avisos('a.html', '<div class="gird-cols-3 mt-3"></div>')).toEqual([]);
@@ -155,7 +171,7 @@ describe('avisosDeMarkup: atributo que no se lee como clases (red de seguridad)'
 describe('avisosDeMarkup: nombres de Tailwind sin equivalente y el importante', () => {
 	const aviso = (content: string) => avisosEstructuradosDeMarkup([{ file: 'a.html', content }], vocabulario);
 
-	it.each(['rotate-45', 'border-dashed', 'mt-auto', 'grayscale', 'bg-gradient-to-r'])('%s avisa con el motivo de la tabla y no se emite', (clase) => {
+	it.each(['rotate-45', 'border-dashed', 'outline-hidden', 'grayscale', 'bg-gradient-to-r'])('%s avisa con el motivo de la tabla y no se emite', (clase) => {
 		const [a] = aviso(`<div class="ts ${clase}"></div>`);
 		expect(a).toMatchObject({ code: 'class-without-equivalent', rule: 'unknown-class', severity: 'warning', params: { class: clase } });
 		expect(warningLine(a, 'es')).toContain(`"${clase}" es un nombre de otro framework sin equivalente en el DS y no se emite: `);
@@ -163,9 +179,9 @@ describe('avisosDeMarkup: nombres de Tailwind sin equivalente y el importante', 
 	});
 
 	it('el motivo sale en el idioma pedido', () => {
-		const [a] = aviso('<div class="ts mt-auto"></div>');
-		expect(warningLine(a, 'es')).toContain('sólo existen `m-auto`');
-		expect(warningLine(a, 'en')).toContain('only `m-auto`');
+		const [a] = aviso('<div class="ts outline-hidden"></div>');
+		expect(warningLine(a, 'es')).toContain('no hay `outline-hidden`');
+		expect(warningLine(a, 'en')).toContain("there's no `outline-hidden`");
 	});
 
 	it('conserva la variante en el nombre y avisa una vez por clase', () => {

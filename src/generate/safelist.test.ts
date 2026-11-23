@@ -57,15 +57,22 @@ describe('componentes enteros', () => {
         for (const b of ['accordion', 'accordion-item']) expect(bloqueDe(css, b)).toBe(true);
         expect(bloqueDe(css, 'toast')).toBe(false);
     });
-    it('entran por `data-ts-<slug>`', () => {
+    it('entran por `data-ts-<slug>` con su bloque principal; un bloque secundario, sólo si se nombra', () => {
         const css = demanda(config, '<div data-ts-avatar>').css;
         expect(bloqueDe(css, 'avatar')).toBe(true);
-        expect(bloqueDe(css, 'avatar-group')).toBe(true);
+        expect(bloqueDe(css, 'avatar-group')).toBe(false);
+        expect(bloqueDe(demanda(config, '<div data-ts-avatar class="ts avatar-group">').css, 'avatar-group')).toBe(true);
     });
     it('entran por `data-ts-<slug>-<parte>`', () => {
         const css = demanda(config, '<button data-ts-accordion-trigger>').css;
         expect(bloqueDe(css, 'accordion')).toBe(true);
-        expect(bloqueDe(css, 'accordion-item')).toBe(true);
+        expect(bloqueDe(css, 'accordion-item')).toBe(false);
+    });
+    it('un bloque secundario entra si una clase armada en runtime puede generarlo', () => {
+        expect(bloqueDe(demanda(config, '<div class="ts avatar"></div><div class={`ts avatar-${x}`}>').css, 'avatar-group')).toBe(true);
+    });
+    it('el safelist por nombre de componente lo sigue trayendo entero', () => {
+        expect(bloqueDe(demanda(config, '', { safelist: ['avatar'] }).css, 'avatar-group')).toBe(true);
     });
     it('gana el slug más largo: data-ts-date-picker-x trae date-picker, no un hipotético `date`', () => {
         const css = demanda(config, '<div data-ts-date-picker-nav>').css;
@@ -163,7 +170,7 @@ describe('safelist: tabla de errores', () => {
 });
 
 describe('cobertura rápida: los 56 catálogos del Core', () => {
-    const DIR = path.join(RAIZ, 'src/routes/_docs/core-html');
+    const DIR = path.join(RAIZ, 'src/core-datos/html');
     const catalogos = fs.readdirSync(DIR).filter((n) => n.endsWith('.html')).sort();
     const completo = compile(config, []).css;
     const vocabulario = nombresCortosDe(completo);

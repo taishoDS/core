@@ -1,5 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { avisosEstructuradosDeMarkup, posicionesDe, type Aviso, type OpcionesDeAvisos } from './avisos-clases';
+import { avisosDeEstructura, type EstructuraDeclarada } from './avisos-estructura';
+import { contratoCore } from '../core-datos/contrato';
 import { derivarVocabulario, type ContentFile } from './compile';
 import { buildTokensCSS, resolveThemeTokens } from './emit-tokens';
 import { vocabularioClasico, type VocabularioClasico } from './migrar-clasico';
@@ -61,13 +63,16 @@ export function avisosDeVars(archivos: Iterable<ContentFile>, validas: ReadonlyS
 	return avisos;
 }
 
+const estructurasDelCore: EstructuraDeclarada[] = Object.entries(contratoCore).flatMap(([component, c]) => (c.estructura ? [{ component, ...c.estructura }] : []));
+
 export function avisosDeCheck(archivos: readonly ContentFile[], config: TaishoConfig, validasExtra: Iterable<string> = [], extensiones: TaishoExtensions = {}, opciones: OpcionesDeAvisos = {}): Aviso[] {
 	const validas = new Set([...varsDelTema(config, extensiones), ...validasExtra]);
 	const todos = [
 		...avisosEstructuradosDeMarkup(archivos, derivarVocabulario(config, deriveThemeVocabulary(config, extensiones), extensiones), opciones),
 		...avisosClasicos(archivos, vocabularioClasico(config, extensiones)),
 		...avisosDeVars(archivos, validas),
+		...avisosDeEstructura(archivos, estructurasDelCore),
 	];
-	const unicos = new Map(todos.map((a) => [`${a.file}\0${a.line}\0${a.column}\0${a.rule}`, a]));
+	const unicos = new Map(todos.map((a) => [`${a.file}\0${a.line}\0${a.column}\0${a.rule}${a.code === 'missing-part' ? a.params.attribute : ''}`, a]));
 	return [...unicos.values()].sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line || a.column - b.column || (a.rule < b.rule ? -1 : a.rule > b.rule ? 1 : 0)));
 }

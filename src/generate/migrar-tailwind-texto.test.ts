@@ -233,8 +233,8 @@ describe('migrarTailwind: @theme del usuario (H10)', () => {
 });
 
 describe('prepararTailwind: el mapa con la config del usuario', () => {
-    it('con la config del repo es idéntico a src/routes/_docs/tailwind-map.json', () => {
-        const json = JSON.parse(fs.readFileSync('src/routes/_docs/tailwind-map.json', 'utf8'));
+    it('con la config del repo es idéntico a src/core-datos/tailwind-map.json', () => {
+        const json = JSON.parse(fs.readFileSync('src/core-datos/tailwind-map.json', 'utf8'));
         expect(JSON.parse(JSON.stringify(ctx.mapa))).toEqual(json);
     });
 

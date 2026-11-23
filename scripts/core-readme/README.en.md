@@ -26,7 +26,7 @@ the JS last, which initializes itself. Classes go on the same element as the `ts
 ## 2. With the package and CLI: your brand in the CSS
 
 To get your colors and fonts into the CSS, and only the classes you use, install the package and run the `taisho`
-command from your project root (Node 22.18 or later):
+command from your project root (Node 26 or later):
 
 ```bash
 npm i -D @taishods/core
@@ -58,7 +58,7 @@ import '@taishods/core/core';                  // the behavior
 
 ## What's included
 
-- **Full CSS** — `css/taisho.full.css`, with every component and utility.
+- **Full CSS** — `css/taisho.full.css`, with every Core component and utility.
 - **System theme** — `css/tokens/taisho.css`.
 - **Behavior** — `core.js`: accordions, tabs, select, combobox, calendar, sortable table, and command palette,
   wired up through `data-ts-*` attributes.

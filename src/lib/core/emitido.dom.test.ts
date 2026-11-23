@@ -1,5 +1,5 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
-import { describe, it, expect, beforeAll, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { axe } from 'vitest-axe';
@@ -7,17 +7,14 @@ import { getAllByRole, getByRole } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { init, toast, updateToast, clearToasts, setButtonLoading, setComboboxLoading, setSelectLoading } from './index';
 
-const SALIDA = path.resolve(__dirname, '../../../dist-html');
+const CATALOGO = path.resolve(__dirname, '../../core-datos/html');
 
 function cuerpoDe(nombre: string): string {
-	const archivo = path.join(SALIDA, `${nombre}.html`);
+	const archivo = path.join(CATALOGO, `${nombre}.html`);
 	if (!fs.existsSync(archivo)) {
-		throw new Error(
-			`Falta ${archivo}. Corré \`npm run emit:html\` antes de este test: verifica el artefacto emitido, no un render en memoria.`,
-		);
+		throw new Error(`Falta ${archivo}: el catálogo HTML del Core no trae «${nombre}».`);
 	}
-	const html = fs.readFileSync(archivo, 'utf8');
-	return /<main[^>]*>([\s\S]*?)<\/main>/.exec(html)?.[1] ?? '';
+	return fs.readFileSync(archivo, 'utf8');
 }
 
 function montar(nombre: string): void {
@@ -29,12 +26,6 @@ const q = <T extends HTMLElement>(sel: string) => document.querySelector<T>(sel)
 const tecla = (el: Element, key: string) =>
 	el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true }));
 const qq = <T extends HTMLElement = HTMLElement>(sel: string) => [...document.querySelectorAll<T>(sel)];
-
-beforeAll(() => {
-	if (!fs.existsSync(SALIDA)) {
-		throw new Error('No existe dist-html/. Corré `npm run emit:html`.');
-	}
-});
 
 beforeEach(() => {
 	document.body.innerHTML = '';
@@ -115,8 +106,8 @@ describe('Banner emitido', () => {
 describe('SVG emitido', () => {
 	it('ningún atributo de presentación lleva var() (inválido en SVG y marcado por Safari)', () => {
 		const conVar: string[] = [];
-		for (const archivo of fs.readdirSync(SALIDA).filter((f) => f.endsWith('.html'))) {
-			const html = fs.readFileSync(path.join(SALIDA, archivo), 'utf8');
+		for (const archivo of fs.readdirSync(CATALOGO).filter((f) => f.endsWith('.html'))) {
+			const html = fs.readFileSync(path.join(CATALOGO, archivo), 'utf8');
 			for (const svg of html.match(/<svg\b[^>]*>/g) ?? []) {
 				if (/\s[a-z-]+="[^"]*var\(/.test(svg)) conVar.push(`${archivo}: ${svg.slice(0, 90)}`);
 			}
@@ -364,16 +355,12 @@ describe('Combobox emitido: density, prefix, grupos y carga', () => {
 
 describe('Catálogo emitido: ids únicos por página', () => {
 	const slugs = fs
-		.readdirSync(SALIDA)
-		.filter((f) => f.endsWith('.html') && !f.endsWith('.variants.html'))
+		.readdirSync(CATALOGO)
+		.filter((f) => f.endsWith('.html'))
 		.map((f) => f.replace('.html', ''));
 
-	it.each(slugs)('%s: ni ids repetidos entre showcase y variantes', (slug) => {
-		const leer = (f: string) => {
-			const ruta = path.join(SALIDA, f);
-			return fs.existsSync(ruta) ? fs.readFileSync(ruta, 'utf8') : '';
-		};
-		const html = leer(`${slug}.html`) + leer(`${slug}.variants.html`);
+	it.each(slugs)('%s: sin ids repetidos', (slug) => {
+		const html = cuerpoDe(slug);
 		const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
 		expect(ids.filter((v, i) => ids.indexOf(v) !== i)).toEqual([]);
 	});
@@ -707,20 +694,6 @@ describe('Opción activa por teclado emitida', () => {
 });
 
 describe('Button emitido', () => {
-	it('el ejemplo cargando: aria-busy y aria-disabled, spinner decorativo y «Cargando» en el nombre calculado', () => {
-		document.documentElement.lang = 'es';
-		montar('button.variants');
-		const cargando = q('.button.is-loading');
-		expect(cargando.tagName).toBe('BUTTON');
-		expect(cargando.getAttribute('aria-busy')).toBe('true');
-		expect(cargando.getAttribute('aria-disabled')).toBe('true');
-		expect(cargando.hasAttribute('disabled')).toBe(false);
-		expect(cargando.querySelector('.spinner')?.getAttribute('aria-hidden')).toBe('true');
-		expect(cargando.querySelector('[role="status"]')).toBeNull();
-		expect(getAllByRole(document.body, 'button', { name: 'Cargando Guardar' })).toEqual([cargando]);
-		document.documentElement.lang = '';
-	});
-
 	it('ningún botón del catálogo lleva role="button" ni un status dentro de aria-hidden', () => {
 		montar('button');
 		expect(qq('.button[role]')).toHaveLength(0);
@@ -1683,7 +1656,7 @@ describe('Combobox y CommandPalette emitidos: textos y comportamiento', () => {
 		montar('command-palette');
 		expect(q('[data-ts-listbox-input]').getAttribute('placeholder')).toBe('Buscar comandos...');
 		expect(q('[data-ts-listbox-empty]').getAttribute('data-ts-empty-for')).toBe('Sin resultados para "{q}"');
-		expect(q('[data-ts-listbox-empty]').textContent).toBe('No hay comandos disponibles');
+		expect(q('[data-ts-listbox-empty]').textContent?.trim()).toBe('No hay comandos disponibles');
 	});
 
 	it('Combobox: la opción rica del fixture lleva ícono aria-hidden y descripción por aria-describedby', () => {

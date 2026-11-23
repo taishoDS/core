@@ -1,6 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { m, cargador } from './registro';
 import { alEnfocarRequerido, cursorAlFinal } from './dom';
+import { esDesarrolloLocal } from './desarrollo-local';
 
 const inicializadas = new WeakSet<EventTarget>();
 let escapeGlobal = false;
@@ -27,20 +28,35 @@ function prepararDeRespaldo(root: Document | HTMLElement): void {
     if (m.toast) for (const el of root.querySelectorAll<HTMLElement>(m.toast.CONTENEDOR)) m.toast.preparar(el);
 }
 
+/** Las raíces que `refrescar` dibuja. Las de los módulos que todavía no cargaron no están: su carga vuelve a llamar a `iniciar`. */
+function raicesADibujar(): string {
+    const fijas = '[data-ts-pagination], [data-ts-number], [data-ts-date-picker], [data-ts-slider], [data-ts-sidebar], [data-ts-table], [data-ts-checkbox-group], [data-ts-tabs], [data-ts-accordion], [data-ts-menu], [data-ts-listbox], [data-ts-tooltip-root], [data-ts-scrollspy], [data-ts-clear], [data-ts-avatar]';
+    return [fijas, m.progress?.RELLENO, m.medidas?.MEDIDAS, m.toast?.CONTENEDOR].filter(Boolean).join(', ');
+}
+
+/** Las raíces ya dibujadas: un nodo nuevo que no trae ninguna otra es del propio Core (un día del calendario, una página). */
+const dibujadas = new WeakSet<Element>();
+
+function raicesEn(nodo: Document | Element, selector: string): Element[] {
+    return [...(nodo instanceof Element && nodo.matches(selector) ? [nodo] : []), ...nodo.querySelectorAll(selector)];
+}
+
 function refrescar(root: Document | HTMLElement): void {
+    for (const r of raicesEn(root, raicesADibujar())) dibujadas.add(r);
     prepararDeRespaldo(root);
     sincronizarEnvios(root);
     for (const nav of root.querySelectorAll<HTMLElement>('[data-ts-pagination]')) {
         m.pagination?.pintar(nav);
-    }
-    for (const n of root.querySelectorAll<HTMLElement>('[data-ts-number]')) {
-        m.numberInput?.sincronizarBotones(n);
     }
     m.datePicker?.fijarAnchos(root);
     for (const d of root.querySelectorAll<HTMLElement>('[data-ts-date-picker]')) {
         m.datePicker?.recordar(d);
         if (m.datePicker?.visible(d)) m.datePicker?.pintar(d);
         m.datePicker?.sincronizarLimpiar(d);
+    }
+    // Después del DatePicker: su hora deshabilita los campos numéricos que trae adentro, y los botones lo siguen.
+    for (const n of root.querySelectorAll<HTMLElement>('[data-ts-number]')) {
+        m.numberInput?.sincronizarBotones(n);
     }
     for (const sl of root.querySelectorAll<HTMLElement>('[data-ts-slider]')) {
         m.slider?.pintar(sl);
@@ -57,7 +73,7 @@ function refrescar(root: Document | HTMLElement): void {
     for (const g of root.querySelectorAll<HTMLElement>('[data-ts-checkbox-group]')) m.opcion?.sincronizarGrupo(g);
     m.clear?.sincronizar(root);
     m.alertDialog?.sincronizarTodos(root);
-    m.invokers?.revisarNombres(root);
+    if (typeof location !== 'undefined' && esDesarrolloLocal(location)) import('./pesados/key-warning').then((k) => k.revisarNombres(root), () => {});
     m.avatar?.revisarRotas(root);
     cursorAlFinal(root);
     m.overlays?.apagarPopoversCerrados(root);
@@ -237,6 +253,7 @@ export function iniciar(root: Document | HTMLElement = document): void {
     }
 
     root.addEventListener('click', (e) => m.button?.alClickInactivo(e), true);
+    root.addEventListener('click', (e) => { if ((e.target as Element | null)?.closest) m.invokers?.alPresionarDisparador(e.target as Element); }, true);
     root.addEventListener('click', alClick);
     root.addEventListener('keydown', alTeclado as EventListener);
     root.addEventListener('pointermove', alPuntero as EventListener);
@@ -269,6 +286,7 @@ export function iniciar(root: Document | HTMLElement = document): void {
     root.addEventListener('toggle', (e) => m.overlays?.alAlternarPopover(e), true);
     root.addEventListener('cancel', (e) => m.invokers?.alCancelar(e), true);
     root.addEventListener('close', (e) => m.alertDialog?.alCerrar(e.target as Element), true);
+    root.addEventListener('close', (e) => m.invokers?.alCerrarDialogo(e.target as Element), true);
     root.addEventListener('beforetoggle', (e) => m.overlays?.alAntesDeAlternarPopover(e), true);
     root.addEventListener('focusin', alEnfocarNumero);
     root.addEventListener('focusout', alEnfocarNumero);
@@ -277,6 +295,15 @@ export function iniciar(root: Document | HTMLElement = document): void {
         new MutationObserver((cambios) => {
             sincronizarEnvios(root);
             for (const c of cambios) m.datePicker?.redibujar(c.target as Element);
+            // Un campo numérico deshabilitado por código (la hora del DatePicker sin día, o el código de la página) arrastra sus botones.
+            const numeros = new Set<HTMLElement>();
+            for (const c of cambios) {
+                const t = c.target as Element;
+                if (!t.matches?.('[data-ts-number-field]')) continue; // los botones cambian su propio disabled al sincronizar
+                const raiz = t.closest<HTMLElement>('[data-ts-number]');
+                if (raiz) numeros.add(raiz);
+            }
+            for (const n of numeros) m.numberInput?.sincronizarBotones(n);
         }).observe(root, {
             subtree: true,
             attributes: true,
@@ -314,10 +341,20 @@ export function iniciar(root: Document | HTMLElement = document): void {
     }
 
     if (typeof MutationObserver !== 'undefined') {
+        // Lo que llega después de cargar (un framework que monta, un fetch) se dibuja como lo que estaba al cargar. Sólo se
+        // redibuja el padre de un nodo que trae una raíz nueva: los nodos que agrega el propio Core al dibujar no traen ninguna.
         new MutationObserver((cambios) => {
+            const selector = raicesADibujar();
             const padres = new Set<HTMLElement>();
-            for (const c of cambios) for (const n of c.addedNodes) if (n.nodeType === 1 && n.parentElement) padres.add(n.parentElement);
-            for (const p of padres) prepararDeRespaldo(p);
+            const conNuevas = new Set<HTMLElement>();
+            for (const c of cambios) {
+                for (const n of c.addedNodes) {
+                    if (n.nodeType !== 1 || !n.parentElement) continue;
+                    padres.add(n.parentElement);
+                    if (raicesEn(n as Element, selector).some((r) => !dibujadas.has(r))) conNuevas.add(n.parentElement);
+                }
+            }
+            for (const p of padres) (conNuevas.has(p) ? refrescar : prepararDeRespaldo)(p);
         }).observe(root, { childList: true, subtree: true });
     }
 

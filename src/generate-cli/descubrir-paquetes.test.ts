@@ -66,6 +66,21 @@ describe('verificarCore', () => {
 	it('no corta si coincide', () => {
 		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.11.0', core: '0.11.0' }, '0.11.0')).not.toThrow();
 	});
+	it('acepta un rango que el Core instalado cumple', () => {
+		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.2.0', core: '>=0.17.0 <0.19.0' }, '0.18.1')).not.toThrow();
+		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.2.0', core: '^0.17.0' }, '0.17.4')).not.toThrow();
+	});
+	it('corta con el rango en el texto si el Core instalado no lo cumple', () => {
+		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.2.0', core: '^0.17.0' }, '0.18.0')).toThrow(
+			'@acme/ui 0.2.0 necesita @taishods/core ^0.17.0; está instalado 0.18.0',
+		);
+		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.2.0', core: '^0.17.0' }, '0.17.0-rc.1')).toThrow(/necesita/);
+	});
+	it('corta distinto si el rango está mal escrito', () => {
+		expect(() => verificarCore({ nombre: '@acme/ui', version: '0.2.0', core: '^0.17' }, '0.17.0')).toThrow(
+			/declara "\^0\.17" como versión de @taishods\/core: no es una versión ni un rango que el Core entienda/,
+		);
+	});
 });
 
 describe('archivosElegidos', () => {
@@ -133,19 +148,19 @@ describe('descubrirPaquetes: manifiesto format 3 y extension', () => {
 		expect(configErrorLine(e, 'en')).toBe('taisho config: extensions["@acme/ui"] ships a taisho.manifest.json in format 1 (version 0.11.0), and this Core only reads format 3. Update the package.');
 	});
 	it('format 3 con extension: arma las extensiones por nombre de paquete; sin estilos, el paquete no aporta CSS', () => {
-		const con = descubrirPaquetes(proyecto({ manifiesto: { format: 3, core: '1', componentFiles: {}, extension: acme } }), '1');
+		const con = descubrirPaquetes(proyecto({ manifiesto: { format: 3, core: '1.0.0', componentFiles: {}, extension: acme } }), '1.0.0');
 		expect(Object.keys(extensionesDe(con))).toEqual(['@acme/ui']);
 		expect(extensionesDe(con)['@acme/ui'].components!['acme-card'].roots).toEqual(['acme-card', 'acme-tile']);
 		expect(extensionesDe(con)['@acme/ui'].roots).toEqual(['acme-glow']);
-		const sin = descubrirPaquetes(proyecto({ core: '1' }), '1');
+		const sin = descubrirPaquetes(proyecto({ core: '1.0.0' }), '1.0.0');
 		expect(sin).toHaveLength(1);
 		expect(extensionesDe(sin)).toEqual({});
 	});
 	it('un __proto__ o constructor del manifiesto es un dato más: no toca prototipos', () => {
-		const crudo = '{"format":3,"core":"1","componentFiles":{"__proto__":["a.svelte"],"constructor":["b.svelte"]},"extension":{"components":{"__proto__":{"roots":["x"],"css":""}}}}';
+		const crudo = '{"format":3,"core":"1.0.0","componentFiles":{"__proto__":["a.svelte"],"constructor":["b.svelte"]},"extension":{"components":{"__proto__":{"roots":["x"],"css":""}}}}';
 		const dir = proyecto({ manifiesto: {} });
 		fs.writeFileSync(path.join(dir, 'node_modules/@acme/ui/dist/taisho.manifest.json'), crudo);
-		const [p] = descubrirPaquetes(dir, '1');
+		const [p] = descubrirPaquetes(dir, '1.0.0');
 		expect(Object.getPrototypeOf(p.componentes)).toBeNull();
 		expect(Object.hasOwn(p.componentes, '__proto__')).toBe(true);
 		expect(Object.getPrototypeOf(p.estilos!.components!)).toBeNull();
@@ -153,13 +168,13 @@ describe('descubrirPaquetes: manifiesto format 3 y extension', () => {
 		expect(Object.getPrototypeOf(extensionesDe([p]))).toBeNull();
 	});
 	it('forma inválida: error de forma, no un TypeError', () => {
-		for (const manifiesto of [null, [], 'x', { format: 3, core: 1, componentFiles: {} }, { format: 3, core: '1', componentFiles: null }, { format: 3, core: '1', componentFiles: { A: 'a' } }, { format: 3, core: '1', componentFiles: {}, extension: 'x' }, { format: 3, core: '1', componentFiles: {}, extension: { roots: 'acme-glow' } }, { format: 3, core: '1', componentFiles: {}, extension: { roots: ['a', 1] } }]) {
-			expect(codigo(() => descubrirPaquetes(proyecto({ manifiesto }), '1'))).toBe('manifest-shape');
+		for (const manifiesto of [null, [], 'x', { format: 3, core: 1, componentFiles: {} }, { format: 3, core: '1.0.0', componentFiles: null }, { format: 3, core: '1.0.0', componentFiles: { A: 'a' } }, { format: 3, core: '1.0.0', componentFiles: {}, extension: 'x' }, { format: 3, core: '1.0.0', componentFiles: {}, extension: { roots: 'acme-glow' } }, { format: 3, core: '1.0.0', componentFiles: {}, extension: { roots: ['a', 1] } }]) {
+			expect(codigo(() => descubrirPaquetes(proyecto({ manifiesto }), '1.0.0'))).toBe('manifest-shape');
 		}
 	});
 	it('roots sueltas del manifiesto: se copian sin prototipo', () => {
-		const dir = proyecto({ manifiesto: { format: 3, core: '1', componentFiles: {}, extension: { roots: ['acme-glow'] } } });
-		const [p] = descubrirPaquetes(dir, '1');
+		const dir = proyecto({ manifiesto: { format: 3, core: '1.0.0', componentFiles: {}, extension: { roots: ['acme-glow'] } } });
+		const [p] = descubrirPaquetes(dir, '1.0.0');
 		expect(p.estilos!.roots).toEqual(['acme-glow']);
 		expect(Object.getPrototypeOf(p.estilos)).toBeNull();
 	});
@@ -168,17 +183,17 @@ describe('descubrirPaquetes: manifiesto format 3 y extension', () => {
 		fs.writeFileSync(path.join(dir, 'node_modules/@acme/ui/dist/taisho.manifest.json'), 'API_KEY=hunter2 {');
 		let error: unknown;
 		try {
-			descubrirPaquetes(dir, '1');
+			descubrirPaquetes(dir, '1.0.0');
 		} catch (e) {
 			error = e;
 		}
-		expect(codigo(() => descubrirPaquetes(dir, '1'))).toBe('manifest-json');
+		expect(codigo(() => descubrirPaquetes(dir, '1.0.0'))).toBe('manifest-json');
 		expect(mensajeEs(error)).toBe('taisho config: extensions["@acme/ui"] tiene un JSON inválido en "./dist/taisho.manifest.json".');
 		expect(mensajeEs(error)).not.toContain('hunter2');
 	});
 	it('identidad: una dependencia instalada como alias de otro paquete es un error', () => {
-		const dir = proyecto({ core: '1', nombre: 'evil' });
-		expect(codigo(() => descubrirPaquetes(dir, '1'))).toBe('package-name-mismatch');
+		const dir = proyecto({ core: '1.0.0', nombre: 'evil' });
+		expect(codigo(() => descubrirPaquetes(dir, '1.0.0'))).toBe('package-name-mismatch');
 	});
 });
 
@@ -188,55 +203,55 @@ describe('descubrirPaquetes: contención de rutas', () => {
 		fs.writeFileSync(path.join(dir, 'outside/secreto.txt'), 'API_KEY=hunter2 ts-flex\n');
 	};
 	it('`exports` que apunta afuera del paquete: manifest-path-escapes', () => {
-		const dir = proyecto({ salida: '../../../outside/x.json', manifiesto: { format: 3, core: '1', componentFiles: {} } });
+		const dir = proyecto({ salida: '../../../outside/x.json', manifiesto: { format: 3, core: '1.0.0', componentFiles: {} } });
 		fs.mkdirSync(path.join(dir, 'outside'));
-		fs.writeFileSync(path.join(dir, 'outside/x.json'), '{"format":3,"core":"1","componentFiles":{}}');
-		expect(codigo(() => descubrirPaquetes(dir, '1'))).toBe('manifest-path-escapes');
+		fs.writeFileSync(path.join(dir, 'outside/x.json'), '{"format":3,"core":"1.0.0","componentFiles":{}}');
+		expect(codigo(() => descubrirPaquetes(dir, '1.0.0'))).toBe('manifest-path-escapes');
 	});
 	it('un symlink del manifiesto que sale del paquete: manifest-path-escapes', () => {
 		const dir = proyecto({ manifiesto: {} });
-		fs.writeFileSync(path.join(dir, 'fuera.json'), '{"format":3,"core":"1","componentFiles":{}}');
+		fs.writeFileSync(path.join(dir, 'fuera.json'), '{"format":3,"core":"1.0.0","componentFiles":{}}');
 		const man = path.join(dir, 'node_modules/@acme/ui/dist/taisho.manifest.json');
 		fs.rmSync(man);
 		fs.symlinkSync(path.join(dir, 'fuera.json'), man);
-		expect(codigo(() => descubrirPaquetes(dir, '1'))).toBe('manifest-path-escapes');
+		expect(codigo(() => descubrirPaquetes(dir, '1.0.0'))).toBe('manifest-path-escapes');
 	});
 	it('`componentes` con `../` o ruta absoluta: no lee el archivo ajeno', () => {
-		const dir = proyecto({ manifiesto: { format: 3, core: '1', componentFiles: { Evil: ['../../../../../outside/secreto.txt'] } } });
+		const dir = proyecto({ manifiesto: { format: 3, core: '1.0.0', componentFiles: { Evil: ['../../../../../outside/secreto.txt'] } } });
 		secreto(dir);
 		const propios = [{ file: 'a.svelte', content: '<Evil/>' }];
 		let error: unknown;
 		try {
-			archivosDePaquetes({ cwd: dir, configDir: dir, propios, versionCore: '1' });
+			archivosDePaquetes({ cwd: dir, configDir: dir, propios, versionCore: '1.0.0' });
 		} catch (e) {
 			error = e;
 		}
 		expect((error as ConfigError).errors[0].code).toBe('manifest-path-escapes');
 		expect(mensajeEs(error)).not.toContain('hunter2');
 		const abs = path.join(dir, 'outside/secreto.txt');
-		fs.writeFileSync(path.join(dir, 'node_modules/@acme/ui/dist/taisho.manifest.json'), JSON.stringify({ format: 3, core: '1', componentFiles: { Evil: [abs] } }));
-		expect(codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios, versionCore: '1' }))).toBe('manifest-path-escapes');
+		fs.writeFileSync(path.join(dir, 'node_modules/@acme/ui/dist/taisho.manifest.json'), JSON.stringify({ format: 3, core: '1.0.0', componentFiles: { Evil: [abs] } }));
+		expect(codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios, versionCore: '1.0.0' }))).toBe('manifest-path-escapes');
 	});
 	it('un archivo del paquete que es un symlink hacia afuera: manifest-path-escapes', () => {
-		const dir = proyecto({ manifiesto: { format: 3, core: '1', componentFiles: { Evil: ['Evil.svelte'] } } });
+		const dir = proyecto({ manifiesto: { format: 3, core: '1.0.0', componentFiles: { Evil: ['Evil.svelte'] } } });
 		secreto(dir);
 		fs.symlinkSync(path.join(dir, 'outside/secreto.txt'), path.join(dir, 'node_modules/@acme/ui/dist/Evil.svelte'));
-		expect(codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: '<Evil/>' }], versionCore: '1' }))).toBe('manifest-path-escapes');
+		expect(codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: '<Evil/>' }], versionCore: '1.0.0' }))).toBe('manifest-path-escapes');
 	});
 	it('un archivo de más de 1 MiB o que no es regular: manifest-file-invalid', () => {
-		const dir = proyecto({ manifiesto: { format: 3, core: '1', componentFiles: { Grande: ['grande.svelte'], Carpeta: ['carpeta'] } } });
+		const dir = proyecto({ manifiesto: { format: 3, core: '1.0.0', componentFiles: { Grande: ['grande.svelte'], Carpeta: ['carpeta'] } } });
 		fs.writeFileSync(path.join(dir, 'node_modules/@acme/ui/dist/grande.svelte'), 'a'.repeat(1024 * 1024 + 1));
 		fs.mkdirSync(path.join(dir, 'node_modules/@acme/ui/dist/carpeta'));
-		const leer = (c: string) => codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: c }], versionCore: '1' }));
+		const leer = (c: string) => codigo(() => archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: c }], versionCore: '1.0.0' }));
 		expect(leer('<Grande/>')).toBe('manifest-file-invalid');
 		expect(leer('<Carpeta/>')).toBe('manifest-file-invalid');
 	});
 	it('un paquete bien hecho, con symlink hacia adentro (pnpm), sigue andando', () => {
-		const dir = proyecto({ core: '1' });
+		const dir = proyecto({ core: '1.0.0' });
 		const real = path.join(dir, 'store');
 		fs.renameSync(path.join(dir, 'node_modules/@acme/ui'), real);
 		fs.symlinkSync(real, path.join(dir, 'node_modules/@acme/ui'));
-		const out = archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: '<Button/>' }], versionCore: '1' });
+		const out = archivosDePaquetes({ cwd: dir, configDir: dir, propios: [{ file: 'a.svelte', content: '<Button/>' }], versionCore: '1.0.0' });
 		expect(out).toHaveLength(2);
 	});
 });
@@ -280,7 +295,7 @@ describe('writeConsumerOutput con paquetes', () => {
 		const dir = proyecto({ core: '0.11.0' });
 		fs.writeFileSync(path.join(dir, 'App.svelte'), '<script>import { Button } from "@acme/ui";</script><Button>Hola</Button>');
 		const salida = await writeConsumerOutput(config(['*.svelte']), { targetDir: path.join(dir, 'taisho'), cwd: dir, versionCore: '0.11.0' });
-		expect(salida.warnings.filter((w) => w.code !== 'seed-shifted')).toEqual([]);
+		expect(salida.warnings.filter((w) => w.code !== 'seed-low-contrast')).toEqual([]);
 		const css = fs.readFileSync(path.join(dir, 'taisho/taisho.css'), 'utf8');
 		expect(css).toContain(':where(.ts).button');
 		expect(css).toContain(':where(.ts).spinner');

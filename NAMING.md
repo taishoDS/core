@@ -248,12 +248,12 @@ Cada fila es un prefijo de la lista cerrada. Los marcados "legado" ya no se emit
 | `p` | padding | ritmo (`none`…`double`) o px | `ts-p-none` |  |
 | `px` | padding-inline | ritmo (`none`…`double`) o px | `ts-px-none` |  |
 | `py` | padding-top + padding-bottom | ritmo (`none`…`double`) o px | `ts-py-none` |  |
-| `pt` | padding-top | ritmo (`none`…`double`) o px | `ts-pt-none` |  |
-| `pb` | padding-bottom | ritmo (`none`…`double`) o px | `ts-pb-none` |  |
-| `ps` | padding-inline-start | ritmo (`none`…`double`) o px | `ts-ps-none` |  |
-| `pe` | padding-inline-end | ritmo (`none`…`double`) o px | `ts-pe-none` |  |
-| `pl` | padding-left | ritmo (`none`…`double`) o px | `ts-pl-none` | legado: usar `ps` |
-| `pr` | padding-right | ritmo (`none`…`double`) o px | `ts-pr-none` | legado: usar `pe` |
+| `pt` | padding-top | ritmo (`none`…`double`) o px, `safe` | `ts-pt-none` |  |
+| `pb` | padding-bottom | ritmo (`none`…`double`) o px, `safe` | `ts-pb-none` |  |
+| `ps` | padding-inline-start | ritmo (`none`…`double`) o px, `safe` | `ts-ps-none` |  |
+| `pe` | padding-inline-end | ritmo (`none`…`double`) o px, `safe` | `ts-pe-none` |  |
+| `pl` | padding-left | ritmo (`none`…`double`) o px, `safe` | `ts-pl-none` | legado: usar `ps` |
+| `pr` | padding-right | ritmo (`none`…`double`) o px, `safe` | `ts-pr-none` | legado: usar `pe` |
 | `gap` | gap | ritmo (`none`…`double`) o px | `ts-gap-none` |  |
 | `gap-x` | column-gap | ritmo (`none`…`double`) o px | `ts-gap-x-none` |  |
 | `gap-y` | row-gap | ritmo (`none`…`double`) o px | `ts-gap-y-none` |  |
@@ -287,8 +287,8 @@ Cada fila es un prefijo de la lista cerrada. Los marcados "legado" ya no se emit
 | `break` | overflow-wrap / word-break | `words`, `all`, `normal` | `ts-break-words` |  |
 | `line-clamp` | line-clamp | entero, `none` | `ts-line-clamp-1` |  |
 | `valign` | vertical-align | `baseline`, `top`, `middle`, `bottom` | `ts-valign-middle` |  |
-| `color` | color | color del vocabulario | `ts-color-background-100` |  |
-| `bg` | background-color | color del vocabulario, `transparent`, `glow-brand`, `glow-accent`, `highlight`, `highlight-strong` | `ts-bg-glow-brand` |  |
+| `color` | color | color del vocabulario, `white`, `black` | `ts-color-white` |  |
+| `bg` | background-color | color del vocabulario, `white`, `black`, `transparent`, `glow-brand`, `glow-accent`, `highlight`, `highlight-strong` | `ts-bg-glow-brand` |  |
 | `accent` | accent-color | `brand`, `accent`, `auto` | `ts-accent-brand` |  |
 | `border` | border | color del vocabulario o `<ancho>-<color>`, `none`, `transparent`, `separator` | `ts-border-none` |  |
 | `border-t` | border-top | color del vocabulario o `<ancho>-<color>`, `none`, `transparent`, `0` | `ts-border-t-background-100` |  |
@@ -338,7 +338,8 @@ Cada fila es un prefijo de la lista cerrada. Los marcados "legado" ya no se emit
 | `grid-rows` | grid-template-rows | entero | `ts-grid-rows-1` |  |
 | `grid-flow` | grid-auto-flow | `row`, `col`, `dense` | `ts-grid-flow-row` |  |
 | `grid-min` | --ts-grid-min | escala `gridMins` | `ts-grid-min-2xs` |  |
-| `col-span` | grid-column | entero, `full` | `ts-col-span-1` |  |
+| `col-span` | grid-column | entero, `full`, `auto` | `ts-col-span-1` |  |
+| `col-start` | grid-column-start | `auto` | `ts-col-start-auto` |  |
 | `row-span` | grid-row | entero, `full` | `ts-row-span-1` |  |
 | `columns` | columns | entero | `ts-columns-2` |  |
 | `aspect` | aspect-ratio | `square`, `video`, `auto` | `ts-aspect-square` |  |

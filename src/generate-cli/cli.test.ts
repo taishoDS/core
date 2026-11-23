@@ -150,27 +150,26 @@ describe('el ejecutable real (src/bin/taisho.ts)', () => {
 
 describe('guardia de la versión de Node', () => {
 	it.each([
-		['22.18.0', true],
-		['22.22.3', true],
-		['24.0.0', true],
-		['26.1.0', true],
-		['22.17.9', false],
-		['22.0.0', false],
+		['26.0.0', true],
+		['26.13.1', true],
+		['27.0.0', true],
+		['25.9.0', false],
+		['24.12.0', false],
+		['22.22.3', false],
 		['20.19.0', false],
-		['18.20.4', false],
 	])('Node %s → %s', (version, sirve) => {
 		expect(nodeSirve(version)).toBe(sirve);
 	});
 
-	it('el mensaje dice «hace falta Node 22.18 o superior» y la versión actual, en español', () => {
+	it('el mensaje dice «hace falta Node 26 o superior» y la versión actual, en español', () => {
 		const t = mensajeNodeMinimo('20.11.0', [], { LANG: 'es_AR.UTF-8' });
-		expect(t).toContain('hace falta Node 22.18 o superior');
+		expect(t).toContain('hace falta Node 26 o superior');
 		expect(t).toContain('20.11.0');
 	});
 
-	it('y «Node 22.18 or newer is required» en inglés', () => {
+	it('y «Node 26 or newer is required» en inglés', () => {
 		const t = mensajeNodeMinimo('20.11.0', [], { LANG: 'en_US.UTF-8' });
-		expect(t).toContain('Node 22.18 or newer is required');
+		expect(t).toContain('Node 26 or newer is required');
 		expect(t).toContain('20.11.0');
 	});
 

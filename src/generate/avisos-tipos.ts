@@ -17,8 +17,10 @@ export interface WarningParams {
 	'invalid-chain': { class: string };
 	/** Un fragmento de clase armado en runtime (`grid-cols-${n}`). */
 	'runtime-class': { fragment: string };
-	/** Una semilla que se corrió de luminosidad para que el texto se lea (WCAG AA). `deltaL` con signo: + más clara. */
-	'seed-shifted': { theme: string; color: string; seed: string; mode: 'light' | 'dark'; step: string; deltaL: number };
+	/** Un color entre dos pasos de la escala que no llega a AA (4,5:1) con texto encima o contra el fondo y se adaptó al borde del paso `step`. `deltaL` con signo: + más claro. `text`/`bg`: contraste del color exacto; `textShifted`/`bgShifted`: el del color adaptado. */
+	'seed-low-contrast': { theme: string; color: string; seed: string; mode: 'light' | 'dark'; step: string; deltaL: number; text: number; bg: number; textShifted: number; bgShifted: number };
+	/** Un color entre dos pasos de la escala que llega a AA con las dos medidas y queda exacto (informativo: no cuenta para `--strict`). `step`: el borde al que se adaptaría. */
+	'seed-exact': { theme: string; color: string; seed: string; mode: 'light' | 'dark'; step: string; text: number; bg: number; textShifted: number; bgShifted: number };
 	/** Una semilla (casi) blanca: el relleno sólido de la familia no puede serlo y sale gris. */
 	'seed-white': { theme: string; color: string; seed: string };
 	/** La marca y un estado casi no se distinguen (distancia en OKLab menor que `threshold`). */
@@ -49,6 +51,12 @@ export interface WarningParams {
 	'legacy-prefix-renamed': { class: string; suggestion: string };
 	/** Una clase con el prefijo viejo `ts-`, deprecada sin sucesor. */
 	'legacy-prefix-removed': { class: string };
+	/** Un componente del Core con su raíz (`root`, un `data-ts-*`) y sin una pieza que su JS necesita adentro (`attribute`); `element`, la etiqueta donde va. */
+	'missing-part': { component: string; root: string; attribute: string; element?: string };
+	/** Un elemento con la clase de una pieza de un componente del Core (`class`, de `element`) dentro de su raíz (`root`) y sin el atributo de la pieza (`attribute`): el JS del Core no lo encuentra. */
+	'missing-part-attribute': { component: string; root: string; attribute: string; class: string; element: string };
+	/** Un elemento con `ts` y la clase de un componente del Core (`class`) pero sin su gancho raíz (`attribute`): el JS del Core no lo encuentra. `element`, su etiqueta. */
+	'missing-root-attribute': { component: string; class: string; attribute: string; element: string };
 	/** Un `var(--ts-*)` / `var(--color-*)` que no existe en el tema. */
 	'unknown-var': { variable: string; suggestion?: string };
 	/** Un `.css` del proyecto fuera de `content` usa variables del tema que la poda quitó (las primeras tres en `variables`). El aviso lleva el `file` del CSS. */

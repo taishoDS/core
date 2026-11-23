@@ -95,13 +95,16 @@ describe('tabla Tailwind → TaishoDS', () => {
         expect(clases('gap-4')).toMatchObject({ taisho: 'ts-gap-16', exacta: true });
         expect(motivoDe('border-0')).toMatch(/border-none/);
         expect(motivoDe('border-t')).toMatch(/un solo lado/);
-        expect(motivoDe('bg-white')).toMatch(/background-100/);
-        expect(motivoDe('text-white')).toMatch(/color-gray-1000/);
+        expect(motivoDe('bg-current')).toMatch(/background-100/);
+        expect(motivoDe('text-inherit')).toMatch(/color-gray-1000/);
+        for (const [t, d] of [['bg-white', 'ts-bg-white'], ['text-white', 'ts-color-white'], ['bg-black', 'ts-bg-black'], ['text-black', 'ts-color-black']]) {
+            expect(motivoDe(t), t).toBe('');
+            expect(clases(t), t).toMatchObject({ taisho: d, exacta: true });
+        }
         expect(motivoDe('transition')).toMatch(/transition-colors/);
         expect(motivoDe('ring')).toMatch(/ring-1/);
         expect(motivoDe('ring-8')).toMatch(/1 a 4/);
-        expect(motivoDe('mt-auto')).toMatch(/ms-auto/);
-        for (const c of ['border-2', 'border-4', 'ring-2', 'transition-colors', 'transition-all', 'transition-opacity', 'ms-auto', 'me-auto', 'ml-auto', 'mr-auto', 'outline-none']) {
+        for (const c of ['border-2', 'border-4', 'ring-2', 'transition-colors', 'transition-all', 'transition-opacity', 'mt-auto', 'mb-auto', 'col-auto', 'col-start-auto', 'ms-auto', 'me-auto', 'ml-auto', 'mr-auto', 'outline-none']) {
             expect(motivoDe(c), c).toBe('');
             expect(clases(c), c).toBeDefined();
         }
@@ -127,8 +130,8 @@ describe('tabla Tailwind → TaishoDS', () => {
         expect(mapa.colores.nota).toMatch(/color no/);
     });
 
-    it('src/routes/_docs/tailwind-map.json está al día (si falla: npm run generate:tailwind-map)', () => {
-        const disco = fs.readFileSync(path.join(process.cwd(), 'src/routes/_docs/tailwind-map.json'), 'utf8');
+    it('src/core-datos/tailwind-map.json está al día (si falla: npm run generate:tailwind-map)', () => {
+        const disco = fs.readFileSync(path.join(process.cwd(), 'src/core-datos/tailwind-map.json'), 'utf8');
         expect(disco).toBe(JSON.stringify(mapa, null, 2) + '\n');
     });
 });

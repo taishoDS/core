@@ -19,6 +19,13 @@ export interface ThemeDef {
      */
     colors: { brand: string; [slot: string]: string };
     /**
+     * Colores que caen entre dos pasos de la escala. 'shift' los adapta al borde más cercano que
+     * llega a AA; 'keep' los deja exactos. Clave: 'brand', otro slot de `colors`, un estado o 'primary'.
+     * Sin entrada: si el color no llega a AA (4,5:1) con texto encima o contra el fondo, se adapta
+     * y se avisa; si llega con los dos, queda exacto y se informa.
+     */
+    seedFit?: Record<string, 'shift' | 'keep'>;
+    /**
      * Color del relleno de los botones primarios, casillas, radios e interruptores: un ROL, no una familia de paleta (como
      * `focusRing`). Hex u oklch. No genera `primary-100…1000` ni clases `ts-bg-primary-N`: sólo las variables
      * `--color-primary-solid[-hover|-active][-contrast]`. Si se omite, el primario es la marca (`colors.brand`).
@@ -116,6 +123,8 @@ export interface ThemeDef {
         tint?: { c: number; h: number };
         light?: Partial<Record<'gray' | 'background' | 'grayAlpha' | 'overlay', Record<string, string>>>;
         dark?: Partial<Record<'gray' | 'background' | 'grayAlpha' | 'overlay', Record<string, string>>>;
+        /** Blanco y negro fijos (`--color-white`, `--color-black`): el mismo valor en claro y en oscuro, sin tinte ni P3. */
+        fixed?: Partial<Record<'white' | 'black', string>>;
     };
     /**
      * Superficies `ts-material-*` (cards/menus/modals): fondo, borde y color de

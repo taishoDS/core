@@ -15,7 +15,7 @@ import { iniciar } from '../lib/core/nucleo';
 import { m } from '../lib/core/registro';
 import { MODULOS, conRequeridos, modulosDeArchivo, modulosDeSlugs, archivoDe, type NombreModulo } from '../lib/core/modulos';
 
-const CATALOGOS = path.resolve(__dirname, '../routes/_docs/core-html');
+const CATALOGOS = path.resolve(__dirname, '../core-datos/html');
 const slugs = fs.readdirSync(CATALOGOS).filter((f) => f.endsWith('.html')).map((f) => f.replace('.html', '')).sort();
 
 const configScope = buildRepoConfig();

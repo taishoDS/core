@@ -35,7 +35,7 @@ describe('Core del Modo directo', () => {
 		const base = de('taisho.core.js');
 		expect(base).not.toMatch(/^import[ {]/m);
 		expect(base).not.toMatch(/\bfrom\s*["']\.\//);
-		const pedidos = [...base.matchAll(/import\("\.\/(taisho\.core\.[\w-]+\.js)"\)/g)].map((x) => x[1]).sort();
+		const pedidos = [...new Set([...base.matchAll(/import\("\.\/(taisho\.core\.[\w-]+\.js)"\)/g)].map((x) => x[1]))].sort();
 		expect(pedidos).toEqual(PESADOS_DIRECTO.map((n) => `taisho.core.${n}.js`).sort());
 		for (const p of pedidos) expect(archivos.map((a) => a.ruta), p).toContain(p);
 	});
@@ -62,7 +62,7 @@ describe('Core del Modo directo', () => {
 		expect(conListbox.length).toBeLessThanOrEqual(1);
 	});
 
-	it('una base sola pesa lo que se prometió: menos de 15,2 KB gzip', async () => {
+	it('una base sola pesa lo que se prometió: menos de 15.600 B gzip', async () => {
 		const { gzipSync } = await import('node:zlib');
 		expect(gzipSync(de('taisho.core.js'), { level: 9 }).length).toBeLessThan(15_600);
 	});

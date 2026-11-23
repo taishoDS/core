@@ -286,7 +286,7 @@ describe('taisho generate --strict', () => {
 	it('también cuenta los avisos de contraste del tema', async () => {
 		const dir = proyecto({ ...CONFIG, defaultStates: { ...CONFIG.defaultStates, danger: '#DC2626' } });
 		await generar(dir, true);
-		expect(avisos.some((a) => a.includes('contraste'))).toBe(true);
+		expect(avisos.some((a) => a.includes('no llega a AA'))).toBe(true);
 		expect(process.exitCode).toBe(1);
 	}, 30_000);
 

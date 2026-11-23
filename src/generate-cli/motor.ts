@@ -129,13 +129,13 @@ export function crearMotor(inicial: TaishoConfig, opciones: WriteConsumerOutputO
 			const key = entry.group === 'root' ? entry.name : `${entry.group}-${entry.name}`;
 			return { key, avisos: [...model.warnings, ...avisosMarcaVsEstado(entry, tema.defaultStates)], completo: buildTokensCSS(model, config.darkMode), secciones: materialDeSecciones(model) };
 		});
-		validarEstilosDeFuentes(config.fontFaces, cwd);
+		validarEstilosDeFuentes(config.fontFaces ?? [], cwd);
 		const propias = clasesPropias(config, tema, vocab, ext);
 		return {
 			vocab,
 			tipos: propias.length ? buildClassTypesExtension(propias.map((n) => `ts-${n}`)) : null,
 			temas,
-			fonts: buildFontsCSS(config.fontFaces, respaldosDeFuentes(config.fontFaces, cwd)),
+			fonts: buildFontsCSS(config.fontFaces ?? [], respaldosDeFuentes(config.fontFaces ?? [], cwd)),
 			plano: prepararFlat({ reset: vocab.reset, atomic: vocab.atomic, utilities: vocab.utilities, components: vocab.components, scales: vocab.userScales, userUtilities: vocab.userUtilities }),
 			datosAvisos: datosDe(vocab),
 			vecinos: new Map<string, string | undefined>(),

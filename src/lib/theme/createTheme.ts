@@ -10,7 +10,8 @@
  * `light-dark()` — NO inline styles (pisarían el modo oscuro) ni un <style> en el DOM.
  */
 import { avisarSemillasBlancas, esDesarrollo } from './aviso-blanca';
-import { diferenciasP3, paletasDePrimario, paletasDeSemillas, semillaPrimaria } from './palette';
+import { diferenciasP3, paletasDePrimario, paletasDeSemillas, semillaPrimaria, SHADES } from './palette';
+import { avisarSemillasEntrePasos } from './aviso-semilla';
 import { effectiveNeutrals } from './neutrals';
 import { MEDIA_OSCURO, RAIZ_POR_SISTEMA, type DarkMode } from './modo-oscuro';
 import { luzOscuro, opcionesDeTema } from './opciones';
@@ -66,8 +67,8 @@ export function buildThemeCss(def: ThemeDef, { darkMode = 'class' }: CreateTheme
     const eff = effectiveNeutrals(ov.neutral);
     const seeds = { ...def.colors, ...(ov.states ?? {}) };
     const semillaDelPrimario = semillaPrimaria(def);
-    const srgb = paletasDeSemillas(seeds, eff, 'srgb');
-    const prim = paletasDePrimario(semillaDelPrimario, eff, 'srgb');
+    const srgb = paletasDeSemillas(seeds, eff, 'srgb', { fit: def.seedFit });
+    const prim = paletasDePrimario(semillaDelPrimario, eff, 'srgb', { fit: def.seedFit });
     const lightColors = { ...srgb.light, ...prim.light };
     const darkColors = { ...srgb.dark, ...prim.dark };
 
@@ -81,6 +82,7 @@ export function buildThemeCss(def: ThemeDef, { darkMode = 'class' }: CreateTheme
     let root = '';
     if (ov.neutral) root += claroYOscuro(eff.light, eff.dark);
     root += claroYOscuro(lightColors, darkColors);
+    if (ov.neutral?.fixed) for (const [k, v] of Object.entries(ov.neutral.fixed)) root += `--color-${k}:${v};`;
     if (ov.semantic) for (const [k, v] of Object.entries(ov.semantic)) root += `--ts-color-${k}:${v};`;
     if (ov.radius) for (const [k, v] of Object.entries(ov.radius)) root += `--ts-radius-${k}:${v};`;
     if (ov.cornerShape === 'round') root += '--ts-corner-shape:round;';
@@ -107,8 +109,8 @@ export function buildThemeCss(def: ThemeDef, { darkMode = 'class' }: CreateTheme
     if (materialClaro) materiales += `.scheme-light{${materialClaro}}`;
 
     const effP3 = effectiveNeutrals(ov.neutral, 'p3');
-    const p3Semillas = paletasDeSemillas(seeds, effP3, 'p3');
-    const primP3 = paletasDePrimario(semillaDelPrimario, effP3, 'p3');
+    const p3Semillas = paletasDeSemillas(seeds, effP3, 'p3', { fit: def.seedFit, segun: srgb.escalas });
+    const primP3 = paletasDePrimario(semillaDelPrimario, effP3, 'p3', { fit: def.seedFit, segun: prim.escalas });
     const p3 = { light: { ...p3Semillas.light, ...primP3.light }, dark: { ...p3Semillas.dark, ...primP3.dark } };
     const dif = diferenciasP3(
         ov.neutral ? { light: { ...eff.light, ...lightColors }, dark: { ...eff.dark, ...darkColors } } : { light: lightColors, dark: darkColors },
@@ -145,6 +147,14 @@ export function buildThemeCss(def: ThemeDef, { darkMode = 'class' }: CreateTheme
     return `:root{${root}}${squircle}${rtl}${bloqueCompacto}${materiales}${bloqueP3}${bloqueSinLightDark(root, darkMode)}${bloqueReducido}`;
 }
 
+function avisarSemillasDelTema(def: ThemeDef): void {
+    const eff = effectiveNeutrals(def.locked ? undefined : def.neutral);
+    const seeds = { ...def.colors, ...(def.locked ? {} : def.states ?? {}) };
+    const semillaDelPrimario = semillaPrimaria(def);
+    const escalas = { ...paletasDeSemillas(seeds, eff, 'srgb', { fit: def.seedFit }).escalas, ...paletasDePrimario(semillaDelPrimario, eff, 'srgb', { fit: def.seedFit }).escalas };
+    avisarSemillasEntrePasos(escalas, semillaDelPrimario === undefined ? seeds : { ...seeds, primary: semillaDelPrimario }, SHADES);
+}
+
 /**
  * Aplica un tema en runtime vía un único CSSStyleSheet adoptado por el documento.
  * Llamadas sucesivas reemplazan el tema anterior (no acumulan).
@@ -162,6 +172,7 @@ export function createTheme(def: ThemeDef, opciones: CreateThemeOptions = {}): v
     }
     sheet.replaceSync(buildThemeCss(def, opciones));
     avisarAnchosEnCero(def.locked ? undefined : def.borderWidths);
+    avisarSemillasDelTema(def);
     avisarSemillasBlancas({ ...def.colors, ...(def.states ?? {}), ...(def.primary === undefined ? {} : { primary: def.primary }) });
 }
 

@@ -14,11 +14,11 @@ export interface RunMcpOptions {
 	lang?: Lang;
 }
 
-/** En el paquete, los datos están en `mcp/` junto a `cli.js`; en el repo, en las carpetas de la doc. */
+/** En el paquete, los datos están en `mcp/` junto a `cli.js`; en el repo, en `src/core-datos/`. */
 function carpetasDeDatos(base: string): CarpetasDeDatos {
 	const delPaquete = { ejemplos: fileURLToPath(new URL('./mcp/ejemplos', base)), prosa: fileURLToPath(new URL('./mcp/prosa', base)) };
 	if (fs.existsSync(delPaquete.prosa)) return delPaquete;
-	return { ejemplos: fileURLToPath(new URL('../../routes/_docs/core-ejemplos', base)), prosa: fileURLToPath(new URL('../../routes/_docs/generado/core-prosa', base)) };
+	return { ejemplos: fileURLToPath(new URL('../../core-datos/ejemplos', base)), prosa: fileURLToPath(new URL('../../core-datos/prosa', base)) };
 }
 
 /** `taisho mcp`: sirve el protocolo por stdin/stdout hasta que el cliente cierra la entrada. */

@@ -10,7 +10,7 @@ vi.mock('./pesados/file-upload', () => {
 	throw new Error('sin red');
 });
 
-const CATALOGOS = path.resolve(__dirname, '../../routes/_docs/core-html');
+const CATALOGOS = path.resolve(__dirname, '../../core-datos/html');
 const catalogo = (slug: string) => fs.readFileSync(path.join(CATALOGOS, `${slug}.html`), 'utf8');
 // Plazo amplio: el módulo llega por `import()` y, con la máquina cargada, el segundo que da `vi.waitFor` por defecto no alcanza.
 const esperar = (condicion: () => unknown) => vi.waitFor(() => expect(condicion()).toBeTruthy(), { timeout: 15_000 });

@@ -13,3 +13,8 @@ export function esDesarrolloLocal(loc: Pick<Location, 'protocol' | 'hostname'>):
 export function pedirAvisoLlave(cargar: () => Promise<{ avisarSinLlave: () => void }>): void {
     if (typeof location !== 'undefined' && esDesarrolloLocal(location)) cargar().then((m) => m.avisarSinLlave(), () => {});
 }
+
+/** Igual que `pedirAvisoLlave`, para el aviso de versiones distintas entre el CSS y el JS: en producción no se descarga nada. */
+export function pedirAvisoVersiones(cargar: () => Promise<{ avisarVersiones: () => void }>): void {
+    if (typeof location !== 'undefined' && esDesarrolloLocal(location)) cargar().then((m) => m.avisarVersiones(), () => {});
+}

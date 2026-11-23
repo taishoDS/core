@@ -7,7 +7,7 @@ import { cargarConfig, carpetaDeSalida, displayPath } from './generate';
 import { crearMotor } from './motor';
 import { listarContent } from './read-content';
 import { idioma, m, usarIdioma, type Lang } from './idioma';
-import { warningLine } from './mensajes-avisos';
+import { esAvisoInformativo, marcaDeAviso, warningLine } from './mensajes-avisos';
 import { mensajeDe } from './errores';
 
 const JUNTAR_MS = 10;
@@ -164,7 +164,7 @@ export async function iniciarWatch(options: WatchOptions = {}): Promise<Watch> {
 			if (!configNueva && !paquetesCambiaron && !cambiados.size && !altas.length && !bajas.length) {
 				if (!cssAjeno || !config.content) return;
 				const r = await motor.actualizar({});
-				for (const aviso of r.avisosNuevos) console.warn(`⚠ ${warningLine(aviso, idioma())}`);
+				for (const aviso of r.avisosNuevos) console[esAvisoInformativo(aviso) ? 'info' : 'warn'](`${marcaDeAviso(aviso)} ${warningLine(aviso, idioma())}`);
 				return;
 			}
 
@@ -187,7 +187,7 @@ export async function iniciarWatch(options: WatchOptions = {}): Promise<Watch> {
 				...bajas.map((f) => (grupos === 1 ? nombre(f) : `− ${nombre(f)}`)),
 			].join(', ');
 			console.log(`${marca} ${lista} → ${r.escritos.length ? r.escritos.join(', ') : m().watch.sinCambios} (${Math.round(performance.now() - inicio)} ms)`);
-			for (const aviso of r.avisosNuevos) console.warn(`⚠ ${warningLine(aviso, idioma())}`);
+			for (const aviso of r.avisosNuevos) console[esAvisoInformativo(aviso) ? 'info' : 'warn'](`${marcaDeAviso(aviso)} ${warningLine(aviso, idioma())}`);
 		} catch (err) {
 			console.error(`✖ ${mensajeDe(err)}`);
 		}
@@ -208,7 +208,7 @@ export async function iniciarWatch(options: WatchOptions = {}): Promise<Watch> {
 		for (const w of watchers.values()) w.close();
 		throw err;
 	}
-	for (const aviso of inicial.avisosNuevos) console.warn(`⚠ ${warningLine(aviso, idioma())}`);
+	for (const aviso of inicial.avisosNuevos) console[esAvisoInformativo(aviso) ? 'info' : 'warn'](`${marcaDeAviso(aviso)} ${warningLine(aviso, idioma())}`);
 	const archivos = inicial.temas.length + 2 + (inicial.iconos ? 1 : 0);
 	console.log(m().watch.alDia(displayPath(targetDir), archivos, Math.round(performance.now() - t0), config.content ? propios.size : null, DEFAULT_CUSTOM_ICONS_DIR));
 

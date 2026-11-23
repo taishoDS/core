@@ -99,11 +99,12 @@ describe('a demanda', () => {
         expect(con.css).toBe(sin.css);
         expect(con.css).not.toContain('acme');
     });
-    it('usar un bloque trae el componente ENTERO, y no la utilidad suelta', () => {
+    it('usar un bloque trae el principal del componente y no los secundarios sin nombrar, ni la utilidad suelta', () => {
         const css = aDemanda('ts acme-tile', extensions).css;
         expect(css).toContain(':where(.ts).acme-card {');
-        expect(css).toContain(':where(.ts).acme-card-title {');
+        expect(css).not.toContain(':where(.ts).acme-card-title {');
         expect(css).toContain(':where(.ts).acme-tile {');
+        expect(aDemanda('ts acme-tile acme-card-title', extensions).css).toContain(':where(.ts).acme-card-title {');
         expect(css).not.toContain('acme-glow');
     });
     it('el gancho data-ts-<slug> también trae el componente', () => {

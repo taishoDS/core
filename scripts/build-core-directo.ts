@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build, type Metafile, type Plugin } from 'esbuild';
+import { minify as terser } from 'terser';
 import { PESADOS } from '../src/lib/core/modulos';
 import { PISO_JS } from '../src/generate-cli/piso';
 
@@ -23,6 +24,22 @@ export interface OpcionesCoreDirecto {
 }
 
 export const PESADOS_DIRECTO = fs.readdirSync(path.join(CORE, 'pesados')).filter((f) => f.endsWith('.ts')).map((f) => f.replace(/\.ts$/, '')).sort();
+
+/**
+ * Segundo paso de minificado, sólo en nuestro build (terser es devDependency: el CLI del consumidor no lo carga).
+ * Mangle de nombres locales nada más (sin `mangle.properties`), sin `pure_getters` ni `unsafe_*`: no se borra ninguna lectura de propiedad.
+ */
+async function pasarPorTerser(texto: string, banner?: string): Promise<string> {
+	const { code } = await terser(texto, {
+		module: true,
+		ecma: 2022,
+		compress: { passes: 3 },
+		mangle: true,
+		format: { comments: false },
+	});
+	if (code === undefined) throw new Error('terser no devolvió código');
+	return banner ? `${banner}\n${code}` : code;
+}
 
 export async function construirCoreDirecto({ prefijo = 'taisho.core', minify = false, banner, metafiles }: OpcionesCoreDirecto = {}): Promise<ArchivoJs[]> {
 	const outdir = path.join(RAIZ, '.core-directo');
@@ -61,5 +78,6 @@ export async function construirCoreDirecto({ prefijo = 'taisho.core', minify = f
 		chunkNames: `${prefijo}.chunk-[hash]`,
 	});
 	for (const r of [base, pesados]) if (metafiles && r.metafile) metafiles.push(r.metafile);
-	return [...(base.outputFiles ?? []), ...(pesados.outputFiles ?? [])].map((f) => ({ ruta: path.relative(outdir, f.path).split(path.sep).join('/'), texto: f.text }));
+	const archivos = [...(base.outputFiles ?? []), ...(pesados.outputFiles ?? [])];
+	return Promise.all(archivos.map(async (f) => ({ ruta: path.relative(outdir, f.path).split(path.sep).join('/'), texto: minify ? await pasarPorTerser(f.text, banner) : f.text })));
 }

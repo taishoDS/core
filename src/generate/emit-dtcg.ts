@@ -174,6 +174,8 @@ export function buildDtcg(entry: ThemeEntry, model: ResolvedThemeTokens): DtcgNo
     for (const [palette, shades] of Object.entries(t.colors)) {
         color[palette] = mapValues(shades, (c) => colorToken(c));
     }
+    color.white = colorToken({ light: t.fixed.white });
+    color.black = colorToken({ light: t.fixed.black });
     color.semantic = mapValues(t.semantic, (v) => colorToken({ light: brazoDeModo(v, 0), dark: brazoDeModo(v, 1) }));
     const state: DtcgNode = {};
     for (const [name, s] of Object.entries(t.states)) {

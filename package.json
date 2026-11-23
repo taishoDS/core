@@ -1,11 +1,11 @@
 {
 	"name": "taishods-core-fuentes",
 	"private": true,
-	"version": "0.16.0",
+	"version": "0.17.0",
 	"type": "module",
 	"license": "MIT",
 	"engines": {
-		"node": ">=22.18"
+		"node": ">=26"
 	},
 	"repository": {
 		"type": "git",

@@ -172,12 +172,13 @@ export function alDesenfocar(destino: Element): void {
     const restaurado = restoreText(input.value, ultimo, fmt);
     if (restaurado === null || ultimo === null) return;
     const corrige = !fmt || parseFormatted(input.value, fmt) !== ultimo;
+    // Frenado, el texto queda como se escribió y la corrección queda a cargo del código.
+    if (corrige && !avisar(raiz, { component: 'number', value: ultimo })) return;
     input.value = restaurado;
     sincronizarValor(raiz, input, ultimo);
     if (!corrige) return;
     input.dispatchEvent(new Event('input', { bubbles: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
-    avisar(raiz, { component: 'number', value: ultimo });
     sincronizarBotones(raiz);
 }
 

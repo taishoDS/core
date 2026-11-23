@@ -133,6 +133,8 @@ Uso:
 			`Ícono(s) inexistente(s) en #ts-<nombre>:\n${lineas.join('\n')}\n` + `Se corrige el nombre (lucide) o se agrega un SVG en "${dir}/<nombre>.svg".`,
 		quisisteDecir: (sugerencia: string) => ` — ¿se quiso decir "${sugerencia}"?`,
 		coreDistinto: (paquete: string, version: string, core: string, pide: string, tenes: string) => `${paquete} ${version} necesita ${core} ${pide}; está instalado ${tenes}`,
+		coreRangoInvalido: (paquete: string, version: string, core: string, pide: string) =>
+			`${paquete} ${version} declara "${pide}" como versión de ${core}: no es una versión ni un rango que el Core entienda (x.y.z, o comparadores =, >=, >, <=, <, ^, ~ separados por espacio, sin «||» ni versiones incompletas; por ejemplo ^0.17.0 o >=0.17.0 <0.19.0). Es un error del paquete: se avisa a su autor.`,
 	},
 	watch: {
 		sinCambios: 'sin cambios',
@@ -321,6 +323,8 @@ Usage:
 			`Fix the name (lucide) or add an SVG at "${dir}/<name>.svg".`,
 		quisisteDecir: (sugerencia) => ` — did you mean "${sugerencia}"?`,
 		coreDistinto: (paquete, version, core, pide, tenes) => `${paquete} ${version} needs ${core} ${pide}, and you have ${tenes}`,
+		coreRangoInvalido: (paquete, version, core, pide) =>
+			`${paquete} ${version} declares "${pide}" as its ${core} version, which the Core can't read (x.y.z, or =, >=, >, <=, <, ^, ~ comparators separated by spaces; no "||" or partial versions; e.g. ^0.17.0 or >=0.17.0 <0.19.0). This is a problem in the package; report it to its author.`,
 	},
 	watch: {
 		sinCambios: 'no changes',

@@ -353,6 +353,7 @@ export function buildComponentsCSS(
     componentsCSS += `    & .ts-radio-box { @apply ts-mt-2; }\n`;
     componentsCSS += `    & .ts-radio-card-body { @apply ts-flex ts-flex-col ts-gap-quarter; }\n`;
     componentsCSS += `    & .ts-radio-description { @apply ts-type-copy-12 ts-color-subtle; }\n`;
+    componentsCSS += `    & .ts-radio-card-extra { @apply ts-block; }\n`;
     componentsCSS += `  }\n`;
     componentsCSS += `  &.is-card {\n`;
     componentsCSS += `    @apply ts-gap-half ts-p-half ts-radius-lg ts-w-full ts-box-border ts-border-gray-200 ts-transition-all;\n`;
@@ -2072,6 +2073,9 @@ export function buildComponentsCSS(
     componentsCSS += `  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }\n`;
     componentsCSS += `}\n\n`;
 
+    componentsCSS += `@utility ts-number-input-step {\n`;
+    componentsCSS += `}\n\n`;
+
     componentsCSS += `@utility ts-separator {\n`;
     componentsCSS += `  @apply ts-block ts-w-full ts-flex-shrink-0;\n`;
     componentsCSS += `  height: var(--ts-border-width-1);\n`;
@@ -2269,8 +2273,8 @@ export function buildComponentsCSS(
     componentsCSS += `    border: var(--ts-border-width-2) solid var(--color-gray-1000);\n`;
     componentsCSS += `    cursor: pointer;\n`;
     componentsCSS += `  }\n`;
-    componentsCSS += `  &:hover:not(:disabled):not(:focus-visible)::-webkit-slider-thumb { box-shadow: 0 0 0 var(--ts-sizing-6) color-mix(in oklch, var(--color-gray-1000) 8%, transparent); }\n`;
-    componentsCSS += `  &:hover:not(:disabled):not(:focus-visible)::-moz-range-thumb   { box-shadow: 0 0 0 var(--ts-sizing-6) color-mix(in oklch, var(--color-gray-1000) 8%, transparent); }\n`;
+    componentsCSS += `  &:hover:not(:disabled):not(:focus-visible)::-webkit-slider-thumb { box-shadow: 0 0 0 var(--ts-sizing-6) color-mix(in oklab, var(--color-gray-1000) 8%, transparent); }\n`;
+    componentsCSS += `  &:hover:not(:disabled):not(:focus-visible)::-moz-range-thumb   { box-shadow: 0 0 0 var(--ts-sizing-6) color-mix(in oklab, var(--color-gray-1000) 8%, transparent); }\n`;
     componentsCSS += `  &:focus-visible { outline: none; }\n`;
     componentsCSS += `  &:focus-visible::-webkit-slider-thumb { @apply ts-focus-ring-thumb; }\n`;
     componentsCSS += `  &:focus-visible::-moz-range-thumb   { @apply ts-focus-ring-thumb; }\n`;
@@ -2401,7 +2405,7 @@ export function buildComponentsCSS(
     componentsCSS += `@utility ts-table-row {\n`;
     componentsCSS += `  @apply ts-transition-colors;\n`;
     componentsCSS += `  &.is-clickable { @apply ts-cursor-pointer; &:hover { background-color: var(--color-background-200); } }\n`;
-    componentsCSS += `  &.is-selected  { background-color: color-mix(in oklch, var(--color-gray-1000) 5%, transparent); }\n`;
+    componentsCSS += `  &.is-selected  { background-color: color-mix(in oklab, var(--color-gray-1000) 5%, transparent); }\n`;
     componentsCSS += `  &:last-child .ts-table-td { border-bottom: none; }\n`;
     componentsCSS += `}\n`;
     componentsCSS += `@utility ts-table-td {\n`;

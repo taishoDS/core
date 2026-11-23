@@ -6,7 +6,7 @@ import { carpetaDeSalida, isValidConfig, loadConfig } from './generate';
 import type { TaishoConfig } from '../generate';
 import { crearMotor, type Cambio, type Motor } from './motor';
 import { idioma, m, usarIdioma } from './idioma';
-import { warningLine } from './mensajes-avisos';
+import { esAvisoInformativo, warningLine } from './mensajes-avisos';
 import { mensajeDe } from './errores';
 
 export interface TaishoViteOptions {
@@ -87,7 +87,10 @@ export function taisho(options: TaishoViteOptions = {}): Plugin {
 		} else {
 			salida = await motor.actualizar(nueva ? { configCambio: nueva } : cambio);
 		}
-		for (const aviso of salida.avisosNuevos) vite.logger.warnOnce(`[taisho] ${warningLine(aviso, idioma())}`);
+		for (const aviso of salida.avisosNuevos) {
+			if (esAvisoInformativo(aviso)) vite.logger.info(`[taisho] ℹ ${warningLine(aviso, idioma())}`);
+			else vite.logger.warnOnce(`[taisho] ${warningLine(aviso, idioma())}`);
+		}
 		contenido = new Set(salida.contenido.map((f) => path.resolve(configDir(), f)));
 		vigilarBases();
 		vigilarManifiestos();

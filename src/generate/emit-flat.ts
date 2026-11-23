@@ -195,6 +195,55 @@ export function podarTonos(css: string, usadas: ReadonlySet<string>): string {
         usadas.has(`variant-${tono}`) || usadas.has(tono) ? regla : '');
 }
 
+/**
+ * Saca los tamaños `icon-N` que el proyecto no nombra. Cuenta también el número suelto: el `size={20}` de un componente que
+ * arma la clase adentro de su paquete, o el `width="20"` del SVG. Con un `icon-{…}` dinámico entran todos.
+ */
+export function podarIconos(css: string, usadas: ReadonlySet<string>): string {
+    if (usadas.has('icon-{') || usadas.has('icon-')) return css;
+    return css.replace(/^ {2}:where\(&\.icon-(\d+)\) \{[^\n]*\}\n/gm, (regla, n: string) => (usadas.has(`icon-${n}`) || usadas.has(n) ? regla : ''));
+}
+
+/**
+ * Partes de un bloque de componente que sólo hacen falta si el proyecto nombra alguna de sus `claves`: una clase, un atributo del
+ * marcado o la prop de un componente que lo escribe adentro de su paquete. Lo demás del bloque entra siempre.
+ */
+interface Extra { claves: readonly string[]; reglas: readonly RegExp[] }
+const EXTRAS: Record<string, readonly Extra[]> = {
+    'ts-card': [
+        {
+            claves: ['has-glow', 'data-card-spotlight', 'glow'],
+            reglas: [
+                /\n {2}\/\* Spotlight[^\n]*\n {2}& \[data-card-spotlight\] \{\n[\s\S]*?\n {2}\}\n/,
+                /^ {2}(?:\/\*[^\n]*\*\/\n {2})?&\.has-glow:hover \[data-card-spotlight\][^\n]*\n/m,
+                /^ {2}(?:\/\*[^\n]*\*\/\n {2})?\[data-card-grid\]:hover &\.has-glow \[data-card-spotlight\][^\n]*\n/m,
+            ],
+        },
+        { claves: ['has-ambilight', 'data-card-ambilight', 'ambilight'], reglas: [/^ {2}&:hover [^\n]*card-media\.has-ambilight [^\n]*\n/m] },
+        { claves: ['has-grayscale', 'grayscale'], reglas: [/^ {2}&:hover [^\n]*card-media\.has-grayscale [^\n]*\n/m] },
+    ],
+    'ts-card-media': [
+        { claves: ['has-ambilight', 'data-card-ambilight', 'ambilight'], reglas: [/\n {2}\/\* Ambilight[^\n]*\n {2}& \[data-card-ambilight\] \{\n[\s\S]*?\n {2}\}\n/] },
+        { claves: ['has-grayscale', 'grayscale'], reglas: [/^ {2}&\.has-grayscale [^\n]*\n/m] },
+    ],
+};
+
+/** Los `aspect-A/B` de `card-media` que el proyecto no nombra; el valor suelto (`aspect="4/3"`) cuenta, y `CardMedia` trae el 16/9 de fábrica. */
+function podarAspectos(css: string, usadas: ReadonlySet<string>): string {
+    if (usadas.has('aspect-{')) return css;
+    return css.replace(/^ {2}&\.aspect-(\d+)\\\/(\d+) *\{[^\n]*\}\n/gm, (regla, a: string, b: string) =>
+        usadas.has(`aspect-${a}/${b}`) || usadas.has(`${a}/${b}`) || (a === '16' && b === '9' && usadas.has('CardMedia')) ? regla : '');
+}
+
+export function podarExtras(nombre: string, css: string, usadas: ReadonlySet<string>): string {
+    let out = nombre === 'ts-card-media' ? podarAspectos(css, usadas) : css;
+    for (const { claves, reglas } of EXTRAS[nombre] ?? []) {
+        if (claves.some((c) => usadas.has(c))) continue;
+        for (const r of reglas) out = out.replace(r, (m) => (m.startsWith('\n') ? '\n' : ''));
+    }
+    return out;
+}
+
 function reescribirPreludios(css: string, f: (prelude: string) => string): string {
     let out = '';
     let ini = 0;
@@ -267,6 +316,7 @@ const FAMILIAS_RESPONSIVE: RegExp[] = [
 
 const FAMILIAS_ESTADO: Array<[prefijo: string, re: RegExp]> = [
     ['hover:', /^ts-(bg|color|border|ring)-(?!shadow-|[tbse]-)[a-zA-Z]+(?:-[a-zA-Z]+)*-\d{3,4}$/],
+    ['hover:', /^ts-(bg|color)-(white|black)$/],
     ['hover:', /^ts-color-(heading|copy|subtle|label|success|warning|info|danger)$/],
     ['hover:', /^ts-(underline|no-underline|opacity-\d+)$/],
     ['print:', /^ts-(hidden|block)$/],
@@ -486,7 +536,7 @@ export function seleccionarFlat(
     let util = sueltos;
 
     const entran = bloquesQueEntran(p, { usadas, forzadas });
-    const reglas = entran.map((b) => ({ nombre: b.name, ...reglaDe(b), ...(usadas && b.name === 'ts-button' && { css: podarTonos(reglaDe(b).css, usadas) }) }));
+    const reglas = entran.map((b) => ({ nombre: b.name, ...reglaDe(b), ...(usadas && b.name === 'ts-button' && { css: podarTonos(reglaDe(b).css, usadas) }), ...(usadas && b.name === 'ts-icon' && { css: podarIconos(reglaDe(b).css, usadas) }), ...(usadas && b.name in EXTRAS && { css: podarExtras(b.name, reglaDe(b).css, usadas) }) }));
     reglas.sort((a, b) => b.declaraciones - a.declaraciones);
     const lugares1 = reglas.flatMap((r, i) => (r.declaraciones === 1 && !propia(r.nombre) ? [i] : []));
     const atomicas1 = lugares1.map((i) => reglas[i]).sort((a, b) => compararUtilidades(a.nombre, b.nombre));

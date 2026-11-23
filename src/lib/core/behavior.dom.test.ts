@@ -241,7 +241,7 @@ describe('Clipboard (Code)', () => {
     it('al copiar el botón pasa a «Copiado» con ✓ y vuelve a los 2 s', async () => {
         const writeText = vi.fn().mockResolvedValue(undefined);
         Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
-        montar(`<div><button data-ts-copy="#s3" aria-label="Copiar código" data-ts-copied-label="Copiado"><svg id="copiar"></svg><template data-ts-copied-icon><svg id="tilde"></svg></template></button><pre id="s3">x</pre></div>`);
+        montar(`<div><button data-ts-copy="#s3" aria-label="Copiar código" data-ts-copied-label="Copiado"><svg id="copiar"></svg><template data-ts-copied-icon><svg id="tilde"></svg></template></button><span role="status" data-ts-copy-status></span><pre id="s3">x</pre></div>`);
         const boton = q('[data-ts-copy]');
         vi.useFakeTimers();
         try {
@@ -250,6 +250,7 @@ describe('Clipboard (Code)', () => {
             expect(boton.getAttribute('aria-label')).toBe('Copiado');
             expect(boton.querySelector('svg')?.id).toBe('tilde');
             expect(boton.hasAttribute('data-ts-copied')).toBe(true);
+            expect(q('[data-ts-copy-status]').textContent).toBe('Copiado');
 
             await vi.advanceTimersByTimeAsync(1500);
             boton.click();
@@ -261,6 +262,7 @@ describe('Clipboard (Code)', () => {
             expect(boton.querySelector('svg')?.id).toBe('copiar');
             expect(boton.classList.contains('is-copied')).toBe(false);
             expect(boton.hasAttribute('data-ts-copied')).toBe(false);
+            expect(q('[data-ts-copy-status]').textContent).toBe('');
         } finally {
             vi.useRealTimers();
         }
@@ -815,7 +817,7 @@ describe('Botón de limpiar (clearable de Input y Textarea)', () => {
         expect(boton().hidden).toBe(true);
     });
 
-    it('click: limpia, dispara input, change y ts:change, esconde el botón y enfoca el campo', () => {
+    it('click: avisa con ts:change, limpia, dispara input y change, esconde el botón y enfoca el campo', () => {
         montar(INPUT());
         const campo = q<HTMLInputElement>('input');
         const vistos: string[] = [];
@@ -823,9 +825,21 @@ describe('Botón de limpiar (clearable de Input y Textarea)', () => {
         boton().click();
 
         expect(campo.value).toBe('');
-        expect(vistos).toEqual(['input', 'change', 'ts:change']);
+        expect(vistos).toEqual(['ts:change', 'input', 'change']);
         expect(boton().hidden).toBe(true);
         expect(document.activeElement).toBe(campo);
+    });
+
+    it('con el ts:change frenado no limpia', () => {
+        montar(INPUT());
+        const campo = q<HTMLInputElement>('input');
+        const antes = campo.value;
+        const frenar = (e: Event) => e.preventDefault();
+        document.addEventListener('ts:change', frenar);
+        boton().click();
+        document.removeEventListener('ts:change', frenar);
+        expect(antes).not.toBe('');
+        expect(campo.value).toBe(antes);
     });
 
     it('funciona igual con un textarea', () => {
@@ -1158,6 +1172,14 @@ describe('Popover: el foco vuelve al disparador', () => {
         q('#otro').focus();
         cerrar();
         expect(document.activeElement).toBe(q('#otro'));
+    });
+
+    it('si el foco quedó dentro del panel ya cerrado (WebKit no enfoca el botón al hacer clic), vuelve al disparador', () => {
+        montar(HTML);
+        alternar('open');
+        expect(document.activeElement).toBe(q('#dentro'));
+        cerrar();
+        expect(document.activeElement).toBe(q('#disparador'));
     });
 
     it('al abrir, el foco entra al destino marcado con data-ts-autofocus', () => {
@@ -3224,6 +3246,17 @@ describe('Pagination completa', () => {
         expect(nav.getAttribute('data-ts-total')).toBe('4');
         expect(nav.getAttribute('data-ts-page')).toBe('1');
         expect(q('[data-ts-page-label]').textContent).toBe('1–50 de 200');
+    });
+
+    it('con el ts:change de la paginación frenado, el tamaño no cambia', () => {
+        const nav = montar(HTML);
+        const frenar = (e: Event) => { if ((e as CustomEvent).detail?.component === 'pagination') e.preventDefault(); };
+        document.addEventListener('ts:change', frenar);
+        q('[data-ts-listbox-trigger]').click();
+        q('[data-ts-value="50"]').click();
+        document.removeEventListener('ts:change', frenar);
+        expect(nav.getAttribute('data-ts-page-size')).toBe('10');
+        expect(nav.getAttribute('data-ts-total')).toBe('20');
     });
 });
 

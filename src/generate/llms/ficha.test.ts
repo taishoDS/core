@@ -18,6 +18,7 @@ const datos: DatosFicha = {
 	},
 	bloques: ['button', 'button-group'],
 	atributos: [],
+	js: 'none',
 	teclado: [{ keys: 'Enter', action: 'Activa el botón.' }],
 	ejemplos: [
 		{ titulo: 'Principal', html: '<button type="button" class="ts button size-md variant-primary">Guardar</button>' },
@@ -45,9 +46,21 @@ describe('fichaMarkdown', () => {
 	});
 
 	it('lista los atributos cuando el componente necesita JS', () => {
-		const md = fichaMarkdown({ ...datos, atributos: ['data-ts-tabs', 'data-ts-value'], nucleo: 'El panel activo lo cambia el Core.' }, 'es');
+		const md = fichaMarkdown({ ...datos, atributos: ['data-ts-tabs', 'data-ts-value'], js: 'core', nucleo: 'El panel activo lo cambia el Core.' }, 'es');
 		expect(md).toContain('Necesita el JavaScript del Core (`taisho.core.js`). Atributos: `data-ts-tabs`, `data-ts-value`.');
 		expect(md).toContain('El panel activo lo cambia el Core.');
+		expect(md).not.toContain('No necesita JavaScript.');
+	});
+
+	it('un componente que usa el JS del Core sin atributos propios no sale como «sin JS»', () => {
+		const md = fichaMarkdown({ ...datos, js: 'core' }, 'en');
+		expect(md).toContain('It needs the Core JavaScript (`taisho.core.js`). It has no attributes of its own: Core finds it by its classes.');
+		expect(md).not.toContain('It needs no JavaScript.');
+	});
+
+	it('uno nativo pide cargar el JS del Core para los navegadores que no llegan', () => {
+		const md = fichaMarkdown({ ...datos, js: 'native' }, 'es');
+		expect(md).toContain('Lo resuelve el navegador, y donde el navegador no llega lo completa el JavaScript del Core (`taisho.core.js`): conviene cargarlo.');
 		expect(md).not.toContain('No necesita JavaScript.');
 	});
 

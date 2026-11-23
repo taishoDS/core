@@ -5,6 +5,9 @@ import type { Gamut } from './color-math.ts';
 
 export type NeutralMap = Record<string, Record<string, string>>;
 
+/** Blanco y negro fijos de fábrica: el mismo valor en claro y en oscuro (no pasan por tinte, P3 ni `light-dark()`). */
+export const fixedColors = { white: 'oklch(1 0 0)', black: 'oklch(0 0 0)' } as const;
+
 export const neutrals: { light: NeutralMap; dark: NeutralMap } = {
     light: {
         background: { '100': 'oklch(1 0 0)', '200': 'oklch(0.98 0.002 240)' },

@@ -5,7 +5,7 @@ import { createJiti } from 'jiti';
 import type { TaishoConfig } from '../generate';
 import { writeConsumerOutput } from './write-consumer-output';
 import { idioma, m, usarIdioma, type Lang } from './idioma';
-import { warningLine } from './mensajes-avisos';
+import { esAvisoInformativo, marcaDeAviso, warningLine } from './mensajes-avisos';
 import { mensajeDe } from './errores';
 
 const DEFAULT_OUT_DIR = 'taisho';
@@ -93,9 +93,10 @@ export async function runGenerate(options: RunGenerateOptions): Promise<void> {
 		return;
 	}
 
-	for (const aviso of salida.warnings) console.warn(`⚠ ${warningLine(aviso, idioma())}`);
-	if (options.strict && salida.warnings.length) {
-		console.error(m().generate.estricto(salida.warnings.length));
+	for (const aviso of salida.warnings) console[esAvisoInformativo(aviso) ? 'info' : 'warn'](`${marcaDeAviso(aviso)} ${warningLine(aviso, idioma())}`);
+	const contables = salida.warnings.filter((a) => !esAvisoInformativo(a)).length;
+	if (options.strict && contables) {
+		console.error(m().generate.estricto(contables));
 		process.exitCode = 1;
 	}
 

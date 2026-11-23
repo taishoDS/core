@@ -10,7 +10,7 @@ export type EscalaId =
 export type Escalas = Record<EscalaId, readonly string[]> & { ritmo: readonly string[]; sizing: readonly string[] };
 
 export type Valor =
-    | { t: 'espaciado'; auto?: boolean; neg?: boolean }
+    | { t: 'espaciado'; auto?: boolean; neg?: boolean; safe?: boolean }
     | { t: 'escala'; de: EscalaId; extra?: readonly string[] }
     | { t: 'px'; extra?: readonly string[]; patron?: RegExp }
     | { t: 'conteo'; extra?: readonly string[]; patron?: RegExp }
@@ -26,6 +26,7 @@ export interface Prefijo {
 }
 
 const ESP: Valor = { t: 'espaciado' };
+const ESPS: Valor = { t: 'espaciado', safe: true };
 const ESPN: Valor = { t: 'espaciado', neg: true, auto: true };
 const PX: Valor = { t: 'px' };
 const COLB: Valor = { t: 'color', ancho: true, anchoSolo: true, extra: ['none', 'transparent', '0'] };
@@ -44,12 +45,12 @@ export const PREFIJOS: Record<string, Prefijo> = {
     p: { prop: 'padding', valor: ESP },
     px: { prop: 'padding-inline', valor: ESP },
     py: { prop: 'padding-top + padding-bottom', valor: ESP },
-    pt: { prop: 'padding-top', valor: ESP },
-    pb: { prop: 'padding-bottom', valor: ESP },
-    ps: { prop: 'padding-inline-start', valor: ESP },
-    pe: { prop: 'padding-inline-end', valor: ESP },
-    pl: { prop: 'padding-left', valor: ESP, legado: fis('ps') },
-    pr: { prop: 'padding-right', valor: ESP, legado: fis('pe') },
+    pt: { prop: 'padding-top', valor: ESPS },
+    pb: { prop: 'padding-bottom', valor: ESPS },
+    ps: { prop: 'padding-inline-start', valor: ESPS },
+    pe: { prop: 'padding-inline-end', valor: ESPS },
+    pl: { prop: 'padding-left', valor: ESPS, legado: fis('ps') },
+    pr: { prop: 'padding-right', valor: ESPS, legado: fis('pe') },
     gap: { prop: 'gap', valor: ESP },
     'gap-x': { prop: 'column-gap', valor: ESP },
     'gap-y': { prop: 'row-gap', valor: ESP },
@@ -86,8 +87,8 @@ export const PREFIJOS: Record<string, Prefijo> = {
     break: { prop: 'overflow-wrap / word-break', valor: { t: 'palabras', lista: ['words', 'all', 'normal'] } },
     'line-clamp': { prop: 'line-clamp', valor: { t: 'conteo', extra: ['none'] } },
     valign: { prop: 'vertical-align', valor: { t: 'palabras', lista: ['baseline', 'top', 'middle', 'bottom'] } },
-    color: { prop: 'color', valor: { t: 'color', extra: [] } },
-    bg: { prop: 'background-color', valor: { t: 'color', extra: ['transparent', 'glow-brand', 'glow-accent', 'highlight', 'highlight-strong'] } },
+    color: { prop: 'color', valor: { t: 'color', extra: ['white', 'black'] } },
+    bg: { prop: 'background-color', valor: { t: 'color', extra: ['white', 'black', 'transparent', 'glow-brand', 'glow-accent', 'highlight', 'highlight-strong'] } },
     accent: { prop: 'accent-color', valor: { t: 'palabras', lista: ['brand', 'accent', 'auto'] } },
     border: { prop: 'border', valor: { t: 'color', ancho: true, anchoSolo: true, extra: ['none', 'transparent', 'separator'] } },
     'border-t': { prop: 'border-top', valor: COLB },
@@ -133,7 +134,8 @@ export const PREFIJOS: Record<string, Prefijo> = {
     'grid-rows': { prop: 'grid-template-rows', valor: { t: 'conteo' } },
     'grid-flow': { prop: 'grid-auto-flow', valor: { t: 'palabras', lista: ['row', 'col', 'dense'] } },
     'grid-min': { prop: '--ts-grid-min', valor: { t: 'escala', de: 'gridMins' } },
-    'col-span': { prop: 'grid-column', valor: { t: 'conteo', extra: ['full'] } },
+    'col-span': { prop: 'grid-column', valor: { t: 'conteo', extra: ['full', 'auto'] } },
+    'col-start': { prop: 'grid-column-start', valor: { t: 'palabras', lista: ['auto'] } },
     'row-span': { prop: 'grid-row', valor: { t: 'conteo', extra: ['full'] } },
     columns: { prop: 'columns', valor: { t: 'conteo' } },
     aspect: { prop: 'aspect-ratio', valor: { t: 'palabras', lista: ['square', 'video', 'auto'] } },
@@ -243,7 +245,7 @@ export function esColor(v: string, familias: readonly string[], extra: readonly 
 export function valorValido(valor: Valor, v: string, esc: Escalas, familias: readonly string[]): boolean {
     switch (valor.t) {
         case 'espaciado':
-            return esc.ritmo.includes(v) || esc.sizing.includes(v) || (!!valor.auto && v === 'auto');
+            return esc.ritmo.includes(v) || esc.sizing.includes(v) || (!!valor.auto && v === 'auto') || (!!valor.safe && v === 'safe');
         case 'escala':
             return esc[valor.de].includes(v) || (valor.extra?.includes(v) ?? false) || (valor.de === 'radius' && v === 'none');
         case 'px':
@@ -402,4 +404,13 @@ export function modificadoresSueltos(css: string, componentes: readonly string[]
         }
     }
     return out;
+}
+
+/** Los modificadores que escribe el CSS de los componentes (`icon-16`, `size-md`…), sin los de estado (`is-*`, `has-*`). */
+export function modificadoresDeComponentes(components: string): Set<string> {
+    const modificadores = new Set<string>();
+    for (const m of components.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/\.([A-Za-z_][A-Za-z0-9_-]*)/g)) {
+        if (!m[1].startsWith('ts-') && esModificador(m[1]) && !/^(is|has)-/.test(m[1])) modificadores.add(m[1]);
+    }
+    return modificadores;
 }

@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import fs from 'node:fs';
 import path from 'node:path';
 import { MODULOS, GANCHOS_GENERICOS, PESADOS, archivoDe, modulosDeArchivo, modulosDeGancho, modulosDeSlugs, conRequeridos, type NombreModulo } from './modulos';
-import { contratoCore } from '../../routes/_docs/core-contract';
+import { contratoCore } from '../../core-datos/contrato';
 
 const CORE = __dirname;
 const nombres = Object.keys(MODULOS) as NombreModulo[];

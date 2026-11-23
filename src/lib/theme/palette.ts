@@ -176,11 +176,40 @@ export interface Scale {
     seedStep: number;
     adjusted: boolean;
     dL: number;
+    /** Contraste WCAG del color de partida (ya dentro de la gama) contra el fondo del modo. */
+    seedRatio: number;
+    /** Sólo si el color cayó entre dos pasos de la escala: qué se hizo y con qué números. */
+    fit?: SeedFitInfo;
+}
+/** Umbral AA con el que se mide un color que cae entre dos pasos, contra el texto que lleva encima y contra el fondo. */
+export const UMBRAL_AA = 4.5;
+export type SeedFitChoice = 'shift' | 'keep';
+export interface SeedFitInfo {
+    /** Lo que quedó en la escala: el color corrido ('shift') o el exacto ('keep'). */
+    resolved: SeedFitChoice;
+    /** `true` si el tema lo pidió con `seedFit`; `false` si lo decidió el motor. */
+    chosen: boolean;
+    /** Paso del borde al que se adapta (o se adaptaría) el color. */
+    step: number;
+    /** Luminosidad del borde menos la del color de partida (+ más clara). */
+    deltaL: number;
+    /** Contraste del color exacto: del mejor texto encima y contra el fondo. */
+    text: number;
+    bg: number;
+    /** Lo mismo para el color corrido al borde. */
+    textShifted: number;
+    bgShifted: number;
 }
 
 const fmt = (l: number, c: number, h: number) => `oklch(${l.toFixed(4)} ${c.toFixed(4)} ${h.toFixed(2)})`;
 
 const bytes = (l: number, c: number, h: number): string => { const { r, g, b } = oklchToRgb(l, c, h); return [r, g, b].map(v => Math.round(v * 255)).join(); };
+/** Luminancia WCAG del color tal como lo pinta el navegador: el CSS redondeado a sRGB de 8 bits. */
+function luminance8(l: number, c: number, h: number): number {
+    const { r, g, b } = oklchToRgb(l, c, h);
+    const lin = (v: number) => { const x = Math.round(v * 255) / 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; };
+    return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+}
 /** El color de partida que queda exacto: si redondear a 4 decimales lo mueve un valor de 8 bits, se escribe con más. */
 function fmtSeed(l: number, c: number, h: number): string {
     const exacto = bytes(l, c, h);
@@ -191,7 +220,7 @@ function fmtSeed(l: number, c: number, h: number): string {
     return fmt(l, c, h);
 }
 
-export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair: [ContrastNeutral, ContrastNeutral] = DEFAULT_NEUTRALS[mode]): Scale {
+export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair: [ContrastNeutral, ContrastNeutral] = DEFAULT_NEUTRALS[mode], fit?: SeedFitChoice): Scale {
     const sp = SPEC[mode], isLight = mode === 'light';
     const Ls = seed.l, Hs = seed.h;
     // Cerca del azul puro el borde de la gama se cruza dos veces a lo largo de la croma y `maxChroma` da el primer
@@ -206,9 +235,57 @@ export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair:
         const score = (d > 0 ? 1e6 : 0) + d * 100 + Math.abs(Math.log(Rs / sp.target[i]));
         if (score < best) { best = score; k = i; }
     });
-    const [wa, wb] = sp.win[k];
-    const adjusted = Rs < wa || Rs > wb;
+    let [wa, wb] = sp.win[k];
+    let adjusted = Rs < wa || Rs > wb;
     const rotSeed = hueRot(Hs, Ls);
+
+    const solve = (i: number, Yt: number): [number, number, number] => {
+        const cap = Cs * sp.prof[i];
+        const at = (l: number): [number, number] => {
+            const h = (Hs + hueRot(Hs, l) - rotSeed + 360) % 360;
+            return [Math.min(cap, maxChroma(l, h, gamut) * 0.995), h];
+        };
+        const f = (l: number): number => { const [c, h] = at(l); return luminanceOklch(l, c, h) - Yt; };
+        let lo = 0, hi = 1, flo = f(0), fhi = f(1), side = 0;
+        let L = 0.5;
+        for (let it = 0; it < 60; it++) {
+            L = (lo * fhi - hi * flo) / (fhi - flo);
+            const fl = f(L);
+            if (Math.abs(fl) < 1e-10) break;
+            if (fl < 0) { lo = L; flo = fl; if (side === -1) fhi /= 2; side = -1; }
+            else { hi = L; fhi = fl; if (side === 1) flo /= 2; side = 1; }
+        }
+        const [C, H] = at(L);
+        return [L, C, H];
+    };
+
+    // Un color entre dos ventanas: se adapta al borde más cercano (en luminosidad) que llega a AA con el texto encima y contra el fondo.
+    let fitInfo: SeedFitInfo | undefined;
+    if (adjusted && sp.win.some(([, b], j) => j < sp.win.length - 1 && Rs > b && Rs < sp.win[j + 1][0])) {
+        // Las dos medidas valen si llegan tanto sobre el color sin redondear como sobre lo que el navegador pinta (el CSS redondeado a sRGB de
+        // 8 bits: el color, el neutro de texto y el fondo). En gama ancha no hay 8 bits de sRGB que medir: la decisión la toma la escala sRGB (`segun`).
+        const lums = gamut === 'srgb' ? [luminanceOklch, luminance8] : [luminanceOklch];
+        const medir = (l: number, c: number, h: number) => ({
+            text: Math.min(...lums.map((lum) => { const Y = lum(l, c, h); return Math.max(...pair.map((n) => wcagRatio(Y, lum(n.l, n.c, n.h)))); })),
+            bg: Math.min(...lums.map((lum) => wcagRatio(lum(l, c, h), lum(Math.cbrt(sp.bgY), 0, 0)))),
+        });
+        const exacto = medir(Ls, Cs, Hs);
+        const bordes = sp.win.flatMap(([a, b], i) => [[i, a], [i, b]] as const)
+            .sort((p, q) => Math.abs(Math.log(Rs / p[1])) - Math.abs(Math.log(Rs / q[1])));
+        const medidos = bordes.map(([i, r]) => {
+            const solved = solve(i, yFromRatio(r, sp.bgY, isLight));
+            return { i, r, solved, ...medir(+solved[0].toFixed(4), +solved[1].toFixed(4), +solved[2].toFixed(2)) };
+        });
+        const destino = medidos.find((m) => m.text >= UMBRAL_AA && m.bg >= UMBRAL_AA) ?? medidos[0];
+        const pasa = exacto.text >= UMBRAL_AA && exacto.bg >= UMBRAL_AA;
+        const resolved: SeedFitChoice = fit ?? (pasa ? 'keep' : 'shift');
+        fitInfo = {
+            resolved, chosen: fit !== undefined, step: destino.i, deltaL: destino.solved[0] - Ls,
+            text: exacto.text, bg: exacto.bg, textShifted: destino.text, bgShifted: destino.bg,
+        };
+        if (resolved === 'keep') adjusted = false;
+        else { k = destino.i; wa = wb = destino.r; }
+    }
 
     const steps: ScaleStep[] = sp.target.map((T, i) => {
         let L: number, C: number, H: number;
@@ -216,22 +293,7 @@ export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair:
             L = Ls; C = Cs; H = Hs;
         } else {
             const Yt = yFromRatio(i === k ? Math.min(wb, Math.max(wa, Rs)) : T, sp.bgY, isLight);
-            const cap = Cs * sp.prof[i];
-            const at = (l: number): [number, number] => {
-                const h = (Hs + hueRot(Hs, l) - rotSeed + 360) % 360;
-                return [Math.min(cap, maxChroma(l, h, gamut) * 0.995), h];
-            };
-            const f = (l: number): number => { const [c, h] = at(l); return luminanceOklch(l, c, h) - Yt; };
-            let lo = 0, hi = 1, flo = f(0), fhi = f(1), side = 0;
-            L = 0.5;
-            for (let it = 0; it < 60; it++) {
-                L = (lo * fhi - hi * flo) / (fhi - flo);
-                const fl = f(L);
-                if (Math.abs(fl) < 1e-10) break;
-                if (fl < 0) { lo = L; flo = fl; if (side === -1) fhi /= 2; side = -1; }
-                else { hi = L; fhi = fl; if (side === 1) flo /= 2; side = 1; }
-            }
-            [C, H] = at(L);
+            [L, C, H] = solve(i, Yt);
         }
         const y = luminanceOklch(L, C, H);
         const { neutral, ratio } = pickContrast(y, pair);
@@ -241,7 +303,7 @@ export function buildScale(seed: Oklch, mode: Mode, gamut: Gamut = 'srgb', pair:
             seed: i === k,
         };
     });
-    return { steps, seedStep: k, adjusted, dL: adjusted ? steps[k].l - Ls : 0 };
+    return { steps, seedStep: k, adjusted, dL: adjusted ? steps[k].l - Ls : 0, seedRatio: Rs, ...(fitInfo ? { fit: fitInfo } : {}) };
 }
 
 export function scaleToPalette(scale: Scale): ColorPalette {
@@ -260,6 +322,13 @@ export function createPaletteFromHex(hex: string, isDark: boolean, gamut: Gamut 
 export const CROMA_NEUTRA = 0.02;
 export const L_SEMILLA_BLANCA = 0.97;
 export const esSemillaBlanca = (semilla: string): boolean => parseSeed(semilla).l >= L_SEMILLA_BLANCA;
+
+/** Dos semillas son el mismo color, se escriban como se escriban (`#D42424` y `#d42424`, `#abc` y `#aabbcc`, hex y `oklch()`). */
+export function mismaSemilla(a: string | undefined, b: string | undefined): boolean {
+    if (a === undefined || b === undefined) return false;
+    const x = parseSeed(a), y = parseSeed(b);
+    return Math.abs(x.l - y.l) < 1e-6 && Math.abs(x.c - y.c) < 1e-6 && (x.c < 1e-6 || Math.abs(x.h - y.h) < 1e-4);
+}
 
 export type PasosSolido = [number, number, number];
 
@@ -292,12 +361,16 @@ function solidoDePasos(name: string, scale: Scale, pasos: PasosSolido): Record<s
 export type PaletasPorModo = { light: Record<string, Record<string, string>>; dark: Record<string, Record<string, string>> };
 export type EscalasDeSemillas = Record<string, { light: Scale; dark: Scale }>;
 
-export function paletasDeSemillas(seeds: Record<string, string>, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut): PaletasPorModo & { escalas: EscalasDeSemillas } {
+/** `seedFit` del tema por familia; `segun`: escalas ya resueltas (las de sRGB) cuyo destino sigue la gama ancha, para que las dos pinten el mismo color. */
+export type SeedFitOpciones = { fit?: Record<string, SeedFitChoice>; segun?: EscalasDeSemillas };
+const fitDe = (name: string, modo: Mode, o: SeedFitOpciones): SeedFitChoice | undefined => o.segun?.[name]?.[modo].fit?.resolved ?? o.fit?.[name];
+
+export function paletasDeSemillas(seeds: Record<string, string>, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut, opciones: SeedFitOpciones = {}): PaletasPorModo & { escalas: EscalasDeSemillas } {
     const out: PaletasPorModo & { escalas: EscalasDeSemillas } = { light: {}, dark: {}, escalas: {} };
     for (const [name, hex] of Object.entries(seeds)) {
         const seed = parseSeed(hex);
-        const light = buildScale(seed, 'light', gamut, contrastNeutrals(false, eff));
-        const dark = buildScale(seed, 'dark', gamut, contrastNeutrals(true, eff));
+        const light = buildScale(seed, 'light', gamut, contrastNeutrals(false, eff), fitDe(name, 'light', opciones));
+        const dark = buildScale(seed, 'dark', gamut, contrastNeutrals(true, eff), fitDe(name, 'dark', opciones));
         const pasos = pasosDelSolido(name, seed, light, dark);
         out.light[name] = { ...scaleToPalette(light), ...solidoDePasos(name, light, pasos.light) };
         out.dark[name] = { ...scaleToPalette(dark), ...solidoDePasos(name, dark, pasos.dark) };
@@ -316,10 +389,10 @@ export const primarioComoMarca: Record<string, string> = Object.fromEntries(
     PRIMARIO_VARS.flatMap((k) => [[k, `var(--color-brand-${k})`], [`${k}-contrast`, `var(--color-brand-${k}-contrast)`]]),
 );
 
-export function solidoPrimario(semilla: string, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut): { light: Record<string, string>; dark: Record<string, string>; escalas: { light: Scale; dark: Scale } } {
+export function solidoPrimario(semilla: string, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut, opciones: SeedFitOpciones = {}): { light: Record<string, string>; dark: Record<string, string>; escalas: { light: Scale; dark: Scale } } {
     const seed = parseSeed(semilla);
-    const light = buildScale(seed, 'light', gamut, contrastNeutrals(false, eff));
-    const dark = buildScale(seed, 'dark', gamut, contrastNeutrals(true, eff));
+    const light = buildScale(seed, 'light', gamut, contrastNeutrals(false, eff), fitDe('primary', 'light', opciones));
+    const dark = buildScale(seed, 'dark', gamut, contrastNeutrals(true, eff), fitDe('primary', 'dark', opciones));
     const pasos = pasosDelSolido('primary', seed, light);
     const literales = (scale: Scale, p: PasosSolido): Record<string, string> => {
         const out: Record<string, string> = {};
@@ -332,9 +405,9 @@ export function solidoPrimario(semilla: string, eff: { light: NeutralMap; dark: 
     return { light: literales(light, pasos.light), dark: literales(dark, pasos.dark), escalas: { light, dark } };
 }
 
-export function paletasDePrimario(semilla: string | undefined, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut): PaletasPorModo & { escalas: EscalasDeSemillas } {
+export function paletasDePrimario(semilla: string | undefined, eff: { light: NeutralMap; dark: NeutralMap }, gamut: Gamut, opciones: SeedFitOpciones = {}): PaletasPorModo & { escalas: EscalasDeSemillas } {
     if (semilla === undefined) return { light: { primary: primarioComoMarca }, dark: { primary: primarioComoMarca }, escalas: {} };
-    const { light, dark, escalas } = solidoPrimario(semilla, eff, gamut);
+    const { light, dark, escalas } = solidoPrimario(semilla, eff, gamut, opciones);
     return { light: { primary: light }, dark: { primary: dark }, escalas: { primary: escalas } };
 }
 

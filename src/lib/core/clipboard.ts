@@ -20,6 +20,12 @@ function terminarAcuse(boton: HTMLElement): void {
     if (acuse.icono && tilde && tilde !== acuse.icono) tilde.replaceWith(acuse.icono);
     boton.classList.remove('is-copied');
     boton.removeAttribute(`${P}copied`);
+    estado(boton)?.replaceChildren();
+}
+
+/** Región viva hermana del botón: el lector anuncia el acuse aunque el foco no se mueva. */
+function estado(boton: HTMLElement): Element | null {
+    return boton.parentElement?.querySelector(`:scope > [${P}copy-status]`) ?? null;
 }
 
 function acusar(boton: HTMLElement): void {
@@ -35,6 +41,7 @@ function acusar(boton: HTMLElement): void {
     if (tilde && actual && !previo) actual.replaceWith(tilde.cloneNode(true));
     boton.classList.add('is-copied');
     boton.setAttribute(`${P}copied`, '');
+    if (nombre) estado(boton)?.replaceChildren(nombre);
 
     const temporizador = setTimeout(() => terminarAcuse(boton), COPY_ACK_MS);
     acuses.set(boton, { temporizador, etiqueta, icono });

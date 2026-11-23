@@ -1,7 +1,7 @@
 // TaishoDS Core — Copyright (c) 2026 Pablo Di Filippo. Licencia MIT (ver LICENSE).
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { init } from './index';
-import { soportado, cierrePorFondoSoportado } from './invokers';
+import { soportado, cierrePorFondoSoportado, alPresionarDisparador, alCerrarDialogo } from './invokers';
 
 const HTML = `
 <button type="button" id="abrir" commandfor="d" command="show-modal">Abrir</button>
@@ -224,14 +224,98 @@ describe('Diálogo no descartable (closedby="none")', () => {
 });
 
 describe('Aviso de diálogo sin nombre accesible (localhost)', () => {
-    it('avisa una sola vez por diálogo, en el idioma de la página, y calla los que tienen nombre', () => {
+    it('avisa una sola vez por diálogo, en el idioma de la página, y calla los que tienen nombre', async () => {
         const aviso = vi.spyOn(console, 'warn').mockImplementation(() => {});
         document.documentElement.lang = 'es';
         document.body.innerHTML = `<dialog class="ts modal-dialog" id="a"></dialog><dialog class="ts modal-dialog" aria-label="Con nombre"></dialog><dialog class="ts modal-dialog" aria-labelledby="t"></dialog>`;
         init(document);
         init(document);
+        await vi.waitFor(() => expect(aviso).toHaveBeenCalled());
+        await new Promise((r) => setTimeout(r, 50));
         expect(aviso).toHaveBeenCalledTimes(1);
         expect(aviso.mock.calls[0][0]).toContain('nombre accesible');
         expect(aviso.mock.calls[0][1]).toBe(document.getElementById('a'));
+    });
+});
+
+describe('el foco vuelve al disparador aunque el navegador no lo enfoque al hacer clic', () => {
+    it('al cerrar con el foco en body o en un hijo del diálogo, vuelve al botón del clic', async () => {
+        vi.useFakeTimers();
+        const abrir = q<HTMLButtonElement>('#abrir');
+        const d = q<HTMLDialogElement>('#d');
+        alPresionarDisparador(abrir);
+        d.setAttribute('open', '');
+        vi.runAllTimers();
+        vi.useRealTimers();
+        expect(document.activeElement).toBe(document.body);
+        alCerrarDialogo(d);
+        expect(document.activeElement).toBe(abrir);
+
+        // Segundo cierre sin apertura nueva: no hay a quién devolverle el foco.
+        q('#cerrar').focus();
+        alCerrarDialogo(d);
+        expect(document.activeElement).toBe(q('#cerrar'));
+    });
+
+    it('si el foco ya está en otro elemento fuera del diálogo, no lo roba', () => {
+        vi.useFakeTimers();
+        const abrir = q<HTMLButtonElement>('#abrir');
+        const d = q<HTMLDialogElement>('#d');
+        const otro = document.createElement('button');
+        document.body.append(otro);
+        alPresionarDisparador(abrir);
+        d.setAttribute('open', '');
+        vi.runAllTimers();
+        vi.useRealTimers();
+        otro.focus();
+        alCerrarDialogo(d);
+        expect(document.activeElement).toBe(otro);
+    });
+
+    it('un botón dentro de un diálogo es el disparador de OTRO diálogo, no del que lo contiene', () => {
+        vi.useFakeTimers();
+        document.body.insertAdjacentHTML('beforeend', '<dialog id="a" open><button id="abrir-b">Abrir B</button><dialog id="b"></dialog></dialog>');
+        const abrirB = q<HTMLButtonElement>('#abrir-b');
+        const a = q<HTMLDialogElement>('#a');
+        const b = q<HTMLDialogElement>('#b');
+        alPresionarDisparador(abrirB);
+        b.setAttribute('open', '');
+        vi.runAllTimers();
+        vi.useRealTimers();
+        // Con el foco quedado en el diálogo exterior, cerrar B lo devuelve al botón que lo abrió.
+        a.setAttribute('tabindex', '-1');
+        a.focus();
+        alCerrarDialogo(b);
+        expect(document.activeElement).toBe(abrirB);
+    });
+
+    it('un diálogo abierto antes del clic no recibe como disparador un botón ajeno', () => {
+        vi.useFakeTimers();
+        document.body.insertAdjacentHTML('beforeend', '<dialog id="previo" open></dialog><button id="ajeno">Ajeno</button>');
+        const previo = q<HTMLDialogElement>('#previo');
+        alPresionarDisparador(q('#ajeno'));
+        vi.runAllTimers();
+        vi.useRealTimers();
+        expect(document.activeElement).toBe(document.body);
+        alCerrarDialogo(previo);
+        expect(document.activeElement).toBe(document.body);
+    });
+
+    it('dos aperturas en el mismo turno: cada diálogo queda con el disparador de su clic', () => {
+        vi.useFakeTimers();
+        document.body.insertAdjacentHTML('beforeend', '<button id="b1">1</button><button id="b2">2</button><dialog id="d1"></dialog><dialog id="d2"></dialog>');
+        const d1 = q<HTMLDialogElement>('#d1');
+        const d2 = q<HTMLDialogElement>('#d2');
+        alPresionarDisparador(q('#b1'));
+        d1.setAttribute('open', '');
+        alPresionarDisparador(q('#b2'));
+        d2.setAttribute('open', '');
+        vi.runAllTimers();
+        vi.useRealTimers();
+        alCerrarDialogo(d2);
+        expect(document.activeElement).toBe(q('#b2'));
+        q<HTMLElement>('#b2').blur();
+        alCerrarDialogo(d1);
+        expect(document.activeElement).toBe(q('#b1'));
     });
 });

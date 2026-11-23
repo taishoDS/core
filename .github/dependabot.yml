@@ -1,12 +1,9 @@
 version: 2
 updates:
   # Las acciones de los workflows van fijadas por SHA: Dependabot propone el SHA nuevo con el comentario de versión.
+  # Las dependencias de npm no se siguen acá: este repositorio es un espejo y sus cambios entran por el repositorio
+  # de origen, que ya las sigue. Un PR abierto acá no se puede aceptar.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10

@@ -62,11 +62,11 @@ export function alHacerClick(destino: Element): boolean {
     }
     const campo = campoDe(boton);
     if (!campo || campo.disabled || campo.readOnly) return true;
+    if (!avisar(boton, { component: 'clear', value: '' })) return true;
 
     campo.value = '';
     campo.dispatchEvent(new Event('input', { bubbles: true }));
     campo.dispatchEvent(new Event('change', { bubbles: true }));
-    avisar(boton, { component: 'clear', value: '' });
     campoAsync.alLimpiar(campo);
     sincronizarBoton(boton);
     campo.focus();

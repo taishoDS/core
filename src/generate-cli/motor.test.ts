@@ -244,3 +244,14 @@ describe('tipos de las clases propias (taisho.classes.d.ts)', () => {
 	});
 });
 
+
+describe('config mínima', () => {
+	it('sin fontFaces ni defaultStates genera igual: sin fuentes propias, con la del sistema', async () => {
+		const { dir, out } = proyecto();
+		const minima: TaishoConfig = { themes: { principal: { colors: { brand: '#4F46E5' } } }, content: ['**/*.html'] };
+		await crearMotor(minima, { targetDir: out, cwd: dir }).actualizar();
+		const salida = leerSalida(out);
+		expect(salida['taisho.css']).toContain('gap-base');
+		expect(salida['fonts.css']).not.toContain('@font-face');
+	});
+});
