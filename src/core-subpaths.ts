@@ -2,6 +2,8 @@
 export const SUBPATHS_CORE: Record<string, string> = {
 	'.': 'src/lib/theme/createTheme.ts',
 	'./vite': 'src/generate-cli/vite.ts',
+	'./mcp': 'src/generate-cli/mcp/servidor.ts',
+	'./color': 'src/generate/color.ts',
 	'./classes': 'src/lib/types/classes.d.ts',
 	'./generate': 'src/generate/index.ts',
 	'./density': 'src/lib/theme/density.ts',
@@ -12,7 +14,7 @@ export const SUBPATHS_CORE: Record<string, string> = {
 
 export const SUBPATHS_SOLO_NODE = ['./icon-utils', './lucide-aliases'];
 
-export const SUBPATHS_COMPARTIDOS = ['./density', './motion-scale', ...SUBPATHS_SOLO_NODE];
+export const SUBPATHS_COMPARTIDOS = ['./density', './motion-scale', './color', ...SUBPATHS_SOLO_NODE];
 
 export function aliasCore(raiz: string): Record<string, string> {
 	const alias: Record<string, string> = {};

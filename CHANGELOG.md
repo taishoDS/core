@@ -2,6 +2,19 @@
 
 Todos los cambios relevantes de `@taishods/core` se documentan aquí. El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/) y el proyecto usa [versionado semántico](https://semver.org/lang/es/).
 
+## 0.17.5 — 2026-11-24
+
+### Agrega
+
+- **`@taishods/core/mcp`: el servidor de `taisho mcp` como API.** `createMcpServer` (sólo Node) arma el servidor con herramientas propias, reemplazo de las del Core e instrucciones adicionales. Los nombres de las herramientas del Core pasan a ser públicos.
+- **`@taishods/core/color`: los colores finales del tema.** `resolveThemeColors` da el valor en sRGB de cada color, en claro y en oscuro; `contrastRatio`, la proporción de contraste WCAG 2; `compositeOver`, la composición de un color con alfa sobre un fondo opaco. Sirve también en el navegador.
+### In English
+
+#### Added
+
+- **`@taishods/core/mcp`: the `taisho mcp` server as an API.** `createMcpServer` (Node only) builds the server with your own tools, replacements for Core's tools and extra instructions. The names of Core's tools are now public.
+- **`@taishods/core/color`: the final colors of the theme.** `resolveThemeColors` gives the sRGB value of each color, in light and dark; `contrastRatio`, the WCAG 2 contrast ratio; `compositeOver`, a color with alpha composited over an opaque background. It also works in the browser.
+
 ## 0.17.0 — 2026-11-23
 
 ### Rompe

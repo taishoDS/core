@@ -14,9 +14,9 @@ There are two ways to add it to your project. It's the same Core either way, and
 It's the shortest path, with nothing to install. The version is pinned in the URL:
 
 ```html
-<link rel="stylesheet" href="https://taisho.design/core/0.17.0/taisho.tokens.css" integrity="sha384-VMPrJK8fhP6aNSgEn2CP9vxB+K8egd/t1xBN+/OruDS1k+zXuJFa4o5YuvyJzoQg" crossorigin="anonymous">
-<link rel="stylesheet" href="https://taisho.design/core/0.17.0/taisho.full.css" integrity="sha384-gCXB8cDetWCI66AXYnjx4cjDpOTRjzgp56YIFFgo5WsvMKR/v+y0saavwBIMIE/i" crossorigin="anonymous">
-<script type="module" src="https://taisho.design/core/0.17.0/taisho.core.js" integrity="sha384-4utaT8s1WXAiyPZ/iwMgTKRxxPgvYW3QZHXVDQ9U0hm2hCPDOlZ3MzX/KrTGgxkW" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://taisho.design/core/0.17.5/taisho.tokens.css" integrity="sha384-VMPrJK8fhP6aNSgEn2CP9vxB+K8egd/t1xBN+/OruDS1k+zXuJFa4o5YuvyJzoQg" crossorigin="anonymous">
+<link rel="stylesheet" href="https://taisho.design/core/0.17.5/taisho.full.css" integrity="sha384-UW/gesFe2O6LtJC/HBVBOKus5w04P+80U4K+MnRKTioBHKLDw9Xm8NqYdn4kWkJJ" crossorigin="anonymous">
+<script type="module" src="https://taisho.design/core/0.17.5/taisho.core.js" integrity="sha384-4utaT8s1WXAiyPZ/iwMgTKRxxPgvYW3QZHXVDQ9U0hm2hCPDOlZ3MzX/KrTGgxkW" crossorigin="anonymous"></script>
 ```
 
 Order matters. The theme goes first, because it defines the variables; then the system CSS, which reads them; and

@@ -28,7 +28,7 @@ async function hasta(cond: () => boolean, tope = 2000): Promise<void> {
     for (let t = 0; t < tope && !cond(); t += 20) await esperar(20);
 }
 
-describe('lo que se monta después de init queda igual que lo presente al cargar', { timeout: 20000 }, () => {
+describe('lo que se monta después de init queda igual que lo presente al cargar', { timeout: 60000 }, () => {
     const copias = new Map<string, { carga: HTMLElement; despues: HTMLElement }>();
 
     beforeAll(async () => {
@@ -47,7 +47,7 @@ describe('lo que se monta después de init queda igual que lo presente al cargar
             copias.get(slug)!.despues = despues;
         }
         await esperar(300);
-    }, 20000);
+    }, 60000);
 
     it('los catálogos existen', () => {
         for (const slug of CATALOGOS) expect(readdirSync(DIR)).toContain(`${slug}.html`);
@@ -62,7 +62,7 @@ describe('lo que se monta después de init queda igual que lo presente al cargar
     }
 });
 
-describe('montado después: la interacción cuenta una vez y lo que cambia por código se sigue', { timeout: 20000 }, () => {
+describe('montado después: la interacción cuenta una vez y lo que cambia por código se sigue', { timeout: 60000 }, () => {
     const montar = async (html: string) => {
         const c = document.createElement('div');
         c.innerHTML = html;

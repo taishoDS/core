@@ -128,6 +128,16 @@ async function main(): Promise<void> {
 		outfile: path.join(SALIDA, 'vite.js'),
 		external: ['jiti', 'esbuild'],
 	});
+	// Entrada propia en la raíz (no en `shared/`): `carpetasDeDatos` resuelve `./mcp/…` relativo al módulo, igual que `cli.js`.
+	await build({
+		...comun,
+		minify: false,
+		platform: 'node',
+		target: 'es2022',
+		entryPoints: [path.join(RAIZ, SUBPATHS_CORE['./mcp'])],
+		outfile: path.join(SALIDA, 'mcp-server.js'),
+		external: ['jiti', 'esbuild'],
+	});
 	const entradas = (subpaths: string[]) =>
 		Object.fromEntries(subpaths.map((s) => [s.slice(2), path.join(RAIZ, SUBPATHS_CORE[s])]));
 	await build({
@@ -216,6 +226,7 @@ async function main(): Promise<void> {
 					'./core': { types: './types/lib/core/auto.d.ts', default: './core.js' },
 					'./generate': { types: './types/generate/index.d.ts', default: './generate.js' },
 					'./vite': { types: './types/generate-cli/vite.d.ts', default: './vite.js' },
+					'./mcp': { types: './types/generate-cli/mcp/servidor.d.ts', default: './mcp-server.js' },
 					'./classes': { types: './types/classes.d.ts' },
 					...Object.fromEntries(
 						SUBPATHS_COMPARTIDOS.map((s) => [
@@ -232,7 +243,7 @@ async function main(): Promise<void> {
 				peerDependencies: { vite: '>=6' },
 				peerDependenciesMeta: { vite: { optional: true } },
 				dependencies: { jiti: pkg.dependencies.jiti, esbuild: pkg.devDependencies.esbuild },
-				files: ['css', 'core.js', 'core.*.js', 'core-modules', 'theme.js', 'generate.js', 'cli.js', 'vite.js', 'mcp', 'shared', 'bin', 'types', 'NOTICE', 'TRADEMARK.md', 'README.en.md'],
+				files: ['css', 'core.js', 'core.*.js', 'core-modules', 'theme.js', 'generate.js', 'cli.js', 'vite.js', 'mcp-server.js', 'mcp', 'shared', 'bin', 'types', 'NOTICE', 'TRADEMARK.md', 'README.en.md'],
 			},
 			null,
 			2,

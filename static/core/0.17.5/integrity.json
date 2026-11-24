@@ -1,5 +1,5 @@
 {
-	"version": "0.17.0",
+	"version": "0.17.5",
 	"algorithm": "sha384",
 	"files": {
 		"taisho.accordion.css": "sha384-sG0glg/rggmET2djT16axeV4bMgjwVIdTvA4y9L/TBgteVAhpOLqSbDI/DFGhRSN",
@@ -7,7 +7,7 @@
 		"taisho.avatar.css": "sha384-pbT9RIa7+8XgDls4a761L6rZm514NxCsWs88IL6Ji7mQhqvpr4wkeTTzStR3zkRh",
 		"taisho.badge.css": "sha384-Z69XVnQvu6+N4lnBogaheg+nhF17YnNnvQnQj2+fbTSd53AhbXVAbV0ZPzL/AIIL",
 		"taisho.banner.css": "sha384-u6rnP12hWyUDOxzJbZmJdsBZtofUC0M4S3mKSOC5+e9r3yIQYC9hxi9/g08kvx9z",
-		"taisho.base.css": "sha384-OuSnaGvhaIz6Fp5oXBj1uLsYgT3ZMQI+XzuTtsCubqFCSGfw5O94KG7zeQYEh2B/",
+		"taisho.base.css": "sha384-HoB3vVl3ZQi5bNPmZFJiatxji+EbITcEFr27EHgKIBbGBvErAOsVfyRJXm2sJi0G",
 		"taisho.breadcrumbs.css": "sha384-uC65OZ5lFgnsL7liAVeWmBFuotu6Q4ENkkTWvlPXeSv/cOcwlRBd6PpS7aRkI+dj",
 		"taisho.button.css": "sha384-cw5CTt2Zg3772JB5Ffjrde2qe/guR3olNStr5G/+zkPkImarYYJLgrNaRHXNlkRF",
 		"taisho.card.css": "sha384-KgFhSaBDwg9/zgMRKK98DG9njwdzTLFqfambSJnz6cCKIDd9ZO/KmuZ5dCTrjbma",
@@ -23,7 +23,7 @@
 		"taisho.drawer.css": "sha384-FymYPQe70jlKL6cLsqbWk763Lyec7WQe3hslS2sCbYlR6jQDSqYbN0ZpTZa9yV9o",
 		"taisho.empty-state.css": "sha384-tAguuLHbgHwu0R6dBiCKjF9phf0isNvV58aOYw2ONOMsbX/loUXSauHuB4VdD9PN",
 		"taisho.file-upload.css": "sha384-1Z2hJp/kQrlal9sFms2zRPeaeJibCtpVBmxiRtLUq9hNvznOq5uR1oWT8HkfVqXQ",
-		"taisho.full.css": "sha384-gCXB8cDetWCI66AXYnjx4cjDpOTRjzgp56YIFFgo5WsvMKR/v+y0saavwBIMIE/i",
+		"taisho.full.css": "sha384-UW/gesFe2O6LtJC/HBVBOKus5w04P+80U4K+MnRKTioBHKLDw9Xm8NqYdn4kWkJJ",
 		"taisho.grid.css": "sha384-fAhUCYQNs0eDB8h1NiQADZsq3fDIhbn/qwOeA7Vw0BRv1gSvOaxl95mmla23hzw5",
 		"taisho.icon.css": "sha384-0KjbOjtB1pTKI1kmHTm9tB3kPFNNPo0O3kx7lcsM4DP9T82Q2MrsrJspoUJUALPj",
 		"taisho.inline-code.css": "sha384-LyDwzs1UGFYCXUfW8/fxe5VlTBRi9cVj8AxjXqaEm9jvIA+7hXiBBeuisJAkHSes",

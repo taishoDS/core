@@ -55,6 +55,12 @@ const motionScale = await import('@taishods/core/motion-scale');
 check('./density', typeof density.setDensity === 'function');
 check('./motion-scale', typeof motionScale.durations === 'object');
 
+// Los dos subpaths de la API para herramientas: el servidor MCP (Node) y los colores del tema (sin Node).
+const mcp = await import('@taishods/core/mcp');
+const color = await import('@taishods/core/color');
+check('./mcp exporta createMcpServer', typeof mcp.createMcpServer === 'function' && typeof mcp.createMcpServer({ name: 'x', version: '0' }).listen === 'function');
+check('./color exporta resolveThemeColors, contrastRatio y compositeOver', typeof color.resolveThemeColors === 'function' && color.contrastRatio('#000', '#fff') > 20.9 && color.compositeOver('rgba(0, 0, 0, 0.5)', '#ffffff') === '#808080');
+
 if (fallas.length) { console.error('FALLAS: ' + fallas.join(' · ')); process.exit(1); }
 console.log('smoke ok');
 `;
@@ -66,7 +72,17 @@ import { taisho, type TaishoViteOptions } from '@taishods/core/vite';
 import type { TaishoClass } from '@taishods/core/classes';
 import { setDensity } from '@taishods/core/density';
 import type { ThemeDef } from '@taishods/core/generate';
+import { createMcpServer, type McpTool } from '@taishods/core/mcp';
+import { compositeOver, contrastRatio, resolveThemeColors, type ThemeColors } from '@taishods/core/color';
 void (null as unknown as ThemeDef);
+
+const herramienta: McpTool = { name: 'x', description: 'x', inputSchema: { type: 'object' }, handler: () => 'ok' };
+const servidor = createMcpServer({ name: 'x', version: '0', tools: () => [herramienta], replaces: [] });
+const nombres: readonly string[] = servidor.tools.map((t) => t.name);
+const colores: ThemeColors = resolveThemeColors({ themes: {}, fontFaces: [] }).x;
+const razon: number | null = contrastRatio('#000', '#fff');
+const compuesto: string | null = compositeOver('#000', '#fff');
+void [nombres, colores, razon, compuesto];
 
 init();
 setDensity('compact');

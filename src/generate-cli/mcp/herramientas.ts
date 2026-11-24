@@ -36,7 +36,7 @@ interface Prosa {
 	nucleo?: string;
 }
 
-interface Cargado {
+export interface Cargado {
 	mtime: number | null;
 	proyecto: Proyecto;
 	vocabulario?: Vocabulario;
@@ -53,13 +53,25 @@ const texto = (args: Record<string, unknown>, clave: string): string => {
 };
 const primeraOracion = (que: string) => /^.+?[.!?](?=\s|$)/s.exec(que)?.[0].replace(/\s+/g, ' ') ?? que;
 
-export function crearHerramientas(opciones: OpcionesHerramientas): Herramienta[] {
-	const { cwd, configPath, lang: pedido, datos } = opciones;
+export interface Actual {
+	cargado: Cargado;
+	config: TaishoConfig;
+	extensiones: Proyecto['extensiones'];
+	idioma: Lang;
+}
+
+/** El cargador del proyecto: una carga de la config, releída cuando cambia, compartida por todas las herramientas. */
+export interface Cargador {
+	/** El proyecto, recargado si su config cambió desde la última vez. Fija el idioma de los mensajes. */
+	actual(): Promise<Actual>;
+}
+
+export function crearCargador(opciones: Pick<OpcionesHerramientas, 'cwd' | 'configPath' | 'lang'>): Cargador {
+	const { cwd, configPath, lang: pedido } = opciones;
 	const ruta = path.resolve(cwd, configPath ?? 'taisho.config.ts');
 	let cargado: Cargado | undefined;
 
-	/** El proyecto, recargado si su config cambió desde la última vez. Fija el idioma de los mensajes. */
-	async function actual(): Promise<{ cargado: Cargado; config: TaishoConfig; extensiones: Proyecto['extensiones']; idioma: Lang }> {
+	async function actual(): Promise<Actual> {
 		const mtime = fs.existsSync(ruta) ? fs.statSync(ruta).mtimeMs : null;
 		if (!cargado || cargado.mtime !== mtime) {
 			usarIdioma(pedido);
@@ -69,6 +81,13 @@ export function crearHerramientas(opciones: OpcionesHerramientas): Herramienta[]
 		const idioma = usarIdioma(pedido, proyecto.config);
 		return { cargado, config: proyecto.config ?? configDeFabrica(), extensiones: proyecto.extensiones, idioma };
 	}
+
+	return { actual };
+}
+
+export function crearHerramientas(opciones: OpcionesHerramientas, cargador: Cargador = crearCargador(opciones)): Herramienta[] {
+	const { cwd, datos } = opciones;
+	const { actual } = cargador;
 
 	const leerJson = <T>(carpeta: string, idioma: Lang, slug: string) => JSON.parse(fs.readFileSync(path.join(carpeta, idioma, `${slug}.json`), 'utf8')) as T;
 	const slugsDe = (idioma: Lang) =>

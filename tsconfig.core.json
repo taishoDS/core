@@ -18,8 +18,9 @@
     "types": [],
     "paths": {
       "@taishods/core/density": ["./src/lib/theme/density.ts"],
-      "@taishods/core/motion-scale": ["./src/lib/theme/motion-scale.ts"]
+      "@taishods/core/motion-scale": ["./src/lib/theme/motion-scale.ts"],
+      "@taishods/core/color": ["./src/generate/color.ts"]
     }
   },
-  "include": ["src/lib/core/auto.ts", "src/lib/theme/createTheme.ts", "src/lib/theme/density.ts", "src/lib/theme/motion-scale.ts"]
+  "include": ["src/lib/core/auto.ts", "src/lib/theme/createTheme.ts", "src/lib/theme/density.ts", "src/lib/theme/motion-scale.ts", "src/generate/color.ts"]
 }

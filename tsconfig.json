@@ -13,6 +13,8 @@
 		"paths": {
 			"@taishods/core": ["./src/lib/theme/createTheme.ts"],
 			"@taishods/core/vite": ["./src/generate-cli/vite.ts"],
+			"@taishods/core/mcp": ["./src/generate-cli/mcp/servidor.ts"],
+			"@taishods/core/color": ["./src/generate/color.ts"],
 			"@taishods/core/classes": ["./src/lib/types/classes.d.ts"],
 			"@taishods/core/generate": ["./src/generate/index.ts"],
 			"@taishods/core/density": ["./src/lib/theme/density.ts"],
